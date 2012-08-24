@@ -1,0 +1,8 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.trommel.trommel</groupId>
+  <artifactId>trommel</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Trommel</name>
+  <description>Trommel is a set of tooling for data characterization/profiling targeting Hadoop specifically targeted at data miners/scientists that aren't interested in learning HQL, Pig, or Java MapReduce. At the heart of the Trommel is a compact DSL called TrommelScript specifically designed to make it easy for data miners to characterize, sample, and export data in/from Hadoop.</description>
+</project>
