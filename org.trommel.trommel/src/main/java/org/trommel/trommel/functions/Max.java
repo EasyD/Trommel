@@ -17,13 +17,13 @@ public class Max extends Function
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Max";
+	public static final String FUNCTION_NAME = "Max";
 
 	//
 	//	Private members
 	//
 
-	private double maxValue = Double.MIN_VALUE;
+	private double maxValue = 0.0;
 	
 	
 	//
@@ -31,9 +31,9 @@ public class Max extends Function
 	//
 	
 	/**
-	 * Return the name of the Max function.
+	 * Return the name of the DataReporter.
 	 * 
-	 * @return The string value of "Max".
+	 * @return The string value of "DataReporter".
 	 */
 	public String getHandlerName()
 	{
@@ -43,7 +43,7 @@ public class Max extends Function
 	/**
 	 * Return the current maximum value.
 	 * 
-	 * @return The current maximum value found as a {@link java.lang.String}.
+	 * @return The current maximum value found as a String.
 	 */
 	public String getReduceResult()
 	{
@@ -95,7 +95,7 @@ public class Max extends Function
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
 	 * @param record Hashtable of parsed data in the form of <"FunctionName", "OutputValue">.
-	 * @throws IllegalArgumentException Where bubbled up from passed-in {@link MapRecord}.
+	 * @throws IllegalArgumentException Where bubbled up from passed-in MapRecord.
 	 * @throws NumberFormatException Where a {@link org.trommel.trommel.Field} value is not numeric.
 	 */
 	public void handleReduceRecord(Hashtable<String, String> record) 

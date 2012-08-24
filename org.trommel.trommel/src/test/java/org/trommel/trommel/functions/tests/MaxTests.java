@@ -1,5 +1,5 @@
 /*
- *	TODO - Insert license blurb here
+ * TODO - Insert license blurb here
  */
 package org.trommel.trommel.functions.tests;
 
@@ -19,7 +19,7 @@ import org.trommel.trommel.functions.Max;
 import org.trommel.trommel.tests.MockOutputCollector;
 
 //
-//	Unit tests for the org.trommel.trommel.functions.Max class
+//	Unit tests for the org.trommel.trommel.functions.Function class
 //
 public class MaxTests 
 {
@@ -27,7 +27,6 @@ public class MaxTests
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String DELIMITER = "*|*";
-	private static final String FUNCTION_NAME = "Max";
 	
 	// First row fields and values
 	private static final String FIELD1 = "Field1";
@@ -70,7 +69,7 @@ public class MaxTests
 	{
 		Max max = new Max(fieldNames);
 		
-		assertEquals(FUNCTION_NAME, max.getHandlerName());
+		assertEquals("Max", max.getHandlerName());
 	}
 
 	@Test
@@ -80,7 +79,7 @@ public class MaxTests
 		MapRecord[] records = mapRecords();
 		Max max = new Max(fieldNames);
 		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
-		String prefix = max.getHandlerName() + "=";
+		String prefix = Max.FUNCTION_NAME + "=";
 		
 		max.handleMapRecord(records[0]);
 		
@@ -147,17 +146,17 @@ public class MaxTests
 		// First Record
 		records.add(0, new Hashtable<String, String>());
 		
-		records.get(0).put(FUNCTION_NAME, FIELD1_VALUE);
+		records.get(0).put(Max.FUNCTION_NAME, FIELD1_VALUE);
 				
 		// Second Record
 		records.add(1, new Hashtable<String, String>());
 		
-		records.get(1).put(FUNCTION_NAME, FIELD4_VALUE);
+		records.get(1).put(Max.FUNCTION_NAME, FIELD4_VALUE);
 
 		// Third Record
 		records.add(2, new Hashtable<String, String>());
 		
-		records.get(2).put(FUNCTION_NAME, FIELD7_VALUE);
+		records.get(2).put(Max.FUNCTION_NAME, FIELD7_VALUE);
 		
 		return records;
 	}	
