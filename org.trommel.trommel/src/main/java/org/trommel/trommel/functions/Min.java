@@ -8,22 +8,21 @@ import java.util.Hashtable;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 
-
 /**
- *	For numeric {@link org.trommel.trommel.Field} instances, find the maximum value in the data set.
+ *	For numeric {@link org.trommel.trommel.Field} instances, find the minimum value in the data set.
  */
-public class Max extends Function 
+public class Min extends Function 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Max";
+	private static final String FUNCTION_NAME = "Min";
 
 	//
 	//	Private members
 	//
 
-	private double maxValue = Double.MIN_VALUE;
+	private double minValue = Double.MAX_VALUE;
 	
 	
 	//
@@ -31,24 +30,25 @@ public class Max extends Function
 	//
 	
 	/**
-	 * Return the name of the Max function.
+	 * Return the name of the Min function.
 	 * 
-	 * @return The string value of "Max".
+	 * @return The string value of "Min".
 	 */
-	public String getHandlerName()
+	public String getHandlerName() 
 	{
 		return FUNCTION_NAME;
 	}
-		
+
 	/**
-	 * Return the current maximum value.
+	 * Return the current Minimum value.
 	 * 
-	 * @return The current maximum value found as a {@link java.lang.String}.
+	 * @return The current Minimum value found as a {@link java.lang.String}.
 	 */
 	public String getReduceResult()
 	{
-		return Double.toString(maxValue);
+		return Double.toString(minValue);
 	}
+
 
 	
 	//
@@ -56,11 +56,11 @@ public class Max extends Function
 	//
 	
 	/**
-	 * @param fields The numeric Fields for which Max values will be calculated.
+	 * @param fields The numeric Fields for which Min values will be calculated.
 	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
-	public Max(String[] fields)
+	public Min(String[] fields)
 		throws IllegalArgumentException
 	{
 		super(fields);
@@ -72,15 +72,14 @@ public class Max extends Function
 	//
 	
 	/**
-	 * Process a single {@link MapRecord} read from the data set for the Map phase of finding maximum
+	 * Process a single {@link MapRecord} read from the data set for the Map phase of finding minimum
 	 * numeric values.
 	 * 
 	 * @param record The MapRecord containing the data read from data set and any results of Map phase 
-	 * maximum value processing.
+	 * minimum value processing.
 	 * @throws IllegalArgumentException Where bubbled up from passed-in MapRecord.
 	 */
-	public void handleMapRecord(MapRecord record)
-		throws IllegalArgumentException
+	public void handleMapRecord(MapRecord record) 
 	{
 		// Only process the fields specified for the function
 		for (String field : fieldNames)
@@ -90,23 +89,22 @@ public class Max extends Function
 		}
 	}
 
-	
+
 	/**
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
-	 * @param record Hashtable of parsed data in the form of <"FunctionName", "OutputValue">.
+	 * @param record {@link java.util.Hashtable} of parsed data in the form of <"FunctionName", "OutputValue">.
 	 * @throws IllegalArgumentException Where bubbled up from passed-in {@link MapRecord}.
 	 * @throws NumberFormatException Where a {@link org.trommel.trommel.Field} value is not numeric.
 	 */
 	public void handleReduceRecord(Hashtable<String, String> record) 
-		throws IllegalArgumentException, NumberFormatException
 	{
-		// Reduce is also pretty easy, grab Max's value from the hashtable and process it.
+		// Reduce is also pretty easy, grab Min's value from the hashtable and process it.
 		double currentValue = Double.parseDouble(record.get(FUNCTION_NAME));
 		
-		if (currentValue > maxValue)
+		if (currentValue < minValue)
 		{
-			maxValue = currentValue;
+			minValue = currentValue;
 		}
 	}
 }
