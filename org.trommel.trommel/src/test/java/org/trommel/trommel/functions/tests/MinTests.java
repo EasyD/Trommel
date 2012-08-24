@@ -15,19 +15,19 @@ import org.junit.Test;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
-import org.trommel.trommel.functions.Max;
+import org.trommel.trommel.functions.Min;
 import org.trommel.trommel.tests.MockOutputCollector;
 
 //
-//	Unit tests for the org.trommel.trommel.functions.Max class
+//	Unit tests for the org.trommel.trommel.functions.Min class
 //
-public class MaxTests 
+public class MinTests 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String DELIMITER = "*|*";
-	private static final String FUNCTION_NAME = "Max";
+	private static final String FUNCTION_NAME = "Min";
 	
 	// First row fields and values
 	private static final String FIELD1 = "Field1";
@@ -57,20 +57,20 @@ public class MaxTests
 	//
 	//	Tests
 	//
-	
+		
 	@Test
 	public void testConstructorOK() 
 	{
 		@SuppressWarnings("unused")
-		Max max = new Max(fieldNames);	
+		Min min = new Min(fieldNames);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		Max max = new Max(fieldNames);
+		Min min = new Min(fieldNames);
 		
-		assertEquals(FUNCTION_NAME, max.getHandlerName());
+		assertEquals("Min", min.getHandlerName());
 	}
 
 	@Test
@@ -78,11 +78,11 @@ public class MaxTests
 		throws IOException
 	{
 		MapRecord[] records = mapRecords();
-		Max max = new Max(fieldNames);
+		Min min = new Min(fieldNames);
 		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
-		String prefix = max.getHandlerName() + "=";
+		String prefix = min.getHandlerName() + "=";
 		
-		max.handleMapRecord(records[0]);
+		min.handleMapRecord(records[0]);
 		
 		records[0].serialize(outputCollector);
 		
@@ -98,14 +98,14 @@ public class MaxTests
 	public void testGetReduceResult() 
 	{
 		List<Hashtable<String,String>> records = reduceRecords();
-		Max max = new Max(fieldNames);
+		Min min = new Min(fieldNames);
 		
 		for (Hashtable<String,String> record : records)
 		{
-			max.handleReduceRecord(record);
+			min.handleReduceRecord(record);
 		}
 		
-		assertEquals(FIELD1_VALUE, max.getReduceResult());
+		assertEquals(FIELD4_VALUE, min.getReduceResult());
 	}
 
 	//
