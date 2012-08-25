@@ -15,19 +15,19 @@ import org.junit.Test;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
-import org.trommel.trommel.functions.Min;
+import org.trommel.trommel.functions.Distinct;
 import org.trommel.trommel.tests.MockOutputCollector;
 
 //
-//	Unit tests for the org.trommel.trommel.functions.Min class
+//	Unit tests for the org.trommel.trommel.functions.Distinct class
 //
-public class MinTests 
+public class DistinctTests 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String DELIMITER = "*|*";
-	private static final String FUNCTION_NAME = "Min";
+	private static final String FUNCTION_NAME = "Distinct";
 	
 	// First row fields and values
 	private static final String FIELD1 = "Field1";
@@ -43,11 +43,10 @@ public class MinTests
 	private static final String FIELD6_VALUE = "35.0";
 
 	//	Third row values
-	private static final String FIELD7_VALUE = "11.0";
-	private static final String FIELD8_VALUE = "22.0";
-	private static final String FIELD9_VALUE = "39.0";
+	private static final String FIELD7_VALUE = "15.0";
+	private static final String FIELD8_VALUE = "20.0";
+	private static final String FIELD9_VALUE = "30.0";
 
-	
 	//
 	//	Private members
 	//
@@ -62,15 +61,15 @@ public class MinTests
 	public void testConstructorOK() 
 	{
 		@SuppressWarnings("unused")
-		Min min = new Min(fieldNames);	
+		Distinct distinct = new Distinct(fieldNames);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		Min min = new Min(fieldNames);
+		Distinct distinct = new Distinct(fieldNames);
 		
-		assertEquals(FUNCTION_NAME, min.getHandlerName());
+		assertEquals(FUNCTION_NAME, distinct.getHandlerName());
 	}
 
 	@Test
@@ -78,11 +77,11 @@ public class MinTests
 		throws IOException
 	{
 		MapRecord[] records = mapRecords();
-		Min min = new Min(fieldNames);
+		Distinct distinct = new Distinct(fieldNames);
 		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
-		String prefix = min.getHandlerName() + "=";
+		String prefix = distinct.getHandlerName() + "=";
 		
-		min.handleMapRecord(records[0]);
+		distinct.handleMapRecord(records[0]);
 		
 		records[0].serialize(outputCollector);
 		
@@ -92,34 +91,37 @@ public class MinTests
 		assertEquals(prefix + FIELD3_VALUE, outputCollector.getValues().get(0).toString());
 		assertEquals(prefix + FIELD2_VALUE, outputCollector.getValues().get(1).toString());
 		assertEquals(prefix + FIELD1_VALUE, outputCollector.getValues().get(2).toString());
-
-		min.handleMapRecord(records[1]);
 		
-		outputCollector = new MockOutputCollector<Text, Text>();
+		distinct.handleMapRecord(records[1]);
 		
 		records[1].serialize(outputCollector);
 		
-		assertEquals(FIELD3, outputCollector.getKeys().get(0).toString());
-		assertEquals(FIELD2, outputCollector.getKeys().get(1).toString());
-		assertEquals(FIELD1, outputCollector.getKeys().get(2).toString());
-		assertEquals(prefix + FIELD6_VALUE, outputCollector.getValues().get(0).toString());
-		assertEquals(prefix + FIELD5_VALUE, outputCollector.getValues().get(1).toString());
-		assertEquals(prefix + FIELD4_VALUE, outputCollector.getValues().get(2).toString());
-	}
+		assertEquals(6, outputCollector.getKeys().size());
+		assertEquals(6, outputCollector.getValues().size());
 
+		// Following should produce no additional output
+		distinct.handleMapRecord(records[2]);
+		
+		records[2].serialize(outputCollector);
+		
+		assertEquals(6, outputCollector.getKeys().size());
+		assertEquals(6, outputCollector.getValues().size());
+	}
+	
 	@Test
 	public void testGetReduceResult() 
 	{
 		List<HashMap<String,String>> records = reduceRecords();
-		Min min = new Min(fieldNames);
+		Distinct distinct = new Distinct(fieldNames);
 		
-		for (HashMap<String,String> record : records)
+		for (HashMap<String, String> record : records)
 		{
-			min.handleReduceRecord(record);
+			distinct.handleReduceRecord(record);
 		}
 		
-		assertEquals(FIELD4_VALUE, min.getReduceResult());
+		assertEquals("2", distinct.getReduceResult());
 	}
+
 
 	//
 	//	Private/helper methods
@@ -163,14 +165,19 @@ public class MinTests
 		records.get(0).put(FUNCTION_NAME, FIELD1_VALUE);
 				
 		// Second Record
-		records.add(1, new HashMap<String, String>());
+		records.add(0, new HashMap<String, String>());
 		
-		records.get(1).put(FUNCTION_NAME, FIELD4_VALUE);
-
+		records.get(0).put("Foo", "-1.0");
+				
 		// Third Record
 		records.add(2, new HashMap<String, String>());
 		
-		records.get(2).put(FUNCTION_NAME, FIELD7_VALUE);
+		records.get(2).put(FUNCTION_NAME, FIELD4_VALUE);
+
+		// Fourth Record
+		records.add(3, new HashMap<String, String>());
+		
+		records.get(3).put(FUNCTION_NAME, FIELD7_VALUE);
 		
 		return records;
 	}	

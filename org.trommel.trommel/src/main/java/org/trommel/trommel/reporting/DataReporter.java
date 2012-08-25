@@ -3,7 +3,7 @@
  */
 package org.trommel.trommel.reporting;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
@@ -100,10 +100,10 @@ public class DataReporter implements RecordHandler
 	/**
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
-	 * @param record Hashtable of parsed data. For DataReporters the {@link java.util.Hashtable} is in the form of 
+	 * @param record {@link java.util.HashMap} of parsed data. For DataReporters the {@link java.util.Hashtable} is in the form of 
 	 * <"DataReporterName", "FieldValue">.
 	 */
-	public void handleReduceRecord(Hashtable<String, String> record) 
+	public void handleReduceRecord(HashMap<String, String> record) 
 	{	
 		if (frequencyCounts == null)
 		{

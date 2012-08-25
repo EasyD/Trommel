@@ -1,9 +1,9 @@
 /*
- * TODO - Insert license blurb here
+ *	TODO - Insert license blurb here
  */
 package org.trommel.trommel.functions.tests;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.functions.Function;
@@ -48,6 +48,6 @@ public class MockFunction extends Function
 	public void handleMapRecord(MapRecord record) 
 	{ }
 
-	public void handleReduceRecord(Hashtable<String, String> record) 
+	public void handleReduceRecord(HashMap<String, String> record) 
 	{ }
 }

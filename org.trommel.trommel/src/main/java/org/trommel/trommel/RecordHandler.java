@@ -3,7 +3,7 @@
  */
 package org.trommel.trommel;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 /**
  * The interface for all Trommel constructs (i.e., Functions and Data Reporters) that process
@@ -44,9 +44,9 @@ public interface RecordHandler
 	/**
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
-	 * @param record Hashtable of parsed data. For Functions the {@link java.util.Hashtable} is in the form of 
-	 * <"FunctionName", "OutputValue"> and for Data Reporters the Hashtable is in the form of
+	 * @param record {@link java.util.HashMap} of parsed data. For Functions the {@link java.util.Hashtable} is in the form of 
+	 * <"FunctionName", "OutputValue"> and for Data Reporters the HashMap is in the form of
 	 * <"DataReporterName", "FieldValue">.
 	 */
-	public void handleReduceRecord(Hashtable<String,String> record);
+	public void handleReduceRecord(HashMap<String,String> record);
 }

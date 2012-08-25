@@ -3,7 +3,7 @@
  */
 package org.trommel.trommel.functions;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
@@ -56,7 +56,7 @@ public class Min extends Function
 	//
 	
 	/**
-	 * @param fields The numeric Fields for which Min values will be calculated.
+	 * @param fields The numeric {@link org.trommel.trommel.Field} instances for which Min values will be calculated.
 	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
@@ -93,18 +93,21 @@ public class Min extends Function
 	/**
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
-	 * @param record {@link java.util.Hashtable} of parsed data in the form of <"FunctionName", "OutputValue">.
-	 * @throws IllegalArgumentException Where bubbled up from passed-in {@link MapRecord}.
+	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
 	 * @throws NumberFormatException Where a {@link org.trommel.trommel.Field} value is not numeric.
 	 */
-	public void handleReduceRecord(Hashtable<String, String> record) 
+	public void handleReduceRecord(HashMap<String, String> record) 
+		throws NumberFormatException
 	{
-		// Reduce is also pretty easy, grab Min's value from the hashtable and process it.
-		double currentValue = Double.parseDouble(record.get(FUNCTION_NAME));
-		
-		if (currentValue < minValue)
-		{
-			minValue = currentValue;
+		if (record.containsKey(FUNCTION_NAME))
+		{		
+			// Reduce is also pretty easy, grab Min's value from the HashMap and process it.
+			double currentValue = Double.parseDouble(record.get(FUNCTION_NAME));
+			
+			if (currentValue < minValue)
+			{
+				minValue = currentValue;
+			}
 		}
 	}
 }

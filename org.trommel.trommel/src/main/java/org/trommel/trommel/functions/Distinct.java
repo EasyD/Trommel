@@ -8,22 +8,21 @@ import java.util.HashMap;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 
-
 /**
- *	For numeric {@link org.trommel.trommel.Field} instances, find the maximum value in the data set.
+ *	Find the count of distinct values for a {@link org.trommel.trommel.Field}.
  */
-public class Max extends Function 
+public class Distinct extends Function 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Max";
+	private static final String FUNCTION_NAME = "Distinct";
 
+	
 	//
 	//	Private members
 	//
-
-	private double maxValue = Double.MIN_VALUE;
+	private HashMap<String, Integer> distinctValues = new HashMap<String, Integer>();
 	
 	
 	//
@@ -31,9 +30,9 @@ public class Max extends Function
 	//
 	
 	/**
-	 * Return the name of the Max function.
+	 * Return the name of the Distinct function.
 	 * 
-	 * @return The string value of "Max".
+	 * @return The string value of "Distinct".
 	 */
 	public String getHandlerName()
 	{
@@ -41,13 +40,13 @@ public class Max extends Function
 	}
 		
 	/**
-	 * Return the current maximum value.
+	 * Return the current count of distinct values.
 	 * 
-	 * @return The current maximum value found as a {@link java.lang.String}.
+	 * @return The current distinct count as a {@link java.lang.String}.
 	 */
 	public String getReduceResult()
 	{
-		return Double.toString(maxValue);
+		return Integer.toString(distinctValues.size());
 	}
 
 	
@@ -56,58 +55,60 @@ public class Max extends Function
 	//
 	
 	/**
-	 * @param fields The numeric {@link org.trommel.trommel.Field} instances for which Max values will be calculated.
+	 * @param fields The {@link org.trommel.trommel.Field} names for which distinct values will be counted.
 	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
-	public Max(String[] fields)
+	public Distinct(String[] fields)
 		throws IllegalArgumentException
 	{
 		super(fields);
 	}
-	
+
 	
 	//
 	//	Public methods
 	//
 	
 	/**
-	 * Process a single {@link MapRecord} read from the data set for the Map phase of finding maximum
-	 * numeric values.
+	 * Process a single {@link MapRecord} read from the data set for the Map phase of finding the
+	 * count of distinct {@link org.trommel.trommel.Field} values.
 	 * 
 	 * @param record The MapRecord containing the data read from data set and any results of Map phase 
 	 * maximum value processing.
 	 * @throws IllegalArgumentException Where bubbled up from passed-in MapRecord.
 	 */
-	public void handleMapRecord(MapRecord record)
-		throws IllegalArgumentException
+	public void handleMapRecord(MapRecord record) 
 	{
 		// Only process the fields specified for the function
 		for (String field : fieldNames)
 		{
-			// Map phase is pretty easy, just spit out the value for the field
-			record.addFunctionOutput(field, new FunctionOutput(FUNCTION_NAME, record.getFieldValue(field)));
+			String fieldValue = record.getFieldValue(field);
+			
+			// Only add output for distinct values found
+			if (!distinctValues.containsKey(fieldValue))
+			{
+				distinctValues.put(fieldValue, null);
+				
+				record.addFunctionOutput(field, new FunctionOutput(FUNCTION_NAME, fieldValue));
+			}			
 		}
 	}
 
-	
 	/**
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
 	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
-	 * @throws NumberFormatException Where a {@link org.trommel.trommel.Field} value is not numeric.
 	 */
 	public void handleReduceRecord(HashMap<String, String> record) 
-		throws NumberFormatException
 	{
 		if (record.containsKey(FUNCTION_NAME))
-		{		
-			// Reduce is also pretty easy, grab Max's value from the HashMap and process it.
-			double currentValue = Double.parseDouble(record.get(FUNCTION_NAME));
+		{	
+			String fieldValue = record.get(FUNCTION_NAME);
 			
-			if (currentValue > maxValue)
+			if (!distinctValues.containsKey(fieldValue))
 			{
-				maxValue = currentValue;
+				distinctValues.put(fieldValue, null);
 			}
 		}
 	}

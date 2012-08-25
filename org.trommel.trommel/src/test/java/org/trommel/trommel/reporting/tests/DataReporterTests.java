@@ -1,12 +1,12 @@
 /*
- * TODO - Insert license blurb here
+ *	TODO - Insert license blurb here
  */
 package org.trommel.trommel.reporting.tests;
 
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.apache.hadoop.io.Text;
 import org.junit.Test;
@@ -95,9 +95,9 @@ public class DataReporterTests
 		return new MapRecord(fields, DELIMITER);
 	}
 	
-	private Hashtable<String, String> reduceRecord()
+	private HashMap<String, String> reduceRecord()
 	{
-		Hashtable<String, String> record = new Hashtable<String, String>();
+		HashMap<String, String> record = new HashMap<String, String>();
 
 		record.put("Foo", "FooValue");
 		record.put("Bar", "BarValue");

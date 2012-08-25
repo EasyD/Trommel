@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.hadoop.io.Text;
@@ -92,15 +92,28 @@ public class MaxTests
 		assertEquals(prefix + FIELD3_VALUE, outputCollector.getValues().get(0).toString());
 		assertEquals(prefix + FIELD2_VALUE, outputCollector.getValues().get(1).toString());
 		assertEquals(prefix + FIELD1_VALUE, outputCollector.getValues().get(2).toString());
+
+		max.handleMapRecord(records[1]);
+		
+		outputCollector = new MockOutputCollector<Text, Text>();
+		
+		records[1].serialize(outputCollector);
+		
+		assertEquals(FIELD3, outputCollector.getKeys().get(0).toString());
+		assertEquals(FIELD2, outputCollector.getKeys().get(1).toString());
+		assertEquals(FIELD1, outputCollector.getKeys().get(2).toString());
+		assertEquals(prefix + FIELD6_VALUE, outputCollector.getValues().get(0).toString());
+		assertEquals(prefix + FIELD5_VALUE, outputCollector.getValues().get(1).toString());
+		assertEquals(prefix + FIELD4_VALUE, outputCollector.getValues().get(2).toString());
 	}
 
 	@Test
 	public void testGetReduceResult() 
 	{
-		List<Hashtable<String,String>> records = reduceRecords();
+		List<HashMap<String,String>> records = reduceRecords();
 		Max max = new Max(fieldNames);
 		
-		for (Hashtable<String,String> record : records)
+		for (HashMap<String,String> record : records)
 		{
 			max.handleReduceRecord(record);
 		}
@@ -140,22 +153,22 @@ public class MaxTests
 		return mapRecords;
 	}
 	
-	private List<Hashtable<String,String>> reduceRecords()
+	private List<HashMap<String,String>> reduceRecords()
 	{
-		ArrayList<Hashtable<String,String>> records = new ArrayList<Hashtable<String, String>>();
+		ArrayList<HashMap<String,String>> records = new ArrayList<HashMap<String, String>>();
 		
 		// First Record
-		records.add(0, new Hashtable<String, String>());
+		records.add(0, new HashMap<String, String>());
 		
 		records.get(0).put(FUNCTION_NAME, FIELD1_VALUE);
 				
 		// Second Record
-		records.add(1, new Hashtable<String, String>());
+		records.add(1, new HashMap<String, String>());
 		
 		records.get(1).put(FUNCTION_NAME, FIELD4_VALUE);
 
 		// Third Record
-		records.add(2, new Hashtable<String, String>());
+		records.add(2, new HashMap<String, String>());
 		
 		records.get(2).put(FUNCTION_NAME, FIELD7_VALUE);
 		
