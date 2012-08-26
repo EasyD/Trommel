@@ -31,6 +31,31 @@ public final class MapRecord
 	//
 	
 	/**
+	 * Returns the {@link FieldType} for the passed-in {@link Field} name.
+	 * 
+	 * @param name Name of the Field.
+	 * @return The FieldType (i.e., categorical or numeric) of the Field.
+	 * @throws IllegalArgumentException Where name is null or empty. Also thrown when field name is not
+	 * recognized. All-whitespace strings are considered empty.
+	 */
+	public FieldType getFieldType(String name)
+		throws IllegalArgumentException
+	{
+		// Check for illegal input
+		if (StringUtilities.isNullOrEmpty(name))
+		{
+			throw new IllegalArgumentException("Field name can't be null or empty.");			
+		}
+		
+		if(!fields.containsKey(name))
+		{
+			throw new IllegalArgumentException("Field name " + name + " not recognized.");
+		}
+		
+		return fields.get(name).getType();
+	}
+	
+	/**
 	 * Returns the current value for a {@link Field}.
 	 * 
 	 * @param name Name of the Field.
@@ -54,7 +79,7 @@ public final class MapRecord
 		
 		return fields.get(name).getValue();
 	}
-
+	
 	
 	//
 	//	Constructors

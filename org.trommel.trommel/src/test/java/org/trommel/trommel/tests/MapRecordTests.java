@@ -90,6 +90,30 @@ public class MapRecordTests
 	}
 
 	@Test(expected=IllegalArgumentException.class)
+	public void testGetFieldTypeNullFieldName() 
+	{
+		MapRecord record = newRecord();
+		
+		record.getFieldType(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetFieldTypeNullUnrecorgnizedFieldName() 
+	{
+		MapRecord record = newRecord();
+		
+		record.getFieldType("Foo");
+	}
+
+	@Test
+	public void testGetFieldType() 
+	{
+		MapRecord record = newRecord();
+		
+		assertEquals(FieldType.categorical, record.getFieldType(FIELD1));
+	}
+
+	@Test(expected=IllegalArgumentException.class)
 	public void testGetFieldValueNullFieldName() 
 	{
 		MapRecord record = newRecord();

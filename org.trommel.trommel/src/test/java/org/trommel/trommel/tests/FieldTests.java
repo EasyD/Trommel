@@ -41,6 +41,13 @@ public class FieldTests
 	}
 	
 	@Test
+	public void testConstructorNullFieldValueOK()
+	{
+		@SuppressWarnings("unused")
+		Field field = new Field(NAME, FieldType.categorical, null);		
+	}
+	
+	@Test
 	public void testContructorThreeParamsOK() 
 	{
 		@SuppressWarnings("unused")
@@ -62,6 +69,14 @@ public class FieldTests
 		assertEquals(NAME, field.getName());
 	}
 	
+	@Test
+	public void testGetFieldType() 
+	{
+		Field field = newCategoricalField();
+		
+		assertEquals(FieldType.categorical, field.getType());
+	}
+
 	@Test
 	public void testGetValue() 
 	{
@@ -101,15 +116,7 @@ public class FieldTests
 				
 		assertEquals(true, field.isNumeric());
 	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testSetFieldValueNullValue()
-	{
-		Field field = newCategoricalField();
 		
-		field.setValue(null);
-	}
-	
 	@Test(expected=IllegalArgumentException.class)
 	public void testSetFieldValueNonNumericValue()
 	{

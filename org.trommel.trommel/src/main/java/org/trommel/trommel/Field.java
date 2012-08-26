@@ -36,6 +36,14 @@ public final class Field
 	{
 		return name;
 	}
+
+	/**
+	 * @return The Field's {@link FieldType}.
+	 */
+	public FieldType getType()
+	{
+		return fieldType;
+	}
 	
 	/**
 	 * @return The Field's current value as a {@link String}.
@@ -47,13 +55,22 @@ public final class Field
 
 	/**
 	 * @param value The Field's value as a {@link String}.
+	 * @exception IllegalArgumentException Where value is a non-numeric string when the Field is 
+	 * specified as numeric.
 	 */
 	public void setValue(String value) 
 		throws IllegalArgumentException
 	{
 		if (StringUtilities.isNullOrEmpty(value))
 		{
-			throw new IllegalArgumentException("Value can't be null or an empty string.");
+			if (value != null)
+			{
+				this.value = value.trim();
+			}
+			else
+			{
+				this.value = null;
+			}
 		}
 		
 		if (fieldType == FieldType.numeric)
