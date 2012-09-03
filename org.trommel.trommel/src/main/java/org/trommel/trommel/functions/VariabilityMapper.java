@@ -3,34 +3,25 @@
  */
 package org.trommel.trommel.functions;
 
-import java.util.HashMap;
-
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.utilities.StringUtilities;
 
 /**
- *	Find the variability for a {@link org.trommel.trommel.Field} as the sample standard deviation
- *	for numeric Fields and the Rate of Discovery (ROD) for categorical Fields.
+ *	For the Map phase find the variability for a {@link org.trommel.trommel.Field} as the sample 
+ *	standard deviation for numeric Fields and the Rate of Discovery (ROD) for categorical Fields.
  */
-public class Variability extends Function
+public class VariabilityMapper extends Function 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String FUNCTION_NAME = "Variability";
 	private static final String DELIMITER = ":";
+	private static final String NULL_INDICATOR = "null";
 
-	
-	//
-	//	Private members
-	//
-	private int recordCount = 0;
-	private double sumOfSquares = 0;
-	private double sumOfValues = 0;
-	
-	
+
 	//
 	//	Getters/setters
 	//
@@ -44,27 +35,8 @@ public class Variability extends Function
 	{
 		return FUNCTION_NAME;
 	}
-		
-	/**
-	 * Return the current calculation of {@link org.trommel.trommel.Field} variability.
-	 * 
-	 * @return The current variability calculation as a {@link java.lang.String}.
-	 */
-	public String getReduceResult()
-	{
-		// In the Reduce phase there should only ever be one field
-		if (fields[0].isNumeric())
-		{
-			// Return the sample standard deviation as a String
-			return Double.toString(Math.sqrt(((recordCount * sumOfSquares) - (sumOfValues * sumOfValues)) / 
-					                          (recordCount * (recordCount - 1))));
-		}
-		else
-		{
-			return null;
-		}
-	}
 
+	
 	//
 	//	Constructors
 	//
@@ -74,7 +46,7 @@ public class Variability extends Function
 	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
-	public Variability(Field[] fields)
+	public VariabilityMapper(Field[] fields)
 		throws IllegalArgumentException
 	{
 		super(fields);
@@ -109,7 +81,9 @@ public class Variability extends Function
 				if (StringUtilities.isNullOrEmpty(fieldValue))
 				{
 					// Write out zeroes for null/empty fields
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, "0"));
+					String output = "0" + DELIMITER + "0";
+					
+					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, output));
 				}
 				else
 				{
@@ -127,41 +101,16 @@ public class Variability extends Function
 			}
 			else
 			{
-				// Variability is Rate of Discovery (ROD) for categorical fields, just write out the value if's not 
-				// null/empty
-				if (!StringUtilities.isNullOrEmpty(fieldValue))
+				// Variability is Rate of Discovery (ROD) for categorical fields 
+				if(StringUtilities.isNullOrEmpty(fieldValue))
+				{
+					// The absence of value is included in ROD, write out null indicator
+					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, NULL_INDICATOR));					
+				}
+				else
 				{
 					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
 				}
-			}
-		}
-	}
-
-	/**
-	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
-	 * 
-	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
-	 */
-	public void handleReduceRecord(HashMap<String, String> record) 
-	{
-		if (record.containsKey(FUNCTION_NAME))
-		{	
-			// In the Reduce phase there should only ever be one field
-			if (fields[0].isNumeric())
-			{
-				// Parse numeric values
-				String[] values = record.get(FUNCTION_NAME).split(DELIMITER);
-				double numericValue = Double.parseDouble(values[0]);
-				double squareValue = Double.parseDouble(values[1]);
-				
-				// Increment counts
-				sumOfSquares += squareValue;
-				sumOfValues += numericValue;
-				++recordCount;
-			}
-			else
-			{
-				
 			}
 		}
 	}

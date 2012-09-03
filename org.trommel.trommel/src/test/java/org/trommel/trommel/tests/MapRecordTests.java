@@ -1,5 +1,5 @@
 /*
- * TODO - Insert license blurb here
+ *	TODO - Insert license blurb here
  */
 package org.trommel.trommel.tests;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import org.apache.hadoop.io.Text;
 import org.junit.Test;
-import org.trommel.trommel.Field;
+import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
@@ -45,29 +45,29 @@ public class MapRecordTests
 	public void testConstructorEmptyFieldsArray()
 	{
 		@SuppressWarnings("unused")
-		MapRecord record = new MapRecord(new Field[0], DELIMITER);
+		MapRecord record = new MapRecord(new FieldInstance[0], DELIMITER);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorEmptyDelimiter()
 	{
-		Field[] fields = new Field[1];
+		FieldInstance[] fieldInstances = new FieldInstance[1];
 		
-		fields[0] = new Field(FIELD1, FieldType.categorical);
+		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical);
 		
 		@SuppressWarnings("unused")
-		MapRecord record = new MapRecord(fields, " ");
+		MapRecord record = new MapRecord(fieldInstances, " ");
 	}
 	
 	@Test
 	public void testConstructorDelimiter()
 	{
-		Field[] fields = new Field[1];
+		FieldInstance[] fieldInstances = new FieldInstance[1];
 		
-		fields[0] = new Field(FIELD1, FieldType.categorical);
+		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical);
 		
 		@SuppressWarnings("unused")
-		MapRecord record = new MapRecord(fields, "*|*");
+		MapRecord record = new MapRecord(fieldInstances, "*|*");
 	}
 
 	@Test
@@ -89,29 +89,29 @@ public class MapRecordTests
 		record.serialize(new MockOutputCollector<Text, Text>());
 	}
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testGetFieldTypeNullFieldName() 
-	{
-		MapRecord record = newRecord();
-		
-		record.getFieldType(null);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testGetFieldTypeNullUnrecorgnizedFieldName() 
-	{
-		MapRecord record = newRecord();
-		
-		record.getFieldType("Foo");
-	}
-
-	@Test
-	public void testGetFieldType() 
-	{
-		MapRecord record = newRecord();
-		
-		assertEquals(FieldType.categorical, record.getFieldType(FIELD1));
-	}
+////	@Test(expected=IllegalArgumentException.class)
+////	public void testGetFieldTypeNullFieldName() 
+////	{
+////		MapRecord record = newRecord();
+////		
+////		record.getFieldType(null);
+////	}
+////	
+////	@Test(expected=IllegalArgumentException.class)
+////	public void testGetFieldTypeNullUnrecorgnizedFieldName() 
+////	{
+////		MapRecord record = newRecord();
+////		
+////		record.getFieldType("Foo");
+////	}
+//
+//	@Test
+//	public void testGetFieldType() 
+//	{
+//		MapRecord record = newRecord();
+//		
+//		assertEquals(FieldType.categorical, record.getFieldType(FIELD1));
+//	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetFieldValueNullFieldName() 
@@ -143,12 +143,12 @@ public class MapRecordTests
 	//
 	private MapRecord newRecord()
 	{
-		Field[] fields = new Field[3];
+		FieldInstance[] fieldInstances = new FieldInstance[3];
 		
-		fields[0] = new Field(FIELD1, FieldType.categorical, FIELD1_VALUE);
-		fields[1] = new Field(FIELD2, FieldType.categorical, FIELD2_VALUE);
-		fields[2] = new Field(FIELD3, FieldType.categorical, FIELD3_VALUE);
+		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD1_VALUE);
+		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2_VALUE);
+		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD3_VALUE);
 		
-		return new MapRecord(fields, DELIMITER);
+		return new MapRecord(fieldInstances, DELIMITER);
 	}
 }

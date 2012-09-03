@@ -3,27 +3,24 @@
  */
 package org.trommel.trommel.functions.tests;
 
-import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import org.apache.hadoop.io.Text;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
-import org.trommel.trommel.functions.Distinct;
+import org.trommel.trommel.functions.DistinctMapper;
 import org.trommel.trommel.tests.MockOutputCollector;
 
 //
-//	Unit tests for the org.trommel.trommel.functions.Distinct class
+//	Unit tests for the org.trommel.trommel.functions.DistinctMapper class
 //
-public class DistinctTests 
+public class DistinctMapperTests 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -78,13 +75,13 @@ public class DistinctTests
 	public void testConstructorOK() 
 	{
 		@SuppressWarnings("unused")
-		Distinct distinct = new Distinct(fields);	
+		DistinctMapper distinct = new DistinctMapper(fields);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		Distinct distinct = new Distinct(fields);
+		DistinctMapper distinct = new DistinctMapper(fields);
 		
 		assertEquals(FUNCTION_NAME, distinct.getHandlerName());
 	}
@@ -94,7 +91,7 @@ public class DistinctTests
 		throws IOException
 	{
 		MapRecord[] records = mapRecords();
-		Distinct distinct = new Distinct(fields);
+		DistinctMapper distinct = new DistinctMapper(fields);
 		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		String prefix = distinct.getHandlerName() + "=";
 		
@@ -124,21 +121,6 @@ public class DistinctTests
 		assertEquals(6, outputCollector.getKeys().size());
 		assertEquals(6, outputCollector.getValues().size());
 	}
-	
-	@Test
-	public void testGetReduceResult() 
-	{
-		List<HashMap<String,String>> records = reduceRecords();
-		Distinct distinct = new Distinct(fields);
-		
-		for (HashMap<String, String> record : records)
-		{
-			distinct.handleReduceRecord(record);
-		}
-		
-		assertEquals("2", distinct.getReduceResult());
-	}
-
 
 	//
 	//	Private/helper methods
@@ -172,31 +154,4 @@ public class DistinctTests
 		
 		return mapRecords;
 	}
-	
-	private List<HashMap<String,String>> reduceRecords()
-	{
-		ArrayList<HashMap<String,String>> records = new ArrayList<HashMap<String, String>>();
-		
-		// First Record
-		records.add(0, new HashMap<String, String>());
-		
-		records.get(0).put(FUNCTION_NAME, FIELD1_VALUE);
-				
-		// Second Record
-		records.add(1, new HashMap<String, String>());
-		
-		records.get(1).put("Foo", "-1.0");
-				
-		// Third Record
-		records.add(2, new HashMap<String, String>());
-		
-		records.get(2).put(FUNCTION_NAME, FIELD4_VALUE);
-
-		// Fourth Record
-		records.add(3, new HashMap<String, String>());
-		
-		records.get(3).put(FUNCTION_NAME, FIELD7_VALUE);
-		
-		return records;
-	}	
 }

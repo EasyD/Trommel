@@ -10,9 +10,9 @@ import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 
 /**
- *	Find the count of distinct values for a {@link org.trommel.trommel.Field}.
+ *	Execute the Map phase for finding the count of distinct values for a {@link org.trommel.trommel.Field}.
  */
-public class Distinct extends Function 
+public class DistinctMapper extends Function
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -39,16 +39,6 @@ public class Distinct extends Function
 	{
 		return FUNCTION_NAME;
 	}
-		
-	/**
-	 * Return the current count of distinct values.
-	 * 
-	 * @return The current distinct count as a {@link java.lang.String}.
-	 */
-	public String getReduceResult()
-	{
-		return Integer.toString(distinctValues.size());
-	}
 
 	
 	//
@@ -60,17 +50,17 @@ public class Distinct extends Function
 	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
-	public Distinct(Field[] fields)
+	public DistinctMapper(Field[] fields)
 		throws IllegalArgumentException
 	{
 		super(fields);
 	}
-
+	
 	
 	//
 	//	Public methods
 	//
-	
+		
 	/**
 	 * Process a single {@link MapRecord} read from the data set for the Map phase of finding the
 	 * count of distinct {@link org.trommel.trommel.Field} values.
@@ -96,21 +86,4 @@ public class Distinct extends Function
 		}
 	}
 
-	/**
-	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
-	 * 
-	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
-	 */
-	public void handleReduceRecord(HashMap<String, String> record) 
-	{
-		if (record.containsKey(FUNCTION_NAME))
-		{	
-			String fieldValue = record.get(FUNCTION_NAME);
-			
-			if (!distinctValues.containsKey(fieldValue))
-			{
-				distinctValues.put(fieldValue, null);
-			}
-		}
-	}
 }

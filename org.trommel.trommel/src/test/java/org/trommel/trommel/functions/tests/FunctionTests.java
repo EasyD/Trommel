@@ -4,6 +4,8 @@
 package org.trommel.trommel.functions.tests;
 
 import org.junit.Test;
+import org.trommel.trommel.Field;
+import org.trommel.trommel.FieldType;
 
 //
 //	Unit tests for the org.trommel.trommel.functions.Funciton class
@@ -15,34 +17,56 @@ public class FunctionTests
 	//
 	
 	@Test
-	public void testContructorOK() 
+	public void testConstructorOK() 
 	{
-		String[] fieldNames = {"Foo", "Bar", "FooBar"};
+		Field[] fields = new Field[3];
 		
+		fields[0] = new Field("Foo", FieldType.numeric);
+		fields[1] = new Field("Bar", FieldType.numeric);
+		fields[2] = new Field("FooBar", FieldType.numeric);
+
 		@SuppressWarnings("unused")
-		MockFunction function = new MockFunction(fieldNames);
+		MockFunction function = new MockFunction(fields);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void testContructNullArray() 
+	public void testConstructorNullArray() 
 	{
 		@SuppressWarnings("unused")
 		MockFunction function = new MockFunction(null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void testContructEmptyArray() 
+	public void testConstructorEmptyArray() 
 	{
 		@SuppressWarnings("unused")
-		MockFunction function = new MockFunction(new String[0]);
+		MockFunction function = new MockFunction(new Field[0]);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructorNullArrayElement() 
+	{
+		Field[] fields = new Field[3];
+		
+		fields[0] = new Field("Foo", FieldType.numeric);
+		fields[2] = new Field("FooBar", FieldType.numeric);
+
+		@SuppressWarnings("unused")
+		MockFunction function = new MockFunction(fields);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testContructArrayWithEmptyNames() 
 	{
-		String[] fieldNames = {"Foo", "Bar", " \t", "FooBar"};
+		Field[] fields = new Field[4];
+		
+		fields[0] = new Field("Foo", FieldType.numeric);
+		fields[1] = new Field("Bar", FieldType.numeric);
+		fields[2] = new Field(" \t", FieldType.numeric);
+		fields[3] = new Field("FooBar", FieldType.numeric);
+
 		
 		@SuppressWarnings("unused")
-		MockFunction function = new MockFunction(fieldNames);
+		MockFunction function = new MockFunction(fields);
 	}
 }

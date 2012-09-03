@@ -3,27 +3,24 @@
  */
 package org.trommel.trommel.functions.tests;
 
-import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import org.apache.hadoop.io.Text;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
-import org.trommel.trommel.functions.Empty;
+import org.trommel.trommel.functions.EmptyMapper;
 import org.trommel.trommel.tests.MockOutputCollector;
 
 //
-//	Unit tests for the org.trommel.trommel.functions.Empty class
+//	Unit tests for the org.trommel.trommel.functions.EmptyMapper class
 //
-public class EmptyTests 
+public class EmptyMapperTests 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -73,29 +70,30 @@ public class EmptyTests
 	//
 	//	Tests
 	//
-		
+
+	
 	@Test
 	public void testConstructorOK() 
 	{
 		@SuppressWarnings("unused")
-		Empty empty = new Empty(fields);	
+		EmptyMapper empty = new EmptyMapper(fields);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		Empty empty = new Empty(fields);
+		EmptyMapper empty = new EmptyMapper(fields);
 		
 		assertEquals(FUNCTION_NAME, empty.getHandlerName());
 	}
 	
-
+	
 	@Test
 	public void testHandleMapRecord() 
 		throws IOException
 	{
 		MapRecord[] records = mapRecords();
-		Empty empty = new Empty(fields);
+		EmptyMapper empty = new EmptyMapper(fields);
 		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		
 		empty.handleMapRecord(records[0]);
@@ -104,14 +102,14 @@ public class EmptyTests
 		
 		assertEquals(1, outputCollector.getKeys().size());
 		assertEquals(1, outputCollector.getValues().size());
-
+	
 		empty.handleMapRecord(records[1]);
 		
 		records[1].serialize(outputCollector);
 		
 		assertEquals(2, outputCollector.getKeys().size());
 		assertEquals(2, outputCollector.getValues().size());
-
+	
 		empty.handleMapRecord(records[2]);
 		
 		records[2].serialize(outputCollector);
@@ -120,21 +118,7 @@ public class EmptyTests
 		assertEquals(3, outputCollector.getValues().size());
 	}
 
-	@Test
-	public void testGetReduceResult() 
-	{
-		List<HashMap<String,String>> records = reduceRecords();
-		Empty empty = new Empty(fields);
-		
-		for (HashMap<String, String> record : records)
-		{
-			empty.handleReduceRecord(record);
-		}
-		
-		assertEquals("2", empty.getReduceResult());
-	}
-
-
+	
 	//
 	//	Private/helper methods
 	//	
@@ -167,26 +151,4 @@ public class EmptyTests
 		
 		return mapRecords;
 	}
-	
-	private List<HashMap<String,String>> reduceRecords()
-	{
-		ArrayList<HashMap<String,String>> records = new ArrayList<HashMap<String, String>>();
-		
-		// First Record
-		records.add(0, new HashMap<String, String>());
-		
-		records.get(0).put(FUNCTION_NAME, FIELD1_VALUE);
-				
-		// Second Record
-		records.add(0, new HashMap<String, String>());
-		
-		records.get(0).put("Foo", "-1.0");
-				
-		// Third Record
-		records.add(2, new HashMap<String, String>());
-		
-		records.get(2).put(FUNCTION_NAME, FIELD1_VALUE);
-		
-		return records;
-	}	
 }

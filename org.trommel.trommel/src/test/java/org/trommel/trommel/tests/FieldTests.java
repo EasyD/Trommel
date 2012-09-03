@@ -1,5 +1,5 @@
 /*
- * TODO - Insert license blurb here
+ *	TODO - Insert license blurb here
  */
 package org.trommel.trommel.tests;
 
@@ -18,8 +18,6 @@ public class FieldTests
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String NAME = "Name";
-	private static final String CATEGORICAL_VALUE = "Value";
-	private static final String NUMERIC_VALUE = "10";
 	
 	
 	//
@@ -41,27 +39,6 @@ public class FieldTests
 	}
 	
 	@Test
-	public void testConstructorNullFieldValueOK()
-	{
-		@SuppressWarnings("unused")
-		Field field = new Field(NAME, FieldType.categorical, null);		
-	}
-	
-	@Test
-	public void testContructorThreeParamsOK() 
-	{
-		@SuppressWarnings("unused")
-		Field field = new Field(NAME, FieldType.categorical, CATEGORICAL_VALUE);
-	}
-
-	@Test(expected=IllegalArgumentException.class)
-	public void testConstructorThreeParamsNullFieldName() 
-	{
-		@SuppressWarnings("unused")
-		Field field = new Field(null, FieldType.categorical, CATEGORICAL_VALUE);
-	}
-
-	@Test
 	public void testGetName() 
 	{
 		Field field = newCategoricalField();
@@ -78,13 +55,14 @@ public class FieldTests
 	}
 
 	@Test
-	public void testGetValue() 
+	public void testGetInstance() 
 	{
 		Field field = newCategoricalField();
 		
-		assertEquals(CATEGORICAL_VALUE, field.getValue());
+		assertEquals(NAME, field.getInstance().getName());
+		assertEquals(FieldType.categorical, field.getInstance().getType());
 	}
-	
+
 	@Test
 	public void testIsCategoricalWhenCategorical() 
 	{
@@ -117,31 +95,19 @@ public class FieldTests
 		assertEquals(true, field.isNumeric());
 	}
 		
-	@Test(expected=IllegalArgumentException.class)
-	public void testSetFieldValueNonNumericValue()
-	{
-		Field field = newNumericField();
-		
-		field.setValue(CATEGORICAL_VALUE);
-	}
-	
 	//
 	//	Private/helper methods
 	//
 	private Field newCategoricalField()
 	{
 		Field field = new Field(NAME, FieldType.categorical);
-		
-		field.setValue(CATEGORICAL_VALUE);
-		
+				
 		return field;
 	}	
 
 	private Field newNumericField()
 	{
 		Field field = new Field(NAME, FieldType.numeric);
-		
-		field.setValue(NUMERIC_VALUE);
 		
 		return field;
 	}	

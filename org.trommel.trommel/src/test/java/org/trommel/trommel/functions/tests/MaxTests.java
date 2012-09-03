@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.hadoop.io.Text;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.trommel.trommel.Field;
+import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.functions.Max;
@@ -51,7 +53,22 @@ public class MaxTests
 	//
 	//	Private members
 	//
-	String[] fieldNames = {FIELD1, FIELD2, FIELD3};	
+	private static Field[] fields = null;	
+	
+
+	//
+	//	Setup/Tear-down
+	//
+	
+	@BeforeClass
+	public static void initialization()
+	{
+		fields = new Field[3];
+		
+		fields[0] = new Field(FIELD1, FieldType.numeric);
+		fields[1] = new Field(FIELD2, FieldType.numeric);
+		fields[2] = new Field(FIELD3, FieldType.numeric);
+	}
 	
 	
 	//
@@ -62,13 +79,13 @@ public class MaxTests
 	public void testConstructorOK() 
 	{
 		@SuppressWarnings("unused")
-		Max max = new Max(fieldNames);	
+		Max max = new Max(fields);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		Max max = new Max(fieldNames);
+		Max max = new Max(fields);
 		
 		assertEquals(FUNCTION_NAME, max.getHandlerName());
 	}
@@ -78,7 +95,7 @@ public class MaxTests
 		throws IOException
 	{
 		MapRecord[] records = mapRecords();
-		Max max = new Max(fieldNames);
+		Max max = new Max(fields);
 		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		String prefix = max.getHandlerName() + "=";
 		
@@ -111,7 +128,7 @@ public class MaxTests
 	public void testGetReduceResult() 
 	{
 		List<HashMap<String,String>> records = reduceRecords();
-		Max max = new Max(fieldNames);
+		Max max = new Max(fields);
 		
 		for (HashMap<String,String> record : records)
 		{
@@ -124,31 +141,32 @@ public class MaxTests
 	//
 	//	Private/helper methods
 	//	
+
 	private MapRecord[] mapRecords()
 	{
 		MapRecord[] mapRecords = new MapRecord[3];
-		Field[] fields = new Field[3];
+		FieldInstance[] fieldInstances = new FieldInstance[3];
 		
 		// First MapRecord
-		fields[0] = new Field(FIELD1, FieldType.numeric, FIELD1_VALUE);
-		fields[1] = new Field(FIELD2, FieldType.numeric, FIELD2_VALUE);
-		fields[2] = new Field(FIELD3, FieldType.numeric, FIELD3_VALUE);
+		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD1_VALUE);
+		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD2_VALUE);
+		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD3_VALUE);
 		
-		mapRecords[0] = new MapRecord(fields, DELIMITER);
+		mapRecords[0] = new MapRecord(fieldInstances, DELIMITER);
 		
 		// Second MapRecord
-		fields[0] = new Field(FIELD1, FieldType.numeric, FIELD4_VALUE);
-		fields[1] = new Field(FIELD2, FieldType.numeric, FIELD5_VALUE);
-		fields[2] = new Field(FIELD3, FieldType.numeric, FIELD6_VALUE);
+		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD4_VALUE);
+		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD5_VALUE);
+		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD6_VALUE);
 		
-		mapRecords[1] = new MapRecord(fields, DELIMITER);
+		mapRecords[1] = new MapRecord(fieldInstances, DELIMITER);
 		
 		// Third MapRecord
-		fields[0] = new Field(FIELD1, FieldType.numeric, FIELD7_VALUE);
-		fields[1] = new Field(FIELD2, FieldType.numeric, FIELD8_VALUE);
-		fields[2] = new Field(FIELD3, FieldType.numeric, FIELD9_VALUE);
+		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD7_VALUE);
+		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD8_VALUE);
+		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD9_VALUE);
 		
-		mapRecords[2] = new MapRecord(fields, DELIMITER);
+		mapRecords[2] = new MapRecord(fieldInstances, DELIMITER);
 		
 		return mapRecords;
 	}

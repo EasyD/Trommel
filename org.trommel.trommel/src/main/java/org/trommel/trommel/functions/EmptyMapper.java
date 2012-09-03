@@ -3,30 +3,22 @@
  */
 package org.trommel.trommel.functions;
 
-import java.util.HashMap;
-
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.utilities.StringUtilities;
 
 /**
- *	Find the count of empty values for a {@link org.trommel.trommel.Field}.
+ *	Execute the Map phase for the count of empty values for a {@link org.trommel.trommel.Field}.
  */
-public class Empty extends Function 
+public class EmptyMapper extends Function
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String FUNCTION_NAME = "Empty";
 
-	
-	//
-	//	Private members
-	//
-	private int emptyCount = 0;
-	
-	
+
 	//
 	//	Getters/setters
 	//
@@ -41,17 +33,7 @@ public class Empty extends Function
 		return FUNCTION_NAME;
 	}
 		
-	/**
-	 * Return the current count of empty values.
-	 * 
-	 * @return The current empty count as a {@link java.lang.String}.
-	 */
-	public String getReduceResult()
-	{
-		return Integer.toString(emptyCount);
-	}
 
-	
 	//
 	//	Constructors
 	//
@@ -61,7 +43,7 @@ public class Empty extends Function
 	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
-	public Empty(Field[] fields)
+	public EmptyMapper(Field[] fields)
 		throws IllegalArgumentException
 	{
 		super(fields);
@@ -90,20 +72,6 @@ public class Empty extends Function
 			{
 				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, "1"));
 			}
-		}
-	}
-
-	/**
-	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
-	 * 
-	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
-	 */
-	public void handleReduceRecord(HashMap<String, String> record) 
-	{
-		if (record.containsKey(FUNCTION_NAME))
-		{	
-			// Reduce phase processing is easy, increment the count
-			++emptyCount;
 		}
 	}
 }

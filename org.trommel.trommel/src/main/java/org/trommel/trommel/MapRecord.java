@@ -1,10 +1,10 @@
 /*
- * TODO - Insert license blurb here
+ *	TODO - Insert license blurb here
  */
 package org.trommel.trommel;
 
 import java.io.IOException;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.OutputCollector;
@@ -22,7 +22,7 @@ public final class MapRecord
 	//
 	// Private members
 	//
-	protected Hashtable<String, Field> fields = new Hashtable<String, Field>();
+	protected HashMap<String, FieldInstance> fieldInstances = new HashMap<String, FieldInstance>();
 	private OutputSet outputSet = null;
 	
 	
@@ -38,22 +38,22 @@ public final class MapRecord
 	 * @throws IllegalArgumentException Where name is null or empty. Also thrown when field name is not
 	 * recognized. All-whitespace strings are considered empty.
 	 */
-	public FieldType getFieldType(String name)
-		throws IllegalArgumentException
-	{
-		// Check for illegal input
-		if (StringUtilities.isNullOrEmpty(name))
-		{
-			throw new IllegalArgumentException("Field name can't be null or empty.");			
-		}
-		
-		if(!fields.containsKey(name))
-		{
-			throw new IllegalArgumentException("Field name " + name + " not recognized.");
-		}
-		
-		return fields.get(name).getType();
-	}
+//	public FieldType getFieldType(String name)
+//		throws IllegalArgumentException
+//	{
+//		// Check for illegal input
+//		if (StringUtilities.isNullOrEmpty(name))
+//		{
+//			throw new IllegalArgumentException("Field name can't be null or empty.");			
+//		}
+//		
+//		if(!fieldInstances.containsKey(name))
+//		{
+//			throw new IllegalArgumentException("Field name " + name + " not recognized.");
+//		}
+//		
+//		return fieldInstances.get(name).getType();
+//	}
 	
 	/**
 	 * Returns the current value for a {@link Field}.
@@ -72,12 +72,12 @@ public final class MapRecord
 			throw new IllegalArgumentException("Field name can't be null or empty.");			
 		}
 		
-		if(!fields.containsKey(name))
+		if(!fieldInstances.containsKey(name))
 		{
 			throw new IllegalArgumentException("Field name " + name + " not recognized.");
 		}
 		
-		return fields.get(name).getValue();
+		return fieldInstances.get(name).getValue();
 	}
 	
 	
@@ -92,25 +92,25 @@ public final class MapRecord
 	 * @throws IllegalArgumentException Where the fields array is null or empty. Also thrown if outputDelimiter 
 	 * is null or an empty string. All-whitespace strings are considered empty.
 	 */
-	public MapRecord(Field[] fields, String outputDelimiter)
+	public MapRecord(FieldInstance[] fieldInstances, String outputDelimiter)
 		throws IllegalArgumentException
 	{
 		// Check for illegal input
-		if (fields == null)
+		if (fieldInstances == null)
 		{
 			throw new IllegalArgumentException("Fields array cannot be null.");
 		}
 		
-		if (fields.length == 0)
+		if (fieldInstances.length == 0)
 		{
 			throw new IllegalArgumentException("Fields array cannot be empty.");
 		}
 		
-		for(Field field : fields)
+		for(FieldInstance fieldInstance : fieldInstances)
 		{
-			// Store fields in a Hashtable for quick lookup, memory usage should be more than 
+			// Store fields in a HashMap for quick lookup, memory usage should be more than 
 			// offset by efficiency gains given Hadoop-volume of lookups
-			this.fields.put(field.getName(), field);
+			this.fieldInstances.put(fieldInstance.getName(), fieldInstance);
 		}
 		
 		if (StringUtilities.isNullOrEmpty(outputDelimiter))
@@ -118,7 +118,7 @@ public final class MapRecord
 			throw new IllegalArgumentException("Output delimiter cannot be null or empty.");
 		}
 		
-		outputSet = new OutputSet(this.fields.keySet().toArray(new String[0]), outputDelimiter);
+		outputSet = new OutputSet(this.fieldInstances.keySet().toArray(new String[0]), outputDelimiter);
 	}
 	
 	

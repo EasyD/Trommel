@@ -5,6 +5,7 @@ package org.trommel.trommel.functions.tests;
 
 import java.util.HashMap;
 
+import org.trommel.trommel.Field;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.functions.Function;
 
@@ -34,10 +35,10 @@ public class MockFunction extends Function
 	//	Constructors
 	//
 	
-	public MockFunction(String[] fieldNames) 
+	public MockFunction(Field[] fields) 
 		throws IllegalArgumentException 
 	{
-		super(fieldNames);
+		super(fields);
 	}
 
 

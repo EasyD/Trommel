@@ -3,29 +3,20 @@
  */
 package org.trommel.trommel.functions;
 
-import java.util.HashMap;
-
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 
 /**
- *	For numeric {@link org.trommel.trommel.Field} instances, find the minimum value in the data set.
+ *	For the Map phase find the minimum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
  */
-public class Min extends Function 
+public class MinMapper extends Function 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String FUNCTION_NAME = "Min";
 
-	
-	//
-	//	Private members
-	//
-
-	private double minValue = Double.MAX_VALUE;
-	
 	
 	//
 	//	Getters/setters
@@ -41,18 +32,7 @@ public class Min extends Function
 		return FUNCTION_NAME;
 	}
 
-	/**
-	 * Return the current Minimum value.
-	 * 
-	 * @return The current Minimum value found as a {@link java.lang.String}.
-	 */
-	public String getReduceResult()
-	{
-		return Double.toString(minValue);
-	}
 
-
-	
 	//
 	//	Constructors
 	//
@@ -62,7 +42,7 @@ public class Min extends Function
 	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
-	public Min(Field [] fields)
+	public MinMapper(Field [] fields)
 		throws IllegalArgumentException
 	{
 		super(fields);
@@ -88,28 +68,6 @@ public class Min extends Function
 		{
 			// Map phase is pretty easy, just spit out the value for the field
 			record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, record.getFieldValue(field.getName())));
-		}
-	}
-
-
-	/**
-	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
-	 * 
-	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
-	 * @throws NumberFormatException Where a {@link org.trommel.trommel.Field} value is not numeric.
-	 */
-	public void handleReduceRecord(HashMap<String, String> record) 
-		throws NumberFormatException
-	{
-		if (record.containsKey(FUNCTION_NAME))
-		{		
-			// Reduce is also pretty easy, grab Min's value from the HashMap and process it.
-			double currentValue = Double.parseDouble(record.get(FUNCTION_NAME));
-			
-			if (currentValue < minValue)
-			{
-				minValue = currentValue;
-			}
 		}
 	}
 }

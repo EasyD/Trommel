@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import org.apache.hadoop.io.Text;
 import org.junit.Test;
-import org.trommel.trommel.Field;
+import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.reporting.DataReporter;
@@ -86,13 +86,13 @@ public class DataReporterTests
 	//	
 	private MapRecord mapRecord()
 	{
-		Field[] fields = new Field[3];
+		FieldInstance[] fieldInstances = new FieldInstance[3];
 		
-		fields[0] = new Field(FIELD1, FieldType.categorical, FIELD1_VALUE1);
-		fields[1] = new Field(FIELD2, FieldType.categorical, FIELD2_VALUE1);
-		fields[2] = new Field(FIELD3, FieldType.categorical, FIELD3_VALUE1);
+		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD1_VALUE1);
+		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2_VALUE1);
+		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD3_VALUE1);
 		
-		return new MapRecord(fields, DELIMITER);
+		return new MapRecord(fieldInstances, DELIMITER);
 	}
 	
 	private HashMap<String, String> reduceRecord()
