@@ -21,13 +21,7 @@ public class VariabilityReducerTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String DELIMITER = "*|*";
 	private static final String FUNCTION_NAME = "Variability";
-	
-	// First row fields and values
-	private static final String FIELD1 = "Field1";
-	private static final String FIELD2 = "Field2";
-	private static final String FIELD3 = "Field3";
 	
 	// Field values
 	private static final String ROW1_NUMERIC_VALUE = "12:144";
