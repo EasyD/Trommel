@@ -1,22 +1,21 @@
 /*
  *	TODO - Insert license blurb here
  */
-package org.trommel.trommel;
+package org.trommel.trommel.utilities;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
 
-import org.trommel.trommel.utilities.StringUtilities;
 
 /**
- *	Helper class for maintaining field value frequency counts.
+ *	Helper class for maintaining field value frequency counts that are strings.
  */
 public class FrequencyCounts 
 {
 	//
 	//	Private members
 	//
-	Hashtable<String, Counter> frequencyCounts = new Hashtable<String, Counter>();
+	HashMap<String, Counter> frequencyCounts = new HashMap<String, Counter>();
 	
 	
 	//
@@ -60,15 +59,15 @@ public class FrequencyCounts
 	public String serialize(String fieldName)
 	{
 		StringBuffer buffer = new StringBuffer();
-		Enumeration<String> keys = frequencyCounts.keys();
+		Iterator<String> keys = frequencyCounts.keySet().iterator();
 
 		buffer.append("FIELD\t");
 		buffer.append("CONTENT\t");
 		buffer.append("COUNT\n");
 		
-		while(keys.hasMoreElements())
+		while(keys.hasNext())
 		{
-			String value = keys.nextElement();
+			String value = keys.next();
 			
 			buffer.append(fieldName);
 			buffer.append("\t");
@@ -79,28 +78,5 @@ public class FrequencyCounts
 		}
 		
 		return buffer.toString();
-	}
-	
-	private class Counter
-	{
-		//
-		//	Private members
-		//
-		private int count = 0;
-		
-		//
-		//	Public methods
-		//
-		
-		public void increment()
-		{
-			++count;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return Integer.toString(count);
-		}
-	}
+	}	
 }

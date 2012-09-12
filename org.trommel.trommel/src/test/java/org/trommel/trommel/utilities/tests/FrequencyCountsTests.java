@@ -1,12 +1,12 @@
 /*
  *	TODO - Insert license blurb here
  */
-package org.trommel.trommel.tests;
+package org.trommel.trommel.utilities.tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.trommel.trommel.FrequencyCounts;
+import org.trommel.trommel.utilities.FrequencyCounts;
 
 //
 //	Unit tests for the org.trommel.trommel.reporting.FrequencyCount class

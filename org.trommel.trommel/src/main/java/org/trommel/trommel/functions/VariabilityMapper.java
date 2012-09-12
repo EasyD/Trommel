@@ -44,7 +44,7 @@ public class VariabilityMapper extends Function
 	/**
 	 * @param fields The {@link org.trommel.trommel.Field} instances for which variability will be calculated.
 	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
-	 * are null or empty. All-whitespace strings are considered empty.
+	 * are null or empty.
 	 */
 	public VariabilityMapper(Field[] fields)
 		throws IllegalArgumentException

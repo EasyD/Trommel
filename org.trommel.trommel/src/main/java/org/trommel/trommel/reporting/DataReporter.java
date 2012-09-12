@@ -8,7 +8,7 @@ import java.util.HashMap;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.RecordHandler;
-import org.trommel.trommel.FrequencyCounts;
+import org.trommel.trommel.utilities.FrequencyCounts;
 import org.trommel.trommel.utilities.StringUtilities;
 
 /**

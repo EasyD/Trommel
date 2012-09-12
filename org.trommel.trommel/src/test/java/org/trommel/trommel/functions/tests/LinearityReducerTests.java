@@ -11,64 +11,80 @@ import java.util.List;
 
 import org.junit.Test;
 import org.trommel.trommel.FieldType;
-import org.trommel.trommel.functions.VariabilityReducer;
+import org.trommel.trommel.functions.LinearityReducer;
 
 //
-//	Unit tests for the org.trommel.trommel.functions.VariabilityReducer class
+//	Unit tests for the org.trommel.trommel.functions.LinearityReducer class
 //
-public class VariabilityReducerTests 
+public class LinearityReducerTests 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Variability";
+	private static final String FUNCTION_NAME = "Linearity";
+	
 	
 	// Field values
-	private static final String ROW1_NUMERIC_VALUE = "12:144";
-	private static final String ROW2_NUMERIC_VALUE = "5:25";
-	private static final String ROW3_NUMERIC_VALUE = "16:256";
-	private static final String ROW4_NUMERIC_VALUE = "17:289";
-	private static final String ROW5_NUMERIC_VALUE = "18:324";
-	private static final String ROW6_NUMERIC_VALUE = "29:841";
+	private static final String ROW1_NUMERIC_VALUE = "12";
+	private static final String ROW2_NUMERIC_VALUE = "5";
+	private static final String ROW3_NUMERIC_VALUE = "16";
+	private static final String ROW4_NUMERIC_VALUE = "17";
+	private static final String ROW5_NUMERIC_VALUE = "18";
+	private static final String ROW6_NUMERIC_VALUE = "29";
 
 
 	//
 	//	Tests
 	//
-	
+
 	@Test
 	public void testConstructorOK()
 	{
 		@SuppressWarnings("unused")
-		VariabilityReducer var = new VariabilityReducer(FieldType.numeric);			
+		LinearityReducer lin = new LinearityReducer(FieldType.numeric);			
 	}
 	
 	@Test
 	public void testNumericGetReduceResult()
 	{
 		List<HashMap<String, String>> records = numericReduceRecords();
-		VariabilityReducer var = new VariabilityReducer(FieldType.numeric);
+		LinearityReducer lin = new LinearityReducer(FieldType.numeric);
 		
 		for (HashMap<String, String> record : records)
 		{
-			var.handleReduceRecord(record);
+			lin.handleReduceRecord(record);
 		}
 		
-		assertEquals("7.884584115009914", var.getReduceResult());
+		assertEquals("0.12461119656980668", lin.getReduceResult());
 	}
+
 	
 	@Test
 	public void testCategoricalGetReduceResult()
 	{
 		List<HashMap<String, String>> records = categoricalReduceRecords();
-		VariabilityReducer var = new VariabilityReducer(FieldType.categorical);
+		LinearityReducer lin = new LinearityReducer(FieldType.categorical);
 		
 		for (HashMap<String, String> record : records)
 		{
-			var.handleReduceRecord(record);
+			lin.handleReduceRecord(record);
 		}
 		
-		assertEquals("0.6", var.getReduceResult());
+		assertEquals("0.6", lin.getReduceResult());
+	}
+	
+	@Test
+	public void testNumericNoReduceRecords()
+	{
+		List<HashMap<String, String>> records = noReduceRecords();
+		LinearityReducer lin = new LinearityReducer(FieldType.numeric);
+		
+		for (HashMap<String, String> record : records)
+		{
+			lin.handleReduceRecord(record);
+		}
+		
+		assertEquals("-1.0", lin.getReduceResult());
 	}
 
 	
@@ -94,14 +110,17 @@ public class VariabilityReducerTests
 		records.get(3).put(FUNCTION_NAME, ROW4_NUMERIC_VALUE);
 				
 		records.add(4, new HashMap<String, String>());
-		records.get(4).put(FUNCTION_NAME, ROW5_NUMERIC_VALUE);
+		records.get(4).put(FUNCTION_NAME, ROW4_NUMERIC_VALUE);
 				
 		records.add(5, new HashMap<String, String>());
-		records.get(5).put(FUNCTION_NAME, ROW6_NUMERIC_VALUE);
+		records.get(5).put(FUNCTION_NAME, ROW5_NUMERIC_VALUE);
+				
+		records.add(6, new HashMap<String, String>());
+		records.get(6).put(FUNCTION_NAME, ROW6_NUMERIC_VALUE);
 				
 		return records;
 	}	
-		
+
 	private List<HashMap<String,String>> categoricalReduceRecords()
 	{
 		ArrayList<HashMap<String,String>> records = new ArrayList<HashMap<String, String>>();
@@ -137,6 +156,21 @@ public class VariabilityReducerTests
 				
 		records.add(9, new HashMap<String, String>());
 		records.get(9).put(FUNCTION_NAME, ROW6_NUMERIC_VALUE);
+				
+		return records;
+	}	
+	
+	
+	private List<HashMap<String,String>> noReduceRecords()
+	{
+		ArrayList<HashMap<String,String>> records = new ArrayList<HashMap<String, String>>();
+		
+		// Add nine records
+		records.add(0, new HashMap<String, String>());
+		records.get(0).put("Foo", ROW1_NUMERIC_VALUE);
+				
+		records.add(1, new HashMap<String, String>());
+		records.get(1).put("Foo", ROW2_NUMERIC_VALUE);
 				
 		return records;
 	}	

@@ -42,12 +42,11 @@ public class VariabilityReducer implements ReduceRecordHandler
 	 */
 	public String getReduceResult()
 	{
-		// In the Reduce phase there should only ever be one field
 		if (fieldType == FieldType.numeric)
 		{
 			// Return the sample standard deviation as a String
 			return Double.toString(Math.sqrt(((recordCount * sumOfSquares) - (sumOfValues * sumOfValues)) / 
-					                          (recordCount * (recordCount - 1))));
+				                              (recordCount * (recordCount - 1))));
 		}
 		else
 		{
@@ -78,8 +77,10 @@ public class VariabilityReducer implements ReduceRecordHandler
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
 	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
+	 * @exception NumberFormatException Where values are not numeric.
 	 */
 	public void handleReduceRecord(HashMap<String, String> record) 
+		throws NumberFormatException
 	{
 		if (record.containsKey(FUNCTION_NAME))
 		{	
