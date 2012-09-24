@@ -67,8 +67,12 @@ public class MaxMapper extends Function
 		// Only process the fields specified for the function
 		for (Field field : fields)
 		{
-			// Map phase is pretty easy, just spit out the value for the field
-			record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, record.getFieldValue(field.getName())));
+			// Ignore categorical data
+			if (field.isNumeric())
+			{
+				// Map phase is pretty easy, just spit out the value for the field
+				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, record.getFieldValue(field.getName())));
+			}
 		}
 	}
 }

@@ -7,16 +7,20 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import org.mockito.Mockito;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.junit.BeforeClass;
+import org.apache.hadoop.mapreduce.MapContext;
+import org.junit.Before;
 import org.junit.Test;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.functions.MinMapper;
-import org.trommel.trommel.tests.MockOutputCollector;
+import org.trommel.trommel.interpreters.MapInterpreter;
 
+ 
 //
 //	Unit tests for the org.trommel.trommel.functions.MinMapper class
 //
@@ -25,7 +29,6 @@ public class MinMapperTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String DELIMITER = "*|*";
 	private static final String FUNCTION_NAME = "Min";
 	
 	// First row fields and values
@@ -50,15 +53,15 @@ public class MinMapperTests
 	//
 	//	Private members
 	//
-	private static Field[] fields = null;	
+	private Field[] fields = null;	
 	
 
 	//
 	//	Setup/Tear-down
 	//
 	
-	@BeforeClass
-	public static void initialization()
+	@Before
+	public void initialization()
 	{
 		fields = new Field[3];
 		
@@ -89,38 +92,32 @@ public class MinMapperTests
 
 	@Test
 	public void testHandleMapRecord() 
-		throws IOException
+		throws IOException, InterruptedException
 	{
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
 		MinMapper min = new MinMapper(fields);
-		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		String prefix = min.getHandlerName() + "=";
 		
 		min.handleMapRecord(records[0]);
 		
-		records[0].serialize(outputCollector);
+		records[0].serialize(context);
 		
-		assertEquals(FIELD3, outputCollector.getKeys().get(0).toString());
-		assertEquals(FIELD2, outputCollector.getKeys().get(1).toString());
-		assertEquals(FIELD1, outputCollector.getKeys().get(2).toString());
-		assertEquals(prefix + FIELD3_VALUE, outputCollector.getValues().get(0).toString());
-		assertEquals(prefix + FIELD2_VALUE, outputCollector.getValues().get(1).toString());
-		assertEquals(prefix + FIELD1_VALUE, outputCollector.getValues().get(2).toString());
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD1_VALUE));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD2_VALUE));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD3_VALUE));
 
 		min.handleMapRecord(records[1]);
 		
-		outputCollector = new MockOutputCollector<Text, Text>();
-		
-		records[1].serialize(outputCollector);
-		
-		assertEquals(FIELD3, outputCollector.getKeys().get(0).toString());
-		assertEquals(FIELD2, outputCollector.getKeys().get(1).toString());
-		assertEquals(FIELD1, outputCollector.getKeys().get(2).toString());
-		assertEquals(prefix + FIELD6_VALUE, outputCollector.getValues().get(0).toString());
-		assertEquals(prefix + FIELD5_VALUE, outputCollector.getValues().get(1).toString());
-		assertEquals(prefix + FIELD4_VALUE, outputCollector.getValues().get(2).toString());
+		records[1].serialize(context);
+				
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD4_VALUE));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD5_VALUE));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD6_VALUE));
 	}
 
+	
 	//
 	//	Private/helper methods
 	//	
@@ -135,21 +132,21 @@ public class MinMapperTests
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD2_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD3_VALUE);
 		
-		mapRecords[0] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[0] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Second MapRecord
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD4_VALUE);
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD5_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD6_VALUE);
 		
-		mapRecords[1] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[1] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Third MapRecord
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD7_VALUE);
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD8_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD9_VALUE);
 		
-		mapRecords[2] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[2] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		return mapRecords;
 	}

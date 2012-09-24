@@ -7,15 +7,19 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.junit.BeforeClass;
+import org.apache.hadoop.mapreduce.MapContext;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.functions.LinearityMapper;
-import org.trommel.trommel.tests.MockOutputCollector;
+import org.trommel.trommel.interpreters.MapInterpreter;
+
 
 //
 //	Unit tests for the org.trommel.trommel.functions.LinearityMapper class
@@ -25,7 +29,6 @@ public class LinearityMapperTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String DELIMITER = "*|*";
 	private static final String FUNCTION_NAME = "Linearity";
 	private static final String NULL_INDICATOR = "null";
 	
@@ -54,16 +57,16 @@ public class LinearityMapperTests
 	//
 	//	Private members
 	//
-	private static Field[] numericFields = null;	
-	private static Field[] categoricalFields = null;	
+	private Field[] numericFields = null;	
+	private Field[] categoricalFields = null;	
 	
 
 	//
 	//	Setup/Tear-down
 	//
 	
-	@BeforeClass
-	public static void initialization()
+	@Before
+	public void initialization()
 	{
 		numericFields = new Field[3];		
 		numericFields[0] = new Field(FIELD1, FieldType.numeric);
@@ -75,7 +78,7 @@ public class LinearityMapperTests
 		categoricalFields[0] = new Field(FIELD1, FieldType.categorical);
 		categoricalFields[1] = new Field(FIELD2, FieldType.categorical);
 		categoricalFields[2] = new Field(FIELD3, FieldType.categorical);
-}
+	}
 	
 	
 	//
@@ -113,104 +116,95 @@ public class LinearityMapperTests
 
 	@Test
 	public void testNumericHandleMapRecord() 
-		throws IOException
+		throws IOException, InterruptedException
 	{
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = threeMapRecords();
 		LinearityMapper lin = new LinearityMapper(numericFields, 100);
-		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		String prefix = lin.getHandlerName() + "=";
 		
 		lin.handleMapRecord(records[0]);
 		
-		records[0].serialize(outputCollector);
+		records[0].serialize(context);
 		
-		assertEquals(FIELD3, outputCollector.getKeys().get(0).toString());
-		assertEquals(FIELD2, outputCollector.getKeys().get(1).toString());
-		assertEquals(FIELD1, outputCollector.getKeys().get(2).toString());
-		assertEquals(prefix + NUMERIC_FIELD3_VALUE_OUTPUT, outputCollector.getValues().get(0).toString());
-		assertEquals(prefix + NUMERIC_FIELD2_VALUE, outputCollector.getValues().get(1).toString());
-		assertEquals(prefix + NUMERIC_FIELD1_VALUE, outputCollector.getValues().get(2).toString());
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD1_VALUE));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD2_VALUE));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD3_VALUE_OUTPUT));
 
 		lin.handleMapRecord(records[1]);
 		
-		outputCollector = new MockOutputCollector<Text, Text>();
+		records[1].serialize(context);
 		
-		records[1].serialize(outputCollector);
-		
-		assertEquals(3, outputCollector.getKeys().size());
-		assertEquals(3, outputCollector.getValues().size());		
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD4_VALUE));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD5_VALUE));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD6_VALUE));
 		
 		lin.handleMapRecord(records[2]);
 
-		outputCollector = new MockOutputCollector<Text, Text>();
-
-		records[2].serialize(outputCollector);
+		records[2].serialize(context);
 		
-		assertEquals(3, outputCollector.getKeys().size());
-		assertEquals(3, outputCollector.getValues().size());		
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD7_VALUE));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD8_VALUE));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD9_VALUE));
 	}
 	
 
 	@Test
 	public void testNumericSamplingHandleMapRecord() 
-		throws IOException
+		throws IOException, InterruptedException
 	{
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = thousandMapRecords();
 		LinearityMapper lin = new LinearityMapper(numericFields, 50);
-		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		
 		for (int i = 0; i < 1000; ++i)
 		{
 			lin.handleMapRecord(records[i]);
 			
-			records[i].serialize(outputCollector);
+			records[i].serialize(context);
 		}
 		
 		// Should have a value around 1500, fail if we exceed a reasonable boundary
-		if ((outputCollector.getKeys().size() < 1450) || (outputCollector.getKeys().size() > 1550))
-		{
-			fail();
-		}
+		Mockito.verify(context, Mockito.atLeast(1425)).write(Mockito.any(Text.class), Mockito.any(Text.class));
+		Mockito.verify(context, Mockito.atMost(1575)).write(Mockito.any(Text.class), Mockito.any(Text.class));
 	}
 	
 
 	@Test
 	public void testCategoricalHandleMapRecord() 
-		throws IOException
+		throws IOException, InterruptedException
 	{
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = categoricalMapRecords();
 		LinearityMapper lin = new LinearityMapper(categoricalFields, 100);
-		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		String prefix = lin.getHandlerName() + "=";
 		
 		lin.handleMapRecord(records[0]);
 		
-		records[0].serialize(outputCollector);
+		records[0].serialize(context);
 		
-		assertEquals(FIELD3, outputCollector.getKeys().get(0).toString());
-		assertEquals(FIELD2, outputCollector.getKeys().get(1).toString());
-		assertEquals(FIELD1, outputCollector.getKeys().get(2).toString());
-		assertEquals(prefix + NULL_INDICATOR, outputCollector.getValues().get(0).toString());
-		assertEquals(prefix + FIELD2, outputCollector.getValues().get(1).toString());
-		assertEquals(prefix + FIELD1, outputCollector.getValues().get(2).toString());
+		Mockito.verify(context, Mockito.times(1)).write(new Text(FIELD1), new Text(prefix + FIELD1));
+		Mockito.verify(context, Mockito.times(1)).write(new Text(FIELD2), new Text(prefix + FIELD2));
+		Mockito.verify(context, Mockito.times(1)).write(new Text(FIELD3), new Text(prefix + NULL_INDICATOR));
 
 		lin.handleMapRecord(records[1]);
 		
-		outputCollector = new MockOutputCollector<Text, Text>();
+		records[1].serialize(context);
 		
-		records[1].serialize(outputCollector);
-		
-		assertEquals(3, outputCollector.getKeys().size());
-		assertEquals(3, outputCollector.getValues().size());		
+		Mockito.verify(context, Mockito.times(2)).write(new Text(FIELD1), new Text(prefix + FIELD1));
+		Mockito.verify(context, Mockito.times(2)).write(new Text(FIELD2), new Text(prefix + FIELD2));
+		Mockito.verify(context, Mockito.times(1)).write(new Text(FIELD3), new Text(prefix + FIELD3));
 		
 		lin.handleMapRecord(records[2]);
 
-		outputCollector = new MockOutputCollector<Text, Text>();
-
-		records[2].serialize(outputCollector);
+		records[2].serialize(context);
 		
-		assertEquals(3, outputCollector.getKeys().size());
-		assertEquals(3, outputCollector.getValues().size());		
+		Mockito.verify(context, Mockito.times(3)).write(new Text(FIELD1), new Text(prefix + FIELD1));
+		Mockito.verify(context, Mockito.times(3)).write(new Text(FIELD2), new Text(prefix + FIELD2));
+		Mockito.verify(context, Mockito.times(2)).write(new Text(FIELD3), new Text(prefix + FIELD3));
 	}
 
 	
@@ -228,21 +222,21 @@ public class LinearityMapperTests
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, NUMERIC_FIELD2_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, NUMERIC_FIELD3_VALUE);
 		
-		mapRecords[0] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[0] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Second MapRecord
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD4_VALUE);
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD5_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD6_VALUE);
 		
-		mapRecords[1] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[1] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Third MapRecord
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD7_VALUE);
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD8_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD9_VALUE);
 		
-		mapRecords[2] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[2] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		return mapRecords;
 	}
@@ -258,7 +252,7 @@ public class LinearityMapperTests
 			fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, NUMERIC_FIELD2_VALUE);
 			fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, NUMERIC_FIELD3_VALUE);
 		
-			mapRecords[i] = new MapRecord(fieldInstances, DELIMITER);
+			mapRecords[i] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 			
 			fieldInstances = new FieldInstance[3];
 		}
@@ -277,21 +271,21 @@ public class LinearityMapperTests
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, "");
 		
-		mapRecords[0] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[0] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Second MapRecord
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD1);
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD3);
 		
-		mapRecords[1] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[1] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Third MapRecord
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD1);
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD3);
 		
-		mapRecords[2] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[2] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		return mapRecords;
 	}

@@ -8,13 +8,16 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.mockito.Mockito;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.MapContext;
 import org.junit.Test;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.reporting.DataReporter;
-import org.trommel.trommel.tests.MockOutputCollector;
+
 
 //
 //	Unit tests for the org.trommel.trommel.reporting.DataReporter class
@@ -46,21 +49,19 @@ public class DataReporterTests
 	
 	@Test
 	public void testHandleMapRecord() 
-		throws IOException
+		throws IOException, InterruptedException
 	{
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord record = mapRecord();
 		DataReporter reporter = new DataReporter(FIELD1);
-		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		String prefix = reporter.getHandlerName() + "=";
 		
 		reporter.handleMapRecord(record);
 		
-		record.serialize(outputCollector);
+		record.serialize(context);
 		
-		assertEquals(1, outputCollector.getKeys().size());
-		assertEquals(1, outputCollector.getValues().size());
-		assertEquals(FIELD1, outputCollector.getKeys().get(0).toString());
-		assertEquals(prefix + FIELD1_VALUE1, outputCollector.getValues().get(0).toString());
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD1_VALUE1));
 	}
 	
 	@Test

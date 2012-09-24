@@ -7,12 +7,16 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
+import org.mockito.Mockito;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.MapContext;
 import org.junit.Test;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
+import org.trommel.trommel.interpreters.MapInterpreter;
 
 //
 //	Unit tests for the org.trommel.trommel.MapRecord class
@@ -28,8 +32,8 @@ public class MapRecordTests
 	private static final String FIELD1_VALUE = "Value1";
 	private static final String FIELD2_VALUE = "Value2";
 	private static final String FIELD3_VALUE = "Value3";
-	private static final String DELIMITER = "*|*";
 
+	
 	//
 	//	Tests
 	//
@@ -38,14 +42,14 @@ public class MapRecordTests
 	public void testConstructorNulLFieldsArray()
 	{
 		@SuppressWarnings("unused")
-		MapRecord record = new MapRecord(null, DELIMITER);
+		MapRecord record = new MapRecord(null, MapInterpreter.DELIMITER);
 	}
 		
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorEmptyFieldsArray()
 	{
 		@SuppressWarnings("unused")
-		MapRecord record = new MapRecord(new FieldInstance[0], DELIMITER);
+		MapRecord record = new MapRecord(new FieldInstance[0], MapInterpreter.DELIMITER);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
@@ -67,7 +71,7 @@ public class MapRecordTests
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical);
 		
 		@SuppressWarnings("unused")
-		MapRecord record = new MapRecord(fieldInstances, "*|*");
+		MapRecord record = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 	}
 
 	@Test
@@ -81,37 +85,15 @@ public class MapRecordTests
 
 	@Test
 	public void testSerialize() 
-		throws IllegalArgumentException, IOException
+		throws IllegalArgumentException, IOException, InterruptedException
 	{
-		// Placeholder as Record delegates to contained OutputSet instance
+		// Place holder as Record delegates to contained OutputSet instance
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord record = newRecord();
 		
-		record.serialize(new MockOutputCollector<Text, Text>());
+		record.serialize(context);
 	}
-
-////	@Test(expected=IllegalArgumentException.class)
-////	public void testGetFieldTypeNullFieldName() 
-////	{
-////		MapRecord record = newRecord();
-////		
-////		record.getFieldType(null);
-////	}
-////	
-////	@Test(expected=IllegalArgumentException.class)
-////	public void testGetFieldTypeNullUnrecorgnizedFieldName() 
-////	{
-////		MapRecord record = newRecord();
-////		
-////		record.getFieldType("Foo");
-////	}
-//
-//	@Test
-//	public void testGetFieldType() 
-//	{
-//		MapRecord record = newRecord();
-//		
-//		assertEquals(FieldType.categorical, record.getFieldType(FIELD1));
-//	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetFieldValueNullFieldName() 
@@ -149,6 +131,6 @@ public class MapRecordTests
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD3_VALUE);
 		
-		return new MapRecord(fieldInstances, DELIMITER);
+		return new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 	}
 }

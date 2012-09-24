@@ -1,11 +1,13 @@
 /*
- * TODO - Insert license blurb here
+ *	TODO - Insert license blurb here
  */
 package org.trommel.trommel.functions.tests;
 
 import org.junit.Test;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
+import org.trommel.trommel.functions.Function;
+import org.trommel.trommel.functions.MaxMapper;
 
 //
 //	Unit tests for the org.trommel.trommel.functions.Funciton class
@@ -26,21 +28,21 @@ public class FunctionTests
 		fields[2] = new Field("FooBar", FieldType.numeric);
 
 		@SuppressWarnings("unused")
-		MockFunction function = new MockFunction(fields);
+		Function function = new MaxMapper(fields);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullArray() 
 	{
 		@SuppressWarnings("unused")
-		MockFunction function = new MockFunction(null);
+		Function function = new MaxMapper(null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorEmptyArray() 
 	{
 		@SuppressWarnings("unused")
-		MockFunction function = new MockFunction(new Field[0]);
+		Function function = new MaxMapper(new Field[0]);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -52,7 +54,7 @@ public class FunctionTests
 		fields[2] = new Field("FooBar", FieldType.numeric);
 
 		@SuppressWarnings("unused")
-		MockFunction function = new MockFunction(fields);
+		Function function = new MaxMapper(fields);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -67,6 +69,6 @@ public class FunctionTests
 
 		
 		@SuppressWarnings("unused")
-		MockFunction function = new MockFunction(fields);
+		Function function = new MaxMapper(fields);
 	}
 }

@@ -7,15 +7,19 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import org.mockito.Mockito;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.junit.BeforeClass;
+import org.apache.hadoop.mapreduce.MapContext;
+import org.junit.Before;
 import org.junit.Test;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.functions.VariabilityMapper;
-import org.trommel.trommel.tests.MockOutputCollector;
+import org.trommel.trommel.interpreters.MapInterpreter;
+
 
 //
 //	Unit tests for the org.trommel.trommel.functions.VariabilityMapper class
@@ -25,7 +29,6 @@ public class VariabilityMapperTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String DELIMITER = "*|*";
 	private static final String FUNCTION_NAME = "Variability";
 	private static final String NULL_INDICATOR = "null";
 	
@@ -33,6 +36,9 @@ public class VariabilityMapperTests
 	private static final String FIELD1 = "Field1";
 	private static final String FIELD2 = "Field2";
 	private static final String FIELD3 = "Field3";
+	private static final String FIELD4 = "Field4";
+	private static final String FIELD5 = "Field5";
+	private static final String FIELD6 = "Field6";
 
 	// First row numeric values
 	private static final String NUMERIC_FIELD1_VALUE = "15.0";
@@ -44,28 +50,34 @@ public class VariabilityMapperTests
 
 	//	Second row numeric values
 	private static final String FIELD4_VALUE = "10.0";
+	private static final String NUMERIC_FIELD4_VALUE_OUTPUT = "10.0:100.0";
 	private static final String FIELD5_VALUE = "25.0";
+	private static final String NUMERIC_FIELD5_VALUE_OUTPUT = "25.0:625.0";
 	private static final String FIELD6_VALUE = "35.0";
+	private static final String NUMERIC_FIELD6_VALUE_OUTPUT = "35.0:1225.0";
 
 	//	Third row numeric values
 	private static final String FIELD7_VALUE = "11.0";
+	private static final String NUMERIC_FIELD7_VALUE_OUTPUT = "11.0:121.0";
 	private static final String FIELD8_VALUE = "22.0";
+	private static final String NUMERIC_FIELD8_VALUE_OUTPUT = "22.0:484.0";
 	private static final String FIELD9_VALUE = "39.0";
+	private static final String NUMERIC_FIELD9_VALUE_OUTPUT = "39.0:1521.0";
 
 	
 	//
 	//	Private members
 	//
-	private static Field[] numericFields = null;	
-	private static Field[] categoricalFields = null;	
+	private Field[] numericFields = null;	
+	private Field[] categoricalFields = null;	
 	
 
 	//
 	//	Setup/Tear-down
 	//
 	
-	@BeforeClass
-	public static void initialization()
+	@Before
+	public void initialization()
 	{
 		numericFields = new Field[3];		
 		numericFields[0] = new Field(FIELD1, FieldType.numeric);
@@ -77,7 +89,7 @@ public class VariabilityMapperTests
 		categoricalFields[0] = new Field(FIELD1, FieldType.categorical);
 		categoricalFields[1] = new Field(FIELD2, FieldType.categorical);
 		categoricalFields[2] = new Field(FIELD3, FieldType.categorical);
-}
+	}
 	
 	
 	//
@@ -101,80 +113,64 @@ public class VariabilityMapperTests
 
 	@Test
 	public void testNumericHandleMapRecord() 
-		throws IOException
+		throws IOException, InterruptedException
 	{
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = numericMapRecords();
 		VariabilityMapper var = new VariabilityMapper(numericFields);
-		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		String prefix = var.getHandlerName() + "=";
 		
 		var.handleMapRecord(records[0]);
 		
-		records[0].serialize(outputCollector);
+		records[0].serialize(context);
 		
-		assertEquals(FIELD3, outputCollector.getKeys().get(0).toString());
-		assertEquals(FIELD2, outputCollector.getKeys().get(1).toString());
-		assertEquals(FIELD1, outputCollector.getKeys().get(2).toString());
-		assertEquals(prefix + NUMERIC_FIELD3_VALUE_OUTPUT, outputCollector.getValues().get(0).toString());
-		assertEquals(prefix + NUMERIC_FIELD2_VALUE_OUTPUT, outputCollector.getValues().get(1).toString());
-		assertEquals(prefix + NUMERIC_FIELD1_VALUE_OUTPUT, outputCollector.getValues().get(2).toString());
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD1_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD2_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD3_VALUE_OUTPUT));
 
 		var.handleMapRecord(records[1]);
 		
-		outputCollector = new MockOutputCollector<Text, Text>();
+		records[1].serialize(context);
 		
-		records[1].serialize(outputCollector);
-		
-		assertEquals(3, outputCollector.getKeys().size());
-		assertEquals(3, outputCollector.getValues().size());		
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD4_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD5_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD6_VALUE_OUTPUT));
 		
 		var.handleMapRecord(records[2]);
 
-		outputCollector = new MockOutputCollector<Text, Text>();
-
-		records[2].serialize(outputCollector);
+		records[2].serialize(context);
 		
-		assertEquals(3, outputCollector.getKeys().size());
-		assertEquals(3, outputCollector.getValues().size());		
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD7_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD8_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD9_VALUE_OUTPUT));
 	}
 
 	@Test
 	public void testCategoricalHandleMapRecord() 
-		throws IOException
+		throws IOException, InterruptedException
 	{
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = categoricalMapRecords();
 		VariabilityMapper var = new VariabilityMapper(categoricalFields);
-		MockOutputCollector<Text, Text> outputCollector = new MockOutputCollector<Text, Text>();
 		String prefix = var.getHandlerName() + "=";
 		
 		var.handleMapRecord(records[0]);
 		
-		records[0].serialize(outputCollector);
+		records[0].serialize(context);
 		
-		assertEquals(FIELD3, outputCollector.getKeys().get(0).toString());
-		assertEquals(FIELD2, outputCollector.getKeys().get(1).toString());
-		assertEquals(FIELD1, outputCollector.getKeys().get(2).toString());
-		assertEquals(prefix + NULL_INDICATOR, outputCollector.getValues().get(0).toString());
-		assertEquals(prefix + FIELD2, outputCollector.getValues().get(1).toString());
-		assertEquals(prefix + FIELD1, outputCollector.getValues().get(2).toString());
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD1));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD2));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NULL_INDICATOR));
 
 		var.handleMapRecord(records[1]);
 		
-		outputCollector = new MockOutputCollector<Text, Text>();
+		records[1].serialize(context);
 		
-		records[1].serialize(outputCollector);
-		
-		assertEquals(3, outputCollector.getKeys().size());
-		assertEquals(3, outputCollector.getValues().size());		
-		
-		var.handleMapRecord(records[2]);
-
-		outputCollector = new MockOutputCollector<Text, Text>();
-
-		records[2].serialize(outputCollector);
-		
-		assertEquals(3, outputCollector.getKeys().size());
-		assertEquals(3, outputCollector.getValues().size());		
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD4));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD5));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD6));
 	}
 
 	
@@ -192,21 +188,21 @@ public class VariabilityMapperTests
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, NUMERIC_FIELD2_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, NUMERIC_FIELD3_VALUE);
 		
-		mapRecords[0] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[0] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Second MapRecord
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD4_VALUE);
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD5_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD6_VALUE);
 		
-		mapRecords[1] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[1] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Third MapRecord
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.numeric, FIELD7_VALUE);
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.numeric, FIELD8_VALUE);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.numeric, FIELD9_VALUE);
 		
-		mapRecords[2] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[2] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		return mapRecords;
 	}
@@ -221,21 +217,14 @@ public class VariabilityMapperTests
 		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2);
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, "");
 		
-		mapRecords[0] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[0] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		// Second MapRecord
-		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD1);
-		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2);
-		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD3);
+		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD4);
+		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD5);
+		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD6);
 		
-		mapRecords[1] = new MapRecord(fieldInstances, DELIMITER);
-		
-		// Third MapRecord
-		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD1);
-		fieldInstances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD2);
-		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD3);
-		
-		mapRecords[2] = new MapRecord(fieldInstances, DELIMITER);
+		mapRecords[1] = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 		
 		return mapRecords;
 	}

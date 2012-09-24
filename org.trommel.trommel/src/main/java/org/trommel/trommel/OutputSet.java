@@ -9,8 +9,10 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.OutputCollector;
+import org.apache.hadoop.mapreduce.MapContext;
 import org.trommel.trommel.utilities.StringUtilities;
 
 /**
@@ -115,21 +117,22 @@ public final class OutputSet
 			throw new IllegalArgumentException("Field name not recognized.");
 		}
 	}
-	
+		
 	/**
-	 * Serialize the {@link OutputSet} data in tabular form via a MapReduce {@link OutputCollector}.
+	 * Serialize the {@link OutputSet} data in tabular form via a MapReduce {@link org.apache.hadoop.mapreduce.MapContext}.
 	 * 
-	 * @param outputCollector Instance of the MapReduce OutputCollector interface to use for serialization.
-	 * @throws IllegalArgumentException Where outputCollector is null.
-	 * @throws IOException Where bubbled up from OutputCollector.
+	 * @param outputCollector Instance of the MapReduce MapContext interface to use for serialization.
+	 * @throws IllegalArgumentException Where context is null.
+	 * @throws IOException Where bubbled up from context.
+	 * @throws InterruptedException Where bubbled up from context.
 	 */
-	public void serialize(OutputCollector<Text, Text> outputCollector)
-		throws IllegalArgumentException,IOException
+	public void serialize(MapContext<LongWritable, Text, Text, Text> context)
+		throws IllegalArgumentException, IOException, InterruptedException
 	{
 		// Check for illegal input
-		if (outputCollector == null)
+		if (context == null)
 		{
-			throw new IllegalArgumentException("OutputCollector cannot be null.");
+			throw new IllegalArgumentException("MapContext cannot be null.");
 		}
 		
 		StringBuffer value = null;
@@ -153,7 +156,7 @@ public final class OutputSet
 				value.append(functionOutputs.get(functionOutputs.size() - 1).serialize());			
 	
 				// Write record to HDFS
-				outputCollector.collect(new Text(fieldName), new Text(value.toString()));
+				context.write(new Text(fieldName), new Text(value.toString()));
 			}
 		}
 	}

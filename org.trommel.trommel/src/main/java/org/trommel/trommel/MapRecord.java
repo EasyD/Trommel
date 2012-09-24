@@ -6,8 +6,10 @@ package org.trommel.trommel;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.OutputCollector;
+import org.apache.hadoop.mapreduce.MapContext;
 import org.trommel.trommel.utilities.StringUtilities;
 
 
@@ -29,32 +31,7 @@ public final class MapRecord
 	//
 	//	Getters/setters
 	//
-	
-	/**
-	 * Returns the {@link FieldType} for the passed-in {@link Field} name.
-	 * 
-	 * @param name Name of the Field.
-	 * @return The FieldType (i.e., categorical or numeric) of the Field.
-	 * @throws IllegalArgumentException Where name is null or empty. Also thrown when field name is not
-	 * recognized. All-whitespace strings are considered empty.
-	 */
-//	public FieldType getFieldType(String name)
-//		throws IllegalArgumentException
-//	{
-//		// Check for illegal input
-//		if (StringUtilities.isNullOrEmpty(name))
-//		{
-//			throw new IllegalArgumentException("Field name can't be null or empty.");			
-//		}
-//		
-//		if(!fieldInstances.containsKey(name))
-//		{
-//			throw new IllegalArgumentException("Field name " + name + " not recognized.");
-//		}
-//		
-//		return fieldInstances.get(name).getType();
-//	}
-	
+		
 	/**
 	 * Returns the current value for a {@link Field}.
 	 * 
@@ -85,7 +62,6 @@ public final class MapRecord
 	//	Constructors
 	//
 
-	
 	/**
 	 * @param fields An array of {@link Field} instances specifying the structure of the data set.
 	 * @param outputDelimiter A {@link String} denoting the characters used to delimit one {@link FunctionOutput} from another.
@@ -140,19 +116,19 @@ public final class MapRecord
 		// Delegate to contained OutputSet
 		outputSet.addFunctionOutput(fieldName, functionOutput);
 	}
-	
+		
 	/**
-	 * Serialize the MapRecord's data in tabular form via a MapReduce {@link OutputCollector} and a contained
+	 * Serialize the MapRecord's data in tabular form via a {org.apache.hadoop.mapreduce.MapContext} and a contained
 	 * {@link OutputSet}.
 	 * 
-	 * @param outputCollector Instance of the MapReduce OutputCollector interface to use for serialization.
-	 * @throws IllegalArgumentException Where outputCollector is null.
-	 * @throws IOException Where bubbled up from OutputCollector.
+	 * @param context Instance of the MapReduce MapContext to use for serialization.
+	 * @throws IllegalArgumentException Where context is null.
+	 * @throws IOException Where bubbled up from context.
+	 * @throws InterruptedException Where bubbled up from context.
 	 */
-	public void serialize(OutputCollector<Text, Text> outputCollector)
-		throws IllegalArgumentException,IOException
+	public void serialize(MapContext<LongWritable, Text, Text, Text> context)
+		throws IllegalArgumentException, IOException, InterruptedException
 	{
-		// Delegate to contained OutputSet
-		outputSet.serialize(outputCollector);
-	}	
+		outputSet.serialize(context);
+	}
 }

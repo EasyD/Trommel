@@ -7,13 +7,16 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import org.mockito.Mockito;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.MapContext;
 import org.junit.Test;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.OutputSet;
 
 //
-//Unit tests for the org.trommel.trommel.OutputSet class
+//	Unit tests for the org.trommel.trommel.OutputSet class
 //
 public class OutputSetTests 
 {
@@ -99,7 +102,7 @@ public class OutputSetTests
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testSerializeNulLCollector()
-		throws IOException
+		throws IOException, InterruptedException
 	{
 		OutputSet outputSet = newOutputSet();
 		
@@ -107,11 +110,13 @@ public class OutputSetTests
 	}
 	
 	@Test
-	public void testSerialize()
+	public void testSerialize() 
+		throws IllegalArgumentException, InterruptedException, IOException
 	{
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		OutputSet outputSet = newOutputSet();
-		MockOutputCollector<Text, Text> collector = new MockOutputCollector<Text, Text>();
-
+		
 		outputSet.addFunctionOutput(FIELD1, new FunctionOutput("Func1", "Output1.1"));
 		outputSet.addFunctionOutput(FIELD2, new FunctionOutput("Func2", "Output2"));
 		outputSet.addFunctionOutput(FIELD3, new FunctionOutput("Func3", "Output3"));
@@ -119,18 +124,16 @@ public class OutputSetTests
 		
 		try
 		{
-			outputSet.serialize(collector);
+			outputSet.serialize(context);
 		}
 		catch(IOException e)
 		{
 			fail("IOException thrown");
 		}
 		
-		assertEquals(3, collector.getKeys().size());
-		assertEquals(3, collector.getValues().size());
-		
-		assertEquals(true, collector.getKeys().contains(new Text(FIELD2)));
-		assertEquals(true, collector.getValues().contains(new Text("Func1=Output1.1" + DELIMITER + "Func2=Output1.2")));
+		Mockito.verify(context).write(new Text(FIELD1), new Text("Func1=Output1.1*|*Func2=Output1.2"));
+		Mockito.verify(context).write(new Text(FIELD2), new Text("Func2=Output2"));
+		Mockito.verify(context).write(new Text(FIELD3), new Text("Func3=Output3"));
 	}
 	
 	

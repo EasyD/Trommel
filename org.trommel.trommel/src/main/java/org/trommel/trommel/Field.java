@@ -22,7 +22,6 @@ public class Field
 	//
 	protected String name;
 	protected FieldType fieldType;
-//	private String value;
 	
 	
 	//
