@@ -44,6 +44,7 @@ public class MaxMapperTests
 	private static final String FIELD5_VALUE = "25.0";
 	private static final String FIELD6_VALUE = "35.0";
 
+	
 	//
 	//	Private members
 	//

@@ -3,15 +3,12 @@
  */
 package org.trommel.trommel.functions;
 
-import java.util.LinkedList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.TreeMap;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.ReduceRecordHandler;
-import org.trommel.trommel.utilities.Counter;
+
 
 /**
  *	For the Map phase find the interstitial linearity for a {@link org.trommel.trommel.Field} as as a value ranging from 0.0 
@@ -32,19 +29,21 @@ public class LinearityReducer implements ReduceRecordHandler
 	//
 	private FieldType fieldType; 
 	private int recordCount = 0;
-	private TreeMap<Double, Counter> values = null;
+	private SimpleRegression regression = null;
+	private Double previousValue = null;
 	private HashMap<String, Integer> discoveredValues = null; 
 	
-	
+		
 	//
 	//	Getters/setters
 	//
 	
 	/**
-	 * Return the current calculation of {@link org.trommel.trommel.Field} variability.
+	 * Return the current calculation of {@link org.trommel.trommel.Field} interstitial linerarity.
 	 * 
-	 * @return The current variability calculation as a {@link java.lang.String}. A value of "-1.0" indicates
-	 * that random sampling failed to produce any records for processing.
+	 * @return The current interstitial linearity calculation as a {@link java.lang.String}. A value of "-1.0" indicates
+	 * that random sampling failed to produce any records for processing, while a value of "NaN" indicates not enough
+	 * data points were processed to produce a calculation.
 	 */
 	public String getReduceResult()
 	{
@@ -56,17 +55,8 @@ public class LinearityReducer implements ReduceRecordHandler
 		
 		if (fieldType == FieldType.numeric)
 		{
-			// Get interstitial differences
-			LinkedList<Double> differences = interstitialDifferences();
-			LinkedList<Double> summations = performSummations(differences);
-			double slopeOfRegressionLine = regressionLineSlope(differences, summations.get(0));
-			double observationStandardDeviation = Math.sqrt(((differences.size() * summations.get(3)) - (summations.get(2) * summations.get(2))) / 
-                                                             (differences.size() * (differences.size() - 1)));
-			double differencesStandardDeviation = Math.sqrt(((differences.size() * summations.get(1)) - (summations.get(0) * summations.get(0))) / 
-                                                             (differences.size() * (differences.size() - 1)));
-			
-			// Return the absolute value of the correlation coefficient for the interstitial differences
-			return Double.toString(Math.abs(((slopeOfRegressionLine * observationStandardDeviation) / differencesStandardDeviation)));
+			// Return the absolute value of the Pearson's correlation coefficient for the interstitial differences
+			return Double.toString(Math.abs(regression.getR()));
 		}
 		else
 		{
@@ -81,9 +71,6 @@ public class LinearityReducer implements ReduceRecordHandler
 	//
 	
 	/**
-	 * Construct a LinearityReducer. In the case of numeric instances a default random sample rate of 
-	 * 10% will be used.
-	 * 
 	 * @param fieldType Specifies if LinearityReducer is processing numeric or categorical data.
 	 */
 	public LinearityReducer(FieldType fieldType)
@@ -92,7 +79,7 @@ public class LinearityReducer implements ReduceRecordHandler
 		
 		if (this.fieldType == FieldType.numeric)
 		{
-			values = new TreeMap<Double, Counter>();
+			regression = new SimpleRegression();
 		}
 		else
 		{
@@ -120,22 +107,17 @@ public class LinearityReducer implements ReduceRecordHandler
 
 			if (fieldType == FieldType.numeric)
 			{
-				Double value = new Double(record.get(FUNCTION_NAME));
+				Double currentValue = new Double(record.get(FUNCTION_NAME));
 
-				if (values.containsKey(value))
+				// Only add intersitial differences to the SimpleRegression instance
+				if (recordCount > 1)
 				{
-					// Duplicate value, increment count
-					values.get(value).increment();
-				}
-				else
-				{
-					// New value, add it to TreeMap
-					Counter counter = new Counter();
+					double temp = currentValue - previousValue;
 					
-					counter.increment();
-					
-					values.put(value, counter);
+					regression.addData(recordCount - 1, temp);
 				}
+				
+				previousValue = currentValue;
 			}
 			else
 			{
@@ -147,93 +129,4 @@ public class LinearityReducer implements ReduceRecordHandler
 			}
 		}
 	}
-	
-	
-	//
-	//	Private/helper methods
-	//
-	
-	private LinkedList<Double> interstitialDifferences()
-	{
-		// Create queue of interstitial differences
-		Iterator<Double> iterator = values.keySet().iterator();
-		LinkedList<Double> differences = new LinkedList<Double>();
-		double previousValue = iterator.next().doubleValue();
-		
-		while (iterator.hasNext())
-		{
-			Double currentValue = iterator.next();
-			int count = values.get(currentValue).getCount();
-			
-			for (int i = 0; i < count; ++i)
-			{
-				double temp = currentValue.doubleValue();
-				
-				differences.addLast(temp - previousValue);
-				
-				previousValue = temp;
-			}
-		}	
-		
-		return differences;
-	}
-	
-	private LinkedList<Double> performSummations(LinkedList<Double> differences)
-	{	
-		//	Perform various mathematical sums to make later calculations easier
-		LinkedList<Double> summations = new LinkedList<Double>();
-		ListIterator<Double> iterator = differences.listIterator();
-		double sumOfDifferences = 0.0;
-		double sumOfSquaredDifferences = 0.0;
-		double differencesCount = differences.size();
-		
-		while (iterator.hasNext())
-		{
-			double difference = iterator.next().doubleValue();
-			
-			sumOfDifferences += difference;
-			sumOfSquaredDifferences += (difference * difference);
-		}
-
-		// Add sum of the insterstitial differences to list
-		summations.addLast(sumOfDifferences);
-
-		// Add sum of the squared interstitial differences to list
-		summations.addLast(sumOfSquaredDifferences);
-		
-		// Each difference in the list is an "observation" (i.e., an X value), add the 
-		// summation of the X values
-		double sumOfDifferencesCount = ((differencesCount * (differencesCount + 1)) / 2);
-		
-		summations.addLast(sumOfDifferencesCount);
-		
-		// Add the summation of the squared observation values
-		summations.addLast(sumOfDifferencesCount * (((2 * differencesCount) + 1 ) / 3));
-		
-		return summations;
-	}
-
-	private double regressionLineSlope(LinkedList<Double> differences, double sumOfDifferences)
-	{
-		// Calculate the slope of the regression line for the interstitial differences
-		ListIterator<Double> iterator = differences.listIterator();
-		double meanOfDifferences = sumOfDifferences / differences.size();
-		double meanOfObservations = ((double)differences.size() + 1) / 2;
-		int observation = 1;
-		double slopeNumerator = 0.0;
-//		double slopeDenominator = (differences.size() * sumOfSquaredObervations) - (sumOfObservations * sumOfObservations);
-		double slopeDenominator = 0.0;
-		
-		while(iterator.hasNext())
-		{
-			double difference = iterator.next().doubleValue();
-			
-			slopeNumerator += (observation - meanOfObservations) * (difference - meanOfDifferences);
-			slopeDenominator += (observation - meanOfObservations) * (observation - meanOfObservations);
-			
-			++observation;
-		}
-		
-		return slopeNumerator / slopeDenominator;
-	}	
 }

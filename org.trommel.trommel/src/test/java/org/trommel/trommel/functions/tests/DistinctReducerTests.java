@@ -15,6 +15,7 @@ import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.functions.DistinctReducer;
 
+
 //
 //	Unit tests for the org.trommel.trommel.functions.DistinctReducer class
 //

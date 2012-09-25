@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapreduce.MapContext;
 import org.trommel.trommel.utilities.StringUtilities;
 
+
 /**
  *	Implementation of the Record Set pattern. Represents the tabular output of Trommel's processing of a single record in a data set and
- *	serializing each row via a Hadoop {@link OutputCollector}. Example default serialized output.<br><br>
+ *	serializing each row via a Hadoop {@link org.apache.hadoop.mapreduce.MapContext}. Example serialized output.<br><br>
  *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Field1 Max=42||Min=43||etc...<br>
  *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Field2 Max=7||Min=134||etc...<br>
  *  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Field3 Max=6785||Min=567||etc...<br>
@@ -43,7 +43,7 @@ public final class OutputSet
 	
 	/**
 	 * @param fieldNames The names of {@link Field} instances for which {@link FunctionOutput} instances can be collected.
-	 * @param outputDelimiter String value used to delimit one serialized FunctionOutput instance from another.
+	 * @param outputDelimiter {@link java.lang.String} value used to delimit one serialized FunctionOutput instance from another.
 	 * @exception IllegalArgumentException Where fieldNames' length is 0 or contains a null/empty string. 
 	 * All-whitespace strings are considered empty.
 	 */
@@ -81,15 +81,16 @@ public final class OutputSet
 		this.outputDelimiter = outputDelimiter;
 	}
 
+	
 	//
 	//	Public methods
 	//
 	
 	/**
-	 * Add the results of a {@link org.trommel.trommel.functions.Function} instance's processing for a {@link Field} in the {@link OutputSet}.
+	 * Add the results of a {@link MapRecordHandler} instance's processing for a {@link Field} in the {@link OutputSet}.
 	 * 
 	 * @param fieldName Name of the Field that was processed by the Function.
-	 * @param functionOutput The results of the Function's processing for the Field.
+	 * @param functionOutput The results of the MapRecordHandler's processing for the Field.
 	 * @throws IllegalArgumentException Where fieldName is null or empty or does not match any of the OutputSet's Fields.
 	 * Also thrown when functionOutput is null. All-whitespace strings are considered empty.
 	 */
@@ -121,7 +122,7 @@ public final class OutputSet
 	/**
 	 * Serialize the {@link OutputSet} data in tabular form via a MapReduce {@link org.apache.hadoop.mapreduce.MapContext}.
 	 * 
-	 * @param outputCollector Instance of the MapReduce MapContext interface to use for serialization.
+	 * @param context Instance of the MapReduce MapContext interface to use for serialization.
 	 * @throws IllegalArgumentException Where context is null.
 	 * @throws IOException Where bubbled up from context.
 	 * @throws InterruptedException Where bubbled up from context.

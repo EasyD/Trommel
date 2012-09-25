@@ -49,6 +49,7 @@ public class DistinctMapperTests
 	private static final String FIELD8_VALUE = "20.0";
 	private static final String FIELD9_VALUE = "30.0";
 
+	
 	//
 	//	Private members
 	//

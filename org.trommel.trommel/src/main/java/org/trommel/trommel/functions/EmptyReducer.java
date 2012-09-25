@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import org.trommel.trommel.ReduceRecordHandler;
 
+
 /**
  *	Execute the Reduce phase for the count of empty values for a {@link org.trommel.trommel.Field}.
  */

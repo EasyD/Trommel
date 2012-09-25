@@ -12,8 +12,9 @@ import java.util.List;
 import org.junit.Test;
 import org.trommel.trommel.functions.EmptyReducer;
 
+
 //
-//	Unit tests for the org.trommel.trommel.functions.EmptyMapper class
+//	Unit tests for the org.trommel.trommel.functions.EmptyReducer class
 //
 public class EmptyReducerTests 
 {

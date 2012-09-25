@@ -8,8 +8,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.trommel.trommel.FunctionOutput;
 
+
 //
-//Unit tests for the org.trommel.trommel.FunctionOutput class
+//	Unit tests for the org.trommel.trommel.FunctionOutput class
 //
 public class FunctionOutputTests 
 {

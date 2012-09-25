@@ -9,6 +9,7 @@ import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 
+
 /**
  *	Execute the Map phase for finding the count of distinct values for a {@link org.trommel.trommel.Field}.
  */
@@ -85,5 +86,4 @@ public class DistinctMapper extends Function
 			}			
 		}
 	}
-
 }

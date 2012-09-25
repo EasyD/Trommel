@@ -5,12 +5,13 @@
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
-	<classpathentry kind="lib" path="/usr/local/hadoop/hadoop-core-0.20.2-cdh3u3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/usr/local/hadoop/lib/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="lib" path="/usr/local/hadoop/lib/guava-r09-jarjar.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/usr/local/hadoop/contrib/mrunit/hadoop-mrunit-0.20.2-cdh3u3.jar"/>
-	<classpathentry kind="lib" path="/usr/local/hadoop/lib/mockito-all-1.8.2.jar"/>
+	<classpathentry kind="lib" path="/Users/Dave/git/org.trommel.trommel/org.trommel.trommel/lib/mockito-all-1.8.2.jar"/>
+	<classpathentry kind="lib" path="/Users/Dave/git/org.trommel.trommel/org.trommel.trommel/lib/hadoop-mrunit-0.20.2-cdh3u3.jar"/>
+	<classpathentry kind="lib" path="/Users/Dave/git/org.trommel.trommel/org.trommel.trommel/lib/hadoop-core-0.20.2-cdh3u3.jar"/>
+	<classpathentry kind="lib" path="/Users/Dave/git/org.trommel.trommel/org.trommel.trommel/lib/guava-r09-jarjar.jar"/>
+	<classpathentry kind="lib" path="/Users/Dave/git/org.trommel.trommel/org.trommel.trommel/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/Dave/git/org.trommel.trommel/org.trommel.trommel/lib/commons-math3-3.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

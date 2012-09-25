@@ -8,8 +8,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.trommel.trommel.utilities.StringUtilities;
 
+
 //
-//Unit tests for the org.trommel.trommel.Field class
+//	Unit tests for the org.trommel.trommel.Field class
 //
 public class StringUtilitiesTests 
 {

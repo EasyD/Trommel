@@ -5,8 +5,9 @@ package org.trommel.trommel;
 
 import org.trommel.trommel.utilities.StringUtilities;
 
+
 /**
- * The representation of a field instance (i.e., a column value) in a data set to be processed by Trommel.
+ * The representation of a {@link Field} instance (i.e., a column value) in a data set to be processed by Trommel.
  */
 public final class FieldInstance extends Field
 {
@@ -21,7 +22,7 @@ public final class FieldInstance extends Field
 	//
 	
 	/**
-	 * @return The FieldInstances's current value as a {@link String}.
+	 * @return The FieldInstances's current value as a {@link java.lang.String}.
 	 */
 	public String getValue() 
 	{
@@ -29,7 +30,7 @@ public final class FieldInstance extends Field
 	}
 
 	/**
-	 * @param value The FieldInstances's value as a {@link String}.
+	 * @param value The FieldInstances's value as a {@link java.lang.String}.
 	 * @exception IllegalArgumentException Where value is a non-numeric string when the FieldInstance is 
 	 * specified as numeric.
 	 */

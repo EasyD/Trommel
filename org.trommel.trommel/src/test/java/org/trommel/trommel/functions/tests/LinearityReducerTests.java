@@ -23,7 +23,6 @@ public class LinearityReducerTests
 	//
 	private static final String FUNCTION_NAME = "Linearity";
 	
-	
 	// Field values
 	private static final String ROW1_NUMERIC_VALUE = "12";
 	private static final String ROW2_NUMERIC_VALUE = "5";
@@ -55,7 +54,7 @@ public class LinearityReducerTests
 			lin.handleReduceRecord(record);
 		}
 		
-		assertEquals("0.12461119656980668", lin.getReduceResult());
+		assertEquals("0.4506794119054832", lin.getReduceResult());
 	}
 
 	
@@ -159,7 +158,6 @@ public class LinearityReducerTests
 				
 		return records;
 	}	
-	
 	
 	private List<HashMap<String,String>> noReduceRecords()
 	{

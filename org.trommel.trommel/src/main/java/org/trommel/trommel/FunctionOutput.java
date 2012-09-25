@@ -5,8 +5,9 @@ package org.trommel.trommel;
 
 import org.trommel.trommel.utilities.StringUtilities;
 
+
 /**
- *	Simple data objects that stores a single result of a Trommel function's invocation.
+ *	Simple Data Transfer Object (DTO) that stores a single result of a Trommel function's invocation.
  */
 public final class FunctionOutput 
 {

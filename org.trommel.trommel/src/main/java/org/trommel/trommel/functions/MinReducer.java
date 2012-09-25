@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import org.trommel.trommel.ReduceRecordHandler;
 
+
 /**
  *	For the Reduce phase find the minimum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
  */
@@ -21,7 +22,6 @@ public class MinReducer implements ReduceRecordHandler
 	//
 	//	Private members
 	//
-
 	private double minValue = Double.MAX_VALUE;
 	
 	
@@ -40,7 +40,6 @@ public class MinReducer implements ReduceRecordHandler
 	}
 
 	
-	
 	//
 	//	Public methods
 	//
@@ -49,7 +48,7 @@ public class MinReducer implements ReduceRecordHandler
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
 	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
-	 * @throws NumberFormatException Where a {@link org.trommel.trommel.Field} value is not numeric.
+	 * @throws NumberFormatException Where a numeric {@link org.trommel.trommel.Field} value is not numeric.
 	 */
 	public void handleReduceRecord(HashMap<String, String> record) 
 		throws NumberFormatException

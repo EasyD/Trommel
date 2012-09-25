@@ -5,6 +5,7 @@ package org.trommel.trommel;
 
 import java.util.HashMap;
 
+
 /**
  * The interface for all Trommel constructs (i.e., Functions and Data Reporters) that process
  * records during the Reduce phase.

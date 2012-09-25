@@ -9,8 +9,9 @@ import org.trommel.trommel.FieldType;
 import org.trommel.trommel.functions.Function;
 import org.trommel.trommel.functions.MaxMapper;
 
+
 //
-//	Unit tests for the org.trommel.trommel.functions.Funciton class
+//	Unit tests for the org.trommel.trommel.functions.Function class
 //
 public class FunctionTests 
 {

@@ -9,6 +9,7 @@ import org.trommel.trommel.MapRecord;
 
 /**
  *	For Map phase, find the maximum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
+ *	The MaxMapper class ignores categorical Fields (i.e., they are not written as Map phase output).
  */
 public class MaxMapper extends Function 
 {
@@ -39,7 +40,7 @@ public class MaxMapper extends Function
 	
 	/**
 	 * @param fields The numeric {@link org.trommel.trommel.Field} instances for which Max values will be calculated.
-	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
+	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the Fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
 	public MaxMapper(Field[] fields)

@@ -56,7 +56,7 @@ public class LinearityMapper extends Function
 	 * Construct a LinearityMapper with a default random sample rate of approximately 10% for numeric fields.
 	 * 
 	 * @param fields The {@link org.trommel.trommel.Field} instances for which linearity will be calculated.
-	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
+	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the Fields
 	 * are null or empty.
 	 */
 	public LinearityMapper(Field[] fields)
@@ -82,7 +82,7 @@ public class LinearityMapper extends Function
 		// Check for illegal input
 		if (sampleRate < 1 || sampleRate > 100)
 		{
-			throw new IllegalArgumentException("Linearity sample rate of " + Integer.toString(sampleRate) + " is not in range of 1-100.");
+			throw new IllegalArgumentException("Linearity sample rate of " + Integer.toString(sampleRate) + " is not in range of 1-100, inclusive.");
 		}	
 		
 		this.sampleRate = sampleRate;

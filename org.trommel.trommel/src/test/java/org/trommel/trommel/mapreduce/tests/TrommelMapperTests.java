@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.trommel.trommel.interpreters.MapInterpreter;
 import org.trommel.trommel.mapreduce.TrommelMapper;
 
+
 //
 //	Unit tests for the org.trommel.trommel.mapreduce.TrommelMapper class
 //
@@ -40,6 +41,7 @@ public class TrommelMapperTests
 		
 		mapDriver = new MapDriver<LongWritable, Text, Text, Text>(mapper);
 	}
+	
 	
 	//
 	//	Tests

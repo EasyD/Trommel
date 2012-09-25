@@ -3,6 +3,7 @@
  */
 package org.trommel.trommel.utilities;
 
+
 /**
  *	Utility class hosting a collection of handy methods for working/validating string objects.
  */

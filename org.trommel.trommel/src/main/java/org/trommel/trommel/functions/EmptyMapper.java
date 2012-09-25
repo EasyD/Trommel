@@ -8,6 +8,7 @@ import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.utilities.StringUtilities;
 
+
 /**
  *	Execute the Map phase for the count of empty values for a {@link org.trommel.trommel.Field}.
  */

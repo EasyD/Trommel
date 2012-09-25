@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 
+
 //
 //	Unit tests for the org.trommel.trommel.Field class
 //
@@ -20,6 +21,7 @@ public class FieldInstanceTests
 	private static final String NAME = "Name";
 	private static final String CATEGORICAL_VALUE = "Value";
 
+	
 	//
 	//	Tests
 	//
@@ -64,6 +66,7 @@ public class FieldInstanceTests
 		assertEquals(CATEGORICAL_VALUE, fieldInstance.getValue());
 	}
 
+	
 	//
 	//	Private/helper methods
 	//

@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.Test;
 import org.trommel.trommel.functions.MinReducer;
 
+
 //
 //	Unit tests for the org.trommel.trommel.functions.MinReducer class
 //

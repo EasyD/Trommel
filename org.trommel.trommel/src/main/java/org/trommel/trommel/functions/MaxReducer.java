@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import org.trommel.trommel.ReduceRecordHandler;
 
+
 /**
  *	For Reduce phase, find the maximum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
  */
@@ -47,7 +48,7 @@ public class MaxReducer implements ReduceRecordHandler
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
 	 * @param record {@link java.util.HashMap} of parsed data in the form of <"FunctionName", "OutputValue">.
-	 * @throws NumberFormatException Where a {@link org.trommel.trommel.Field} value is not numeric.
+	 * @throws NumberFormatException Where a numeric {@link org.trommel.trommel.Field} value is not numeric.
 	 */
 	public void handleReduceRecord(HashMap<String, String> record) 
 		throws NumberFormatException

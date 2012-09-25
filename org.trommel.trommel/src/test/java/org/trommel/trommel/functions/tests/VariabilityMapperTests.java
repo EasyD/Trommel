@@ -42,27 +42,19 @@ public class VariabilityMapperTests
 
 	// First row numeric values
 	private static final String NUMERIC_FIELD1_VALUE = "15.0";
-	private static final String NUMERIC_FIELD1_VALUE_OUTPUT = "15.0:225.0";
 	private static final String NUMERIC_FIELD2_VALUE = "20.0";
-	private static final String NUMERIC_FIELD2_VALUE_OUTPUT = "20.0:400.0";
 	private static final String NUMERIC_FIELD3_VALUE = "";
-	private static final String NUMERIC_FIELD3_VALUE_OUTPUT = "0:0";
+	private static final String NUMERIC_FIELD3_VALUE_OUTPUT = "0";
 
 	//	Second row numeric values
 	private static final String FIELD4_VALUE = "10.0";
-	private static final String NUMERIC_FIELD4_VALUE_OUTPUT = "10.0:100.0";
 	private static final String FIELD5_VALUE = "25.0";
-	private static final String NUMERIC_FIELD5_VALUE_OUTPUT = "25.0:625.0";
 	private static final String FIELD6_VALUE = "35.0";
-	private static final String NUMERIC_FIELD6_VALUE_OUTPUT = "35.0:1225.0";
 
 	//	Third row numeric values
 	private static final String FIELD7_VALUE = "11.0";
-	private static final String NUMERIC_FIELD7_VALUE_OUTPUT = "11.0:121.0";
 	private static final String FIELD8_VALUE = "22.0";
-	private static final String NUMERIC_FIELD8_VALUE_OUTPUT = "22.0:484.0";
 	private static final String FIELD9_VALUE = "39.0";
-	private static final String NUMERIC_FIELD9_VALUE_OUTPUT = "39.0:1521.0";
 
 	
 	//
@@ -125,25 +117,25 @@ public class VariabilityMapperTests
 		
 		records[0].serialize(context);
 		
-		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD1_VALUE_OUTPUT));
-		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD2_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD1_VALUE));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD2_VALUE));
 		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD3_VALUE_OUTPUT));
 
 		var.handleMapRecord(records[1]);
 		
 		records[1].serialize(context);
 		
-		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD4_VALUE_OUTPUT));
-		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD5_VALUE_OUTPUT));
-		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD6_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD4_VALUE));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD5_VALUE));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD6_VALUE));
 		
 		var.handleMapRecord(records[2]);
 
 		records[2].serialize(context);
 		
-		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD7_VALUE_OUTPUT));
-		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD8_VALUE_OUTPUT));
-		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD9_VALUE_OUTPUT));
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD7_VALUE));
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD8_VALUE));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD9_VALUE));
 	}
 
 	@Test

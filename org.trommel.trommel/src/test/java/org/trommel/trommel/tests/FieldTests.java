@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
 
+
 //
 //	Unit tests for the org.trommel.trommel.Field class
 //
@@ -95,6 +96,7 @@ public class FieldTests
 		assertEquals(true, field.isNumeric());
 	}
 		
+	
 	//
 	//	Private/helper methods
 	//

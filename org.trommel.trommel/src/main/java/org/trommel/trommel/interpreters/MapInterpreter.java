@@ -18,6 +18,7 @@ import org.trommel.trommel.functions.DistinctMapper;
 import org.trommel.trommel.functions.MaxMapper;
 import org.trommel.trommel.functions.MinMapper;
 
+
 /**
  *	The SableCC Visitor for interpreting the TrommelScript AST for the Map phase of processing.
  */
@@ -41,6 +42,11 @@ public class MapInterpreter
 	//	Public methods
 	//
 	
+	/**
+	 * @param value
+	 * @return
+	 * @throws ParseException
+	 */
 	public MapRecord handleRecord(Text value)
 		throws ParseException
 	{

@@ -18,6 +18,7 @@ import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.interpreters.MapInterpreter;
 
+
 //
 //	Unit tests for the org.trommel.trommel.MapRecord class
 //

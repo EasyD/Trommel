@@ -6,8 +6,9 @@ package org.trommel.trommel.functions;
 import org.trommel.trommel.MapRecordHandler;
 import org.trommel.trommel.Field;
 
+
 /**
- *	Abstract base class for all Trommel functions.
+ *	Abstract base class for Trommel functions.
  */
 public abstract class Function implements MapRecordHandler 
 {

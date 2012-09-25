@@ -7,8 +7,10 @@ import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 
+
 /**
  *	For the Map phase find the minimum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
+ *	The MinMapper class ignores categorical Fields (i.e., they are not written as Map phase output).
  */
 public class MinMapper extends Function 
 {
@@ -39,7 +41,7 @@ public class MinMapper extends Function
 	
 	/**
 	 * @param fields The numeric {@link org.trommel.trommel.Field} instances for which Min values will be calculated.
-	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
+	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the Fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
 	public MinMapper(Field [] fields)

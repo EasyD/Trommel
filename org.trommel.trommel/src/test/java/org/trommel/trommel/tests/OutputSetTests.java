@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.OutputSet;
 
+
 //
 //	Unit tests for the org.trommel.trommel.OutputSet class
 //

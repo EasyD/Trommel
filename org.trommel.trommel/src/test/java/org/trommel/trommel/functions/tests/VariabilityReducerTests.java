@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.functions.VariabilityReducer;
 
+
 //
 //	Unit tests for the org.trommel.trommel.functions.VariabilityReducer class
 //
@@ -24,12 +25,12 @@ public class VariabilityReducerTests
 	private static final String FUNCTION_NAME = "Variability";
 	
 	// Field values
-	private static final String ROW1_NUMERIC_VALUE = "12:144";
-	private static final String ROW2_NUMERIC_VALUE = "5:25";
-	private static final String ROW3_NUMERIC_VALUE = "16:256";
-	private static final String ROW4_NUMERIC_VALUE = "17:289";
-	private static final String ROW5_NUMERIC_VALUE = "18:324";
-	private static final String ROW6_NUMERIC_VALUE = "29:841";
+	private static final String ROW1_NUMERIC_VALUE = "12";
+	private static final String ROW2_NUMERIC_VALUE = "5";
+	private static final String ROW3_NUMERIC_VALUE = "16";
+	private static final String ROW4_NUMERIC_VALUE = "17";
+	private static final String ROW5_NUMERIC_VALUE = "18";
+	private static final String ROW6_NUMERIC_VALUE = "29";
 
 
 	//
@@ -80,7 +81,7 @@ public class VariabilityReducerTests
 	{
 		ArrayList<HashMap<String,String>> records = new ArrayList<HashMap<String, String>>();
 		
-		// Add nine records
+		// Add six records
 		records.add(0, new HashMap<String, String>());
 		records.get(0).put(FUNCTION_NAME, ROW1_NUMERIC_VALUE);
 				

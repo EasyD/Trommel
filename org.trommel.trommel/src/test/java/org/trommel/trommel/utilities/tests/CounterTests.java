@@ -9,11 +9,14 @@ import org.junit.Test;
 import org.trommel.trommel.utilities.Counter;
 
 //
-//	Unit tests for the org.trommel.trommel.reporting.FrequencyCount class
+//	Unit tests for the org.trommel.trommel.reporting.Counter class
 //
 public class CounterTests 
 {
-
+	//
+	//	Tests
+	//
+	
 	@Test
 	public void testGetCountAndIncrement()
 	{
@@ -27,7 +30,6 @@ public class CounterTests
 		assertEquals(4, counter.getCount());
 	}
 
-	
 	@Test
 	public void testToString()
 	{

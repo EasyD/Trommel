@@ -17,7 +17,7 @@ import org.trommel.trommel.utilities.StringUtilities;
  * Simplistic variant of the Unit of Work pattern. Represents all input data, and resulting 
  * output data, for Trommel's Map phase processing of a single record from the data set. 
  * Provides interface for serializing Map phase output data into a tabular form via a 
- * MapReduce {@link OutputCollector} and a contained {@link OutputSet} class.
+ * MapReduce {@link org.apache.hadoop.mapreduce.MapContext} and a contained {@link OutputSet} class.
  */
 public final class MapRecord
 {
@@ -36,7 +36,7 @@ public final class MapRecord
 	 * Returns the current value for a {@link Field}.
 	 * 
 	 * @param name Name of the Field.
-	 * @return The current value for the Field as a {@link String}.
+	 * @return The current value for the Field as a {@link java.lang.String}.
 	 * @throws IllegalArgumentException Where name is null or empty. Also thrown when field name is not
 	 * recognized. All-whitespace strings are considered empty.
 	 */
@@ -64,7 +64,7 @@ public final class MapRecord
 
 	/**
 	 * @param fields An array of {@link Field} instances specifying the structure of the data set.
-	 * @param outputDelimiter A {@link String} denoting the characters used to delimit one {@link FunctionOutput} from another.
+	 * @param outputDelimiter A {@link java.lang.String} denoting the characters used to delimit one {@link FunctionOutput} from another.
 	 * @throws IllegalArgumentException Where the fields array is null or empty. Also thrown if outputDelimiter 
 	 * is null or an empty string. All-whitespace strings are considered empty.
 	 */
@@ -103,10 +103,10 @@ public final class MapRecord
 	//
 	
 	/**
-	 * Add the results of a Function's processing for a {@link Field} in the MapRecord's {@link OutputSet}.
+	 * Add the results of a {@link MapRecordHandler} instance's processing for a {@link Field} in the MapRecord's {@link OutputSet}.
 	 * 
-	 * @param fieldName Name of the Field that was processed by the {@link org.trommel.trommel.functions.Function}.
-	 * @param functionOutput The results of the Function's processing for the Field.
+	 * @param fieldName Name of the Field that was processed by the {@link MapRecordHandler}.
+	 * @param functionOutput The results of the MapRecordHandler's processing for the Field.
 	 * @throws IllegalArgumentException Where fieldName is null or empty or does not match any of the OutputSet's Fields.
 	 * Also thrown when functionOutput is null. All-whitespace strings are considered empty.
 	 */

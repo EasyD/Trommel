@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 import org.trommel.trommel.utilities.StringUtilities;
 
+
 /**
- * A {@link FieldParser} implementation that parses fields based on simple string delimiters. Be default,
+ * A {@link FieldParser} implementation that parses fields based on simple string delimiters. By default,
  * class parses using a tab delimiter.
  */
 public class SimpleFieldParser implements FieldParser 
@@ -57,7 +58,7 @@ public class SimpleFieldParser implements FieldParser
 	 * Parse field values from a record of raw data read from the data set. 
 	 * 
 	 * @param record One record's worth of raw data read from the data set.
-	 * @return Parsed field values.
+	 * @return Parsed field values as {@link java.lang.String} array.
 	 * @throws IllegalArgumentException Where record is null or empty. All-whitespace strings are considered
 	 * empty.
 	 */

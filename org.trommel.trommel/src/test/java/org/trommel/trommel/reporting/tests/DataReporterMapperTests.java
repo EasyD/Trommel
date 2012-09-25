@@ -3,26 +3,23 @@
  */
 package org.trommel.trommel.reporting.tests;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
-import java.util.HashMap;
 
-import org.mockito.Mockito;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.MapContext;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
-import org.trommel.trommel.reporting.DataReporter;
+import org.trommel.trommel.reporting.DataReporterMapper;
 
 
 //
-//	Unit tests for the org.trommel.trommel.reporting.DataReporter class
+//	Unit tests for the org.trommel.trommel.reporting.DataReporterMapper class
 //
-public class DataReporterTests 
+public class DataReporterMapperTests 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -44,7 +41,7 @@ public class DataReporterTests
 	public void testConstructorNullField() 
 	{
 		@SuppressWarnings("unused")
-		DataReporter reporter = new DataReporter(null);
+		DataReporterMapper reporter = new DataReporterMapper(null);
 	}
 	
 	@Test
@@ -54,7 +51,7 @@ public class DataReporterTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord record = mapRecord();
-		DataReporter reporter = new DataReporter(FIELD1);
+		DataReporterMapper reporter = new DataReporterMapper(FIELD1);
 		String prefix = reporter.getHandlerName() + "=";
 		
 		reporter.handleMapRecord(record);
@@ -62,23 +59,6 @@ public class DataReporterTests
 		record.serialize(context);
 		
 		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD1_VALUE1));
-	}
-	
-	@Test
-	public void testGetReduceResult() 
-	{
-		DataReporter reporter = new DataReporter(FIELD1);
-		String header = "FIELD\tCONTENT\tCOUNT\n";
-		String line1 = FIELD1 + "\t" + FIELD1_VALUE1 + "\t3\n";
-		
-		reporter.handleReduceRecord(reduceRecord());
-		reporter.handleReduceRecord(reduceRecord());
-		reporter.handleReduceRecord(reduceRecord());
-
-		String reduceValue = reporter.getReduceResult();
-		
-		assertTrue(reduceValue.contains(header));
-		assertTrue(reduceValue.contains(line1));
 	}
 
 
@@ -94,17 +74,5 @@ public class DataReporterTests
 		fieldInstances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD3_VALUE1);
 		
 		return new MapRecord(fieldInstances, DELIMITER);
-	}
-	
-	private HashMap<String, String> reduceRecord()
-	{
-		HashMap<String, String> record = new HashMap<String, String>();
-
-		record.put("Foo", "FooValue");
-		record.put("Bar", "BarValue");
-		record.put("DataReporter", FIELD1_VALUE1);
-		record.put("FooBar", "FooBarValue");
-		
-		return record;
 	}
 }

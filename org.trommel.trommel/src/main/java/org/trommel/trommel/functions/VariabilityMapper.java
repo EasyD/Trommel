@@ -8,9 +8,12 @@ import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.utilities.StringUtilities;
 
+
 /**
  *	For the Map phase find the variability for a {@link org.trommel.trommel.Field} as the sample 
  *	standard deviation for numeric Fields and the Rate of Discovery (ROD) for categorical Fields.
+ *	Missing values are treated as zeroes for numeric fields and null values for categorical Fields
+ * 	for the purposes of calculation.
  */
 public class VariabilityMapper extends Function 
 {
@@ -18,7 +21,6 @@ public class VariabilityMapper extends Function
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String FUNCTION_NAME = "Variability";
-	private static final String DELIMITER = ":";
 	private static final String NULL_INDICATOR = "null";
 
 
@@ -80,23 +82,12 @@ public class VariabilityMapper extends Function
 				// Variability is sample standard deviation for numeric fields
 				if (StringUtilities.isNullOrEmpty(fieldValue))
 				{
-					// Write out zeroes for null/empty fields
-					String output = "0" + DELIMITER + "0";
-					
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, output));
+					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, "0"));
 				}
 				else
 				{
-					// Write out the value and the square of the value using a class-specific delimiter
-					double numericValue = Double.parseDouble(fieldValue);
-					StringBuffer buffer = new StringBuffer();
-					
-					buffer.append(numericValue);
-					buffer.append(DELIMITER);
-					buffer.append(numericValue * numericValue);
-					
-					// Write out the value and the square of the value
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, buffer.toString()));
+					// Write out the value 
+					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
 				}
 			}
 			else

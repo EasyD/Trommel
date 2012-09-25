@@ -9,13 +9,14 @@ import org.trommel.trommel.SimpleFieldParser;
 
 
 //
-//Unit tests for the org.trommel.trommel.OutputSet class
+//	Unit tests for the org.trommel.trommel.SimpleFieldParser class
 //
 public class SimpleFieldParserTests 
 {
 	//
 	//	Tests
 	//
+	
 	@Test
 	public void testConstructor() 
 	{

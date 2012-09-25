@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.trommel.trommel.utilities.FrequencyCounts;
 
+
 //
 //	Unit tests for the org.trommel.trommel.reporting.FrequencyCount class
 //
@@ -24,6 +25,7 @@ public class FrequencyCountsTests
 	private static final int FIELD1_VALUE2_COUNT = 27;
 	private static final int FIELD1_VALUE3_COUNT = 35;
 
+	
 	//
 	// Tests
 	//

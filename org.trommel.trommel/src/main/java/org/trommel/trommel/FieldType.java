@@ -3,8 +3,9 @@
  */
 package org.trommel.trommel;
 
+
 /**
- * Defines an instance of the {@link Field} class as a categorical or numeric variable.
+ * Specifies an instance of the {@link Field} class as a categorical or numeric variable.
  */
 public enum FieldType 
 {

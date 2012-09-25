@@ -5,12 +5,16 @@ package org.trommel.trommel.functions;
 
 import java.util.HashMap;
 
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.ReduceRecordHandler;
 
+
 /**
- *	For the Map phase find the variability for a {@link org.trommel.trommel.Field} as the sample 
+ *	For the Reduce phase find the variability for a {@link org.trommel.trommel.Field} as the sample 
  *	standard deviation for numeric Fields and the Rate of Discovery (ROD) for categorical Fields.
+ *	Missing values are treated as zeroes for numeric fields and null values for categorical Fields
+ * 	for the purposes of calculation.
  */
 public class VariabilityReducer implements ReduceRecordHandler 
 {
@@ -18,7 +22,6 @@ public class VariabilityReducer implements ReduceRecordHandler
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String FUNCTION_NAME = "Variability";
-	private static final String DELIMITER = ":";
 
 	
 	//
@@ -26,15 +29,24 @@ public class VariabilityReducer implements ReduceRecordHandler
 	//
 	private FieldType fieldType; 
 	private int recordCount = 0;
-	private double sumOfSquares = 0;
-	private double sumOfValues = 0;
-	private HashMap<String, Integer> discoveredValues = new HashMap<String, Integer>(); 
+	private SummaryStatistics stats = null;
+	private HashMap<String, Integer> discoveredValues = null; 
 	
-	
+			
 	//
 	//	Getters/setters
 	//
 	
+	/**
+	 * Return the name of the Variability function.
+	 * 
+	 * @return The string value of "Variability".
+	 */
+	public String getHandlerName()
+	{
+		return FUNCTION_NAME;
+	}
+
 	/**
 	 * Return the current calculation of {@link org.trommel.trommel.Field} variability.
 	 * 
@@ -45,8 +57,7 @@ public class VariabilityReducer implements ReduceRecordHandler
 		if (fieldType == FieldType.numeric)
 		{
 			// Return the sample standard deviation as a String
-			return Double.toString(Math.sqrt(((recordCount * sumOfSquares) - (sumOfValues * sumOfValues)) / 
-				                              (recordCount * (recordCount - 1))));
+			return Double.toString(stats.getStandardDeviation());
 		}
 		else
 		{
@@ -66,6 +77,15 @@ public class VariabilityReducer implements ReduceRecordHandler
 	public VariabilityReducer(FieldType fieldType)
 	{
 		this.fieldType = fieldType;
+		
+		if (this.fieldType == FieldType.numeric)
+		{
+			stats = new SummaryStatistics();
+		}
+		else
+		{
+			discoveredValues = new HashMap<String, Integer>();
+		}
 	}
 
 
@@ -88,14 +108,8 @@ public class VariabilityReducer implements ReduceRecordHandler
 
 			if (fieldType == FieldType.numeric)
 			{
-				// Parse numeric values
-				String[] values = record.get(FUNCTION_NAME).split(DELIMITER);
-				double numericValue = Double.parseDouble(values[0]);
-				double squareValue = Double.parseDouble(values[1]);
-				
-				// Increment counts
-				sumOfSquares += squareValue;
-				sumOfValues += numericValue;
+				// Add numeric value to the SummaryStatistics instance
+				stats.addValue(Double.parseDouble(record.get(FUNCTION_NAME)));
 			}
 			else
 			{
