@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapreduce.MapContext;
 import org.trommel.trommel.utilities.StringUtilities;
 
@@ -63,7 +62,7 @@ public final class MapRecord
 	//
 
 	/**
-	 * @param fields An array of {@link Field} instances specifying the structure of the data set.
+	 * @param fieldInstances An array of {@link Field} instances specifying the structure of the data set.
 	 * @param outputDelimiter A {@link java.lang.String} denoting the characters used to delimit one {@link FunctionOutput} from another.
 	 * @throws IllegalArgumentException Where the fields array is null or empty. Also thrown if outputDelimiter 
 	 * is null or an empty string. All-whitespace strings are considered empty.

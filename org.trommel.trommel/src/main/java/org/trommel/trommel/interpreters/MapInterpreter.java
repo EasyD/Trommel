@@ -43,8 +43,8 @@ public class MapInterpreter
 	//
 	
 	/**
-	 * @param value
-	 * @return
+	 * @param value A record of raw data read from the data set
+	 * @return A {@link org.trommel.trommel.MapRecord} parsed from record read from the data set.
 	 * @throws ParseException
 	 */
 	public MapRecord handleRecord(Text value)
