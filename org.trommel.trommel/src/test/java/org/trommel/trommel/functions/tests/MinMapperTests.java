@@ -18,7 +18,7 @@ import org.trommel.trommel.FieldInstance;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.functions.MinMapper;
-import org.trommel.trommel.interpreters.MapInterpreter;
+import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 
  
 //

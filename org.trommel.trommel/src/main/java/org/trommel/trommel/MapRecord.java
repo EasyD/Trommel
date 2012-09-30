@@ -18,7 +18,7 @@ import org.trommel.trommel.utilities.StringUtilities;
  * Provides interface for serializing Map phase output data into a tabular form via a 
  * MapReduce {@link org.apache.hadoop.mapreduce.MapContext} and a contained {@link OutputSet} class.
  */
-public final class MapRecord
+public class MapRecord
 {
 	//
 	// Private members

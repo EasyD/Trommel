@@ -1,0 +1,127 @@
+/*
+ *	TODO - Insert license blurb here
+ */
+
+
+
+/**
+ *	The SableCC 3.2 grammar file for the TrommelScript DSL.
+ */
+Package org.trommel.trommel.scripting;
+
+Helpers
+
+	// Whitespace helpers
+	tab = 9;
+	lf = 10;
+	ff = 12;
+	cr = 13;
+	sp = 32;
+	new_line = lf | cr | cr lf;
+
+	// Character helpers
+	digit = ['0'..'9'];
+	letter = [['a'..'z'] + ['A'..'Z']];
+	ascii_char = [32..126];
+	single_quote = ''';
+	file_path_char = [ascii_char - single_quote];
+	
+	// Load data statement helpers
+	categorical = 'categorical' | 'CATEGORICAL';
+	numeric = 'numeric' | 'NUMERIC';
+
+
+Tokens
+
+    // Load Data statement tokens
+	load = 'load' | 'LOAD';
+	data = 'data' | 'DATA';
+    colon = ':';
+	field_type = categorical | numeric; 
+	fields = 'fields' | 'FIELDS';
+	terminated = 'terminated' | 'TERMINATED';
+	by = 'by' | 'BY';
+
+
+    // Profile Data statement tokens
+	profile = 'profile' | 'PROFILE';
+	with = 'with' | 'WITH';
+	all = 'all' | 'ALL';
+	builtin = 'builtin' | 'BUILTIN';
+	max = 'max' | 'MAX' | 'max()' | 'MAX()';
+	min = 'min' | 'MIN' | 'min()' | 'MIN()';
+	distinct = 'distinct' | 'DISTINCT' | 'distinct()' | 'DISTINCT()';
+	empty = 'empty' | 'EMPTY' | 'empty()' | 'EMPTY()';
+	req = 'req' | 'REQ' | 'req()' | 'REQ()';
+	var = 'var' | 'VAR' | 'var()' | 'VAR()';
+	conf = 'conf' | 'CONF'; 
+	lin = 'lin' | 'LIN'; 
+	store = 'store' | 'STORE';
+	into = 'into' | 'INTO';
+	export = 'export' | 'EXPORT';
+	to = 'to' | 'TO';
+	 
+
+	// Common tokens    
+    semicolon = ';';
+	left_paren = '(';
+	right_paren = ')';
+	comma = ',';
+	as = 'as' | 'AS';
+	quoted_string = single_quote file_path_char+ single_quote;
+	identifier = letter (letter | digit | '_')*;
+	integer = digit+;
+    
+    
+	// Ignored tokens
+    block_comment = '/*' (ascii_char | tab | new_line)* '*/';
+    single_line_comment = '//' ascii_char* new_line?;
+    white_space = (sp | tab | ff | new_line)*;
+
+		
+Ignored Tokens
+
+	white_space,
+	block_comment,
+	single_line_comment;
+
+
+Productions
+
+    trommel_script = {profile_data} load_data_statement profile_data_statement;
+    
+    // LOAD DATA Productions
+    load_data_statement = load data loaded_file as loaded_fields fields_terminated_by;
+    loaded_file = quoted_string;
+    loaded_fields = left_paren field_list right_paren;
+    field_list = {single} field |
+                 {list} field_list comma field;
+    field = identifier colon field_type;
+    fields_terminated_by = {default} semicolon |
+                           {custom} fields terminated by field_terminator semicolon;
+    field_terminator = quoted_string;
+                           
+ 	// PROFILE DATA Productions
+ 	profile_data_statement = profile profiled_fields with profilers storage semicolon;
+ 	profiled_fields = {single} profiled_field |
+ 					  {list} profiled_fields comma profiled_field;
+ 	profiled_field = identifier;
+ 	profilers = {list} function_list |
+ 	            {all_builtin} all builtin;
+ 	function_list = {single} function |
+ 	                {list} function_list comma function;
+ 	function = {max} max | {min} min | {distinct} distinct | {empty} empty | {req} req | {var} var | {lin} linearity | {conf} confidence;
+ 	linearity = {default} lin |
+ 	            {default_paren} lin left_paren right_paren |
+ 				{parm} lin left_paren integer right_paren; 
+ 	confidence = {default} conf |
+ 	             {default_paren} conf left_paren right_paren |
+ 				 {parm} conf left_paren integer right_paren; 
+ 	storage = {store} store into hdfs_file_path as hdfs_file |
+ 	          {export} export to local_file_path as local_file |
+ 	          {store_export} store into hdfs_file_path [first_as]:as hdfs_file export to local_file_path [second_as]:as local_file |
+ 	          {export_store} export to local_file_path [first_as]:as local_file store into hdfs_file_path [second_as]:as hdfs_file; 
+ 	hdfs_file_path = quoted_string;
+ 	hdfs_file = quoted_string;
+ 	local_file_path = quoted_string;
+ 	local_file = quoted_string;

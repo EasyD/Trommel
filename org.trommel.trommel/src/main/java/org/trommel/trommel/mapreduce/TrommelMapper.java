@@ -9,7 +9,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.trommel.trommel.MapRecord;
-import org.trommel.trommel.interpreters.MapInterpreter;
+import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 
 
 /**
@@ -36,9 +36,9 @@ public class TrommelMapper
 	{
 		try
 		{
-			MapRecord record = interpreter.handleRecord(value);
-			
-			record.serialize(context);
+//			MapRecord record = interpreter.handleRecord(value);
+//			
+//			record.serialize(context);
 		}
 		catch(Exception e)
 		{
