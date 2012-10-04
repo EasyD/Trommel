@@ -5,10 +5,9 @@ package org.trommel.trommel.controllers.tests;
 
 import static org.junit.Assert.*;
 
-import org.apache.hadoop.mapreduce.MapContext;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
@@ -16,8 +15,7 @@ import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.controllers.MapProfileController;
 import org.trommel.trommel.controllers.ProfileFunction;
-import org.trommel.trommel.functions.ConfidenceReducer;
-import org.trommel.trommel.functions.MaxMapper;
+
 
 //
 //	Unit tests for the org.trommel.trommel.controllers.MapProfileController class
@@ -45,32 +43,36 @@ public class MapProfileControllerTests
 	@Test
 	public void testConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		MapProfileController controller = new MapProfileController(buildFields());
+		MapProfileController controller = new MapProfileController(logger, buildFields());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorEmptyArray() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		MapProfileController controller = new MapProfileController(new Field[0]);
+		MapProfileController controller = new MapProfileController(logger, new Field[0]);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullArrayMember() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		Field[] fields = buildFields();
 		
 		fields[3] = null;
 		
 		@SuppressWarnings("unused")
-		MapProfileController controller = new MapProfileController(fields);
+		MapProfileController controller = new MapProfileController(logger, fields);
 	}
 		
 	@Test
 	public void handleMapRecord()
 	{
-		MapProfileController controller = new MapProfileController(buildFields());
+		Logger logger = Mockito.mock(Logger.class);
+		MapProfileController controller = new MapProfileController(logger, buildFields());
 		MapRecord record = Mockito.mock(MapRecord.class);
 
 		// Stub out mock

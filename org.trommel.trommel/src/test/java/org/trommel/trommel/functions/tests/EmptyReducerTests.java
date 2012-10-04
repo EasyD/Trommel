@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.trommel.trommel.functions.EmptyReducer;
 
 
@@ -35,8 +37,9 @@ public class EmptyReducerTests
 	@Test
 	public void testGetReduceResult() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String,String>> records = reduceRecords();
-		EmptyReducer empty = new EmptyReducer();
+		EmptyReducer empty = new EmptyReducer(logger);
 		
 		for (HashMap<String, String> record : records)
 		{

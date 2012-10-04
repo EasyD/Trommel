@@ -97,7 +97,6 @@ public class SimpleRecordParser implements RecordParser
 	 * Parse field values from a record of raw data read from the data set. 
 	 * 
 	 * @param record One record's worth of raw data read from the data set.
-	 * @param delimiter One record's worth of raw data read from the data set.
 	 * @return Parsed field values as a {@link MapRecord} instance.
 	 * @throws IllegalArgumentException If record is null or empty. All-whitespace string are treated as empty.
 	 * @throws ParseException  When errors are encountered parsing the record String.

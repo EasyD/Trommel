@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.trommel.trommel.functions.MaxReducer;
 
 //
@@ -35,8 +37,9 @@ public class MaxReducerTests
 	@Test
 	public void testGetReduceResult() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String,String>> records = reduceRecords();
-		MaxReducer max = new MaxReducer();
+		MaxReducer max = new MaxReducer(logger);
 		
 		for (HashMap<String,String> record : records)
 		{

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.functions.LinearityReducer;
 
@@ -39,15 +41,17 @@ public class LinearityReducerTests
 	@Test
 	public void testConstructorOK()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		LinearityReducer lin = new LinearityReducer(FieldType.numeric);			
+		LinearityReducer lin = new LinearityReducer(logger, FieldType.numeric);			
 	}
 	
 	@Test
 	public void testNumericGetReduceResult()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = numericReduceRecords();
-		LinearityReducer lin = new LinearityReducer(FieldType.numeric);
+		LinearityReducer lin = new LinearityReducer(logger, FieldType.numeric);
 		
 		for (HashMap<String, String> record : records)
 		{
@@ -61,8 +65,9 @@ public class LinearityReducerTests
 	@Test
 	public void testCategoricalGetReduceResult()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = categoricalReduceRecords();
-		LinearityReducer lin = new LinearityReducer(FieldType.categorical);
+		LinearityReducer lin = new LinearityReducer(logger, FieldType.categorical);
 		
 		for (HashMap<String, String> record : records)
 		{
@@ -75,8 +80,9 @@ public class LinearityReducerTests
 	@Test
 	public void testNumericNoReduceRecords()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = noReduceRecords();
-		LinearityReducer lin = new LinearityReducer(FieldType.numeric);
+		LinearityReducer lin = new LinearityReducer(logger, FieldType.numeric);
 		
 		for (HashMap<String, String> record : records)
 		{

@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.MapContext;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.trommel.trommel.Field;
@@ -91,14 +92,16 @@ public class VariabilityMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		VariabilityMapper var = new VariabilityMapper(numericFields);	
+		VariabilityMapper var = new VariabilityMapper(logger, numericFields);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		VariabilityMapper var = new VariabilityMapper(numericFields);
+		Logger logger = Mockito.mock(Logger.class);
+		VariabilityMapper var = new VariabilityMapper(logger, numericFields);
 		
 		assertEquals(FUNCTION_NAME, var.getHandlerName());
 	}
@@ -110,7 +113,8 @@ public class VariabilityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = numericMapRecords();
-		VariabilityMapper var = new VariabilityMapper(numericFields);
+		Logger logger = Mockito.mock(Logger.class);
+		VariabilityMapper var = new VariabilityMapper(logger, numericFields);
 		String prefix = var.getHandlerName() + "=";
 		
 		var.handleMapRecord(records[0]);
@@ -145,7 +149,8 @@ public class VariabilityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = categoricalMapRecords();
-		VariabilityMapper var = new VariabilityMapper(categoricalFields);
+		Logger logger = Mockito.mock(Logger.class);
+		VariabilityMapper var = new VariabilityMapper(logger, categoricalFields);
 		String prefix = var.getHandlerName() + "=";
 		
 		var.handleMapRecord(records[0]);

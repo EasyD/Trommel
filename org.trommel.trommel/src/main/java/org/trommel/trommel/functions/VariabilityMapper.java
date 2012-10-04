@@ -3,6 +3,7 @@
  */
 package org.trommel.trommel.functions;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
@@ -44,14 +45,16 @@ public class VariabilityMapper extends Function
 	//
 	
 	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the VariabilityMapper
+	 * to log to the Hadoop Task syslog file.
 	 * @param fields The {@link org.trommel.trommel.Field} instances for which variability will be calculated.
-	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the fields
+	 * @throws IllegalArgumentException Where logger is null or fields array is null or empty. Also thrown if any of the fields
 	 * are null or empty.
 	 */
-	public VariabilityMapper(Field[] fields)
+	public VariabilityMapper(Logger logger, Field[] fields)
 		throws IllegalArgumentException
 	{
-		super(fields);
+		super(logger, fields);
 	}
 
 

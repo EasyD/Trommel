@@ -7,7 +7,9 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.ListIterator;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
@@ -15,7 +17,6 @@ import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
 import org.trommel.trommel.mapreduce.TrommelMapper;
-import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 
 
 //
@@ -51,14 +52,42 @@ public class TrommelMapperTests
 	public void test() 
 		throws IOException 
 	{
-		List<Pair<Text, Text>> output = mapDriver.withInput(new LongWritable(1), new Text("12\tFoo\t14"))
-													.run();
+		// Set up a Hadoop Configuration object to point at a test TrommelScript file
+		Configuration config = new Configuration(false);
 		
-		// TODO - Need to fix when final interpreters are in place.
-//		assertEquals("Column3", output.get(0).getFirst().toString());
-//		assertEquals("Max=14" + MapInterpreter.DELIMITER + 
-//				     "Min=14" + MapInterpreter.DELIMITER + 
-//				     "Distinct=14", output.get(0).getSecond().toString());
+		config.set("TrommelScript", "src/test/resources/scripts/ProfileDataExplicitFunc.trommel");
+		
+		// Run a TrommelMapper with data that fits the LOAD DATA statement for the script above	
+		List<Pair<Text, Text>> output = mapDriver.withInput(new LongWritable(1), new Text("12\tFoo\tBar"))
+													.withConfiguration(config)
+													.run();
+
+		// Verify output
+		assertEquals(3, output.size());
+		
+		ListIterator<Pair<Text, Text>> iterator = output.listIterator();
+		
+		while(iterator.hasNext())
+		{
+			Pair<Text, Text> outputPair = iterator.next();
+			
+			if (outputPair.getFirst().toString().equalsIgnoreCase("field1"))
+			{
+				assertEquals("Min=12*|*Max=12*|*Variability=12*|*Distinct=12*|*Linearity=12", outputPair.getSecond().toString().trim());
+			}
+			else if (outputPair.getFirst().toString().equalsIgnoreCase("field2"))
+			{
+				assertEquals("Variability=Foo*|*Distinct=Foo*|*Linearity=Foo", outputPair.getSecond().toString().trim());
+			}
+			else if (outputPair.getFirst().toString().equalsIgnoreCase("field3"))
+			{
+				assertEquals("Variability=Bar*|*Distinct=Bar*|*Linearity=Bar", outputPair.getSecond().toString().trim());
+			}
+			else
+			{
+				fail("Unknown Mapper output.");
+			}
+		}
 	}
 
 }

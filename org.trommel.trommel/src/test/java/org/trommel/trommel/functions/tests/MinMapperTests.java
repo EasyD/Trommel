@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.MapContext;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.trommel.trommel.Field;
@@ -78,14 +79,16 @@ public class MinMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		MinMapper min = new MinMapper(fields);	
+		MinMapper min = new MinMapper(logger, fields);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		MinMapper min = new MinMapper(fields);
+		Logger logger = Mockito.mock(Logger.class);
+		MinMapper min = new MinMapper(logger, fields);
 		
 		assertEquals(FUNCTION_NAME, min.getHandlerName());
 	}
@@ -97,7 +100,8 @@ public class MinMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
-		MinMapper min = new MinMapper(fields);
+		Logger logger = Mockito.mock(Logger.class);
+		MinMapper min = new MinMapper(logger, fields);
 		String prefix = min.getHandlerName() + "=";
 		
 		min.handleMapRecord(records[0]);

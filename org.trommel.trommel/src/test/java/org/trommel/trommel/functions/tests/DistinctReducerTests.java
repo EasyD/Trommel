@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.functions.DistinctReducer;
@@ -65,8 +67,9 @@ public class DistinctReducerTests
 	@Test
 	public void testGetReduceResult() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String,String>> records = reduceRecords();
-		DistinctReducer distinct = new DistinctReducer();
+		DistinctReducer distinct = new DistinctReducer(logger);
 		
 		for (HashMap<String, String> record : records)
 		{

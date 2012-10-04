@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.MapContext;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.FieldInstance;
@@ -40,8 +41,9 @@ public class DataReporterMapperTests
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNullField() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		DataReporterMapper reporter = new DataReporterMapper(null);
+		DataReporterMapper reporter = new DataReporterMapper(logger, null);
 	}
 	
 	@Test
@@ -51,7 +53,8 @@ public class DataReporterMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord record = mapRecord();
-		DataReporterMapper reporter = new DataReporterMapper(FIELD1);
+		Logger logger = Mockito.mock(Logger.class);
+		DataReporterMapper reporter = new DataReporterMapper(logger, FIELD1);
 		String prefix = reporter.getHandlerName() + "=";
 		
 		reporter.handleMapRecord(record);

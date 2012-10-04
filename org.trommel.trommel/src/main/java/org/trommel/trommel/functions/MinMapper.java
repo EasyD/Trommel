@@ -3,6 +3,7 @@
  */
 package org.trommel.trommel.functions;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
@@ -40,14 +41,16 @@ public class MinMapper extends Function
 	//
 	
 	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the MinMapper
+	 * to log to the Hadoop Task syslog file.
 	 * @param fields The numeric {@link org.trommel.trommel.Field} instances for which Min values will be calculated.
-	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the Fields
+	 * @throws IllegalArgumentException Where logger is null or fields array is null or empty. Also thrown if any of the Fields
 	 * are null or empty. All-whitespace strings are considered empty.
 	 */
-	public MinMapper(Field [] fields)
+	public MinMapper(Logger logger, Field [] fields)
 		throws IllegalArgumentException
 	{
-		super(fields);
+		super(logger, fields);
 	}
 	
 	

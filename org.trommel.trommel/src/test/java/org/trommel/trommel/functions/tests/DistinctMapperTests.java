@@ -6,6 +6,7 @@ package org.trommel.trommel.functions.tests;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import org.apache.log4j.Logger;
 
 import org.mockito.Mockito;
 import org.apache.hadoop.io.LongWritable;
@@ -78,14 +79,16 @@ public class DistinctMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		DistinctMapper distinct = new DistinctMapper(fields);	
+		DistinctMapper distinct = new DistinctMapper(logger, fields);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		DistinctMapper distinct = new DistinctMapper(fields);
+		Logger logger = Mockito.mock(Logger.class);
+		DistinctMapper distinct = new DistinctMapper(logger, fields);
 		
 		assertEquals(FUNCTION_NAME, distinct.getHandlerName());
 	}
@@ -97,7 +100,8 @@ public class DistinctMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
-		DistinctMapper distinct = new DistinctMapper(fields);
+		Logger logger = Mockito.mock(Logger.class);
+		DistinctMapper distinct = new DistinctMapper(logger, fields);
 		String prefix = distinct.getHandlerName() + "=";
 		
 		distinct.handleMapRecord(records[0]);

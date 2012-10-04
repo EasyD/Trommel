@@ -3,12 +3,14 @@
  */
 package org.trommel.trommel;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * The interface for all Trommel constructs (i.e., Functions and Data Reporters) that process
  * records during the Map phase.
  */
-public interface MapRecordHandler 
+public abstract class MapRecordHandler extends RecordHandler 
 {
 	//
 	//	Getters/setters
@@ -19,7 +21,23 @@ public interface MapRecordHandler
 	 * 
 	 * @return Name of record handler.
 	 */
-	public String getHandlerName();
+	public abstract String getHandlerName();
+	
+	
+	//
+	//	Constructors
+	//
+	
+	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instances that will be used by the MapRecordHandler
+	 * to log to the Hadoop Task syslog file.
+	 * @throws IllegalArgumentException Where logger is null or empty.
+	 */
+	public MapRecordHandler(Logger logger)
+		throws IllegalArgumentException
+	{
+		super(logger);
+	}
 
 	
 	//
@@ -32,5 +50,5 @@ public interface MapRecordHandler
 	 * @param record The MapRecord containing the data read from data set and any results of Map phase 
 	 * Trommel processing.
 	 */
-	public void handleMapRecord(MapRecord record);
+	public abstract void handleMapRecord(MapRecord record);
 }

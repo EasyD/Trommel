@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.FieldType;
@@ -46,32 +47,36 @@ public class ConfidenceReducerTests
 	@Test
 	public void testSingleParmConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		VariabilityReducer var = Mockito.mock(VariabilityReducer.class);
 		@SuppressWarnings("unused")
-		ConfidenceReducer con = new ConfidenceReducer(var);
+		ConfidenceReducer con = new ConfidenceReducer(logger, var);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testTwoParmConstructorInvalidTarget() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		VariabilityReducer var = Mockito.mock(VariabilityReducer.class);
 		@SuppressWarnings("unused")
-		ConfidenceReducer con = new ConfidenceReducer(100, var);
+		ConfidenceReducer con = new ConfidenceReducer(logger, 100, var);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testTwoParmConstructorNullVarReducer() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		ConfidenceReducer con = new ConfidenceReducer(85, null);
+		ConfidenceReducer con = new ConfidenceReducer(logger, 85, null);
 	}
 			
 	@Test
 	public void testNumericGetReduceResult()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = reduceRecords();
-		VariabilityReducer var = new VariabilityReducer(FieldType.numeric);
-		ConfidenceReducer con = new ConfidenceReducer(80, var);
+		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
+		ConfidenceReducer con = new ConfidenceReducer(logger, 80, var);
 		
 		for (HashMap<String, String> record : records)
 		{
@@ -86,9 +91,10 @@ public class ConfidenceReducerTests
 	@Test
 	public void testNumericGetConfidenceRecordCount()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = reduceRecords();
-		VariabilityReducer var = new VariabilityReducer(FieldType.numeric);
-		ConfidenceReducer con = new ConfidenceReducer(80, var);
+		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
+		ConfidenceReducer con = new ConfidenceReducer(logger, 80, var);
 		
 		for (HashMap<String, String> record : records)
 		{

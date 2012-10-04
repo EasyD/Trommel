@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.MapContext;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.trommel.trommel.Field;
@@ -78,14 +79,16 @@ public class EmptyMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		EmptyMapper empty = new EmptyMapper(fields);	
+		EmptyMapper empty = new EmptyMapper(logger, fields);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		EmptyMapper empty = new EmptyMapper(fields);
+		Logger logger = Mockito.mock(Logger.class);
+		EmptyMapper empty = new EmptyMapper(logger, fields);
 		
 		assertEquals(FUNCTION_NAME, empty.getHandlerName());
 	}
@@ -98,7 +101,8 @@ public class EmptyMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
-		EmptyMapper empty = new EmptyMapper(fields);
+		Logger logger = Mockito.mock(Logger.class);
+		EmptyMapper empty = new EmptyMapper(logger, fields);
 		String prefix = empty.getHandlerName() + "=";
 		
 		empty.handleMapRecord(records[0]);

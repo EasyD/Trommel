@@ -5,12 +5,13 @@ package org.trommel.trommel.functions;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.ReduceRecordHandler;
 
 /**
  *	Execute the Reduce phase for finding the count of distinct values for a {@link org.trommel.trommel.Field}.
  */
-public class DistinctReducer implements ReduceRecordHandler
+public class DistinctReducer extends ReduceRecordHandler
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -22,7 +23,6 @@ public class DistinctReducer implements ReduceRecordHandler
 	//	Private members
 	//
 	private HashMap<String, Integer> distinctValues = new HashMap<String, Integer>();
-	
 	
 	//
 	//	Getters/setters
@@ -37,6 +37,23 @@ public class DistinctReducer implements ReduceRecordHandler
 	{
 		return Integer.toString(distinctValues.size());
 	}
+	
+	
+	//
+	//	Constructors
+	//
+	
+	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the DistinctReducer
+	 * to log to the Hadoop Task syslog file.
+	 * @throws IllegalArgumentException Where logger is null.
+	 */
+	public DistinctReducer(Logger logger)
+		throws IllegalArgumentException
+	{
+		super(logger);
+	}
+	
 	
 	//
 	//	Public methods

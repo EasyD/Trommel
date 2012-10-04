@@ -5,6 +5,7 @@ package org.trommel.trommel.functions;
 
 import java.util.Random;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
@@ -55,29 +56,33 @@ public class LinearityMapper extends Function
 	/**
 	 * Construct a LinearityMapper with a default random sample rate of approximately 10% for numeric fields.
 	 * 
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the LinearityMapper
+	 * to log to the Hadoop Task syslog file.
 	 * @param fields The {@link org.trommel.trommel.Field} instances for which linearity will be calculated.
-	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if any of the Fields
+	 * @throws IllegalArgumentException Where logger is null or fields array is null or empty. Also thrown if any of the Fields
 	 * are null or empty.
 	 */
-	public LinearityMapper(Field[] fields)
+	public LinearityMapper(Logger logger, Field[] fields)
 		throws IllegalArgumentException
 	{
-		super(fields);
+		super(logger, fields);
 	}
 
 	
 	/**
 	 * Construct a LinearityMapper with a specified approximate random sample rate.
 	 * 
+	 * @param logger The {@link org.apache.log4j.Logger} instances that will be used by the LinearityMapper
+	 * to log to the Hadoop Task syslog file.
 	 * @param fields The {@link org.trommel.trommel.Field} instances for which linearity will be calculated.
 	 * @param sampleRate Specifies the approximate random sample rate as an integer in the range of 1-100 
 	 * (e.g., 10 = 10% random sample rate), inclusive.
 	 * @throws IllegalArgumentException Where sampleRate is not in the range of 1-100, inclusive.
 	 */
-	public LinearityMapper(Field[] fields, int sampleRate)
+	public LinearityMapper(Logger logger, Field[] fields, int sampleRate)
 			throws IllegalArgumentException
 	{		
-		super(fields);
+		super(logger, fields);
 	
 		// Check for illegal input
 		if (sampleRate < 1 || sampleRate > 100)

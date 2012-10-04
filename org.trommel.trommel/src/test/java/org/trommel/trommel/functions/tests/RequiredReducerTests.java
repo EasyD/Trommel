@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.FieldType;
@@ -47,26 +48,29 @@ public class RequiredReducerTests
 	@Test
 	public void testConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		ConfidenceReducer con = Mockito.mock(ConfidenceReducer.class);
 		@SuppressWarnings("unused")
-		RequiredReducer req = new RequiredReducer(con);
+		RequiredReducer req = new RequiredReducer(logger, con);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullParm() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		RequiredReducer req = new RequiredReducer(null);
+		RequiredReducer req = new RequiredReducer(logger, null);
 	}
 	
 	
 	@Test
 	public void testNumericGetReduceResult()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = reduceRecords();
-		VariabilityReducer var = new VariabilityReducer(FieldType.numeric);
-		ConfidenceReducer con = new ConfidenceReducer(80, var);
-		RequiredReducer req = new RequiredReducer(con);
+		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
+		ConfidenceReducer con = new ConfidenceReducer(logger, 80, var);
+		RequiredReducer req = new RequiredReducer(logger, con);
 		
 		for (HashMap<String, String> record : records)
 		{

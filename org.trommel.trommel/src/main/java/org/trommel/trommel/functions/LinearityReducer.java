@@ -6,6 +6,7 @@ package org.trommel.trommel.functions;
 import java.util.HashMap;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
+import org.apache.log4j.Logger;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.ReduceRecordHandler;
 
@@ -16,7 +17,7 @@ import org.trommel.trommel.ReduceRecordHandler;
  *	For numeric fields, the interstitial linearity is calculated from an approximate random sample of individual records
  *	sampled during the Map phase.
  */
-public class LinearityReducer implements ReduceRecordHandler 
+public class LinearityReducer extends ReduceRecordHandler 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -71,10 +72,16 @@ public class LinearityReducer implements ReduceRecordHandler
 	//
 	
 	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the EmptyReducer
+	 * to log to the Hadoop Task syslog file.
 	 * @param fieldType Specifies if LinearityReducer is processing numeric or categorical data.
+	 * @throws IllegalArgumentException Where logger is null.
 	 */
-	public LinearityReducer(FieldType fieldType)
+	public LinearityReducer(Logger logger, FieldType fieldType)
+		throws IllegalArgumentException
 	{
+		super(logger);
+		
 		this.fieldType = fieldType;
 		
 		if (this.fieldType == FieldType.numeric)

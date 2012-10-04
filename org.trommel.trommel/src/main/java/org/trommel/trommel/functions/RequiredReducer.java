@@ -5,6 +5,7 @@ package org.trommel.trommel.functions;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.ReduceRecordHandler;
 
 
@@ -13,7 +14,7 @@ import org.trommel.trommel.ReduceRecordHandler;
  *	how much of the specified variability in a {@link org.trommel.trommel.Field} has been captured.
  *	NOTE - This class can only be used in conjunction with a {@link ConfidenceReducer} instance.
  */
-public class RequiredReducer implements ReduceRecordHandler 
+public class RequiredReducer extends ReduceRecordHandler 
 {
 	//
 	//	Private members
@@ -46,12 +47,15 @@ public class RequiredReducer implements ReduceRecordHandler
 	 * Instantiate a RequiredReducer that reports the total number of records processed to arrived at the best
 	 * confidence that all the specified variability for a {@link org.trommel.trommel.Field} has been captured.
 	 * 
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the RequiredReducer
 	 * @param confidenceReducer The {@link ConfidenceReducer} instance to be used in reporting required record counts.
-	 * @throws IllegalArgumentException Where confidenceReducer is null.
+	 * @throws IllegalArgumentException Where logger or confidenceReducer is null.
 	 */
-	public RequiredReducer(ConfidenceReducer confidenceReducer)
+	public RequiredReducer(Logger logger, ConfidenceReducer confidenceReducer)
 		throws IllegalArgumentException
 	{
+		super(logger);
+		
 		// Check for illegal input
 		if (confidenceReducer == null)
 		{

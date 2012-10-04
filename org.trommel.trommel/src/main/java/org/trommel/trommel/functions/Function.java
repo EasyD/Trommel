@@ -3,6 +3,7 @@
  */
 package org.trommel.trommel.functions;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.MapRecordHandler;
 import org.trommel.trommel.Field;
 
@@ -10,7 +11,7 @@ import org.trommel.trommel.Field;
 /**
  *	Abstract base class for Trommel functions.
  */
-public abstract class Function implements MapRecordHandler 
+public abstract class Function extends MapRecordHandler 
 {
 	//
 	//	Private members
@@ -23,13 +24,17 @@ public abstract class Function implements MapRecordHandler
 	//
 	
 	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the Function to log to the 
+	 * Hadoop Task syslog file.
 	 * @param fields The {@link org.trommel.trommel.Field} instances that will be processed by the Function.
-	 * @throws IllegalArgumentException Where fields array is null or empty. Also thrown if an array element
+	 * @throws IllegalArgumentException Where logger is null or fields array is null or empty. Also thrown if an array element
 	 * is null.
 	 */
-	public Function(Field[] fields)
+	public Function(Logger logger, Field[] fields)
 		throws IllegalArgumentException
 	{
+		super(logger);
+		
 		// Check for illegal input
 		if (fields == null)
 		{

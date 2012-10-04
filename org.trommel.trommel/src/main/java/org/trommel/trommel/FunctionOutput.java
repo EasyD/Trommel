@@ -28,7 +28,7 @@ public final class FunctionOutput
 	 * @throws IllegalArgumentException Where functionName or output are null or empty. All-whitespace strings are considered empty. 
 	 */
 	public FunctionOutput(String functionName, String output)
-			throws IllegalArgumentException
+		throws IllegalArgumentException
 	{
 		// Check for illegal input
 		if (StringUtilities.isNullOrEmpty(functionName))

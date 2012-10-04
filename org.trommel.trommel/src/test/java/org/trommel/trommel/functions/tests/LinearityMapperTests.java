@@ -10,6 +10,7 @@ import java.io.IOException;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.MapContext;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -88,28 +89,32 @@ public class LinearityMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		LinearityMapper lin = new LinearityMapper(numericFields);	
+		LinearityMapper lin = new LinearityMapper(logger, numericFields);	
 	}
 		
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorLowSampleRate() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		LinearityMapper lin = new LinearityMapper(numericFields, 0);	
+		LinearityMapper lin = new LinearityMapper(logger, numericFields, 0);	
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorHighSampleRate() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		LinearityMapper lin = new LinearityMapper(numericFields, 101);	
+		LinearityMapper lin = new LinearityMapper(logger, numericFields, 101);	
 	}
 
 	@Test
 	public void testGetHandlerName()
 	{
-		LinearityMapper lin = new LinearityMapper(numericFields);
+		Logger logger = Mockito.mock(Logger.class);
+		LinearityMapper lin = new LinearityMapper(logger, numericFields);
 		
 		assertEquals(FUNCTION_NAME, lin.getHandlerName());
 	}
@@ -121,7 +126,8 @@ public class LinearityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = threeMapRecords();
-		LinearityMapper lin = new LinearityMapper(numericFields, 100);
+		Logger logger = Mockito.mock(Logger.class);
+		LinearityMapper lin = new LinearityMapper(logger, numericFields, 100);
 		String prefix = lin.getHandlerName() + "=";
 		
 		lin.handleMapRecord(records[0]);
@@ -157,7 +163,8 @@ public class LinearityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = thousandMapRecords();
-		LinearityMapper lin = new LinearityMapper(numericFields, 50);
+		Logger logger = Mockito.mock(Logger.class);
+		LinearityMapper lin = new LinearityMapper(logger, numericFields, 50);
 		
 		for (int i = 0; i < 1000; ++i)
 		{
@@ -179,7 +186,8 @@ public class LinearityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = categoricalMapRecords();
-		LinearityMapper lin = new LinearityMapper(categoricalFields, 100);
+		Logger logger = Mockito.mock(Logger.class);
+		LinearityMapper lin = new LinearityMapper(logger, categoricalFields, 100);
 		String prefix = lin.getHandlerName() + "=";
 		
 		lin.handleMapRecord(records[0]);

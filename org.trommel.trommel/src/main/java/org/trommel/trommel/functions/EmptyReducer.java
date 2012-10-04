@@ -5,13 +5,14 @@ package org.trommel.trommel.functions;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.ReduceRecordHandler;
 
 
 /**
  *	Execute the Reduce phase for the count of empty values for a {@link org.trommel.trommel.Field}.
  */
-public class EmptyReducer implements ReduceRecordHandler
+public class EmptyReducer extends ReduceRecordHandler
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -39,6 +40,22 @@ public class EmptyReducer implements ReduceRecordHandler
 		return Integer.toString(emptyCount);
 	}
 
+	
+	//
+	//	Constructors
+	//
+	
+	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the EmptyReducer
+	 * to log to the Hadoop Task syslog file.
+	 * @throws IllegalArgumentException Where logger is null.
+	 */
+	public EmptyReducer(Logger logger)
+		throws IllegalArgumentException
+	{
+		super(logger);
+	}
+	
 	
 	//
 	//	Public methods

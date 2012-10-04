@@ -5,13 +5,14 @@ package org.trommel.trommel.functions;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.ReduceRecordHandler;
 
 
 /**
  *	For the Reduce phase find the minimum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
  */
-public class MinReducer implements ReduceRecordHandler 
+public class MinReducer extends ReduceRecordHandler 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -37,6 +38,22 @@ public class MinReducer implements ReduceRecordHandler
 	public String getReduceResult()
 	{
 		return Double.toString(minValue);
+	}
+
+	
+	//
+	//	Constructors
+	//
+	
+	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the MinReducer
+	 * to log to the Hadoop Task syslog file.
+	 * @throws IllegalArgumentException Where logger is null.
+	 */
+	public MinReducer(Logger logger)
+		throws IllegalArgumentException
+	{
+		super(logger);
 	}
 
 	

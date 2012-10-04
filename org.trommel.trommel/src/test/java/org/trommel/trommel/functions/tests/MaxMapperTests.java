@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.MapContext;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.trommel.trommel.Field;
@@ -73,14 +74,16 @@ public class MaxMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		MaxMapper max = new MaxMapper(fields);	
+		MaxMapper max = new MaxMapper(logger, fields);	
 	}
 	
 	@Test
 	public void testGetHandlerName()
 	{
-		MaxMapper max = new MaxMapper(fields);
+		Logger logger = Mockito.mock(Logger.class);
+		MaxMapper max = new MaxMapper(logger, fields);
 		
 		assertEquals(FUNCTION_NAME, max.getHandlerName());
 	}
@@ -92,7 +95,8 @@ public class MaxMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
-		MaxMapper max = new MaxMapper(fields);
+		Logger logger = Mockito.mock(Logger.class);
+		MaxMapper max = new MaxMapper(logger, fields);
 		String prefix = max.getHandlerName() + "=";
 		
 		max.handleMapRecord(records[0]);

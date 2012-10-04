@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.functions.VariabilityReducer;
 
@@ -40,15 +42,17 @@ public class VariabilityReducerTests
 	@Test
 	public void testConstructorOK()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
-		VariabilityReducer var = new VariabilityReducer(FieldType.numeric);			
+		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);			
 	}
 	
 	@Test
 	public void testNumericGetReduceResult()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = numericReduceRecords();
-		VariabilityReducer var = new VariabilityReducer(FieldType.numeric);
+		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
 		
 		for (HashMap<String, String> record : records)
 		{
@@ -61,8 +65,9 @@ public class VariabilityReducerTests
 	@Test
 	public void testCategoricalGetReduceResult()
 	{
+		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = categoricalReduceRecords();
-		VariabilityReducer var = new VariabilityReducer(FieldType.categorical);
+		VariabilityReducer var = new VariabilityReducer(logger, FieldType.categorical);
 		
 		for (HashMap<String, String> record : records)
 		{

@@ -5,13 +5,14 @@ package org.trommel.trommel.functions;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.ReduceRecordHandler;
 
 
 /**
  *	For Reduce phase, find the maximum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
  */
-public class MaxReducer implements ReduceRecordHandler
+public class MaxReducer extends ReduceRecordHandler
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -37,6 +38,22 @@ public class MaxReducer implements ReduceRecordHandler
 	public String getReduceResult()
 	{
 		return Double.toString(maxValue);
+	}
+
+	
+	//
+	//	Constructors
+	//
+	
+	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the MaxReducer
+	 * to log to the Hadoop Task syslog file.
+	 * @throws IllegalArgumentException Where logger is null.
+	 */
+	public MaxReducer(Logger logger)
+		throws IllegalArgumentException
+	{
+		super(logger);
 	}
 
 

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.StringReader;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -41,7 +42,8 @@ public class MapInterpreterTests
 		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptSpecifiedFuncs()), 1024));
 		Parser parser = new Parser(lexer);
 		Start ast = parser.parse();
-		MapInterpreter interpreter = Mockito.spy(new MapInterpreter());
+		Logger logger = Mockito.mock(Logger.class);
+		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
 		
@@ -63,7 +65,6 @@ public class MapInterpreterTests
 		Mockito.verify(interpreter).outACustomFieldsTerminatedBy(terminatorArgument.capture());
 		
 		assertEquals("'\\t'", terminatorArgument.getValue().getFieldTerminator().toString().trim());
-		
 	}
 	
 	@Test
@@ -73,7 +74,8 @@ public class MapInterpreterTests
 		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptSpecifiedFuncs()), 1024));
 		Parser parser = new Parser(lexer);
 		Start ast = parser.parse();
-		MapInterpreter interpreter = Mockito.spy(new MapInterpreter());
+		Logger logger = Mockito.mock(Logger.class);
+		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
 		
@@ -97,6 +99,10 @@ public class MapInterpreterTests
 		Mockito.verify(interpreter).outAParmLinearity(linArgument.capture());
 		
 		assertEquals("45", linArgument.getValue().getInteger().toString().trim());
+
+		// Verify RecordParser and MapInterpreter were constructed
+		assertNotNull(interpreter.getRecordParser());
+		assertNotNull(interpreter.getController());
 	}
 
 	@Test
@@ -106,12 +112,17 @@ public class MapInterpreterTests
 		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptAllBuiltin()), 1024));
 		Parser parser = new Parser(lexer);
 		Start ast = parser.parse();
-		MapInterpreter interpreter = Mockito.spy(new MapInterpreter());
+		Logger logger = Mockito.mock(Logger.class);
+		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
 		
 		// Verify all builtin
 		Mockito.verify(interpreter).outAAllBuiltinProfilers(Mockito.any(AAllBuiltinProfilers.class));
+
+		// Verify RecordParser and MapInterpreter were constructed
+		assertNotNull(interpreter.getRecordParser());
+		assertNotNull(interpreter.getController());
 	}
 
 	@Test
@@ -121,12 +132,17 @@ public class MapInterpreterTests
 		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptLinNoParen()), 1024));
 		Parser parser = new Parser(lexer);
 		Start ast = parser.parse();
-		MapInterpreter interpreter = Mockito.spy(new MapInterpreter());
+		Logger logger = Mockito.mock(Logger.class);
+		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
 		
 		// Verify all lin function with no parentheses
 		Mockito.verify(interpreter).outADefaultLinearity(Mockito.any(ADefaultLinearity.class));
+
+		// Verify RecordParser and MapInterpreter were constructed
+		assertNotNull(interpreter.getRecordParser());
+		assertNotNull(interpreter.getController());
 	}
 
 	@Test
@@ -136,12 +152,17 @@ public class MapInterpreterTests
 		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptLinDefaultParen()), 1024));
 		Parser parser = new Parser(lexer);
 		Start ast = parser.parse();
-		MapInterpreter interpreter = Mockito.spy(new MapInterpreter());
+		Logger logger = Mockito.mock(Logger.class);
+		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
 		
 		// Verify all lin function with no parentheses
 		Mockito.verify(interpreter).outADefaultParenLinearity(Mockito.any(ADefaultParenLinearity.class));
+
+		// Verify RecordParser and MapInterpreter were constructed
+		assertNotNull(interpreter.getRecordParser());
+		assertNotNull(interpreter.getController());
 	}
 		
 		

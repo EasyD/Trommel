@@ -5,6 +5,7 @@ package org.trommel.trommel.reporting;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.ReduceRecordHandler;
 import org.trommel.trommel.utilities.FrequencyCounts;
 import org.trommel.trommel.utilities.StringUtilities;
@@ -13,7 +14,7 @@ import org.trommel.trommel.utilities.StringUtilities;
 /**
  *	For the Reduce phase report value frequencies (i.e., counts) for a specified {@link org.trommel.trommel.Field} in a data set.
  */
-public class DataReporterReducer implements ReduceRecordHandler 
+public class DataReporterReducer extends ReduceRecordHandler 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -51,13 +52,17 @@ public class DataReporterReducer implements ReduceRecordHandler
 	//
 	
 	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the DataReporterReducer
+	 * to log to the Hadoop Task syslog file.
 	 * @param fieldName The {@link org.trommel.trommel.Field} which will be reported on.
-	 * @throws IllegalArgumentException Where field is null or empty. All-whitespace strings are considered 
+	 * @throws IllegalArgumentException Where logger is null or field is null or empty. All-whitespace strings are considered 
 	 * empty.
 	 */
-	public DataReporterReducer(String fieldName)
+	public DataReporterReducer(Logger logger, String fieldName)
 		throws IllegalArgumentException
 	{		
+		super(logger);
+		
 		if (StringUtilities.isNullOrEmpty(fieldName))
 		{
 			throw new IllegalArgumentException("FieldName cannot be null or empty.");

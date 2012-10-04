@@ -5,6 +5,7 @@ package org.trommel.trommel.functions;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.ReduceRecordHandler;
 
 
@@ -16,7 +17,7 @@ import org.trommel.trommel.ReduceRecordHandler;
  *	no more than 5% variability.
  *	NOTE - This class can only be used in conjunction with a {@link VariabilityReducer} instance.
  */
-public class ConfidenceReducer implements ReduceRecordHandler 
+public class ConfidenceReducer extends ReduceRecordHandler 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -77,27 +78,36 @@ public class ConfidenceReducer implements ReduceRecordHandler
 	 * Instantiate a ConfidenceReducer that reports the confidence that 95% of the variability of a
 	 * {@link org.trommel.trommel.Field} has been captured.
 	 * 
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the ConfidenceReducer
+	 * to log to the Hadoop Task syslog file.
 	 * @param variabilityReducer The {@link VariabilityReducer} instance to be used in confidence calculations.
+	 * @throws IllegalArgumentException Where variabilityTarget is not a value ranging from 1 to 99, inclusive. Also
+	 * thrown if logger or variabilityReducer is null.
 	 */
-	public ConfidenceReducer(VariabilityReducer variabilityReducer)
+	public ConfidenceReducer(Logger logger, VariabilityReducer variabilityReducer)
+		throws IllegalArgumentException
 	{
-		this(95, variabilityReducer);
+		this(logger, 95, variabilityReducer);
 	}	
 
-	
 	/**
 	 * Instantiate a ConfidenceReducer that reports the confidence that the specified target of variability of a
 	 * {@link org.trommel.trommel.Field} has been captured.
 	 * 
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the ConfidenceReducer
+	 * to log to the Hadoop Task syslog file.
+	 * @param variabilityReducer The {@link VariabilityReducer} instance to be used in confidence calculations.
 	 * @param variabilityTarget The target amount of captured variability for which confidence is reported (e.g.,
 	 * "how confident am I that 95% of the field's variability has been captured?")
 	 * @param variabilityReducer The {@link VariabilityReducer} instance to be used in confidence calculations.
 	 * @throws IllegalArgumentException Where variabilityTarget is not a value ranging from 1 to 99, inclusive. Also
-	 * thrown if variabilityReducer is null.
+	 * thrown if logger or variabilityReducer is null.
 	 */
-	public ConfidenceReducer(int variabilityTarget, VariabilityReducer variabilityReducer)
+	public ConfidenceReducer(Logger logger, int variabilityTarget, VariabilityReducer variabilityReducer)
 		throws IllegalArgumentException
 	{
+		super(logger);
+		
 		// Check for illegal input
 		if (variabilityTarget < 1 || variabilityTarget > 99)
 		{

@@ -5,12 +5,14 @@ package org.trommel.trommel;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * The interface for all Trommel constructs (i.e., Functions and Data Reporters) that process
  * records during the Reduce phase.
  */
-public interface ReduceRecordHandler 
+public abstract class ReduceRecordHandler  extends RecordHandler
 {
 	//
 	//	Getters/setters
@@ -21,7 +23,23 @@ public interface ReduceRecordHandler
 	 * 
 	 * @return Reduce phase processing result as a String.
 	 */
-	public String getReduceResult();
+	public abstract String getReduceResult();
+	
+	
+	//
+	//	Constructors
+	//
+	
+	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instances that will be used by the ReduceRecordHandler
+	 * to log to the Hadoop Task syslog file.
+	 * @throws IllegalArgumentException Where logger is null or empty.
+	 */
+	public ReduceRecordHandler(Logger logger)
+		throws IllegalArgumentException
+	{
+		super(logger);
+	}
 	
 	
 	//
@@ -35,5 +53,5 @@ public interface ReduceRecordHandler
 	 * <"FunctionName", "OutputValue"> and for Data Reporters the HashMap is in the form of
 	 * <"DataReporterName", "FieldValue">.
 	 */
-	public void handleReduceRecord(HashMap<String,String> record);
+	public abstract void handleReduceRecord(HashMap<String,String> record);
 }

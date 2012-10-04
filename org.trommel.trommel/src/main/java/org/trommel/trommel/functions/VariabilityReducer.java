@@ -6,6 +6,7 @@ package org.trommel.trommel.functions;
 import java.util.HashMap;
 
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
+import org.apache.log4j.Logger;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.ReduceRecordHandler;
 
@@ -16,7 +17,7 @@ import org.trommel.trommel.ReduceRecordHandler;
  *	Missing values are treated as zeroes for numeric fields and null values for categorical Fields
  * 	for the purposes of calculation.
  */
-public class VariabilityReducer implements ReduceRecordHandler 
+public class VariabilityReducer extends ReduceRecordHandler 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -72,10 +73,16 @@ public class VariabilityReducer implements ReduceRecordHandler
 	//
 	
 	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the RequiredReducer
 	 * @param fieldType Specifies if VariabilityReducer is processing numeric or categorical data.
+	 * 
+	 * @throws IllegalArgumentException Where logger is null.
 	 */
-	public VariabilityReducer(FieldType fieldType)
+	public VariabilityReducer(Logger logger, FieldType fieldType)
+		throws IllegalArgumentException
 	{
+		super(logger);
+		
 		this.fieldType = fieldType;
 		
 		if (this.fieldType == FieldType.numeric)

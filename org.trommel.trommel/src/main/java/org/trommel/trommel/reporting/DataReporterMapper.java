@@ -3,17 +3,19 @@
  */
 package org.trommel.trommel.reporting;
 
+import org.apache.log4j.Logger;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.MapRecordHandler;
 import org.trommel.trommel.utilities.StringUtilities;
 
 
+//	TODO - Need to refactor for multiple fields!
 /**
  *	Execute the Map phase for reporting value frequencies (i.e., counts) for a specified {@link org.trommel.trommel.Field} 
  *	in a data set.
  */
-public class DataReporterMapper implements MapRecordHandler 
+public class DataReporterMapper extends MapRecordHandler 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -47,13 +49,17 @@ public class DataReporterMapper implements MapRecordHandler
 	//
 	
 	/**
+	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the DataReporterMapper
+	 * to log to the Hadoop Task syslog file.
 	 * @param fieldName The {@link org.trommel.trommel.Field} in the Record which will be reported on.
-	 * @throws IllegalArgumentException Where field is null or empty. All-whitespace strings are considered 
+	 * @throws IllegalArgumentException Where logger is null or fieldName is null or empty. All-whitespace strings are considered 
 	 * empty.
 	 */
-	public DataReporterMapper(String fieldName)
+	public DataReporterMapper(Logger logger, String fieldName)
 		throws IllegalArgumentException
 	{		
+		super(logger);
+		
 		if (StringUtilities.isNullOrEmpty(fieldName))
 		{
 			throw new IllegalArgumentException("FieldName cannot be null or empty.");

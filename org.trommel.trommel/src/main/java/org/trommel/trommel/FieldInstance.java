@@ -59,7 +59,7 @@ public final class FieldInstance extends Field
 				}
 				catch (NumberFormatException e)
 				{
-					throw new IllegalArgumentException("Value of " + value + "is not numeric.");
+					throw new IllegalArgumentException("Value of " + value + " is not numeric.");
 				}
 			}
 			
