@@ -57,13 +57,21 @@ public class VariabilityReducer extends ReduceRecordHandler
 	{
 		if (fieldType == FieldType.numeric)
 		{
+			double sd = stats.getStandardDeviation();
+			
+			logger.debug(String.format("VariabilityReducer has current sample standard deviation of %1$f.", sd));
+
 			// Return the sample standard deviation as a String
-			return Double.toString(stats.getStandardDeviation());
+			return Double.toString(sd);
 		}
 		else
 		{
+			double rod = (double)discoveredValues.keySet().size() / recordCount;
+			
+			logger.debug(String.format("VariabilityReducer has current rate of discovery of %1$f", rod));
+			
 			// Rate of Discovery is simply the unique discovered values divided by record count
-			return Double.toString((double)discoveredValues.keySet().size() / recordCount);
+			return Double.toString(rod);
 		}
 	}
 	
@@ -117,6 +125,12 @@ public class VariabilityReducer extends ReduceRecordHandler
 			{
 				// Add numeric value to the SummaryStatistics instance
 				stats.addValue(Double.parseDouble(record.get(FUNCTION_NAME)));
+
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("VariabilityReducer.handleReduceRecord added value of %1$s.", record.get(FUNCTION_NAME)));
+				}
 			}
 			else
 			{
@@ -124,6 +138,12 @@ public class VariabilityReducer extends ReduceRecordHandler
 				{
 					// New value discovered
 					discoveredValues.put(record.get(FUNCTION_NAME), 1);
+
+					// This method is called at scale, optimize logging
+					if (logger.isDebugEnabled())
+					{
+						logger.debug(String.format("VariabilityReducer.handleReduceRecord added value of %1$s.", record.get(FUNCTION_NAME)));
+					}
 				}
 			}
 		}

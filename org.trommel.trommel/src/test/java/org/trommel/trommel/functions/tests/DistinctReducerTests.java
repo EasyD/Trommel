@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.Field;
@@ -42,21 +42,26 @@ public class DistinctReducerTests
 	//
 	//	Private members
 	//
-	private static Field[] fields = null;	
+	private Field[] fields = null;	
+	private Logger logger = null;
 	
 
 	//
 	//	Setup/Tear-down
 	//
 	
-	@BeforeClass
-	public static void initialization()
+	@Before
+	public void initialization()
 	{
 		fields = new Field[3];
 		
 		fields[0] = new Field(FIELD1, FieldType.numeric);
 		fields[1] = new Field(FIELD2, FieldType.numeric);
 		fields[2] = new Field(FIELD3, FieldType.numeric);
+
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
 	}
 
 	
@@ -67,7 +72,6 @@ public class DistinctReducerTests
 	@Test
 	public void testGetReduceResult() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String,String>> records = reduceRecords();
 		DistinctReducer distinct = new DistinctReducer(logger);
 		

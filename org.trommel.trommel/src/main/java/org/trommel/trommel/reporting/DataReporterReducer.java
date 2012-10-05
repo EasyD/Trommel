@@ -65,6 +65,8 @@ public class DataReporterReducer extends ReduceRecordHandler
 		
 		if (StringUtilities.isNullOrEmpty(fieldName))
 		{
+			logger.error("DataReporterReducer constructor passed null or empty FieldName.");
+			
 			throw new IllegalArgumentException("FieldName cannot be null or empty.");
 		}
 		
@@ -91,8 +93,14 @@ public class DataReporterReducer extends ReduceRecordHandler
 		
 		// Data reporter values might not be in every reducer record
 		if (record.containsKey(REPORTER_NAME))
-		{
+		{			
 			frequencyCounts.increment(record.get(REPORTER_NAME));
+
+			// This method is called at scale, optimize logging
+			if (logger.isDebugEnabled())
+			{
+				logger.debug(String.format("MaxReducer.handleReduceRecord incremented count of %1$s", record.get(REPORTER_NAME)));
+			}
 		}
 	}
 }

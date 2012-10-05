@@ -77,6 +77,12 @@ public class MinMapper extends Function
 				// Map phase is pretty easy, just spit out the value for the field
 				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, record.getFieldValue(field.getName())));
 
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("MinMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+							                   record.getFieldValue(field.getName()), field.getName()));
+				}				
 			}
 		}
 	}

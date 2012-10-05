@@ -63,6 +63,7 @@ public class VariabilityMapperTests
 	//
 	private Field[] numericFields = null;	
 	private Field[] categoricalFields = null;	
+	private Logger logger = null;
 	
 
 	//
@@ -82,6 +83,10 @@ public class VariabilityMapperTests
 		categoricalFields[0] = new Field(FIELD1, FieldType.categorical);
 		categoricalFields[1] = new Field(FIELD2, FieldType.categorical);
 		categoricalFields[2] = new Field(FIELD3, FieldType.categorical);
+
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
 	}
 	
 	
@@ -92,7 +97,6 @@ public class VariabilityMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		VariabilityMapper var = new VariabilityMapper(logger, numericFields);	
 	}
@@ -100,7 +104,6 @@ public class VariabilityMapperTests
 	@Test
 	public void testGetHandlerName()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		VariabilityMapper var = new VariabilityMapper(logger, numericFields);
 		
 		assertEquals(FUNCTION_NAME, var.getHandlerName());
@@ -113,7 +116,6 @@ public class VariabilityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = numericMapRecords();
-		Logger logger = Mockito.mock(Logger.class);
 		VariabilityMapper var = new VariabilityMapper(logger, numericFields);
 		String prefix = var.getHandlerName() + "=";
 		
@@ -149,7 +151,6 @@ public class VariabilityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = categoricalMapRecords();
-		Logger logger = Mockito.mock(Logger.class);
 		VariabilityMapper var = new VariabilityMapper(logger, categoricalFields);
 		String prefix = var.getHandlerName() + "=";
 		

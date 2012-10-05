@@ -10,6 +10,7 @@ import java.io.PushbackReader;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.RecordParser;
@@ -27,8 +28,18 @@ public class TrommelMapper
 	extends Mapper<LongWritable, Text, Text, Text>
 {
 	//
+	//	Class constants (e.g., strings used in more than one place in the code)
+	//
+	private static final String LOGGING_LEVEL_CONFIG_PROP = "TrommelLogLevel";
+	private static final String LOGGING_LEVEL_DEBUG = "DEBUG";
+	private static final String LOGGING_LEVEL_INFO = "INFO";
+	private static final String LOGGING_LEVEL_WARN = "WARN";
+	private static final String SCRIPT_CONFIG_PROP = "TrommelScript";
+
+	//
 	//	Private members
 	//
+	private static final Logger logger = Logger.getLogger(TrommelMapper.class);
 	private MapInterpreter interpreter = null;
 	private RecordParser recordParser = null;
 	private MapController controller = null;
@@ -63,6 +74,8 @@ public class TrommelMapper
 			buffer.append(" encountered processing data set record. Exception message:\n");
 			buffer.append(e.getMessage());
 			
+			logger.error(buffer.toString());
+			
 			throw new IOException(buffer.toString());
 		}
 	}
@@ -82,16 +95,28 @@ public class TrommelMapper
 	{
 		try
 		{
-			// Get Task Appender Logger and configure based on command line input 
-			Logger logger = Logger.getLogger(TrommelMapper.class);
-			
-			// TODO - Configure logger based on environment property
-			
-			
-			
+			// Configure logger based on context config property
+			String logLevel = context.getConfiguration().get(LOGGING_LEVEL_CONFIG_PROP, LOGGING_LEVEL_INFO);
+						
+			if (logLevel.equalsIgnoreCase(LOGGING_LEVEL_DEBUG))
+			{
+				logger.setLevel(Level.DEBUG);
+			}
+			else if (logLevel.equalsIgnoreCase(LOGGING_LEVEL_WARN))
+			{
+				logger.setLevel(Level.WARN);
+			}
+			else
+			{
+				// Default to INFO
+				logger.setLevel(Level.INFO);
+			}
 			
 			// Load, parse, and interpret TrommelScript for Map phase of processing
-			String trommelScript = context.getConfiguration().get("TrommelScript");
+			logger.info(String.format("Parsing and interpreting TrommelScript %1$s.", 
+					                  context.getConfiguration().get(SCRIPT_CONFIG_PROP)));
+			
+			String trommelScript = context.getConfiguration().get(SCRIPT_CONFIG_PROP);
 			Lexer lexer = new Lexer(new PushbackReader(new FileReader(trommelScript), 4096));
 			Parser parser = new Parser(lexer);
 			Start ast = parser.parse();
@@ -103,6 +128,8 @@ public class TrommelMapper
 			// Grab RecordParser and MapController instances based on TrommelScript specification
 			recordParser = interpreter.getRecordParser();
 			controller = interpreter.getController();
+
+			logger.info("MapController and RecordParser configured, beginning Map phase record proessing.");
 		}
 		catch (Exception e)
 		{
@@ -111,6 +138,8 @@ public class TrommelMapper
 			buffer.append(e.getClass().getSimpleName());
 			buffer.append(" encountered parsing TrommelScript file. Exception message:\n");
 			buffer.append(e.getMessage());
+			
+			logger.error(buffer.toString());
 			
 			throw new IOException(buffer.toString());
 		}

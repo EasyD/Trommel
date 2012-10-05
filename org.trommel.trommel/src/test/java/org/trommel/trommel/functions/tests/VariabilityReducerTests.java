@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.FieldType;
@@ -33,6 +34,25 @@ public class VariabilityReducerTests
 	private static final String ROW4_NUMERIC_VALUE = "17";
 	private static final String ROW5_NUMERIC_VALUE = "18";
 	private static final String ROW6_NUMERIC_VALUE = "29";
+	
+	
+	//
+	//	Private members
+	//
+	private Logger logger = null;	
+	
+
+	//
+	//	Setup/Tear-down
+	//
+	
+	@Before
+	public void initialization()
+	{
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
+	}
 
 
 	//
@@ -42,15 +62,21 @@ public class VariabilityReducerTests
 	@Test
 	public void testConstructorOK()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);			
 	}
 	
 	@Test
+	public void testgetHandlerName()
+	{
+		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);			
+		
+		assertEquals("Variability", var.getHandlerName());
+	}
+	
+	@Test
 	public void testNumericGetReduceResult()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = numericReduceRecords();
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
 		
@@ -65,7 +91,6 @@ public class VariabilityReducerTests
 	@Test
 	public void testCategoricalGetReduceResult()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = categoricalReduceRecords();
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.categorical);
 		

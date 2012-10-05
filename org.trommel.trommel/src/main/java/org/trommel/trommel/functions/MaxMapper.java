@@ -79,6 +79,13 @@ public class MaxMapper extends Function
 				
 				// Map phase is pretty easy, just spit out the value for the field
 				record.addFunctionOutput(field.getName(), functionOutput);
+
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("MaxMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+							                   record.getFieldValue(field.getName()), field.getName()));
+				}				
 			}
 		}
 	}

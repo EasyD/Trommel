@@ -49,6 +49,13 @@ public class MapProfileControllerTests
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
+	public void testConstructorNullLogger() 
+	{
+		@SuppressWarnings("unused")
+		MapProfileController controller = new MapProfileController(null, buildFields());
+	}
+
+	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorEmptyArray() 
 	{
 		Logger logger = Mockito.mock(Logger.class);

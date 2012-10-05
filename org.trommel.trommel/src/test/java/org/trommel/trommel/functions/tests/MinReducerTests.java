@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.functions.MinReducer;
@@ -32,13 +33,31 @@ public class MinReducerTests
 
 	
 	//
+	//	Private members
+	//
+	private Logger logger = null;
+	
+
+	//
+	//	Setup/Tear-down
+	//
+	
+	@Before
+	public void initialization()
+	{
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
+	}
+
+	
+	//
 	//	Tests
 	//
 	
 	@Test
 	public void testGetReduceResult() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String,String>> records = reduceRecords();
 		MinReducer min = new MinReducer(logger);
 		

@@ -49,7 +49,8 @@ public class MaxMapperTests
 	//
 	//	Private members
 	//
-	private Field[] fields = null;	
+	private Field[] fields = null;
+	private Logger logger = null;
 	
 
 	//
@@ -64,6 +65,10 @@ public class MaxMapperTests
 		fields[0] = new Field(FIELD1, FieldType.numeric);
 		fields[1] = new Field(FIELD2, FieldType.numeric);
 		fields[2] = new Field(FIELD3, FieldType.numeric);
+		
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
 	}
 	
 	
@@ -74,7 +79,6 @@ public class MaxMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		MaxMapper max = new MaxMapper(logger, fields);	
 	}
@@ -82,7 +86,6 @@ public class MaxMapperTests
 	@Test
 	public void testGetHandlerName()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		MaxMapper max = new MaxMapper(logger, fields);
 		
 		assertEquals(FUNCTION_NAME, max.getHandlerName());
@@ -95,7 +98,6 @@ public class MaxMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
-		Logger logger = Mockito.mock(Logger.class);
 		MaxMapper max = new MaxMapper(logger, fields);
 		String prefix = max.getHandlerName() + "=";
 		

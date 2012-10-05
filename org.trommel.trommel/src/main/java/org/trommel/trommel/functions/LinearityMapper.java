@@ -87,6 +87,8 @@ public class LinearityMapper extends Function
 		// Check for illegal input
 		if (sampleRate < 1 || sampleRate > 100)
 		{
+			logger.error(String.format("LinerarityMapper's constructor was passed and invalid sample rate of %1$d.", sampleRate));
+			
 			throw new IllegalArgumentException("Linearity sample rate of " + Integer.toString(sampleRate) + " is not in range of 1-100, inclusive.");
 		}	
 		
@@ -118,34 +120,43 @@ public class LinearityMapper extends Function
 
 			if (field.isNumeric())
 			{
-				// Only write out a record if it falls in the random sample
-				if (random.nextInt(100) < sampleRate)
+				if(random.nextInt(100) < sampleRate)
 				{
-					// Variability is sample standard deviation for numeric fields
+					// Only write out a record if it falls in the random sample
 					if (StringUtilities.isNullOrEmpty(fieldValue))
 					{
 						// Write out zeroes for null/empty fields
-						record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, "0"));
+						fieldValue = "0";
 					}
-					else
+							
+					// Write out value
+					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
+					
+					// This method is called at scale, optimize logging
+					if (logger.isDebugEnabled())
 					{
-						// Write out the value and the square of the value
-						record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
-					}
+						logger.debug(String.format("LinearityMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+								                   fieldValue, field.getName()));
+					}			
 				}
 			}
-			else
+			else 
 			{
-				// Variability is Rate of Discovery (ROD) for categorical fields 
 				if(StringUtilities.isNullOrEmpty(fieldValue))
 				{
 					// The absence of value is included in ROD, write out null indicator
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, NULL_INDICATOR));					
+					fieldValue = NULL_INDICATOR;
 				}
-				else
+
+				// Write out value
+				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
+				
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
 				{
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
-				}
+					logger.debug(String.format("LinearityMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+							                   fieldValue, field.getName()));
+				}				
 			}
 		}
 	}

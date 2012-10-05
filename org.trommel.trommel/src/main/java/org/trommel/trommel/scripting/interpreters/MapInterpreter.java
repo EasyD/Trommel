@@ -122,6 +122,9 @@ public class MapInterpreter extends DepthFirstAdapter
 	@Override
     public void outAField(AField node)
     {
+		logger.debug(String.format("MapInterpreter.outAField called with Identifier = %1$s, FieldType = %2$s.", 
+				                   node.getIdentifier(), node.getFieldType()));
+		
 		// Build up symbol table of Fields specified in script
 		String fieldName = node.getIdentifier().toString().toLowerCase().trim();
 		String fieldType = node.getFieldType().toString().trim();
@@ -149,8 +152,13 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outACustomFieldsTerminatedBy(ACustomFieldsTerminatedBy node)
     {
+    	String fieldTerminator = node.getFieldTerminator().toString().trim();
+    	
+		logger.debug(String.format("MapInterpreter.outACustomFieldsTerminatedBy called with FieldTerminator = %1$s.", 
+                                   fieldTerminator));
+
 		// Custom terminator specified in script
-		fieldTerminator = node.getFieldTerminator().toString().trim().replace("\'", "").replace("\\t", "\t");
+		fieldTerminator = fieldTerminator.replace("\'", "").replace("\\t", "\t");
     }
 	
 	/**
@@ -160,6 +168,8 @@ public class MapInterpreter extends DepthFirstAdapter
 	@Override
     public void outALoadDataStatement(ALoadDataStatement node)
     {
+		logger.debug("MapInterpreter.outALoadDataStatement called.");
+
 		recordParser = new SimpleRecordParser(dataSetFields.toArray(new Field[0]), fieldTerminator, DELIMITER);
     }
 
@@ -170,7 +180,10 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outAProfiledField(AProfiledField node)
     {		
-    	if (profileFields == null)
+		logger.debug(String.format("MapInterpreter.outAProfiledField called with Identifier = %1$s.", 
+                                   node.getIdentifier()));
+
+		if (profileFields == null)
     	{
     		profileFields = new LinkedList<Field>();
     	}
@@ -185,7 +198,9 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void inASingleFunctionList(ASingleFunctionList node)
     {
-    	profileController = new MapProfileController(logger, profileFields.toArray(new Field[0])); 
+		logger.debug("MapInterpreter.inASingleFunctionList called.");
+
+		profileController = new MapProfileController(logger, profileFields.toArray(new Field[0])); 
     }
 
 	/**
@@ -195,6 +210,8 @@ public class MapInterpreter extends DepthFirstAdapter
    @Override
     public void outAMaxFunction(AMaxFunction node)
     {
+		logger.debug("MapInterpreter.outAMaxFunction called.");
+
 		// Tell controller to add Max function
 		profileController.addFunction(ProfileFunction.Max);
     }
@@ -206,6 +223,8 @@ public class MapInterpreter extends DepthFirstAdapter
 	@Override
     public void outAMinFunction(AMinFunction node)
     {
+		logger.debug("MapInterpreter.outAMinFunction called.");
+
 		// Tell controller to add Min function
 		profileController.addFunction(ProfileFunction.Min);
     }
@@ -217,6 +236,8 @@ public class MapInterpreter extends DepthFirstAdapter
 	@Override
     public void outADistinctFunction(ADistinctFunction node)
     {
+		logger.debug("MapInterpreter.outADistinctFunction called.");
+
 		// Tell controller to add Distinct function
 		profileController.addFunction(ProfileFunction.Distinct);
     }
@@ -228,6 +249,8 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outAEmptyFunction(AEmptyFunction node)
     {
+		logger.debug("MapInterpreter.outAEmptyFunction called.");
+
 		// Tell controller to add Empty function
 		profileController.addFunction(ProfileFunction.Empty);
     }
@@ -239,6 +262,8 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outAVarFunction(AVarFunction node)
     {
+		logger.debug("MapInterpreter.outAVarFunction called.");
+
 		// Tell controller to add Var function
 		profileController.addFunction(ProfileFunction.Var);
     }
@@ -250,6 +275,8 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outADefaultLinearity(ADefaultLinearity node)
     {
+		logger.debug("MapInterpreter.outADefaultLinearity called.");
+
 		// Tell controller to add Lin function with default sampling rate
 		profileController.addFunction(ProfileFunction.Lin);
     }
@@ -261,6 +288,8 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outADefaultParenLinearity(ADefaultParenLinearity node)
     {
+		logger.debug("MapInterpreter.outADefaultParenLinearity called.");
+
 		// Tell controller to add Lin function with default sampling rate
 		profileController.addFunction(ProfileFunction.Lin);
     }
@@ -272,8 +301,12 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outAParmLinearity(AParmLinearity node)
     {
+    	String parm = node.getInteger().toString().trim();
+    	
+		logger.debug(String.format("MapInterpreter.outAParmLinearity called with Integer = %1$s.", parm));
+
 		// Tell controller to add Lin function with specified sampling rate
-		profileController.addFunction(ProfileFunction.Lin, node.getInteger().toString().trim());
+		profileController.addFunction(ProfileFunction.Lin, parm);
     }    
 
 	/**
@@ -283,6 +316,8 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outAAllBuiltinProfilers(AAllBuiltinProfilers node)
     {
+		logger.debug("MapInterpreter.outAAllBuiltinProfilers called.");
+
     	profileController = new MapProfileController(logger, profileFields.toArray(new Field[0])); 
     	
     	// Add all mapper functions with default parameters

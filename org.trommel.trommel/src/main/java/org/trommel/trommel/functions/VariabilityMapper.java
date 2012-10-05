@@ -80,32 +80,26 @@ public class VariabilityMapper extends Function
 		{
 			String fieldValue = record.getFieldValue(field.getName());
 
-			if (field.isNumeric())
+			if (field.isNumeric() && StringUtilities.isNullOrEmpty(fieldValue))
 			{
-				// Variability is sample standard deviation for numeric fields
-				if (StringUtilities.isNullOrEmpty(fieldValue))
-				{
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, "0"));
-				}
-				else
-				{
-					// Write out the value 
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
-				}
+				// Write out zeroes for null/empty fields
+				fieldValue = "0";
 			}
-			else
+			else if(StringUtilities.isNullOrEmpty(fieldValue))
 			{
-				// Variability is Rate of Discovery (ROD) for categorical fields 
-				if(StringUtilities.isNullOrEmpty(fieldValue))
-				{
-					// The absence of value is included in ROD, write out null indicator
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, NULL_INDICATOR));					
-				}
-				else
-				{
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
-				}
+				// The absence of value is included in Rate of Discovery, write out null indicator
+				fieldValue = NULL_INDICATOR;
 			}
+
+			// Write out value
+			record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
+
+			// This method is called at scale, optimize logging
+			if (logger.isDebugEnabled())
+			{
+				logger.debug(String.format("VariabilitMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+						                   fieldValue, field.getName()));
+			}				
 		}
 	}
 }

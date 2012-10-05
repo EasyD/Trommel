@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.functions.EmptyReducer;
@@ -28,6 +29,25 @@ public class EmptyReducerTests
 	
 	// Field values
 	private static final String FIELD_VALUE = "1";
+	
+	
+	//
+	//	Private members
+	//
+	private Logger logger = null;	
+	
+
+	//
+	//	Setup/Tear-down
+	//
+	
+	@Before
+	public void initialization()
+	{
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
+	}
 
 
 	//
@@ -37,7 +57,6 @@ public class EmptyReducerTests
 	@Test
 	public void testGetReduceResult() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String,String>> records = reduceRecords();
 		EmptyReducer empty = new EmptyReducer(logger);
 		

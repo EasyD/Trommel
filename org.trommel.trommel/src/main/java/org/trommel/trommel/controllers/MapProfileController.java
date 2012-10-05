@@ -51,9 +51,13 @@ public class MapProfileController implements MapController
 		{
 			throw new IllegalArgumentException("Logger cannot be null.");
 		}
-		
+
+		this.logger = logger;
+
 		if (fields == null || fields.length == 0)
 		{
+			this.logger.error("Null or empty Fields array passed to MapProfileController constructor.");
+			
 			throw new IllegalArgumentException("Fields array cannot be null or empty.");
 		}
 		
@@ -61,11 +65,15 @@ public class MapProfileController implements MapController
 		{
 			if (field == null)
 			{
+				this.logger.error("Null Fields array element passed to MapProfileController constructor.");
+				
 				throw new IllegalArgumentException("Fields array cannot contain null elements.");
 			}
+			
+			logger.debug(String.format("MapProfileController constructed with Field: Name = %1$s, FieldType = %2$s.",
+					     field.getName(), field.getType()));
 		}
 		
-		this.logger = logger;
 		this.fields = fields;
 	}
 	
@@ -94,6 +102,9 @@ public class MapProfileController implements MapController
 	 */
 	public void addFunction(ProfileFunction function, String parameter)
 	{
+		logger.debug(String.format("MapProfileController.addFunction called with function = %1$s, param = %2$s",
+				                   function, parameter));
+		
 		switch(function)
 		{
 			case Max:
@@ -134,6 +145,12 @@ public class MapProfileController implements MapController
 	 */
 	public void handleMapRecord(MapRecord record) 
 	{
+		// This method is called at scale, optimize logging
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("MapProfileController.handleMapRecord called.");
+		}
+		
 		ListIterator<MapRecordHandler> iterator = functions.listIterator();
 		
 		while (iterator.hasNext())

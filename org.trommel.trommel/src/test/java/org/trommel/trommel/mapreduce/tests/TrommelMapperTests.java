@@ -55,6 +55,7 @@ public class TrommelMapperTests
 		// Set up a Hadoop Configuration object to point at a test TrommelScript file
 		Configuration config = new Configuration(false);
 		
+		config.set("TrommelLogLevel", "INFO");
 		config.set("TrommelScript", "src/test/resources/scripts/ProfileDataExplicitFunc.trommel");
 		
 		// Run a TrommelMapper with data that fits the LOAD DATA statement for the script above	

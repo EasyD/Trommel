@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.FieldType;
@@ -42,13 +43,31 @@ public class RequiredReducerTests
 
 	
 	//
+	//	Private members
+	//
+	private Logger logger = null;
+	
+
+	//
+	//	Setup/Tear-down
+	//
+	
+	@Before
+	public void initialization()
+	{
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
+	}
+
+	
+	//
 	//	Tests
 	//
 
 	@Test
 	public void testConstructorOK() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		ConfidenceReducer con = Mockito.mock(ConfidenceReducer.class);
 		@SuppressWarnings("unused")
 		RequiredReducer req = new RequiredReducer(logger, con);
@@ -57,7 +76,6 @@ public class RequiredReducerTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullParm() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		RequiredReducer req = new RequiredReducer(logger, null);
 	}
@@ -66,7 +84,6 @@ public class RequiredReducerTests
 	@Test
 	public void testNumericGetReduceResult()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = reduceRecords();
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
 		ConfidenceReducer con = new ConfidenceReducer(logger, 80, var);

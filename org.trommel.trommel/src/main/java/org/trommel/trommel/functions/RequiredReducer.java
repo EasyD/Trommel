@@ -35,6 +35,8 @@ public class RequiredReducer extends ReduceRecordHandler
 	 */
 	public String getReduceResult()
 	{
+		logger.debug(String.format("RequiredReducer has current record count of %1$s.", confidenceReducer.getConfidenceRecordCount()));
+
 		return confidenceReducer.getConfidenceRecordCount();
 	}
 	
@@ -59,6 +61,8 @@ public class RequiredReducer extends ReduceRecordHandler
 		// Check for illegal input
 		if (confidenceReducer == null)
 		{
+			logger.error("ConfidenceReducer constructor was passed a null ConfidenceReducer.");
+			
 			throw new IllegalArgumentException("ConfidenceReducer cannot be null.");
 		}
 		

@@ -35,6 +35,8 @@ public class DistinctReducer extends ReduceRecordHandler
 	 */
 	public String getReduceResult()
 	{
+		logger.debug(String.format("DistinctReducer has current distinct count of %1$d.", distinctValues.size()));
+		
 		return Integer.toString(distinctValues.size());
 	}
 	
@@ -73,6 +75,12 @@ public class DistinctReducer extends ReduceRecordHandler
 			if (!distinctValues.containsKey(fieldValue))
 			{
 				distinctValues.put(fieldValue, null);
+
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("DistinctReducer.handleReduceRecord found distinct value %1$s.", fieldValue));
+				}
 			}
 		}
 	}

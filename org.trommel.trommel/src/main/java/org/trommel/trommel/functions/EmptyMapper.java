@@ -75,6 +75,13 @@ public class EmptyMapper extends Function
 			if(StringUtilities.isNullOrEmpty(record.getFieldValue(field.getName())))
 			{
 				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, "1"));
+
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("DistinctMapper.handleMapRecord found an empty value for Field %1$s.",
+							                   field.getName()));
+				}
 			}
 		}
 	}

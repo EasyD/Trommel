@@ -3,8 +3,6 @@
  */
 package org.trommel.trommel.tests;
 
-import static org.junit.Assert.*;
-
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +54,6 @@ public class RecordHandlerTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		RecordHandler recordHandler = new MaxMapper(null, fields);
 	}

@@ -86,6 +86,13 @@ public class DistinctMapper extends Function
 				distinctValues.put(fieldValue, null);
 				
 				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
+				
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("DistinctMapper.handleMapRecord found distinct value %1$s for Field %2$s.",
+							                   fieldValue, field.getName()));
+				}
 			}			
 		}
 	}

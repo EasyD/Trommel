@@ -35,6 +35,13 @@ public class MapInterpreterTests
 	//	Tests
 	//
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructorNullLogger()
+	{
+		@SuppressWarnings("unused")
+		MapInterpreter interpreter = new MapInterpreter(null);
+	}
+	
 	@Test
 	public void testLoadDataStatement()
 		throws ParserException, LexerException, IOException 

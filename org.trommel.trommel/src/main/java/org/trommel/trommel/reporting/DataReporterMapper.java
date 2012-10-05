@@ -62,6 +62,8 @@ public class DataReporterMapper extends MapRecordHandler
 		
 		if (StringUtilities.isNullOrEmpty(fieldName))
 		{
+			logger.error("DataReporterMapper constructor passed a null or empty FieldName.");
+			
 			throw new IllegalArgumentException("FieldName cannot be null or empty.");
 		}
 		
@@ -85,5 +87,12 @@ public class DataReporterMapper extends MapRecordHandler
 	{
 		// Data reporting is pretty easy, just output the values by field for counting in Reduce phase
 		record.addFunctionOutput(fieldName, new FunctionOutput(REPORTER_NAME, record.getFieldValue(fieldName))); 
+
+		// This method is called at scale, optimize logging
+		if (logger.isDebugEnabled())
+		{
+			logger.debug(String.format("DataReporterMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+					                   record.getFieldValue(fieldName), fieldName));
+		}				
 	}
 }

@@ -37,6 +37,8 @@ public class MaxReducer extends ReduceRecordHandler
 	 */
 	public String getReduceResult()
 	{
+		logger.debug(String.format("MaxReducer has current max value of of %1$f.", maxValue));
+
 		return Double.toString(maxValue);
 	}
 
@@ -78,6 +80,12 @@ public class MaxReducer extends ReduceRecordHandler
 			if (currentValue > maxValue)
 			{
 				maxValue = currentValue;
+
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("MaxReducer.handleReduceRecord found new max value of %1$f.", maxValue));
+				}
 			}
 		}
 	}

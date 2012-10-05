@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.FieldType;
@@ -38,6 +39,25 @@ public class ConfidenceReducerTests
 	private static final String ROW7_VALUE = "14";
 	private static final String ROW8_VALUE = "22";
 	private static final String ROW9_VALUE = "32";
+	
+	
+	//
+	//	Private members
+	//
+	private Logger logger = null;	
+	
+
+	//
+	//	Setup/Tear-down
+	//
+	
+	@Before
+	public void initialization()
+	{
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
+	}
 
 	
 	//
@@ -47,7 +67,6 @@ public class ConfidenceReducerTests
 	@Test
 	public void testSingleParmConstructorOK() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		VariabilityReducer var = Mockito.mock(VariabilityReducer.class);
 		@SuppressWarnings("unused")
 		ConfidenceReducer con = new ConfidenceReducer(logger, var);
@@ -56,7 +75,6 @@ public class ConfidenceReducerTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testTwoParmConstructorInvalidTarget() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		VariabilityReducer var = Mockito.mock(VariabilityReducer.class);
 		@SuppressWarnings("unused")
 		ConfidenceReducer con = new ConfidenceReducer(logger, 100, var);
@@ -65,7 +83,6 @@ public class ConfidenceReducerTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testTwoParmConstructorNullVarReducer() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		ConfidenceReducer con = new ConfidenceReducer(logger, 85, null);
 	}
@@ -73,7 +90,6 @@ public class ConfidenceReducerTests
 	@Test
 	public void testNumericGetReduceResult()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = reduceRecords();
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
 		ConfidenceReducer con = new ConfidenceReducer(logger, 80, var);
@@ -91,7 +107,6 @@ public class ConfidenceReducerTests
 	@Test
 	public void testNumericGetConfidenceRecordCount()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		List<HashMap<String, String>> records = reduceRecords();
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
 		ConfidenceReducer con = new ConfidenceReducer(logger, 80, var);

@@ -111,11 +111,16 @@ public class ConfidenceReducer extends ReduceRecordHandler
 		// Check for illegal input
 		if (variabilityTarget < 1 || variabilityTarget > 99)
 		{
+			logger.error(String.format("ConfidenceReducer constructor was passed an invalid variability target of %1$d",
+					                   variabilityTarget));
+			
 			throw new IllegalArgumentException("VariabilityTarget must be between 1 and 99, inclusive.");
 		}
 		
 		if (variabilityReducer == null)
 		{
+			logger.error("ConfidenceReducer constructor was passed a null VariabilityReducer.");
+
 			throw new IllegalArgumentException("VariabilityReducer cannot be null.");
 		}
 		
@@ -181,6 +186,9 @@ public class ConfidenceReducer extends ReduceRecordHandler
 		{
 			bestConfidence = currentConfidenceLevel();
 			bestConfidenceRecordCount = recordCount;
+			
+			logger.debug(String.format("ConfidenceReducer.updateBestConfidence found new best confidence level of %1$d using %2$d records",
+					                   bestConfidence, bestConfidenceRecordCount));
 		}
 	}
 		

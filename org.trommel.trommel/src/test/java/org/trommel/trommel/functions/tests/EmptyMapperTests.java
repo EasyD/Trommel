@@ -55,6 +55,7 @@ public class EmptyMapperTests
 	//	Private members
 	//
 	private Field[] fields = null;	
+	private Logger logger = null;
 	
 
 	//
@@ -69,6 +70,10 @@ public class EmptyMapperTests
 		fields[0] = new Field(FIELD1, FieldType.numeric);
 		fields[1] = new Field(FIELD2, FieldType.numeric);
 		fields[2] = new Field(FIELD3, FieldType.numeric);
+		
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
 	}
 	
 	
@@ -79,7 +84,6 @@ public class EmptyMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		EmptyMapper empty = new EmptyMapper(logger, fields);	
 	}
@@ -87,7 +91,6 @@ public class EmptyMapperTests
 	@Test
 	public void testGetHandlerName()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		EmptyMapper empty = new EmptyMapper(logger, fields);
 		
 		assertEquals(FUNCTION_NAME, empty.getHandlerName());
@@ -101,7 +104,6 @@ public class EmptyMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
-		Logger logger = Mockito.mock(Logger.class);
 		EmptyMapper empty = new EmptyMapper(logger, fields);
 		String prefix = empty.getHandlerName() + "=";
 		

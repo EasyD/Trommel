@@ -60,6 +60,7 @@ public class LinearityMapperTests
 	//
 	private Field[] numericFields = null;	
 	private Field[] categoricalFields = null;	
+	private Logger logger = null;
 	
 
 	//
@@ -79,6 +80,10 @@ public class LinearityMapperTests
 		categoricalFields[0] = new Field(FIELD1, FieldType.categorical);
 		categoricalFields[1] = new Field(FIELD2, FieldType.categorical);
 		categoricalFields[2] = new Field(FIELD3, FieldType.categorical);
+		
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
 	}
 	
 	
@@ -89,7 +94,6 @@ public class LinearityMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		LinearityMapper lin = new LinearityMapper(logger, numericFields);	
 	}
@@ -97,7 +101,6 @@ public class LinearityMapperTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorLowSampleRate() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		LinearityMapper lin = new LinearityMapper(logger, numericFields, 0);	
 	}
@@ -105,7 +108,6 @@ public class LinearityMapperTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorHighSampleRate() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		LinearityMapper lin = new LinearityMapper(logger, numericFields, 101);	
 	}
@@ -113,7 +115,6 @@ public class LinearityMapperTests
 	@Test
 	public void testGetHandlerName()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		LinearityMapper lin = new LinearityMapper(logger, numericFields);
 		
 		assertEquals(FUNCTION_NAME, lin.getHandlerName());
@@ -126,7 +127,6 @@ public class LinearityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = threeMapRecords();
-		Logger logger = Mockito.mock(Logger.class);
 		LinearityMapper lin = new LinearityMapper(logger, numericFields, 100);
 		String prefix = lin.getHandlerName() + "=";
 		
@@ -154,7 +154,6 @@ public class LinearityMapperTests
 		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD8_VALUE));
 		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD9_VALUE));
 	}
-	
 
 	@Test
 	public void testNumericSamplingHandleMapRecord() 
@@ -163,7 +162,6 @@ public class LinearityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = thousandMapRecords();
-		Logger logger = Mockito.mock(Logger.class);
 		LinearityMapper lin = new LinearityMapper(logger, numericFields, 50);
 		
 		for (int i = 0; i < 1000; ++i)
@@ -178,7 +176,6 @@ public class LinearityMapperTests
 		Mockito.verify(context, Mockito.atMost(1575)).write(Mockito.any(Text.class), Mockito.any(Text.class));
 	}
 	
-
 	@Test
 	public void testCategoricalHandleMapRecord() 
 		throws IOException, InterruptedException
@@ -186,7 +183,6 @@ public class LinearityMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = categoricalMapRecords();
-		Logger logger = Mockito.mock(Logger.class);
 		LinearityMapper lin = new LinearityMapper(logger, categoricalFields, 100);
 		String prefix = lin.getHandlerName() + "=";
 		

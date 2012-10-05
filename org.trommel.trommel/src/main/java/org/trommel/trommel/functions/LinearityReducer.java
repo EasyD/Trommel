@@ -51,18 +51,28 @@ public class LinearityReducer extends ReduceRecordHandler
 		// It's possible that we won't get any records from the Map phase due to random sampling
 		if (recordCount == 0)
 		{
+			logger.debug("LinearityReducer has current count of 0, returning -1.");
+			
 			return "-1.0";
 		}
 		
 		if (fieldType == FieldType.numeric)
 		{
+			double linearity = Math.abs(regression.getR());
+			
+			logger.debug(String.format("LinearityReducer has current correlation coefficient of %1$f.", linearity));
+
 			// Return the absolute value of the Pearson's correlation coefficient for the interstitial differences
-			return Double.toString(Math.abs(regression.getR()));
+			return Double.toString(linearity);
 		}
 		else
 		{
+			double rod = (double)discoveredValues.keySet().size() / recordCount;
+			
+			logger.debug(String.format("LinearityReducer has current rate of discovery of %1$f.", rod));
+
 			// Rate of Discovery is simply the unique discovered values divided by record count
-			return Double.toString((double)discoveredValues.keySet().size() / recordCount);
+			return Double.toString(rod);
 		}
 	}
 	
@@ -122,6 +132,12 @@ public class LinearityReducer extends ReduceRecordHandler
 					double temp = currentValue - previousValue;
 					
 					regression.addData(recordCount - 1, temp);
+
+					// This method is called at scale, optimize logging
+					if (logger.isDebugEnabled())
+					{
+						logger.debug(String.format("LinearityReducer.handleReduceRecord added intersitial value of %1$f,", temp));
+					}
 				}
 				
 				previousValue = currentValue;
@@ -132,6 +148,12 @@ public class LinearityReducer extends ReduceRecordHandler
 				{
 					// New value discovered
 					discoveredValues.put(record.get(FUNCTION_NAME), 1);
+
+					// This method is called at scale, optimize logging
+					if (logger.isDebugEnabled())
+					{
+						logger.debug(String.format("LinearityReducer.handleReduceRecord added rate of discovery value of %1$s.", record.get(FUNCTION_NAME)));
+					}
 				}
 			}
 		}

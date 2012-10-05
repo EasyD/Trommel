@@ -55,6 +55,7 @@ public class DistinctMapperTests
 	//	Private members
 	//
 	private Field[] fields = null;	
+	private Logger logger = null;
 	
 
 	//
@@ -69,6 +70,10 @@ public class DistinctMapperTests
 		fields[0] = new Field(FIELD1, FieldType.numeric);
 		fields[1] = new Field(FIELD2, FieldType.numeric);
 		fields[2] = new Field(FIELD3, FieldType.numeric);
+
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
 	}
 
 	
@@ -79,7 +84,6 @@ public class DistinctMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		DistinctMapper distinct = new DistinctMapper(logger, fields);	
 	}
@@ -87,7 +91,6 @@ public class DistinctMapperTests
 	@Test
 	public void testGetHandlerName()
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		DistinctMapper distinct = new DistinctMapper(logger, fields);
 		
 		assertEquals(FUNCTION_NAME, distinct.getHandlerName());
@@ -100,7 +103,6 @@ public class DistinctMapperTests
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
-		Logger logger = Mockito.mock(Logger.class);
 		DistinctMapper distinct = new DistinctMapper(logger, fields);
 		String prefix = distinct.getHandlerName() + "=";
 		

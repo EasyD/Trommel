@@ -37,6 +37,8 @@ public class MinReducer extends ReduceRecordHandler
 	 */
 	public String getReduceResult()
 	{
+		logger.debug(String.format("MinReducer has current min value of of %1$f.", minValue));
+
 		return Double.toString(minValue);
 	}
 
@@ -78,6 +80,12 @@ public class MinReducer extends ReduceRecordHandler
 			if (currentValue < minValue)
 			{
 				minValue = currentValue;
+
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("MinReducer.handleReduceRecord found new min value of %1$f.", minValue));
+				}
 			}
 		}
 	}

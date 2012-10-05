@@ -37,6 +37,8 @@ public class EmptyReducer extends ReduceRecordHandler
 	 */
 	public String getReduceResult()
 	{
+		logger.debug(String.format("EmptyReducer has current distinct count of %1$d.", emptyCount));
+		
 		return Integer.toString(emptyCount);
 	}
 
@@ -72,6 +74,12 @@ public class EmptyReducer extends ReduceRecordHandler
 		{	
 			// Reduce phase processing is easy, increment the count
 			++emptyCount;
+
+			// This method is called at scale, optimize logging
+			if (logger.isDebugEnabled())
+			{
+				logger.debug("EmptyReducer.handleReduceRecord found an empty field value.");
+			}
 		}
 	}
 }
