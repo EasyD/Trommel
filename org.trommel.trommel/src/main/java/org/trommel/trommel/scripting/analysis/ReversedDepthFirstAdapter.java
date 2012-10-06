@@ -86,6 +86,31 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAReportDataTrommelScript(node);
     }
 
+    public void inASampleDataTrommelScript(ASampleDataTrommelScript node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASampleDataTrommelScript(ASampleDataTrommelScript node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASampleDataTrommelScript(ASampleDataTrommelScript node)
+    {
+        inASampleDataTrommelScript(node);
+        if(node.getSampleDataStatement() != null)
+        {
+            node.getSampleDataStatement().apply(this);
+        }
+        if(node.getLoadDataStatement() != null)
+        {
+            node.getLoadDataStatement().apply(this);
+        }
+        outASampleDataTrommelScript(node);
+    }
+
     public void inALoadDataStatement(ALoadDataStatement node)
     {
         defaultIn(node);
@@ -1071,6 +1096,72 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getIdentifier().apply(this);
         }
         outAReportedField(node);
+    }
+
+    public void inASampleDataStatement(ASampleDataStatement node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASampleDataStatement(ASampleDataStatement node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASampleDataStatement(ASampleDataStatement node)
+    {
+        inASampleDataStatement(node);
+        if(node.getSemicolon() != null)
+        {
+            node.getSemicolon().apply(this);
+        }
+        if(node.getStorage() != null)
+        {
+            node.getStorage().apply(this);
+        }
+        if(node.getSampleRate() != null)
+        {
+            node.getSampleRate().apply(this);
+        }
+        if(node.getAt() != null)
+        {
+            node.getAt().apply(this);
+        }
+        if(node.getData() != null)
+        {
+            node.getData().apply(this);
+        }
+        if(node.getSample() != null)
+        {
+            node.getSample().apply(this);
+        }
+        outASampleDataStatement(node);
+    }
+
+    public void inASampleRate(ASampleRate node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASampleRate(ASampleRate node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASampleRate(ASampleRate node)
+    {
+        inASampleRate(node);
+        if(node.getPercent() != null)
+        {
+            node.getPercent().apply(this);
+        }
+        if(node.getInteger() != null)
+        {
+            node.getInteger().apply(this);
+        }
+        outASampleRate(node);
     }
 
     public void inAStoreStorage(AStoreStorage node)

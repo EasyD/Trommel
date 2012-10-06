@@ -61,6 +61,12 @@ Tokens
 	report = 'report' | 'REPORT';
 	for = 'for' | 'FOR';
 	
+	
+	// SAMPLE DATA statement tokens
+	sample = 'sample' | 'SAMPLE';
+	at = 'at' | 'AT';
+	percent = '%';
+	
 	 
 	// Common tokens 
 	data = 'data' | 'DATA';   
@@ -93,8 +99,11 @@ Ignored Tokens
 
 Productions
 
+	// Root Production
     trommel_script = {profile_data} load_data_statement profile_data_statement |
-                  	 {report_data} load_data_statement report_data_statement;
+                  	 {report_data} load_data_statement report_data_statement |
+                  	 {sample_data} load_data_statement sample_data_statement;
+    
     
     // LOAD DATA Productions
     load_data_statement = load data loaded_file as loaded_fields fields_terminated_by;
@@ -106,6 +115,7 @@ Productions
     fields_terminated_by = {default} semicolon |
                            {custom} fields terminated by field_terminator semicolon;
     field_terminator = quoted_string;
+                
                            
  	// PROFILE DATA Productions
  	profile_data_statement = profile profiled_fields with profilers storage semicolon;
@@ -128,11 +138,17 @@ Productions
  	local_file_path = quoted_string;
  	local_file = quoted_string;
  	
+ 	
  	// REPORT DATA Productions
  	report_data_statement = report data for reported_fields storage semicolon;
  	reported_fields = {single} reported_field |
  					  {list} reported_fields comma reported_field;
  	reported_field = identifier;
+ 	
+ 	
+ 	// SAMPLE DATA Productions
+ 	sample_data_statement = sample data at sample_rate storage semicolon;
+ 	sample_rate = integer percent;
  	
  	
  	// Common Productions

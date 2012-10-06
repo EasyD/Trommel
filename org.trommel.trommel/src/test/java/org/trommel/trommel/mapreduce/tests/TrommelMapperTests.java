@@ -29,6 +29,7 @@ public class TrommelMapperTests
 	private static final String LOGGING_LEVEL_CONFIG_PROP = "TrommelLogLevel";
 	private static final String SCRIPT_CONFIG_PROP = "TrommelScript";
 
+	
 	//
 	//	Tests
 	//
@@ -123,7 +124,7 @@ public class TrommelMapperTests
 		MapDriver<LongWritable, Text, Text, Text> mapDriver = new MapDriver<LongWritable, Text, Text, Text>(mapper);
 		Configuration config = new Configuration(false);
 		
-		// Set up a Hadoop Configuration object for WARN logging and to point at a test TrommelScript file
+		// Set up a Hadoop Configuration object for INFO logging and to point at a test TrommelScript file
 		config.set(LOGGING_LEVEL_CONFIG_PROP, "INFO");
 		config.set(SCRIPT_CONFIG_PROP, "src/test/resources/scripts/ReportDataExportAndStore.trommel");
 		
@@ -155,4 +156,37 @@ public class TrommelMapperTests
 			}
 		}
 	}
+	
+	@Test
+	public void testSampleDataExportAndStore() 
+		throws IOException 
+	{
+		TrommelMapper mapper = new TrommelMapper();
+		MapDriver<LongWritable, Text, Text, Text> mapDriver = new MapDriver<LongWritable, Text, Text, Text>(mapper);
+		Configuration config = new Configuration(false);
+		int recordsWritten = 0;
+		
+		// Set up a Hadoop Configuration object for INFO logging and to point at a test TrommelScript file
+		config.set(LOGGING_LEVEL_CONFIG_PROP, "INFO");
+		config.set(SCRIPT_CONFIG_PROP, "src/test/resources/scripts/SampleDataExportAndStore.trommel");
+		
+		// Run a TrommelMapper 300 times and accumulate the number of records written
+		for (int i = 0; i < 300; ++i)
+		{
+			List<Pair<Text, Text>> output = mapDriver.withInput(new LongWritable(1), new Text("12\tFoo\tBar"))
+														.withConfiguration(config)
+														.run();
+			
+			if (output.size() > 0)
+			{
+				++recordsWritten;
+			}
+		}
+
+		// Verify output - script is 75% sample rate, should be within 210 and 240 records, inclusive
+		if (recordsWritten < 210 || recordsWritten > 240 )
+		{
+			fail(String.format("%1$d records written, exceeds expected range of 210-240, inclusive.", recordsWritten));
+		}
+	}	
 }

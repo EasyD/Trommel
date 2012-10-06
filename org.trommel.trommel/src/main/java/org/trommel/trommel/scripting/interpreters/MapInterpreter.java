@@ -30,6 +30,8 @@ import org.trommel.trommel.scripting.node.AParmLinearity;
 import org.trommel.trommel.scripting.node.AProfiledField;
 import org.trommel.trommel.scripting.node.AReportDataStatement;
 import org.trommel.trommel.scripting.node.AReportedField;
+import org.trommel.trommel.scripting.node.ASampleDataStatement;
+import org.trommel.trommel.scripting.node.ASampleRate;
 import org.trommel.trommel.scripting.node.ASingleFunctionList;
 import org.trommel.trommel.scripting.node.AVarFunction;
 
@@ -69,6 +71,8 @@ public class MapInterpreter extends DepthFirstAdapter
 	private LinkedList<Field> handledFields = null;
 	private MapProfileController profileController = null;
 	private MapReportController reportController = null;
+	private boolean samplingData = false;
+	private int sampleRate = -1;
 	
 	
 	//
@@ -100,9 +104,18 @@ public class MapInterpreter extends DepthFirstAdapter
 		}
 		else
 		{
-			// TODO - Return sample controller
 			return null;
 		}
+	}
+	
+	
+	/**
+	 * @return For TrommelScripts containing the SAMPLE DATA statement, returns the user-specified random sample rate,
+	 * -1 otherwise.
+	 */
+	public int getSampleRate()
+	{
+		return sampleRate;
 	}
 	
 	
@@ -125,7 +138,21 @@ public class MapInterpreter extends DepthFirstAdapter
 		this.logger = logger;
 	}
 	
-
+	
+	//
+	//	Public methods
+	//
+	
+	
+	/**
+	 * @return Whether the TrommelScript contains the SAMPLE DATA statement.
+	 */
+	public boolean samplingData()
+	{
+		return samplingData;
+	}
+	
+	
     //
     // PROFILE DATA statement methods
     //
@@ -366,6 +393,10 @@ public class MapInterpreter extends DepthFirstAdapter
 		handledFields.addLast(fieldSymbolTable.get(node.getIdentifier().toString().toLowerCase().trim()));
     }
     
+	/**
+	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * "ReportDataStatement" Production. 
+	 */
     public void outAReportDataStatement(AReportDataStatement node)
     {
 		logger.debug("MapInterpreter.outAReportDataStatement called.");
@@ -373,4 +404,32 @@ public class MapInterpreter extends DepthFirstAdapter
 		reportController = new MapReportController(logger, handledFields.toArray(new Field[0])); 
     }
 
+
+    //
+    // SAMPLE DATA statement methods
+    //
+
+	/**
+	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * "SampleDataStatement" Production. 
+	 */
+    public void inASampleDataStatement(ASampleDataStatement node)
+    {
+		logger.debug("MapInterpreter.inASampleDataStatement called.");
+
+    	// TrommelScript contains a SAMPLE DATA statement
+    	samplingData = true;
+    }
+
+	/**
+	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * "SampleRate" Production. 
+	 */
+    public void outASampleRate(ASampleRate node)
+    {
+		logger.debug("MapInterpreter.outASampleRate called.");
+
+		// Store the user-specified random sampling rate
+		sampleRate = Integer.parseInt(node.getInteger().toString().trim());
+    }
 }

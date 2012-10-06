@@ -14,6 +14,7 @@ public interface Analysis extends Switch
     void caseStart(Start node);
     void caseAProfileDataTrommelScript(AProfileDataTrommelScript node);
     void caseAReportDataTrommelScript(AReportDataTrommelScript node);
+    void caseASampleDataTrommelScript(ASampleDataTrommelScript node);
     void caseALoadDataStatement(ALoadDataStatement node);
     void caseALoadedFile(ALoadedFile node);
     void caseALoadedFields(ALoadedFields node);
@@ -53,6 +54,8 @@ public interface Analysis extends Switch
     void caseASingleReportedFields(ASingleReportedFields node);
     void caseAListReportedFields(AListReportedFields node);
     void caseAReportedField(AReportedField node);
+    void caseASampleDataStatement(ASampleDataStatement node);
+    void caseASampleRate(ASampleRate node);
     void caseAStoreStorage(AStoreStorage node);
     void caseAExportStorage(AExportStorage node);
     void caseAStoreExportStorage(AStoreExportStorage node);
@@ -78,6 +81,9 @@ public interface Analysis extends Switch
     void caseTLin(TLin node);
     void caseTReport(TReport node);
     void caseTFor(TFor node);
+    void caseTSample(TSample node);
+    void caseTAt(TAt node);
+    void caseTPercent(TPercent node);
     void caseTData(TData node);
     void caseTStore(TStore node);
     void caseTInto(TInto node);

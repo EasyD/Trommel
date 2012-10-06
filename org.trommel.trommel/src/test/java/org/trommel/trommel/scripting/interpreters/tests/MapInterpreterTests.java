@@ -38,6 +38,7 @@ import org.trommel.trommel.scripting.parser.ParserException;
 //
 //	Unit tests for the org.trommel.trommel.mapreduce.interpreters.MapInterpreter class
 //
+@SuppressWarnings("unused")
 public class MapInterpreterTests 
 {
 	//
@@ -58,16 +59,29 @@ public class MapInterpreterTests
 		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
 	}
 	
+	
 	//
-	//	PROFILE DATA statement tests
+	//	Tests
 	//
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger()
 	{
-		@SuppressWarnings("unused")
 		MapInterpreter interpreter = new MapInterpreter(null);
 	}
+	
+	@Test
+	public void testGetControllerReturnsNull()
+	{
+		MapInterpreter interpreter = new MapInterpreter(logger);
+		
+		assertNull(interpreter.getController());
+	}
+	
+
+	//
+	//	PROFILE DATA statement tests
+	//
 	
 	@Test
 	public void testLoadDataStatement()
@@ -183,13 +197,14 @@ public class MapInterpreterTests
 		assertNotNull(interpreter.getRecordParser());
 		assertNotNull(interpreter.getController());
 	}
+
 	
 	//
 	//	REPORT DATA statement tests
 	//
 	
 	@Test
-	public void test() 
+	public void testReportDataExportAndStore() 
 		throws ParserException, LexerException, IOException
 	{
 		Start ast = buildAST("src/test/resources/scripts/ReportDataExportAndStore.trommel");
@@ -203,6 +218,23 @@ public class MapInterpreterTests
 		// Verify RecordParser and MapInterpreter were constructed
 		assertNotNull(interpreter.getRecordParser());
 		assertNotNull(interpreter.getController());
+	}
+	
+	//
+	//	SAMPLE DATA statement tests
+	//
+	
+	@Test
+	public void testSampleDataExportAndStore() 
+		throws ParserException, LexerException, IOException
+	{
+		Start ast = buildAST("src/test/resources/scripts/SampleDataExportAndStore.trommel");
+		MapInterpreter interpreter = new MapInterpreter(logger);
+		
+		ast.apply(interpreter);	
+	
+		assertTrue(interpreter.samplingData());
+		assertEquals(75, interpreter.getSampleRate());
 	}
 	
 	

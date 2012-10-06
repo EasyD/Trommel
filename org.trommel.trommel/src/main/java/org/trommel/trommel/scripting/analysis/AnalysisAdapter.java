@@ -79,6 +79,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseASampleDataTrommelScript(ASampleDataTrommelScript node)
+    {
+        defaultCase(node);
+    }
+
     public void caseALoadDataStatement(ALoadDataStatement node)
     {
         defaultCase(node);
@@ -274,6 +279,16 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseASampleDataStatement(ASampleDataStatement node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseASampleRate(ASampleRate node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAStoreStorage(AStoreStorage node)
     {
         defaultCase(node);
@@ -390,6 +405,21 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTFor(TFor node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTSample(TSample node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTAt(TAt node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTPercent(TPercent node)
     {
         defaultCase(node);
     }

@@ -30,7 +30,7 @@ public class LinearityMapper extends Function
 	//
 	//	Private members
 	//
-	private int sampleRate = 10;
+	private int sampleRate = 1000;
 	private Random random = new Random();
 	
 	
@@ -92,7 +92,8 @@ public class LinearityMapper extends Function
 			throw new IllegalArgumentException("Linearity sample rate of " + Integer.toString(sampleRate) + " is not in range of 1-100, inclusive.");
 		}	
 		
-		this.sampleRate = sampleRate;
+		// Leveraging a larger scale of random numbers (i.e., 100% = 10000) for fidelity.
+		this.sampleRate = sampleRate * 100;
 	}
 
 
@@ -120,7 +121,7 @@ public class LinearityMapper extends Function
 
 			if (field.isNumeric())
 			{
-				if(random.nextInt(100) < sampleRate)
+				if(random.nextInt(10000) <= sampleRate)
 				{
 					// Only write out a record if it falls in the random sample
 					if (StringUtilities.isNullOrEmpty(fieldValue))
