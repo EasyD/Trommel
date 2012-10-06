@@ -74,6 +74,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAReportDataTrommelScript(AReportDataTrommelScript node)
+    {
+        defaultCase(node);
+    }
+
     public void caseALoadDataStatement(ALoadDataStatement node)
     {
         defaultCase(node);
@@ -229,26 +234,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAStoreStorage(AStoreStorage node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAExportStorage(AExportStorage node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAStoreExportStorage(AStoreExportStorage node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAExportStoreStorage(AExportStoreStorage node)
-    {
-        defaultCase(node);
-    }
-
     public void caseAHdfsFilePath(AHdfsFilePath node)
     {
         defaultCase(node);
@@ -269,12 +254,47 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTLoad(TLoad node)
+    public void caseAReportDataStatement(AReportDataStatement node)
     {
         defaultCase(node);
     }
 
-    public void caseTData(TData node)
+    public void caseASingleReportedFields(ASingleReportedFields node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAListReportedFields(AListReportedFields node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAReportedField(AReportedField node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAStoreStorage(AStoreStorage node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAExportStorage(AExportStorage node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAStoreExportStorage(AStoreExportStorage node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAExportStoreStorage(AExportStoreStorage node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTLoad(TLoad node)
     {
         defaultCase(node);
     }
@@ -360,6 +380,21 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTLin(TLin node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTReport(TReport node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTFor(TFor node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTData(TData node)
     {
         defaultCase(node);
     }

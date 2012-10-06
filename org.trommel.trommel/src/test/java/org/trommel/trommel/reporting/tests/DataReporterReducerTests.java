@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.reporting.DataReporterReducer;
@@ -24,6 +25,24 @@ public class DataReporterReducerTests
 	private static final String FIELD1 = "Field1";
 	private static final String FIELD1_VALUE1 = "Value1";
 
+	//
+	//	Private members
+	//
+	private Logger logger = null;
+
+	
+	//
+	//	Setup/Tear-down
+	//
+	
+	@Before
+	public void initialization()
+	{
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
+	}
+	
 	
 	//
 	//	Tests
@@ -32,7 +51,6 @@ public class DataReporterReducerTests
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNullField() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		@SuppressWarnings("unused")
 		DataReporterReducer reporter = new DataReporterReducer(logger, null);
 	}
@@ -41,7 +59,6 @@ public class DataReporterReducerTests
 	@Test
 	public void testGetReduceResult() 
 	{
-		Logger logger = Mockito.mock(Logger.class);
 		DataReporterReducer reporter = new DataReporterReducer(logger, FIELD1);
 		String header = "FIELD\tCONTENT\tCOUNT\n";
 		String line1 = FIELD1 + "\t" + FIELD1_VALUE1 + "\t3\n";

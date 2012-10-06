@@ -4,10 +4,10 @@
 package org.trommel.trommel.reporting;
 
 import org.apache.log4j.Logger;
+import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.MapRecordHandler;
-import org.trommel.trommel.utilities.StringUtilities;
 
 
 //	TODO - Need to refactor for multiple fields!
@@ -26,7 +26,7 @@ public class DataReporterMapper extends MapRecordHandler
 	//
 	//	Private members
 	//
-	private String fieldName;
+	protected Field[] fields;
 	
 
 	//
@@ -51,23 +51,42 @@ public class DataReporterMapper extends MapRecordHandler
 	/**
 	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the DataReporterMapper
 	 * to log to the Hadoop Task syslog file.
-	 * @param fieldName The {@link org.trommel.trommel.Field} in the Record which will be reported on.
-	 * @throws IllegalArgumentException Where logger is null or fieldName is null or empty. All-whitespace strings are considered 
-	 * empty.
+	 * @param fields The {@link org.trommel.trommel.Field} instances that will be processed by the DataReporterMapper.
+	 * @throws IllegalArgumentException Where logger is null or fields array is null or empty. Also thrown if an array element
+	 * is null.
 	 */
-	public DataReporterMapper(Logger logger, String fieldName)
+	public DataReporterMapper(Logger logger, Field[] fields)
 		throws IllegalArgumentException
 	{		
 		super(logger);
 		
-		if (StringUtilities.isNullOrEmpty(fieldName))
+		
+		// Check for illegal input
+		if (fields == null)
 		{
-			logger.error("DataReporterMapper constructor passed a null or empty FieldName.");
+			logger.error("DataReporterMapper constructor passed a null Fields array.");
 			
-			throw new IllegalArgumentException("FieldName cannot be null or empty.");
+			throw new IllegalArgumentException("Fields array cannot be null.");
 		}
 		
-		this.fieldName = fieldName;
+		if (fields.length == 0)
+		{
+			logger.error("DataReporterMapper constructor passed an empty Fields array.");
+			
+			throw new IllegalArgumentException("Fields array cannot be empty.");
+		}
+		
+		for (Field field : fields)
+		{
+			if (field == null)
+			{
+				logger.error("DataReporterMapper constructor passed a Fields array with a null element.");
+				
+				throw new IllegalArgumentException("Field array element cannot be null or empty.");
+			}
+		}
+		
+		this.fields = fields;
 	}
 	
 	
@@ -85,14 +104,17 @@ public class DataReporterMapper extends MapRecordHandler
 	 */
 	public void handleMapRecord(MapRecord record) 
 	{
-		// Data reporting is pretty easy, just output the values by field for counting in Reduce phase
-		record.addFunctionOutput(fieldName, new FunctionOutput(REPORTER_NAME, record.getFieldValue(fieldName))); 
-
-		// This method is called at scale, optimize logging
-		if (logger.isDebugEnabled())
-		{
-			logger.debug(String.format("DataReporterMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
-					                   record.getFieldValue(fieldName), fieldName));
-		}				
+		for(Field field : fields)
+		{			
+			// Data reporting is pretty easy, just output the values by field for counting in Reduce phase
+			record.addFunctionOutput(field.getName(), new FunctionOutput(REPORTER_NAME, record.getFieldValue(field.getName()))); 
+	
+			// This method is called at scale, optimize logging
+			if (logger.isDebugEnabled())
+			{
+				logger.debug(String.format("DataReporterMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+						                   record.getFieldValue(field.getName()), field.getName()));
+			}				
+		}
 	}
 }

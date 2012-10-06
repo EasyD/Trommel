@@ -13,6 +13,7 @@ public interface Analysis extends Switch
 
     void caseStart(Start node);
     void caseAProfileDataTrommelScript(AProfileDataTrommelScript node);
+    void caseAReportDataTrommelScript(AReportDataTrommelScript node);
     void caseALoadDataStatement(ALoadDataStatement node);
     void caseALoadedFile(ALoadedFile node);
     void caseALoadedFields(ALoadedFields node);
@@ -44,17 +45,20 @@ public interface Analysis extends Switch
     void caseADefaultConfidence(ADefaultConfidence node);
     void caseADefaultParenConfidence(ADefaultParenConfidence node);
     void caseAParmConfidence(AParmConfidence node);
-    void caseAStoreStorage(AStoreStorage node);
-    void caseAExportStorage(AExportStorage node);
-    void caseAStoreExportStorage(AStoreExportStorage node);
-    void caseAExportStoreStorage(AExportStoreStorage node);
     void caseAHdfsFilePath(AHdfsFilePath node);
     void caseAHdfsFile(AHdfsFile node);
     void caseALocalFilePath(ALocalFilePath node);
     void caseALocalFile(ALocalFile node);
+    void caseAReportDataStatement(AReportDataStatement node);
+    void caseASingleReportedFields(ASingleReportedFields node);
+    void caseAListReportedFields(AListReportedFields node);
+    void caseAReportedField(AReportedField node);
+    void caseAStoreStorage(AStoreStorage node);
+    void caseAExportStorage(AExportStorage node);
+    void caseAStoreExportStorage(AStoreExportStorage node);
+    void caseAExportStoreStorage(AExportStoreStorage node);
 
     void caseTLoad(TLoad node);
-    void caseTData(TData node);
     void caseTColon(TColon node);
     void caseTFieldType(TFieldType node);
     void caseTFields(TFields node);
@@ -72,6 +76,9 @@ public interface Analysis extends Switch
     void caseTVar(TVar node);
     void caseTConf(TConf node);
     void caseTLin(TLin node);
+    void caseTReport(TReport node);
+    void caseTFor(TFor node);
+    void caseTData(TData node);
     void caseTStore(TStore node);
     void caseTInto(TInto node);
     void caseTExport(TExport node);

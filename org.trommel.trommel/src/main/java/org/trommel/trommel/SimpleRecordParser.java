@@ -127,7 +127,7 @@ public class SimpleRecordParser implements RecordParser
 		}
 		catch (Exception e)
 		{
-			// Encountered error 
+			// Encountered error, don't log will be handled by TrommelMapper/Reducer
 			StringBuffer buffer = new StringBuffer();
 			
 			buffer.append("Error encountered parsing record. Exception message:\n");

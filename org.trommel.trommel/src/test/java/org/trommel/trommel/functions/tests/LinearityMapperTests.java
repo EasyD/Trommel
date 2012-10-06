@@ -25,6 +25,7 @@ import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 //
 //	Unit tests for the org.trommel.trommel.functions.LinearityMapper class
 //
+@SuppressWarnings({"unused", "unchecked"})
 public class LinearityMapperTests 
 {
 	//
@@ -94,21 +95,18 @@ public class LinearityMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		@SuppressWarnings("unused")
 		LinearityMapper lin = new LinearityMapper(logger, numericFields);	
 	}
 		
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorLowSampleRate() 
 	{
-		@SuppressWarnings("unused")
 		LinearityMapper lin = new LinearityMapper(logger, numericFields, 0);	
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorHighSampleRate() 
 	{
-		@SuppressWarnings("unused")
 		LinearityMapper lin = new LinearityMapper(logger, numericFields, 101);	
 	}
 
@@ -124,7 +122,6 @@ public class LinearityMapperTests
 	public void testNumericHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
-		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = threeMapRecords();
 		LinearityMapper lin = new LinearityMapper(logger, numericFields, 100);
@@ -159,7 +156,6 @@ public class LinearityMapperTests
 	public void testNumericSamplingHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
-		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = thousandMapRecords();
 		LinearityMapper lin = new LinearityMapper(logger, numericFields, 50);
@@ -180,7 +176,6 @@ public class LinearityMapperTests
 	public void testCategoricalHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
-		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = categoricalMapRecords();
 		LinearityMapper lin = new LinearityMapper(logger, categoricalFields, 100);

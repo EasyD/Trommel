@@ -1,12 +1,16 @@
+/*
+ *	TODO - Insert license blurb here
+ */
 package org.trommel.trommel.scripting.interpreters.tests;
 
 import static org.junit.Assert.*;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PushbackReader;
-import java.io.StringReader;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -24,15 +28,38 @@ import org.trommel.trommel.scripting.node.AMaxFunction;
 import org.trommel.trommel.scripting.node.AMinFunction;
 import org.trommel.trommel.scripting.node.AParmLinearity;
 import org.trommel.trommel.scripting.node.AProfiledField;
+import org.trommel.trommel.scripting.node.AReportedField;
 import org.trommel.trommel.scripting.node.AVarFunction;
 import org.trommel.trommel.scripting.node.Start;
 import org.trommel.trommel.scripting.parser.Parser;
 import org.trommel.trommel.scripting.parser.ParserException;
 
+
+//
+//	Unit tests for the org.trommel.trommel.mapreduce.interpreters.MapInterpreter class
+//
 public class MapInterpreterTests 
 {
 	//
-	//	Tests
+	//	Private members
+	//
+	private Logger logger = null;
+	
+
+	//
+	//	Setup/Tear-down
+	//
+	
+	@Before
+	public void initialization()
+	{
+		logger = Mockito.mock(Logger.class);
+		
+		Mockito.when(logger.isDebugEnabled()).thenReturn(true);
+	}
+	
+	//
+	//	PROFILE DATA statement tests
 	//
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -46,10 +73,7 @@ public class MapInterpreterTests
 	public void testLoadDataStatement()
 		throws ParserException, LexerException, IOException 
 	{
-		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptSpecifiedFuncs()), 1024));
-		Parser parser = new Parser(lexer);
-		Start ast = parser.parse();
-		Logger logger = Mockito.mock(Logger.class);
+		Start ast = buildAST("src/test/resources/scripts/ProfileDataExplicitFunc.trommel");
 		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
@@ -78,10 +102,7 @@ public class MapInterpreterTests
 	public void testProfileDataStatementSpecifiedFuncs() 
 		throws ParserException, LexerException, IOException 
 	{
-		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptSpecifiedFuncs()), 1024));
-		Parser parser = new Parser(lexer);
-		Start ast = parser.parse();
-		Logger logger = Mockito.mock(Logger.class);
+		Start ast = buildAST("src/test/resources/scripts/ProfileDataExplicitFunc.trommel");
 		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
@@ -105,7 +126,7 @@ public class MapInterpreterTests
 		Mockito.verify(interpreter).outAVarFunction(Mockito.any(AVarFunction.class));
 		Mockito.verify(interpreter).outAParmLinearity(linArgument.capture());
 		
-		assertEquals("45", linArgument.getValue().getInteger().toString().trim());
+		assertEquals("100", linArgument.getValue().getInteger().toString().trim());
 
 		// Verify RecordParser and MapInterpreter were constructed
 		assertNotNull(interpreter.getRecordParser());
@@ -116,10 +137,7 @@ public class MapInterpreterTests
 	public void testProfileDataStatementAllBuiltin() 
 		throws ParserException, LexerException, IOException 
 	{
-		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptAllBuiltin()), 1024));
-		Parser parser = new Parser(lexer);
-		Start ast = parser.parse();
-		Logger logger = Mockito.mock(Logger.class);
+		Start ast = buildAST("src/test/resources/scripts/ProfileDataAllBuiltIn.trommel");
 		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
@@ -136,10 +154,7 @@ public class MapInterpreterTests
 	public void testProfileDataStatementLinNoParen() 
 		throws ParserException, LexerException, IOException 
 	{
-		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptLinNoParen()), 1024));
-		Parser parser = new Parser(lexer);
-		Start ast = parser.parse();
-		Logger logger = Mockito.mock(Logger.class);
+		Start ast = buildAST("src/test/resources/scripts/ProfileDataLinNoParen.trommel");
 		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
@@ -156,10 +171,7 @@ public class MapInterpreterTests
 	public void testProfileDataStatementLinDefaultParen() 
 		throws ParserException, LexerException, IOException 
 	{
-		Lexer lexer = new Lexer(new PushbackReader(new StringReader(buildProfileDataScriptLinDefaultParen()), 1024));
-		Parser parser = new Parser(lexer);
-		Start ast = parser.parse();
-		Logger logger = Mockito.mock(Logger.class);
+		Start ast = buildAST("src/test/resources/scripts/ProfileDataLinDefaultParen.trommel");
 		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
 		ast.apply(interpreter);	
@@ -171,64 +183,39 @@ public class MapInterpreterTests
 		assertNotNull(interpreter.getRecordParser());
 		assertNotNull(interpreter.getController());
 	}
+	
+	//
+	//	REPORT DATA statement tests
+	//
+	
+	@Test
+	public void test() 
+		throws ParserException, LexerException, IOException
+	{
+		Start ast = buildAST("src/test/resources/scripts/ReportDataExportAndStore.trommel");
+		MapInterpreter interpreter = Mockito.spy(new MapInterpreter(logger));
 		
+		ast.apply(interpreter);	
 		
+		// Verify reported field production was visited
+		Mockito.verify(interpreter, Mockito.atLeastOnce()).outAReportedField(Mockito.any(AReportedField.class));
+
+		// Verify RecordParser and MapInterpreter were constructed
+		assertNotNull(interpreter.getRecordParser());
+		assertNotNull(interpreter.getController());
+	}
+	
+	
 	//
 	//	Private/helper methods
 	//
 	
-	private String buildLoadDataScript()
+	private Start buildAST(String testScriptPath) 
+		throws ParserException, LexerException, IOException
 	{
-		StringBuffer buffer = new StringBuffer();
+		Lexer lexer = new Lexer(new PushbackReader(new FileReader(testScriptPath), 4096));
+		Parser parser = new Parser(lexer);
 		
-		buffer.append("load \n DATA '/usr/local/FooBar' as (Field1:numeric, Field2: CATEGORICAL,Field3 : categorical)\n");
-		buffer.append("FIELDS terminated BY '\\t';");
-
-		return buffer.toString();
-	}
-	
-	private String buildProfileDataScriptSpecifiedFuncs()
-	{
-		StringBuffer buffer = new StringBuffer();
-		
-		buffer.append(buildLoadDataScript());
-		buffer.append("PROFILE Field1, Field2, Field3 WITH min(), max, EMPTY(), VAR(), distinct, lin(45), CONF(1234)\n");
-		buffer.append("store INTO 'Foo' AS 'Bar';");
-		
-		return buffer.toString();
-	}
-
-	private String buildProfileDataScriptAllBuiltin()
-	{
-		StringBuffer buffer = new StringBuffer();
-		
-		buffer.append(buildLoadDataScript());
-		buffer.append("PROFILE Field1, Field2, Field3 WITH ALL builtin\n");
-		buffer.append("store INTO 'Foo' AS 'Bar';");
-		
-		return buffer.toString();
-	}
-
-	private String buildProfileDataScriptLinNoParen()
-	{
-		StringBuffer buffer = new StringBuffer();
-		
-		buffer.append(buildLoadDataScript());
-		buffer.append("PROFILE Field1, Field2, Field3 WITH min(), max, EMPTY(), VAR(), distinct, lin, CONF(1234)\n");
-		buffer.append("store INTO 'Foo' AS 'Bar';");
-		
-		return buffer.toString();
-	}
-
-
-	private String buildProfileDataScriptLinDefaultParen()
-	{
-		StringBuffer buffer = new StringBuffer();
-		
-		buffer.append(buildLoadDataScript());
-		buffer.append("PROFILE Field1, Field2, Field3 WITH min(), max, EMPTY(), VAR(), distinct, LIN(), CONF(1234)\n");
-		buffer.append("store INTO 'Foo' AS 'Bar';");
-		
-		return buffer.toString();
+		return parser.parse();
 	}
 }

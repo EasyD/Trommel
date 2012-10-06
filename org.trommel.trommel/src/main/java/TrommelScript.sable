@@ -33,9 +33,8 @@ Helpers
 
 Tokens
 
-    // Load Data statement tokens
+    // LOAD DATA statement tokens
 	load = 'load' | 'LOAD';
-	data = 'data' | 'DATA';
     colon = ':';
 	field_type = categorical | numeric; 
 	fields = 'fields' | 'FIELDS';
@@ -43,7 +42,7 @@ Tokens
 	by = 'by' | 'BY';
 
 
-    // Profile Data statement tokens
+    // PROFILE DATA statement tokens
 	profile = 'profile' | 'PROFILE';
 	with = 'with' | 'WITH';
 	all = 'all' | 'ALL';
@@ -56,13 +55,19 @@ Tokens
 	var = 'var' | 'VAR' | 'var()' | 'VAR()';
 	conf = 'conf' | 'CONF'; 
 	lin = 'lin' | 'LIN'; 
+	
+	
+	// PROFILE DATA statement tokens
+	report = 'report' | 'REPORT';
+	for = 'for' | 'FOR';
+	
+	 
+	// Common tokens 
+	data = 'data' | 'DATA';   
 	store = 'store' | 'STORE';
 	into = 'into' | 'INTO';
 	export = 'export' | 'EXPORT';
 	to = 'to' | 'TO';
-	 
-
-	// Common tokens    
     semicolon = ';';
 	left_paren = '(';
 	right_paren = ')';
@@ -88,7 +93,8 @@ Ignored Tokens
 
 Productions
 
-    trommel_script = {profile_data} load_data_statement profile_data_statement;
+    trommel_script = {profile_data} load_data_statement profile_data_statement |
+                  	 {report_data} load_data_statement report_data_statement;
     
     // LOAD DATA Productions
     load_data_statement = load data loaded_file as loaded_fields fields_terminated_by;
@@ -117,11 +123,21 @@ Productions
  	confidence = {default} conf |
  	             {default_paren} conf left_paren right_paren |
  				 {parm} conf left_paren integer right_paren; 
- 	storage = {store} store into hdfs_file_path as hdfs_file |
- 	          {export} export to local_file_path as local_file |
- 	          {store_export} store into hdfs_file_path [first_as]:as hdfs_file export to local_file_path [second_as]:as local_file |
- 	          {export_store} export to local_file_path [first_as]:as local_file store into hdfs_file_path [second_as]:as hdfs_file; 
  	hdfs_file_path = quoted_string;
  	hdfs_file = quoted_string;
  	local_file_path = quoted_string;
  	local_file = quoted_string;
+ 	
+ 	// REPORT DATA Productions
+ 	report_data_statement = report data for reported_fields storage semicolon;
+ 	reported_fields = {single} reported_field |
+ 					  {list} reported_fields comma reported_field;
+ 	reported_field = identifier;
+ 	
+ 	
+ 	// Common Productions
+ 	storage = {store} store into hdfs_file_path as hdfs_file |
+          {export} export to local_file_path as local_file |
+          {store_export} store into hdfs_file_path [first_as]:as hdfs_file export to local_file_path [second_as]:as local_file |
+          {export_store} export to local_file_path [first_as]:as local_file store into hdfs_file_path [second_as]:as hdfs_file; 
+ 	

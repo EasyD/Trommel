@@ -38,11 +38,15 @@ public abstract class Function extends MapRecordHandler
 		// Check for illegal input
 		if (fields == null)
 		{
+			logger.error("Function constructor passed a null Fields array.");
+			
 			throw new IllegalArgumentException("Fields array cannot be null.");
 		}
 		
 		if (fields.length == 0)
 		{
+			logger.error("Function constructor passed an empty Fields array.");
+			
 			throw new IllegalArgumentException("Fields array cannot be empty.");
 		}
 		
@@ -50,6 +54,8 @@ public abstract class Function extends MapRecordHandler
 		{
 			if (field == null)
 			{
+				logger.error("Function constructor passed a Fields array with a null element.");
+				
 				throw new IllegalArgumentException("Field array element cannot be null or empty.");
 			}
 		}

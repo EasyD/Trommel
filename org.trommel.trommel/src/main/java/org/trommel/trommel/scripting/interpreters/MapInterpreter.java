@@ -13,6 +13,7 @@ import org.trommel.trommel.RecordParser;
 import org.trommel.trommel.SimpleRecordParser;
 import org.trommel.trommel.controllers.MapController;
 import org.trommel.trommel.controllers.MapProfileController;
+import org.trommel.trommel.controllers.MapReportController;
 import org.trommel.trommel.controllers.ProfileFunction;
 import org.trommel.trommel.scripting.analysis.DepthFirstAdapter;
 import org.trommel.trommel.scripting.node.AAllBuiltinProfilers;
@@ -27,6 +28,8 @@ import org.trommel.trommel.scripting.node.AMaxFunction;
 import org.trommel.trommel.scripting.node.AMinFunction;
 import org.trommel.trommel.scripting.node.AParmLinearity;
 import org.trommel.trommel.scripting.node.AProfiledField;
+import org.trommel.trommel.scripting.node.AReportDataStatement;
+import org.trommel.trommel.scripting.node.AReportedField;
 import org.trommel.trommel.scripting.node.ASingleFunctionList;
 import org.trommel.trommel.scripting.node.AVarFunction;
 
@@ -62,9 +65,10 @@ public class MapInterpreter extends DepthFirstAdapter
 	private HashMap<String, Field> fieldSymbolTable = new HashMap<String, Field>();
 	// Need to maintain Fields in order of specification
 	private LinkedList<Field> dataSetFields = new LinkedList<Field>();
-	// Subset of all fields can be profiled
-	private LinkedList<Field> profileFields = null;
+	// Subset of all fields that will be handled
+	private LinkedList<Field> handledFields = null;
 	private MapProfileController profileController = null;
+	private MapReportController reportController = null;
 	
 	
 	//
@@ -86,8 +90,19 @@ public class MapInterpreter extends DepthFirstAdapter
 	 */
 	public MapController getController()
 	{
-		// TODO - Need to add support for other Controller types
-		return profileController;
+		if (profileController != null)
+		{
+			return profileController;
+		}		
+		else if (reportController != null)
+		{
+			return reportController;
+		}
+		else
+		{
+			// TODO - Return sample controller
+			return null;
+		}
 	}
 	
 	
@@ -111,10 +126,9 @@ public class MapInterpreter extends DepthFirstAdapter
 	}
 	
 
-	
-	//
-	//	Public methods
-	//
+    //
+    // PROFILE DATA statement methods
+    //
 	
 	/**
 	 * Override of the SableCC-generated method for handling the TrommelScript grammar "field" Production. 
@@ -183,12 +197,12 @@ public class MapInterpreter extends DepthFirstAdapter
 		logger.debug(String.format("MapInterpreter.outAProfiledField called with Identifier = %1$s.", 
                                    node.getIdentifier()));
 
-		if (profileFields == null)
+		if (handledFields == null)
     	{
-    		profileFields = new LinkedList<Field>();
+    		handledFields = new LinkedList<Field>();
     	}
     	    	
-    	profileFields.addLast(fieldSymbolTable.get(node.getIdentifier().toString().toLowerCase().trim()));
+    	handledFields.addLast(fieldSymbolTable.get(node.getIdentifier().toString().toLowerCase().trim()));
     }
 	
 	/**
@@ -200,7 +214,7 @@ public class MapInterpreter extends DepthFirstAdapter
     {
 		logger.debug("MapInterpreter.inASingleFunctionList called.");
 
-		profileController = new MapProfileController(logger, profileFields.toArray(new Field[0])); 
+		profileController = new MapProfileController(logger, handledFields.toArray(new Field[0])); 
     }
 
 	/**
@@ -318,7 +332,7 @@ public class MapInterpreter extends DepthFirstAdapter
     {
 		logger.debug("MapInterpreter.outAAllBuiltinProfilers called.");
 
-    	profileController = new MapProfileController(logger, profileFields.toArray(new Field[0])); 
+    	profileController = new MapProfileController(logger, handledFields.toArray(new Field[0])); 
     	
     	// Add all mapper functions with default parameters
 		profileController.addFunction(ProfileFunction.Max);
@@ -328,4 +342,35 @@ public class MapInterpreter extends DepthFirstAdapter
 		profileController.addFunction(ProfileFunction.Var);
 		profileController.addFunction(ProfileFunction.Lin);
     }
+
+
+    //
+    // REPORT DATA statement methods
+    //
+    
+	/**
+	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * "ReportedField" Production. 
+	 */
+    @Override
+    public void outAReportedField(AReportedField node)
+    {
+		logger.debug(String.format("MapInterpreter.outAReportedField called with Identifier = %1$s.", 
+                                   node.getIdentifier()));
+
+		if (handledFields == null)
+		{
+			handledFields = new LinkedList<Field>();
+		}
+		
+		handledFields.addLast(fieldSymbolTable.get(node.getIdentifier().toString().toLowerCase().trim()));
+    }
+    
+    public void outAReportDataStatement(AReportDataStatement node)
+    {
+		logger.debug("MapInterpreter.outAReportDataStatement called.");
+
+		reportController = new MapReportController(logger, handledFields.toArray(new Field[0])); 
+    }
+
 }

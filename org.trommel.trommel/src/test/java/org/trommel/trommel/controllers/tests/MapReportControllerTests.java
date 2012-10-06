@@ -14,15 +14,13 @@ import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
-import org.trommel.trommel.controllers.MapProfileController;
-import org.trommel.trommel.controllers.ProfileFunction;
-
+import org.trommel.trommel.controllers.MapReportController;
 
 //
 //	Unit tests for the org.trommel.trommel.controllers.MapProfileController class
 //
 @SuppressWarnings("unused")
-public class MapProfileControllerTests 
+public class MapReportControllerTests 
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -60,56 +58,48 @@ public class MapProfileControllerTests
 	//
 	//	Tests
 	//
-	
+
 	@Test
 	public void testConstructorOK() 
 	{
-		MapProfileController controller = new MapProfileController(logger, buildFields());
+		MapReportController controller = new MapReportController(logger, buildFields());
 	}
-	
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructorNullFieldsArray() 
+	{
+		MapReportController controller = new MapReportController(logger, null);
+	}
+
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger() 
 	{
-		MapProfileController controller = new MapProfileController(null, buildFields());
+		MapReportController controller = new MapReportController(null, buildFields());
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void testConstructorEmptyArray() 
-	{
-		MapProfileController controller = new MapProfileController(logger, new Field[0]);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testConstructorNullArrayMember() 
+	public void testConstructorNullFieldsArrayElement() 
 	{
 		Field[] fields = buildFields();
 		
-		fields[3] = null;
+		fields[2] = null;
 		
-		MapProfileController controller = new MapProfileController(logger, fields);
+		MapReportController controller = new MapReportController(logger, fields);
 	}
-		
+	
+	
 	@Test
 	public void handleMapRecord()
 	{
-		MapProfileController controller = new MapProfileController(logger, buildFields());
+		MapReportController controller = new MapReportController(logger, buildFields());
 		MapRecord record = Mockito.mock(MapRecord.class);
-
+	
 		// Stub out mock
 		Mockito.when(record.getFieldValue(FIELD1)).thenReturn(FIELD1_VALUE);
 		Mockito.when(record.getFieldValue(FIELD2)).thenReturn(FIELD2_VALUE);
 		Mockito.when(record.getFieldValue(FIELD3)).thenReturn(FIELD3_VALUE);
 		Mockito.when(record.getFieldValue(FIELD4)).thenReturn(FIELD4_VALUE);
-		
-		// Build up controller and handle mocked MapRecord
-		controller.addFunction(ProfileFunction.Max);
-		controller.addFunction(ProfileFunction.Min);
-		controller.addFunction(ProfileFunction.Distinct);
-		controller.addFunction(ProfileFunction.Empty);
-		controller.addFunction(ProfileFunction.Var);
-		controller.addFunction(ProfileFunction.Lin);
-		controller.addFunction(ProfileFunction.Lin, "50");
-		
+
 		controller.handleMapRecord(record);
 		
 		// Verify that the controller worked as expected
@@ -118,13 +108,13 @@ public class MapProfileControllerTests
 
 		Mockito.verify(record, Mockito.atLeastOnce()).addFunctionOutput(fieldArgument.capture(), outputArgument.capture());
 		
-		assertEquals("Max=" + FIELD1_VALUE, outputArgument.getAllValues().get(0).serialize());
-		assertEquals("Max=" + FIELD2_VALUE, outputArgument.getAllValues().get(1).serialize());
-		assertEquals("Min=" + FIELD1_VALUE, outputArgument.getAllValues().get(2).serialize());
-		assertEquals("Min=" + FIELD2_VALUE, outputArgument.getAllValues().get(3).serialize());
-	}
-
+		assertEquals("DataReporter=" + FIELD1_VALUE, outputArgument.getAllValues().get(0).serialize());
+		assertEquals("DataReporter=" + FIELD2_VALUE, outputArgument.getAllValues().get(1).serialize());
+		assertEquals("DataReporter=" + FIELD3_VALUE, outputArgument.getAllValues().get(2).serialize());
+		assertEquals("DataReporter=" + FIELD4_VALUE, outputArgument.getAllValues().get(3).serialize());
+	} 
 	
+
 	//
 	//	Private/helper methods
 	//
