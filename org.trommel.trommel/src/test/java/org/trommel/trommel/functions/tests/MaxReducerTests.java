@@ -55,7 +55,7 @@ public class MaxReducerTests
 	//
 	
 	@Test
-	public void testGetReduceResult() 
+	public void testGetReduceResultOK() 
 	{
 		List<HashMap<String,String>> records = reduceRecords();
 		MaxReducer max = new MaxReducer(logger);
@@ -66,6 +66,20 @@ public class MaxReducerTests
 		}
 		
 		assertEquals(FIELD1_VALUE, max.getReduceResult());
+	}
+	
+	@Test
+	public void testGetReduceResultEmptyString() 
+	{
+		List<HashMap<String,String>> records = new ArrayList<HashMap<String,String>>();
+		MaxReducer max = new MaxReducer(logger);
+		
+		for (HashMap<String,String> record : records)
+		{
+			max.handleReduceRecord(record);
+		}
+		
+		assertEquals("", max.getReduceResult());
 	}
 	
 	

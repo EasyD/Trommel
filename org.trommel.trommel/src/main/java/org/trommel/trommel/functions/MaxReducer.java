@@ -31,15 +31,25 @@ public class MaxReducer extends ReduceRecordHandler
 	//
 	
 	/**
-	 * Return the current maximum value.
+	 * Return the current maximum value. If no maximum value found (e.g., all categorical values), then
+	 * an empty string is returned.
 	 * 
 	 * @return The current maximum value found as a {@link java.lang.String}.
 	 */
 	public String getReduceResult()
 	{
-		logger.debug(String.format("MaxReducer has current max value of of %1$f.", maxValue));
+		if (maxValue == Double.MIN_VALUE)
+		{
+			logger.debug(String.format("MaxReducer found no max value"));
 
-		return Double.toString(maxValue);
+			return "";			
+		}
+		else
+		{
+			logger.debug(String.format("MaxReducer has current max value of of %1$f.", maxValue));
+
+			return Double.toString(maxValue);
+		}		
 	}
 
 	

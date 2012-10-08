@@ -183,10 +183,10 @@ public class TrommelMapperTests
 			}
 		}
 
-		// Verify output - script is 75% sample rate, should be within 210 and 240 records, inclusive
-		if (recordsWritten < 210 || recordsWritten > 240 )
+		// Verify output - script is 75% sample rate, should be within 205 and 245 records, inclusive
+		if (recordsWritten < 205 || recordsWritten > 245 )
 		{
-			fail(String.format("%1$d records written, exceeds expected range of 210-240, inclusive.", recordsWritten));
+			fail(String.format("%1$d records written, exceeds expected range of 205-245, inclusive.", recordsWritten));
 		}
 	}	
 }

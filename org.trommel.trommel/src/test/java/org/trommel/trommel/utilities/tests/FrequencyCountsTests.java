@@ -40,7 +40,6 @@ public class FrequencyCountsTests
 	@Test
 	public void testSerialize() {
 		FrequencyCounts frequencyCount = new FrequencyCounts();
-		String header = "FIELD\tCONTENT\tCOUNT\n";
 		String line1 = FIELD1 + "\t" + FIELD1_VALUE1 + "\t" + FIELD1_VALUE1_COUNT + "\n";
 		String line2 = FIELD1 + "\t" + FIELD1_VALUE2 + "\t" + FIELD1_VALUE2_COUNT + "\n";
 		String line3 = FIELD1 + "\t" + FIELD1_VALUE3 + "\t" + FIELD1_VALUE3_COUNT + "\n";
@@ -62,7 +61,6 @@ public class FrequencyCountsTests
 
 		String serializedString = frequencyCount.serialize(FIELD1);
 		
-		assertTrue(serializedString.contains(header));
 		assertTrue(serializedString.contains(line1));
 		assertTrue(serializedString.contains(line2));
 		assertTrue(serializedString.contains(line3));

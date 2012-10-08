@@ -49,7 +49,7 @@ public abstract class ReduceRecordHandler  extends RecordHandler
 	/**
 	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
 	 * 
-	 * @param record {@link java.util.HashMap} of parsed data. For Functions the {@link java.util.Hashtable} is in the form of 
+	 * @param record {@link java.util.HashMap} of parsed data. For Functions the {@link java.util.HashMap} is in the form of 
 	 * <"FunctionName", "OutputValue"> and for Data Reporters the HashMap is in the form of
 	 * <"DataReporterName", "FieldValue">.
 	 */

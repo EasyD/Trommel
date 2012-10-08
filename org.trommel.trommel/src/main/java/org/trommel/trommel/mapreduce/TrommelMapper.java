@@ -107,7 +107,7 @@ public class TrommelMapper
 	 */
 	@Override
 	protected void setup(Context context)
-		throws IOException, InterruptedException
+		throws IOException
 	{
 		try
 		{
@@ -129,7 +129,7 @@ public class TrommelMapper
 			}
 			
 			// Load, parse, and interpret TrommelScript for Map phase of processing
-			logger.info(String.format("Parsing and interpreting TrommelScript %1$s.", 
+			logger.info(String.format("TrommelMapper parsing and interpreting TrommelScript %1$s.", 
 					                  context.getConfiguration().get(SCRIPT_CONFIG_PROP)));
 			
 			String trommelScript = context.getConfiguration().get(SCRIPT_CONFIG_PROP);
@@ -157,7 +157,7 @@ public class TrommelMapper
 				recordParser = interpreter.getRecordParser();
 				controller = interpreter.getController();
 
-				logger.info("MapController and RecordParser configured, beginning Map phase record proessing.");
+				logger.info("TrommelMapper's MapController and RecordParser configured, beginning Map phase record proessing.");
 			}
 		}
 		catch (Exception e)

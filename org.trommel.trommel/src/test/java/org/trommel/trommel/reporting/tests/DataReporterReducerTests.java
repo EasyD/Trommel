@@ -17,6 +17,7 @@ import org.trommel.trommel.reporting.DataReporterReducer;
 //
 //	Unit tests for the org.trommel.trommel.reporting.DataReporterReducer class
 //
+@SuppressWarnings("unused")
 public class DataReporterReducerTests 
 {
 	//
@@ -51,42 +52,29 @@ public class DataReporterReducerTests
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNullField() 
 	{
-		@SuppressWarnings("unused")
 		DataReporterReducer reporter = new DataReporterReducer(logger, null);
 	}
-	
-	
+		
+	@Test(expected = IllegalArgumentException.class)
+	public void testHandleReduceRecordEmptyFieldValue()
+	{
+		DataReporterReducer reporter = new DataReporterReducer(logger, FIELD1);
+
+		reporter.handleReduceRecord("");
+	}
+
 	@Test
 	public void testGetReduceResult() 
 	{
 		DataReporterReducer reporter = new DataReporterReducer(logger, FIELD1);
-		String header = "FIELD\tCONTENT\tCOUNT\n";
 		String line1 = FIELD1 + "\t" + FIELD1_VALUE1 + "\t3\n";
 		
-		reporter.handleReduceRecord(reduceRecord());
-		reporter.handleReduceRecord(reduceRecord());
-		reporter.handleReduceRecord(reduceRecord());
-
+		reporter.handleReduceRecord(FIELD1_VALUE1);
+		reporter.handleReduceRecord(FIELD1_VALUE1);
+		reporter.handleReduceRecord(FIELD1_VALUE1);
+	
 		String reduceValue = reporter.getReduceResult();
 		
-		assertTrue(reduceValue.contains(header));
 		assertTrue(reduceValue.contains(line1));
-	}
-
-
-	//
-	//	Private/helper methods
-	//	
-	
-	private HashMap<String, String> reduceRecord()
-	{
-		HashMap<String, String> record = new HashMap<String, String>();
-
-		record.put("Foo", "FooValue");
-		record.put("Bar", "BarValue");
-		record.put("DataReporter", FIELD1_VALUE1);
-		record.put("FooBar", "FooBarValue");
-		
-		return record;
 	}
 }

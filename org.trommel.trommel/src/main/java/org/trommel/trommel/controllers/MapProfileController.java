@@ -18,6 +18,7 @@ import org.trommel.trommel.functions.MinMapper;
 import org.trommel.trommel.functions.VariabilityMapper;
 import org.trommel.trommel.utilities.StringUtilities;
 
+
 /**
  * Implementation of the Controller pattern for Trommel scenarios for profiling data during the Map
  * phase of processing.
@@ -27,6 +28,7 @@ public class MapProfileController implements MapController
 	//
 	//	Private members
 	//
+	
 	private Logger logger = null;
 	private Field[] fields = null;
 	private LinkedList<MapRecordHandler> functions = new LinkedList<MapRecordHandler>();

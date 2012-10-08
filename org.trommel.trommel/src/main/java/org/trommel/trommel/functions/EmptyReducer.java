@@ -37,7 +37,7 @@ public class EmptyReducer extends ReduceRecordHandler
 	 */
 	public String getReduceResult()
 	{
-		logger.debug(String.format("EmptyReducer has current distinct count of %1$d.", emptyCount));
+		logger.debug(String.format("EmptyReducer has current count of %1$d.", emptyCount));
 		
 		return Integer.toString(emptyCount);
 	}

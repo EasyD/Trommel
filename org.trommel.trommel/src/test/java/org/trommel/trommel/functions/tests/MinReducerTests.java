@@ -56,7 +56,7 @@ public class MinReducerTests
 	//
 	
 	@Test
-	public void testGetReduceResult() 
+	public void testGetReduceResultOK() 
 	{
 		List<HashMap<String,String>> records = reduceRecords();
 		MinReducer min = new MinReducer(logger);
@@ -69,6 +69,20 @@ public class MinReducerTests
 		assertEquals(FIELD2_VALUE, min.getReduceResult());
 	}
 
+	
+	@Test
+	public void testGetReduceResultEmptyString() 
+	{
+		List<HashMap<String,String>> records = new ArrayList<HashMap<String,String>>();
+		MinReducer min = new MinReducer(logger);
+		
+		for (HashMap<String,String> record : records)
+		{
+			min.handleReduceRecord(record);
+		}
+		
+		assertEquals("", min.getReduceResult());
+	}
 	
 	//
 	//	Private/helper methods

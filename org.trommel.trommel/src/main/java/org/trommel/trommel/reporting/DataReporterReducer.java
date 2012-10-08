@@ -3,10 +3,8 @@
  */
 package org.trommel.trommel.reporting;
 
-import java.util.HashMap;
-
 import org.apache.log4j.Logger;
-import org.trommel.trommel.ReduceRecordHandler;
+import org.trommel.trommel.RecordHandler;
 import org.trommel.trommel.utilities.FrequencyCounts;
 import org.trommel.trommel.utilities.StringUtilities;
 
@@ -14,18 +12,13 @@ import org.trommel.trommel.utilities.StringUtilities;
 /**
  *	For the Reduce phase report value frequencies (i.e., counts) for a specified {@link org.trommel.trommel.Field} in a data set.
  */
-public class DataReporterReducer extends ReduceRecordHandler 
+public class DataReporterReducer extends RecordHandler 
 {
-	//
-	//	Class constants (e.g., strings used in more than one place in the code)
-	//
-	private static final String REPORTER_NAME = "DataReporter";
-
 	//
 	//	Private members
 	//
 	private String fieldName;
-	private FrequencyCounts frequencyCounts = null;
+	private FrequencyCounts frequencyCounts = new FrequencyCounts();
 
 	//
 	//	Getters/setters
@@ -72,35 +65,34 @@ public class DataReporterReducer extends ReduceRecordHandler
 		
 		this.fieldName = fieldName;
 	}
-
 	
 	//
 	//	Public methods
 	//
-
+	
 	/**
-	 * Process a single record read from the post-Map phase data for the Reduce phase of processing.
+	 * Process a single field value read from the post-Map phase data for the Reduce phase of processing.
 	 * 
-	 * @param record {@link java.util.HashMap} of parsed data. For DataReporters the {@link java.util.Hashtable} is in the form of 
-	 * <"DataReporterName", "FieldValue">.
+	 * @param fieldValue An incidence of a particular value for a {@link org.trommel.trommel.Field}.
+	 * @throws IllegalArgumentException Where fieldValue is null or empty. All-whitespace strings are considered empty.
 	 */
-	public void handleReduceRecord(HashMap<String, String> record) 
-	{	
-		if (frequencyCounts == null)
+	public void handleReduceRecord(String fieldValue)
+		throws IllegalArgumentException
+	{
+		// Check for illegal input
+		if (StringUtilities.isNullOrEmpty(fieldValue))
 		{
-			frequencyCounts = new FrequencyCounts();
+			logger.error("DataReporterReducer.handleReduceRecord was passed a null or empty fieldValue.");
+			
+			throw new IllegalArgumentException("FieldValue cannot be null or empty.");
 		}
 		
-		// Data reporter values might not be in every reducer record
-		if (record.containsKey(REPORTER_NAME))
-		{			
-			frequencyCounts.increment(record.get(REPORTER_NAME));
-
-			// This method is called at scale, optimize logging
-			if (logger.isDebugEnabled())
-			{
-				logger.debug(String.format("MaxReducer.handleReduceRecord incremented count of %1$s", record.get(REPORTER_NAME)));
-			}
+		frequencyCounts.increment(fieldValue);
+		
+		// This method is called at scale, optimize logging
+		if (logger.isDebugEnabled())
+		{
+			logger.debug(String.format("MaxReducer.handleReduceRecord incremented count of %1$s", fieldValue));
 		}
 	}
 }

@@ -31,15 +31,25 @@ public class MinReducer extends ReduceRecordHandler
 	//
 
 	/**
-	 * Return the current Minimum value.
+	 * Return the current Minimum value. If no minimum value found (e.g., all categorical values), then
+	 * an empty string is returned.
 	 * 
 	 * @return The current Minimum value found as a {@link java.lang.String}.
 	 */
 	public String getReduceResult()
 	{
-		logger.debug(String.format("MinReducer has current min value of of %1$f.", minValue));
+		if (minValue == Double.MAX_VALUE)
+		{
+			logger.debug(String.format("MinReducer found no min value"));
 
-		return Double.toString(minValue);
+			return "";			
+		}
+		else
+		{
+			logger.debug(String.format("MinReducer has current min value of of %1$f.", minValue));
+
+			return Double.toString(minValue);
+		}		
 	}
 
 	

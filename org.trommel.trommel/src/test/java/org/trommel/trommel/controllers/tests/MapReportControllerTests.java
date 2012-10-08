@@ -17,7 +17,7 @@ import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.controllers.MapReportController;
 
 //
-//	Unit tests for the org.trommel.trommel.controllers.MapProfileController class
+//	Unit tests for the org.trommel.trommel.controllers.MapReportController class
 //
 @SuppressWarnings("unused")
 public class MapReportControllerTests 

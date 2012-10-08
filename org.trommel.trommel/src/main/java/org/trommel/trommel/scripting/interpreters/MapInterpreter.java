@@ -60,15 +60,20 @@ public class MapInterpreter extends DepthFirstAdapter
 	//
 	//	Private members
 	//
+	
 	private Logger logger = null;
 	private String fieldTerminator = "\t";
 	private RecordParser recordParser = null;
+	
 	// Sacrifice memory for O(1) lookup perf
 	private HashMap<String, Field> fieldSymbolTable = new HashMap<String, Field>();
+	
 	// Need to maintain Fields in order of specification
 	private LinkedList<Field> dataSetFields = new LinkedList<Field>();
+	
 	// Subset of all fields that will be handled
 	private LinkedList<Field> handledFields = null;
+	
 	private MapProfileController profileController = null;
 	private MapReportController reportController = null;
 	private boolean samplingData = false;
@@ -108,7 +113,6 @@ public class MapInterpreter extends DepthFirstAdapter
 		}
 	}
 	
-	
 	/**
 	 * @return For TrommelScripts containing the SAMPLE DATA statement, returns the user-specified random sample rate,
 	 * -1 otherwise.
@@ -124,7 +128,7 @@ public class MapInterpreter extends DepthFirstAdapter
 	//
 	
 	/**
-	 * @param logger The {@link org.apache.log4j.Logger} instances that will be used by the EmptyMapper
+	 * @param logger The {@link org.apache.log4j.Logger} instances that will be used by the MapInterpreter
 	 * to log to the Hadoop Task syslog file.
 	 */
 	public MapInterpreter(Logger logger)
@@ -154,11 +158,11 @@ public class MapInterpreter extends DepthFirstAdapter
 	
 	
     //
-    // PROFILE DATA statement methods
+    // LOAD DATA statement methods
     //
 	
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar "field" Production. 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar "field" Production. 
 	 */
 	@Override
     public void outAField(AField node)
@@ -187,7 +191,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 	
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "CustomFieldsTerminatedBy" Production. 
 	 */
     @Override
@@ -203,7 +207,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 	
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "LoadDataStatement" Production. 
 	 */
 	@Override
@@ -214,8 +218,13 @@ public class MapInterpreter extends DepthFirstAdapter
 		recordParser = new SimpleRecordParser(dataSetFields.toArray(new Field[0]), fieldTerminator, DELIMITER);
     }
 
+	
+    //
+    // PROFILE DATA statement methods
+    //
+	
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "ProfiledField" Production. 
 	 */
     @Override
@@ -233,7 +242,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 	
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for pre-handling the TrommelScript grammar 
 	 * "SingleFunctionList" Production. 
 	 */
     @Override
@@ -245,7 +254,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "MaxFunction" Production. 
 	 */
    @Override
@@ -258,7 +267,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 	
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "MinFunction" Production. 
 	 */
 	@Override
@@ -271,7 +280,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 	
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "DistinctFunction" Production. 
 	 */
 	@Override
@@ -284,7 +293,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 	
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "EmptyFunction" Production. 
 	 */
     @Override
@@ -297,7 +306,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "VarFunction" Production. 
 	 */
     @Override
@@ -310,7 +319,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "DefaultLinearity" Production. 
 	 */
     @Override
@@ -323,7 +332,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "DefaultParenLinearity" Production. 
 	 */
     @Override
@@ -336,7 +345,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "ParmLinearity" Production. 
 	 */
     @Override
@@ -351,7 +360,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }    
 
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "AllBuiltinProfilers" Production. 
 	 */
     @Override
@@ -376,7 +385,7 @@ public class MapInterpreter extends DepthFirstAdapter
     //
     
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "ReportedField" Production. 
 	 */
     @Override
@@ -394,7 +403,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
     
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "ReportDataStatement" Production. 
 	 */
     public void outAReportDataStatement(AReportDataStatement node)
@@ -410,7 +419,7 @@ public class MapInterpreter extends DepthFirstAdapter
     //
 
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for pre-handling the TrommelScript grammar 
 	 * "SampleDataStatement" Production. 
 	 */
     public void inASampleDataStatement(ASampleDataStatement node)
@@ -422,7 +431,7 @@ public class MapInterpreter extends DepthFirstAdapter
     }
 
 	/**
-	 * Override of the SableCC-generated method for handling the TrommelScript grammar 
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
 	 * "SampleRate" Production. 
 	 */
     public void outASampleRate(ASampleRate node)
