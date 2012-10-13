@@ -10,8 +10,6 @@ public final class AStoreStorage extends PStorage
     private TStore _store_;
     private TInto _into_;
     private PHdfsFilePath _hdfsFilePath_;
-    private TAs _as_;
-    private PHdfsFile _hdfsFile_;
 
     public AStoreStorage()
     {
@@ -21,9 +19,7 @@ public final class AStoreStorage extends PStorage
     public AStoreStorage(
         @SuppressWarnings("hiding") TStore _store_,
         @SuppressWarnings("hiding") TInto _into_,
-        @SuppressWarnings("hiding") PHdfsFilePath _hdfsFilePath_,
-        @SuppressWarnings("hiding") TAs _as_,
-        @SuppressWarnings("hiding") PHdfsFile _hdfsFile_)
+        @SuppressWarnings("hiding") PHdfsFilePath _hdfsFilePath_)
     {
         // Constructor
         setStore(_store_);
@@ -31,10 +27,6 @@ public final class AStoreStorage extends PStorage
         setInto(_into_);
 
         setHdfsFilePath(_hdfsFilePath_);
-
-        setAs(_as_);
-
-        setHdfsFile(_hdfsFile_);
 
     }
 
@@ -44,9 +36,7 @@ public final class AStoreStorage extends PStorage
         return new AStoreStorage(
             cloneNode(this._store_),
             cloneNode(this._into_),
-            cloneNode(this._hdfsFilePath_),
-            cloneNode(this._as_),
-            cloneNode(this._hdfsFile_));
+            cloneNode(this._hdfsFilePath_));
     }
 
     public void apply(Switch sw)
@@ -129,65 +119,13 @@ public final class AStoreStorage extends PStorage
         this._hdfsFilePath_ = node;
     }
 
-    public TAs getAs()
-    {
-        return this._as_;
-    }
-
-    public void setAs(TAs node)
-    {
-        if(this._as_ != null)
-        {
-            this._as_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._as_ = node;
-    }
-
-    public PHdfsFile getHdfsFile()
-    {
-        return this._hdfsFile_;
-    }
-
-    public void setHdfsFile(PHdfsFile node)
-    {
-        if(this._hdfsFile_ != null)
-        {
-            this._hdfsFile_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._hdfsFile_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
             + toString(this._store_)
             + toString(this._into_)
-            + toString(this._hdfsFilePath_)
-            + toString(this._as_)
-            + toString(this._hdfsFile_);
+            + toString(this._hdfsFilePath_);
     }
 
     @Override
@@ -209,18 +147,6 @@ public final class AStoreStorage extends PStorage
         if(this._hdfsFilePath_ == child)
         {
             this._hdfsFilePath_ = null;
-            return;
-        }
-
-        if(this._as_ == child)
-        {
-            this._as_ = null;
-            return;
-        }
-
-        if(this._hdfsFile_ == child)
-        {
-            this._hdfsFile_ = null;
             return;
         }
 
@@ -246,18 +172,6 @@ public final class AStoreStorage extends PStorage
         if(this._hdfsFilePath_ == oldChild)
         {
             setHdfsFilePath((PHdfsFilePath) newChild);
-            return;
-        }
-
-        if(this._as_ == oldChild)
-        {
-            setAs((TAs) newChild);
-            return;
-        }
-
-        if(this._hdfsFile_ == oldChild)
-        {
-            setHdfsFile((PHdfsFile) newChild);
             return;
         }
 

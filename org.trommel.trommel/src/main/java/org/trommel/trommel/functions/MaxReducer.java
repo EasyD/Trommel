@@ -17,7 +17,7 @@ public class MaxReducer extends ReduceRecordHandler
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Max";
+	private static final String HANDLER_NAME = "Max";
 
 	//
 	//	Private members
@@ -30,6 +30,16 @@ public class MaxReducer extends ReduceRecordHandler
 	//	Getters/setters
 	//
 	
+	/**
+	 * Return the name of the Distinct function.
+	 * 
+	 * @return The string value of "Max".
+	 */
+	public String getHandlerName()
+	{
+		return HANDLER_NAME;
+	}
+
 	/**
 	 * Return the current maximum value. If no maximum value found (e.g., all categorical values), then
 	 * an empty string is returned.
@@ -82,10 +92,10 @@ public class MaxReducer extends ReduceRecordHandler
 	public void handleReduceRecord(HashMap<String, String> record) 
 		throws NumberFormatException
 	{
-		if (record.containsKey(FUNCTION_NAME))
+		if (record.containsKey(HANDLER_NAME))
 		{		
 			// Reduce is also pretty easy, grab Max's value from the HashMap and process it.
-			double currentValue = Double.parseDouble(record.get(FUNCTION_NAME));
+			double currentValue = Double.parseDouble(record.get(HANDLER_NAME));
 			
 			if (currentValue > maxValue)
 			{

@@ -30,7 +30,7 @@ public class VariabilityMapperTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Variability";
+	private static final String HANDLER_NAME = "Variability";
 	private static final String NULL_INDICATOR = "null";
 	
 	//	Field names
@@ -106,7 +106,7 @@ public class VariabilityMapperTests
 	{
 		VariabilityMapper var = new VariabilityMapper(logger, numericFields);
 		
-		assertEquals(FUNCTION_NAME, var.getHandlerName());
+		assertEquals(HANDLER_NAME, var.getHandlerName());
 	}
 
 	@Test

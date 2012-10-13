@@ -17,6 +17,12 @@ import org.trommel.trommel.ReduceRecordHandler;
 public class RequiredReducer extends ReduceRecordHandler 
 {
 	//
+	//	Class constants (e.g., strings used in more than one place in the code)
+	//
+	private static final String HANDLER_NAME = "Required";
+	
+		
+	//
 	//	Private members
 	//
 	private ConfidenceReducer confidenceReducer = null;
@@ -26,6 +32,16 @@ public class RequiredReducer extends ReduceRecordHandler
 	//	Getters/setters
 	//
 	
+	/**
+	 * Return the name of the Distinct function.
+	 * 
+	 * @return The string value of "Required".
+	 */
+	public String getHandlerName()
+	{
+		return HANDLER_NAME;
+	}
+
 	/**
 	 * Return the current calculation of {@link org.trommel.trommel.Field} confidence based on the
 	 * n-number of consecutive successful tests, per the equation n = log(1-c)/log(c) where c represents

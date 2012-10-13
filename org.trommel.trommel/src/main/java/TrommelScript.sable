@@ -133,10 +133,6 @@ Productions
  	confidence = {default} conf |
  	             {default_paren} conf left_paren right_paren |
  				 {parm} conf left_paren integer right_paren; 
- 	hdfs_file_path = quoted_string;
- 	hdfs_file = quoted_string;
- 	local_file_path = quoted_string;
- 	local_file = quoted_string;
  	
  	
  	// REPORT DATA Productions
@@ -152,8 +148,11 @@ Productions
  	
  	
  	// Common Productions
- 	storage = {store} store into hdfs_file_path as hdfs_file |
+ 	storage = {store} store into hdfs_file_path |
           {export} export to local_file_path as local_file |
-          {store_export} store into hdfs_file_path [first_as]:as hdfs_file export to local_file_path [second_as]:as local_file |
-          {export_store} export to local_file_path [first_as]:as local_file store into hdfs_file_path [second_as]:as hdfs_file; 
+          {store_export} store into hdfs_file_path export to local_file_path as local_file |
+          {export_store} export to local_file_path as local_file store into hdfs_file_path; 
+ 	hdfs_file_path = quoted_string;
+ 	local_file_path = quoted_string;
+ 	local_file = quoted_string;
  	

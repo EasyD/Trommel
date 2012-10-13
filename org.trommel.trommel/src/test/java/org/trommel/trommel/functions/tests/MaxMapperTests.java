@@ -30,7 +30,7 @@ public class MaxMapperTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Max";
+	private static final String HANDLER_NAME = "Max";
 	
 	// First row fields and values
 	private static final String FIELD1 = "Field1";
@@ -88,7 +88,7 @@ public class MaxMapperTests
 	{
 		MaxMapper max = new MaxMapper(logger, fields);
 		
-		assertEquals(FUNCTION_NAME, max.getHandlerName());
+		assertEquals(HANDLER_NAME, max.getHandlerName());
 	}
 
 	@Test

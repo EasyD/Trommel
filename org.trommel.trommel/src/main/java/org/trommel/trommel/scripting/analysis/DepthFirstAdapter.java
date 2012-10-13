@@ -902,90 +902,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAParmConfidence(node);
     }
 
-    public void inAHdfsFilePath(AHdfsFilePath node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAHdfsFilePath(AHdfsFilePath node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAHdfsFilePath(AHdfsFilePath node)
-    {
-        inAHdfsFilePath(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outAHdfsFilePath(node);
-    }
-
-    public void inAHdfsFile(AHdfsFile node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAHdfsFile(AHdfsFile node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAHdfsFile(AHdfsFile node)
-    {
-        inAHdfsFile(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outAHdfsFile(node);
-    }
-
-    public void inALocalFilePath(ALocalFilePath node)
-    {
-        defaultIn(node);
-    }
-
-    public void outALocalFilePath(ALocalFilePath node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseALocalFilePath(ALocalFilePath node)
-    {
-        inALocalFilePath(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outALocalFilePath(node);
-    }
-
-    public void inALocalFile(ALocalFile node)
-    {
-        defaultIn(node);
-    }
-
-    public void outALocalFile(ALocalFile node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseALocalFile(ALocalFile node)
-    {
-        inALocalFile(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outALocalFile(node);
-    }
-
     public void inAReportDataStatement(AReportDataStatement node)
     {
         defaultIn(node);
@@ -1190,14 +1106,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getHdfsFilePath().apply(this);
         }
-        if(node.getAs() != null)
-        {
-            node.getAs().apply(this);
-        }
-        if(node.getHdfsFile() != null)
-        {
-            node.getHdfsFile().apply(this);
-        }
         outAStoreStorage(node);
     }
 
@@ -1264,14 +1172,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getHdfsFilePath().apply(this);
         }
-        if(node.getFirstAs() != null)
-        {
-            node.getFirstAs().apply(this);
-        }
-        if(node.getHdfsFile() != null)
-        {
-            node.getHdfsFile().apply(this);
-        }
         if(node.getExport() != null)
         {
             node.getExport().apply(this);
@@ -1284,9 +1184,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getLocalFilePath().apply(this);
         }
-        if(node.getSecondAs() != null)
+        if(node.getAs() != null)
         {
-            node.getSecondAs().apply(this);
+            node.getAs().apply(this);
         }
         if(node.getLocalFile() != null)
         {
@@ -1321,9 +1221,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getLocalFilePath().apply(this);
         }
-        if(node.getFirstAs() != null)
+        if(node.getAs() != null)
         {
-            node.getFirstAs().apply(this);
+            node.getAs().apply(this);
         }
         if(node.getLocalFile() != null)
         {
@@ -1341,14 +1241,69 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getHdfsFilePath().apply(this);
         }
-        if(node.getSecondAs() != null)
-        {
-            node.getSecondAs().apply(this);
-        }
-        if(node.getHdfsFile() != null)
-        {
-            node.getHdfsFile().apply(this);
-        }
         outAExportStoreStorage(node);
+    }
+
+    public void inAHdfsFilePath(AHdfsFilePath node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAHdfsFilePath(AHdfsFilePath node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAHdfsFilePath(AHdfsFilePath node)
+    {
+        inAHdfsFilePath(node);
+        if(node.getQuotedString() != null)
+        {
+            node.getQuotedString().apply(this);
+        }
+        outAHdfsFilePath(node);
+    }
+
+    public void inALocalFilePath(ALocalFilePath node)
+    {
+        defaultIn(node);
+    }
+
+    public void outALocalFilePath(ALocalFilePath node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseALocalFilePath(ALocalFilePath node)
+    {
+        inALocalFilePath(node);
+        if(node.getQuotedString() != null)
+        {
+            node.getQuotedString().apply(this);
+        }
+        outALocalFilePath(node);
+    }
+
+    public void inALocalFile(ALocalFile node)
+    {
+        defaultIn(node);
+    }
+
+    public void outALocalFile(ALocalFile node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseALocalFile(ALocalFile node)
+    {
+        inALocalFile(node);
+        if(node.getQuotedString() != null)
+        {
+            node.getQuotedString().apply(this);
+        }
+        outALocalFile(node);
     }
 }

@@ -23,6 +23,7 @@ import org.trommel.trommel.controllers.ProfileFunction;
 import org.trommel.trommel.controllers.ReduceProfileController;
 import org.trommel.trommel.functions.MaxReducer;
 import org.trommel.trommel.functions.MinReducer;
+import org.trommel.trommel.functions.VariabilityReducer;
 import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 
 
@@ -87,6 +88,19 @@ public class ReduceProfileControllerTests
 		ReduceProfileController controller = new ReduceProfileController(logger);
 		
 		controller.addRecordHandler(null);
+	}
+	
+	@Test
+	public void testGetHeader()
+	{
+		ReduceProfileController controller = new ReduceProfileController(logger);
+		
+		// Add handlers
+		controller.addRecordHandler(new MaxReducer(logger));
+		controller.addRecordHandler(new MinReducer(logger));
+		controller.addRecordHandler(new VariabilityReducer(logger, FieldType.numeric));
+
+		assertEquals("Max\tMin\tVariability", controller.getHeader());
 	}
 
 	@Test

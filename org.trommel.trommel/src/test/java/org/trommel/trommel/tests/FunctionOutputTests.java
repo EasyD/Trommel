@@ -17,7 +17,7 @@ public class FunctionOutputTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Function Name";
+	private static final String HANDLER_NAME = "Function Name";
 	private static final String OUTPUT = "OUTPUT";
 	
 	
@@ -29,7 +29,7 @@ public class FunctionOutputTests
 	public void testConstructorOK() 
 	{
 		@SuppressWarnings("unused")
-		FunctionOutput output = new FunctionOutput(FUNCTION_NAME, OUTPUT);
+		FunctionOutput output = new FunctionOutput(HANDLER_NAME, OUTPUT);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
@@ -43,14 +43,14 @@ public class FunctionOutputTests
 	public void testConstructorNullOutput() 
 	{
 		@SuppressWarnings("unused")
-		FunctionOutput output = new FunctionOutput(FUNCTION_NAME, null);
+		FunctionOutput output = new FunctionOutput(HANDLER_NAME, null);
 	}
 
 	@Test
 	public void testSerialize()
 	{
 		FunctionOutput output = newFunctionOutput();
-		String serializedOutput = FUNCTION_NAME + "=" + OUTPUT;
+		String serializedOutput = HANDLER_NAME + "=" + OUTPUT;
 		
 		assertEquals(serializedOutput, output.serialize());
 	}
@@ -61,6 +61,6 @@ public class FunctionOutputTests
 	//
 	private FunctionOutput newFunctionOutput()
 	{
-		return new FunctionOutput(FUNCTION_NAME, OUTPUT);
+		return new FunctionOutput(HANDLER_NAME, OUTPUT);
 	}	
 }

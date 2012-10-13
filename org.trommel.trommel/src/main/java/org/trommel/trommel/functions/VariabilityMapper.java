@@ -21,7 +21,7 @@ public class VariabilityMapper extends Function
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Variability";
+	private static final String HANDLER_NAME = "Variability";
 	private static final String NULL_INDICATOR = "null";
 
 
@@ -36,7 +36,7 @@ public class VariabilityMapper extends Function
 	 */
 	public String getHandlerName()
 	{
-		return FUNCTION_NAME;
+		return HANDLER_NAME;
 	}
 
 	
@@ -92,7 +92,7 @@ public class VariabilityMapper extends Function
 			}
 
 			// Write out value
-			record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
+			record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
 
 			// This method is called at scale, optimize logging
 			if (logger.isDebugEnabled())

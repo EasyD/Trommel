@@ -24,8 +24,8 @@ public class EmptyReducerTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Empty";
-	private static final String OTHER_FUNCTION_NAME = "Foo";
+	private static final String HANDLER_NAME = "Empty";
+	private static final String OTHER_HANDLER_NAME = "Foo";
 	
 	// Field values
 	private static final String FIELD_VALUE = "1";
@@ -55,6 +55,14 @@ public class EmptyReducerTests
 	//
 
 	@Test
+	public void testGetHandlerName()
+	{
+		EmptyReducer empty = new EmptyReducer(logger);
+
+		assertEquals(HANDLER_NAME, empty.getHandlerName());
+	}
+	
+	@Test
 	public void testGetReduceResult() 
 	{
 		List<HashMap<String,String>> records = reduceRecords();
@@ -80,22 +88,22 @@ public class EmptyReducerTests
 		// First Record
 		records.add(0, new HashMap<String, String>());
 		
-		records.get(0).put(FUNCTION_NAME, FIELD_VALUE);
+		records.get(0).put(HANDLER_NAME, FIELD_VALUE);
 				
 		// Second Record
 		records.add(0, new HashMap<String, String>());
 		
-		records.get(0).put(OTHER_FUNCTION_NAME, FIELD_VALUE);
+		records.get(0).put(OTHER_HANDLER_NAME, FIELD_VALUE);
 				
 		// Third Record
 		records.add(2, new HashMap<String, String>());
 		
-		records.get(2).put(FUNCTION_NAME, FIELD_VALUE);
+		records.get(2).put(HANDLER_NAME, FIELD_VALUE);
 				
 		// Fourth Record
 		records.add(3, new HashMap<String, String>());
 		
-		records.get(3).put(FUNCTION_NAME, FIELD_VALUE);
+		records.get(3).put(HANDLER_NAME, FIELD_VALUE);
 		
 		return records;
 	}	

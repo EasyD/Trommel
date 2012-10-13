@@ -30,7 +30,7 @@ public class EmptyMapperTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Empty";
+	private static final String HANDLER_NAME = "Empty";
 	
 	// First row fields and values
 	private static final String FIELD1 = "Field1";
@@ -93,7 +93,7 @@ public class EmptyMapperTests
 	{
 		EmptyMapper empty = new EmptyMapper(logger, fields);
 		
-		assertEquals(FUNCTION_NAME, empty.getHandlerName());
+		assertEquals(HANDLER_NAME, empty.getHandlerName());
 	}
 	
 	

@@ -17,7 +17,7 @@ public class MinReducer extends ReduceRecordHandler
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Min";
+	private static final String HANDLER_NAME = "Min";
 
 	
 	//
@@ -29,6 +29,16 @@ public class MinReducer extends ReduceRecordHandler
 	//
 	//	Getters/setters
 	//
+
+	/**
+	 * Return the name of the Distinct function.
+	 * 
+	 * @return The string value of "Min".
+	 */
+	public String getHandlerName()
+	{
+		return HANDLER_NAME;
+	}
 
 	/**
 	 * Return the current Minimum value. If no minimum value found (e.g., all categorical values), then
@@ -82,10 +92,10 @@ public class MinReducer extends ReduceRecordHandler
 	public void handleReduceRecord(HashMap<String, String> record) 
 		throws NumberFormatException
 	{
-		if (record.containsKey(FUNCTION_NAME))
+		if (record.containsKey(HANDLER_NAME))
 		{		
 			// Reduce is also pretty easy, grab Min's value from the HashMap and process it.
-			double currentValue = Double.parseDouble(record.get(FUNCTION_NAME));
+			double currentValue = Double.parseDouble(record.get(HANDLER_NAME));
 			
 			if (currentValue < minValue)
 			{

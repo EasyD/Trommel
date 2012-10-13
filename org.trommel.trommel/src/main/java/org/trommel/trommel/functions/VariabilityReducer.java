@@ -22,7 +22,7 @@ public class VariabilityReducer extends ReduceRecordHandler
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Variability";
+	private static final String HANDLER_NAME = "Variability";
 
 	
 	//
@@ -45,7 +45,7 @@ public class VariabilityReducer extends ReduceRecordHandler
 	 */
 	public String getHandlerName()
 	{
-		return FUNCTION_NAME;
+		return HANDLER_NAME;
 	}
 
 	/**
@@ -117,32 +117,32 @@ public class VariabilityReducer extends ReduceRecordHandler
 	public void handleReduceRecord(HashMap<String, String> record) 
 		throws NumberFormatException
 	{
-		if (record.containsKey(FUNCTION_NAME))
+		if (record.containsKey(HANDLER_NAME))
 		{	
 			++recordCount;
 
 			if (fieldType == FieldType.numeric)
 			{
 				// Add numeric value to the SummaryStatistics instance
-				stats.addValue(Double.parseDouble(record.get(FUNCTION_NAME)));
+				stats.addValue(Double.parseDouble(record.get(HANDLER_NAME)));
 
 				// This method is called at scale, optimize logging
 				if (logger.isDebugEnabled())
 				{
-					logger.debug(String.format("VariabilityReducer.handleReduceRecord added value of %1$s.", record.get(FUNCTION_NAME)));
+					logger.debug(String.format("VariabilityReducer.handleReduceRecord added value of %1$s.", record.get(HANDLER_NAME)));
 				}
 			}
 			else
 			{
-				if(!discoveredValues.containsKey(record.get(FUNCTION_NAME)))
+				if(!discoveredValues.containsKey(record.get(HANDLER_NAME)))
 				{
 					// New value discovered
-					discoveredValues.put(record.get(FUNCTION_NAME), 1);
+					discoveredValues.put(record.get(HANDLER_NAME), 1);
 
 					// This method is called at scale, optimize logging
 					if (logger.isDebugEnabled())
 					{
-						logger.debug(String.format("VariabilityReducer.handleReduceRecord added value of %1$s.", record.get(FUNCTION_NAME)));
+						logger.debug(String.format("VariabilityReducer.handleReduceRecord added value of %1$s.", record.get(HANDLER_NAME)));
 					}
 				}
 			}

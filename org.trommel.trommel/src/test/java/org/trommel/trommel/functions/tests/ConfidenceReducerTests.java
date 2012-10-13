@@ -26,7 +26,8 @@ public class ConfidenceReducerTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Variability";
+	private static final String CONF_HANDLER_NAME = "Confidence";
+	private static final String VAR_HANDLER_NAME = "Variability";
 
 	
 	// Field values
@@ -86,6 +87,15 @@ public class ConfidenceReducerTests
 		@SuppressWarnings("unused")
 		ConfidenceReducer con = new ConfidenceReducer(logger, 85, null);
 	}
+	
+	@Test
+	public void testGetHandlerName()
+	{
+		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);
+		ConfidenceReducer con = new ConfidenceReducer(logger, 80, var);
+
+		assertEquals(CONF_HANDLER_NAME, con.getHandlerName());
+	}
 			
 	@Test
 	public void testNumericGetReduceResult()
@@ -132,67 +142,67 @@ public class ConfidenceReducerTests
 		
 		// Add 21 records
 		records.add(0, new HashMap<String, String>());
-		records.get(0).put(FUNCTION_NAME, ROW1_VALUE);
+		records.get(0).put(VAR_HANDLER_NAME, ROW1_VALUE);
 				
 		records.add(1, new HashMap<String, String>());
-		records.get(1).put(FUNCTION_NAME, ROW2_VALUE);
+		records.get(1).put(VAR_HANDLER_NAME, ROW2_VALUE);
 				
 		records.add(2, new HashMap<String, String>());
-		records.get(2).put(FUNCTION_NAME, ROW3_VALUE);
+		records.get(2).put(VAR_HANDLER_NAME, ROW3_VALUE);
 				
 		records.add(3, new HashMap<String, String>());
-		records.get(3).put(FUNCTION_NAME, ROW4_VALUE);
+		records.get(3).put(VAR_HANDLER_NAME, ROW4_VALUE);
 				
 		records.add(4, new HashMap<String, String>());
-		records.get(4).put(FUNCTION_NAME, ROW5_VALUE);
+		records.get(4).put(VAR_HANDLER_NAME, ROW5_VALUE);
 				
 		records.add(5, new HashMap<String, String>());
-		records.get(5).put(FUNCTION_NAME, ROW6_VALUE);
+		records.get(5).put(VAR_HANDLER_NAME, ROW6_VALUE);
 		
 		records.add(6, new HashMap<String, String>());
-		records.get(6).put(FUNCTION_NAME, ROW7_VALUE);
+		records.get(6).put(VAR_HANDLER_NAME, ROW7_VALUE);
 				
 		records.add(7, new HashMap<String, String>());
-		records.get(7).put(FUNCTION_NAME, ROW8_VALUE);
+		records.get(7).put(VAR_HANDLER_NAME, ROW8_VALUE);
 				
 		records.add(8, new HashMap<String, String>());
-		records.get(8).put(FUNCTION_NAME, ROW9_VALUE);
+		records.get(8).put(VAR_HANDLER_NAME, ROW9_VALUE);
 		
 		records.add(9, new HashMap<String, String>());
-		records.get(9).put(FUNCTION_NAME, ROW1_VALUE);
+		records.get(9).put(VAR_HANDLER_NAME, ROW1_VALUE);
 				
 		records.add(10, new HashMap<String, String>());
-		records.get(10).put(FUNCTION_NAME, ROW2_VALUE);
+		records.get(10).put(VAR_HANDLER_NAME, ROW2_VALUE);
 				
 		records.add(11, new HashMap<String, String>());
-		records.get(11).put(FUNCTION_NAME, ROW3_VALUE);
+		records.get(11).put(VAR_HANDLER_NAME, ROW3_VALUE);
 				
 		records.add(12, new HashMap<String, String>());
-		records.get(12).put(FUNCTION_NAME, ROW4_VALUE);
+		records.get(12).put(VAR_HANDLER_NAME, ROW4_VALUE);
 				
 		records.add(13, new HashMap<String, String>());
-		records.get(13).put(FUNCTION_NAME, ROW5_VALUE);
+		records.get(13).put(VAR_HANDLER_NAME, ROW5_VALUE);
 				
 		records.add(14, new HashMap<String, String>());
-		records.get(14).put(FUNCTION_NAME, ROW6_VALUE);
+		records.get(14).put(VAR_HANDLER_NAME, ROW6_VALUE);
 		
 		records.add(15, new HashMap<String, String>());
-		records.get(15).put(FUNCTION_NAME, ROW7_VALUE);
+		records.get(15).put(VAR_HANDLER_NAME, ROW7_VALUE);
 				
 		records.add(16, new HashMap<String, String>());
-		records.get(16).put(FUNCTION_NAME, ROW8_VALUE);
+		records.get(16).put(VAR_HANDLER_NAME, ROW8_VALUE);
 				
 		records.add(17, new HashMap<String, String>());
-		records.get(17).put(FUNCTION_NAME, ROW9_VALUE);
+		records.get(17).put(VAR_HANDLER_NAME, ROW9_VALUE);
 				
 		records.add(18, new HashMap<String, String>());
-		records.get(18).put(FUNCTION_NAME, ROW1_VALUE);
+		records.get(18).put(VAR_HANDLER_NAME, ROW1_VALUE);
 				
 		records.add(19, new HashMap<String, String>());
-		records.get(19).put(FUNCTION_NAME, ROW2_VALUE);
+		records.get(19).put(VAR_HANDLER_NAME, ROW2_VALUE);
 				
 		records.add(20, new HashMap<String, String>());
-		records.get(20).put(FUNCTION_NAME, ROW3_VALUE);
+		records.get(20).put(VAR_HANDLER_NAME, ROW3_VALUE);
 				
 		return records;
 	}	

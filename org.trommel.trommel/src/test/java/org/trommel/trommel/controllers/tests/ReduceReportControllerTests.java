@@ -69,6 +69,14 @@ public class ReduceReportControllerTests
 	{
 		ReduceReportController controller = new ReduceReportController(logger, null);
 	}
+	
+	@Test
+	public void testGetHeader()
+	{
+		ReduceReportController controller = new ReduceReportController(logger, FIELD1);
+		
+		assertEquals("Field\tContent\tCount", controller.getHeader());
+	}
 
 	
 	@Test(expected=IllegalArgumentException.class)

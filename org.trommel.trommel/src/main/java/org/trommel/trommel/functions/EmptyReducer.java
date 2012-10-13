@@ -17,7 +17,7 @@ public class EmptyReducer extends ReduceRecordHandler
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Empty";
+	private static final String HANDLER_NAME = "Empty";
 
 
 	//
@@ -30,6 +30,16 @@ public class EmptyReducer extends ReduceRecordHandler
 	//	Getters/setters
 	//
 	
+	/**
+	 * Return the name of the Distinct function.
+	 * 
+	 * @return The string value of "Empty".
+	 */
+	public String getHandlerName()
+	{
+		return HANDLER_NAME;
+	}
+
 	/**
 	 * Return the current count of empty values.
 	 * 
@@ -70,7 +80,7 @@ public class EmptyReducer extends ReduceRecordHandler
 	 */
 	public void handleReduceRecord(HashMap<String, String> record) 
 	{
-		if (record.containsKey(FUNCTION_NAME))
+		if (record.containsKey(HANDLER_NAME))
 		{	
 			// Reduce phase processing is easy, increment the count
 			++emptyCount;

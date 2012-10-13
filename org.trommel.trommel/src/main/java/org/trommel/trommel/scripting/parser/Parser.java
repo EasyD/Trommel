@@ -379,88 +379,82 @@ public class Parser
 			push(goTo(15), list, false);
 		    }
 		    break;
-                    case 34: /* reduce AHdfsFilePath */
+                    case 34: /* reduce AReportDataStatement */
 		    {
 			ArrayList list = new34();
 			push(goTo(16), list, false);
 		    }
 		    break;
-                    case 35: /* reduce AHdfsFile */
+                    case 35: /* reduce ASingleReportedFields */
 		    {
 			ArrayList list = new35();
 			push(goTo(17), list, false);
 		    }
 		    break;
-                    case 36: /* reduce ALocalFilePath */
+                    case 36: /* reduce AListReportedFields */
 		    {
 			ArrayList list = new36();
+			push(goTo(17), list, false);
+		    }
+		    break;
+                    case 37: /* reduce AReportedField */
+		    {
+			ArrayList list = new37();
 			push(goTo(18), list, false);
 		    }
 		    break;
-                    case 37: /* reduce ALocalFile */
+                    case 38: /* reduce ASampleDataStatement */
 		    {
-			ArrayList list = new37();
+			ArrayList list = new38();
 			push(goTo(19), list, false);
 		    }
 		    break;
-                    case 38: /* reduce AReportDataStatement */
+                    case 39: /* reduce ASampleRate */
 		    {
-			ArrayList list = new38();
+			ArrayList list = new39();
 			push(goTo(20), list, false);
 		    }
 		    break;
-                    case 39: /* reduce ASingleReportedFields */
-		    {
-			ArrayList list = new39();
-			push(goTo(21), list, false);
-		    }
-		    break;
-                    case 40: /* reduce AListReportedFields */
+                    case 40: /* reduce AStoreStorage */
 		    {
 			ArrayList list = new40();
 			push(goTo(21), list, false);
 		    }
 		    break;
-                    case 41: /* reduce AReportedField */
+                    case 41: /* reduce AExportStorage */
 		    {
 			ArrayList list = new41();
+			push(goTo(21), list, false);
+		    }
+		    break;
+                    case 42: /* reduce AStoreExportStorage */
+		    {
+			ArrayList list = new42();
+			push(goTo(21), list, false);
+		    }
+		    break;
+                    case 43: /* reduce AExportStoreStorage */
+		    {
+			ArrayList list = new43();
+			push(goTo(21), list, false);
+		    }
+		    break;
+                    case 44: /* reduce AHdfsFilePath */
+		    {
+			ArrayList list = new44();
 			push(goTo(22), list, false);
 		    }
 		    break;
-                    case 42: /* reduce ASampleDataStatement */
+                    case 45: /* reduce ALocalFilePath */
 		    {
-			ArrayList list = new42();
+			ArrayList list = new45();
 			push(goTo(23), list, false);
 		    }
 		    break;
-                    case 43: /* reduce ASampleRate */
-		    {
-			ArrayList list = new43();
-			push(goTo(24), list, false);
-		    }
-		    break;
-                    case 44: /* reduce AStoreStorage */
-		    {
-			ArrayList list = new44();
-			push(goTo(25), list, false);
-		    }
-		    break;
-                    case 45: /* reduce AExportStorage */
-		    {
-			ArrayList list = new45();
-			push(goTo(25), list, false);
-		    }
-		    break;
-                    case 46: /* reduce AStoreExportStorage */
+                    case 46: /* reduce ALocalFile */
 		    {
 			ArrayList list = new46();
-			push(goTo(25), list, false);
-		    }
-		    break;
-                    case 47: /* reduce AExportStoreStorage */
-		    {
-			ArrayList list = new47();
-			push(goTo(25), list, false);
+			push(goTo(24), list, false);
 		    }
 		    break;
                     }
@@ -1277,87 +1271,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new34() /* reduce AHdfsFilePath */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PHdfsFilePath phdfsfilepathNode1;
-        {
-            // Block
-        TQuotedString tquotedstringNode2;
-        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
-
-        phdfsfilepathNode1 = new AHdfsFilePath(tquotedstringNode2);
-        }
-	nodeList.add(phdfsfilepathNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new35() /* reduce AHdfsFile */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PHdfsFile phdfsfileNode1;
-        {
-            // Block
-        TQuotedString tquotedstringNode2;
-        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
-
-        phdfsfileNode1 = new AHdfsFile(tquotedstringNode2);
-        }
-	nodeList.add(phdfsfileNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new36() /* reduce ALocalFilePath */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PLocalFilePath plocalfilepathNode1;
-        {
-            // Block
-        TQuotedString tquotedstringNode2;
-        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
-
-        plocalfilepathNode1 = new ALocalFilePath(tquotedstringNode2);
-        }
-	nodeList.add(plocalfilepathNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new37() /* reduce ALocalFile */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PLocalFile plocalfileNode1;
-        {
-            // Block
-        TQuotedString tquotedstringNode2;
-        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
-
-        plocalfileNode1 = new ALocalFile(tquotedstringNode2);
-        }
-	nodeList.add(plocalfileNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new38() /* reduce AReportDataStatement */
+    ArrayList new34() /* reduce AReportDataStatement */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1392,7 +1306,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new39() /* reduce ASingleReportedFields */
+    ArrayList new35() /* reduce ASingleReportedFields */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1412,7 +1326,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new40() /* reduce AListReportedFields */
+    ArrayList new36() /* reduce AListReportedFields */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1438,7 +1352,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new41() /* reduce AReportedField */
+    ArrayList new37() /* reduce AReportedField */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1458,7 +1372,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new42() /* reduce ASampleDataStatement */
+    ArrayList new38() /* reduce ASampleDataStatement */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1493,7 +1407,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new43() /* reduce ASampleRate */
+    ArrayList new39() /* reduce ASampleRate */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1516,12 +1430,10 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new44() /* reduce AStoreStorage */
+    ArrayList new40() /* reduce AStoreStorage */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
@@ -1531,15 +1443,11 @@ public class Parser
         TStore tstoreNode2;
         TInto tintoNode3;
         PHdfsFilePath phdfsfilepathNode4;
-        TAs tasNode5;
-        PHdfsFile phdfsfileNode6;
         tstoreNode2 = (TStore)nodeArrayList1.get(0);
         tintoNode3 = (TInto)nodeArrayList2.get(0);
         phdfsfilepathNode4 = (PHdfsFilePath)nodeArrayList3.get(0);
-        tasNode5 = (TAs)nodeArrayList4.get(0);
-        phdfsfileNode6 = (PHdfsFile)nodeArrayList5.get(0);
 
-        pstorageNode1 = new AStoreStorage(tstoreNode2, tintoNode3, phdfsfilepathNode4, tasNode5, phdfsfileNode6);
+        pstorageNode1 = new AStoreStorage(tstoreNode2, tintoNode3, phdfsfilepathNode4);
         }
 	nodeList.add(pstorageNode1);
         return nodeList;
@@ -1548,7 +1456,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new45() /* reduce AExportStorage */
+    ArrayList new41() /* reduce AExportStorage */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1580,12 +1488,10 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new46() /* reduce AStoreExportStorage */
+    ArrayList new42() /* reduce AStoreExportStorage */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList10 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList9 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList8 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList7 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList6 = pop();
@@ -1600,25 +1506,21 @@ public class Parser
         TStore tstoreNode2;
         TInto tintoNode3;
         PHdfsFilePath phdfsfilepathNode4;
-        TAs tasNode5;
-        PHdfsFile phdfsfileNode6;
-        TExport texportNode7;
-        TTo ttoNode8;
-        PLocalFilePath plocalfilepathNode9;
-        TAs tasNode10;
-        PLocalFile plocalfileNode11;
+        TExport texportNode5;
+        TTo ttoNode6;
+        PLocalFilePath plocalfilepathNode7;
+        TAs tasNode8;
+        PLocalFile plocalfileNode9;
         tstoreNode2 = (TStore)nodeArrayList1.get(0);
         tintoNode3 = (TInto)nodeArrayList2.get(0);
         phdfsfilepathNode4 = (PHdfsFilePath)nodeArrayList3.get(0);
-        tasNode5 = (TAs)nodeArrayList4.get(0);
-        phdfsfileNode6 = (PHdfsFile)nodeArrayList5.get(0);
-        texportNode7 = (TExport)nodeArrayList6.get(0);
-        ttoNode8 = (TTo)nodeArrayList7.get(0);
-        plocalfilepathNode9 = (PLocalFilePath)nodeArrayList8.get(0);
-        tasNode10 = (TAs)nodeArrayList9.get(0);
-        plocalfileNode11 = (PLocalFile)nodeArrayList10.get(0);
+        texportNode5 = (TExport)nodeArrayList4.get(0);
+        ttoNode6 = (TTo)nodeArrayList5.get(0);
+        plocalfilepathNode7 = (PLocalFilePath)nodeArrayList6.get(0);
+        tasNode8 = (TAs)nodeArrayList7.get(0);
+        plocalfileNode9 = (PLocalFile)nodeArrayList8.get(0);
 
-        pstorageNode1 = new AStoreExportStorage(tstoreNode2, tintoNode3, phdfsfilepathNode4, tasNode5, phdfsfileNode6, texportNode7, ttoNode8, plocalfilepathNode9, tasNode10, plocalfileNode11);
+        pstorageNode1 = new AStoreExportStorage(tstoreNode2, tintoNode3, phdfsfilepathNode4, texportNode5, ttoNode6, plocalfilepathNode7, tasNode8, plocalfileNode9);
         }
 	nodeList.add(pstorageNode1);
         return nodeList;
@@ -1627,12 +1529,10 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new47() /* reduce AExportStoreStorage */
+    ArrayList new43() /* reduce AExportStoreStorage */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList10 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList9 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList8 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList7 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList6 = pop();
@@ -1652,8 +1552,6 @@ public class Parser
         TStore tstoreNode7;
         TInto tintoNode8;
         PHdfsFilePath phdfsfilepathNode9;
-        TAs tasNode10;
-        PHdfsFile phdfsfileNode11;
         texportNode2 = (TExport)nodeArrayList1.get(0);
         ttoNode3 = (TTo)nodeArrayList2.get(0);
         plocalfilepathNode4 = (PLocalFilePath)nodeArrayList3.get(0);
@@ -1662,12 +1560,70 @@ public class Parser
         tstoreNode7 = (TStore)nodeArrayList6.get(0);
         tintoNode8 = (TInto)nodeArrayList7.get(0);
         phdfsfilepathNode9 = (PHdfsFilePath)nodeArrayList8.get(0);
-        tasNode10 = (TAs)nodeArrayList9.get(0);
-        phdfsfileNode11 = (PHdfsFile)nodeArrayList10.get(0);
 
-        pstorageNode1 = new AExportStoreStorage(texportNode2, ttoNode3, plocalfilepathNode4, tasNode5, plocalfileNode6, tstoreNode7, tintoNode8, phdfsfilepathNode9, tasNode10, phdfsfileNode11);
+        pstorageNode1 = new AExportStoreStorage(texportNode2, ttoNode3, plocalfilepathNode4, tasNode5, plocalfileNode6, tstoreNode7, tintoNode8, phdfsfilepathNode9);
         }
 	nodeList.add(pstorageNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new44() /* reduce AHdfsFilePath */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PHdfsFilePath phdfsfilepathNode1;
+        {
+            // Block
+        TQuotedString tquotedstringNode2;
+        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
+
+        phdfsfilepathNode1 = new AHdfsFilePath(tquotedstringNode2);
+        }
+	nodeList.add(phdfsfilepathNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new45() /* reduce ALocalFilePath */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PLocalFilePath plocalfilepathNode1;
+        {
+            // Block
+        TQuotedString tquotedstringNode2;
+        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
+
+        plocalfilepathNode1 = new ALocalFilePath(tquotedstringNode2);
+        }
+	nodeList.add(plocalfilepathNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new46() /* reduce ALocalFile */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PLocalFile plocalfileNode1;
+        {
+            // Block
+        TQuotedString tquotedstringNode2;
+        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
+
+        plocalfileNode1 = new ALocalFile(tquotedstringNode2);
+        }
+	nodeList.add(plocalfileNode1);
         return nodeList;
     }
 
@@ -1715,9 +1671,9 @@ public class Parser
 			{{-1, REDUCE, 26}, },
 			{{-1, REDUCE, 27}, },
 			{{-1, REDUCE, 14}, },
-			{{-1, REDUCE, 41}, },
+			{{-1, REDUCE, 37}, },
 			{{-1, ERROR, 41}, {24, SHIFT, 54}, {26, SHIFT, 55}, {31, SHIFT, 58}, },
-			{{-1, REDUCE, 39}, },
+			{{-1, REDUCE, 35}, },
 			{{-1, ERROR, 43}, {22, SHIFT, 60}, },
 			{{-1, ERROR, 44}, {24, SHIFT, 54}, {26, SHIFT, 55}, },
 			{{-1, ERROR, 45}, {1, SHIFT, 62}, },
@@ -1735,7 +1691,7 @@ public class Parser
 			{{-1, ERROR, 57}, {10, SHIFT, 26}, {11, SHIFT, 27}, {12, SHIFT, 28}, {13, SHIFT, 29}, {14, SHIFT, 30}, {15, SHIFT, 31}, {16, SHIFT, 32}, {17, SHIFT, 33}, },
 			{{-1, ERROR, 58}, {34, SHIFT, 40}, },
 			{{-1, ERROR, 59}, {28, SHIFT, 75}, },
-			{{-1, REDUCE, 43}, },
+			{{-1, REDUCE, 39}, },
 			{{-1, ERROR, 61}, {28, SHIFT, 76}, },
 			{{-1, ERROR, 62}, {2, SHIFT, 77}, },
 			{{-1, REDUCE, 5}, },
@@ -1749,37 +1705,32 @@ public class Parser
 			{{-1, ERROR, 71}, {33, SHIFT, 84}, },
 			{{-1, REDUCE, 12}, },
 			{{-1, REDUCE, 19}, },
-			{{-1, REDUCE, 40}, },
+			{{-1, REDUCE, 36}, },
+			{{-1, REDUCE, 34}, },
 			{{-1, REDUCE, 38}, },
-			{{-1, REDUCE, 42}, },
 			{{-1, REDUCE, 8}, },
 			{{-1, REDUCE, 7}, },
 			{{-1, ERROR, 79}, {33, SHIFT, 86}, },
 			{{-1, REDUCE, 33}, },
 			{{-1, REDUCE, 30}, },
-			{{-1, REDUCE, 34}, },
-			{{-1, ERROR, 83}, {32, SHIFT, 88}, },
-			{{-1, REDUCE, 36}, },
+			{{-1, REDUCE, 44}, },
+			{{-1, REDUCE, 40}, {26, SHIFT, 88}, },
+			{{-1, REDUCE, 45}, },
 			{{-1, ERROR, 85}, {32, SHIFT, 89}, },
 			{{-1, REDUCE, 11}, },
 			{{-1, ERROR, 87}, {28, SHIFT, 90}, },
-			{{-1, ERROR, 88}, {33, SHIFT, 91}, },
-			{{-1, ERROR, 89}, {33, SHIFT, 93}, },
+			{{-1, ERROR, 88}, {27, SHIFT, 91}, },
+			{{-1, ERROR, 89}, {33, SHIFT, 92}, },
 			{{-1, REDUCE, 10}, },
-			{{-1, REDUCE, 35}, },
-			{{-1, REDUCE, 44}, {26, SHIFT, 95}, },
-			{{-1, REDUCE, 37}, },
-			{{-1, REDUCE, 45}, {24, SHIFT, 96}, },
-			{{-1, ERROR, 95}, {27, SHIFT, 97}, },
-			{{-1, ERROR, 96}, {25, SHIFT, 98}, },
-			{{-1, ERROR, 97}, {33, SHIFT, 84}, },
-			{{-1, ERROR, 98}, {33, SHIFT, 82}, },
-			{{-1, ERROR, 99}, {32, SHIFT, 101}, },
-			{{-1, ERROR, 100}, {32, SHIFT, 102}, },
-			{{-1, ERROR, 101}, {33, SHIFT, 93}, },
-			{{-1, ERROR, 102}, {33, SHIFT, 91}, },
+			{{-1, ERROR, 91}, {33, SHIFT, 84}, },
 			{{-1, REDUCE, 46}, },
-			{{-1, REDUCE, 47}, },
+			{{-1, REDUCE, 41}, {24, SHIFT, 95}, },
+			{{-1, ERROR, 94}, {32, SHIFT, 96}, },
+			{{-1, ERROR, 95}, {25, SHIFT, 97}, },
+			{{-1, ERROR, 96}, {33, SHIFT, 92}, },
+			{{-1, ERROR, 97}, {33, SHIFT, 82}, },
+			{{-1, REDUCE, 42}, },
+			{{-1, REDUCE, 43}, },
         };*/
     private static int[][][] gotoTable;
 /*      {
@@ -1799,16 +1750,15 @@ public class Parser
 			{{-1, 36}, {57, 73}, },
 			{{-1, 37}, },
 			{{-1, 38}, },
-			{{-1, 83}, {98, 100}, },
-			{{-1, 92}, {102, 104}, },
-			{{-1, 85}, {97, 99}, },
-			{{-1, 94}, {101, 103}, },
 			{{-1, 9}, },
 			{{-1, 41}, },
 			{{-1, 42}, {58, 74}, },
 			{{-1, 10}, },
 			{{-1, 44}, },
 			{{-1, 56}, {41, 59}, {44, 61}, },
+			{{-1, 83}, {97, 99}, },
+			{{-1, 85}, {91, 94}, },
+			{{-1, 93}, {96, 98}, },
         };*/
     private static String[] errorMessages;
 /*      {
@@ -1847,7 +1797,7 @@ public class Parser
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 2, 3, 4, 5, 1, 1, 2, 2, 2, 6, 6, 7, 7, 7, 8, 9, 10, 11, 5, 5, 12, 5, 13, 14, 15, 15, 15, 15, 15, 15, 16, 16, 17, 15, 15, 15, 15, 7, 15, 15, 15, 18, 17, 19, 20, 20, 21, 3, 3, 17, 22, 22, 23, 24, 25, 26, 5, 25, 17, 25, 27, 13, 5, 28, 15, 29, 15, 29, 4, 4, 2, 15, 15, 2, 2, 20, 20, 4, 15, 15, 6, 6, 6, 6, 25, 25, 4, 4, 3, 30, 30, 31, 31, 24, 23, 4, 4, 6, 6, 4, 4, 25, 25, 
+			0, 1, 2, 3, 4, 5, 1, 1, 2, 2, 2, 6, 6, 7, 7, 7, 8, 9, 10, 11, 5, 5, 12, 5, 13, 14, 15, 15, 15, 15, 15, 15, 16, 16, 17, 15, 15, 15, 15, 7, 15, 15, 15, 18, 17, 19, 20, 20, 21, 3, 3, 17, 22, 22, 23, 24, 25, 26, 5, 25, 17, 25, 27, 13, 5, 28, 15, 29, 15, 29, 4, 4, 2, 15, 15, 2, 2, 20, 20, 4, 15, 15, 30, 30, 6, 6, 25, 25, 24, 4, 3, 4, 31, 31, 6, 23, 4, 4, 25, 25, 
         };*/
 
     static 

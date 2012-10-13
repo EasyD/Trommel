@@ -31,7 +31,7 @@ public class LinearityMapperTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Linearity";
+	private static final String HANDLER_NAME = "Linearity";
 	private static final String NULL_INDICATOR = "null";
 	
 	//	Field names
@@ -115,7 +115,7 @@ public class LinearityMapperTests
 	{
 		LinearityMapper lin = new LinearityMapper(logger, numericFields);
 		
-		assertEquals(FUNCTION_NAME, lin.getHandlerName());
+		assertEquals(HANDLER_NAME, lin.getHandlerName());
 	}
 
 	@Test

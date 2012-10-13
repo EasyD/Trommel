@@ -26,8 +26,8 @@ public class DistinctReducerTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Distinct";
-	private static final String OTHER_FUNCTION_NAME = "Foo";
+	private static final String HANDLER_NAME = "Distinct";
+	private static final String OTHER_HANDLER_NAME = "Foo";
 	
 	// Reduce phase fields and values values
 	private static final String FIELD1 = "Field1";
@@ -68,6 +68,14 @@ public class DistinctReducerTests
 	//
 	//	Tests
 	//
+	
+	@Test
+	public void testGetHandlerName()
+	{
+		DistinctReducer distinct = new DistinctReducer(logger);
+		
+		assertEquals(HANDLER_NAME, distinct.getHandlerName());
+	}
 
 	@Test
 	public void testGetReduceResult() 
@@ -95,22 +103,22 @@ public class DistinctReducerTests
 		// First Record
 		records.add(0, new HashMap<String, String>());
 		
-		records.get(0).put(FUNCTION_NAME, FIELD1_VALUE);
+		records.get(0).put(HANDLER_NAME, FIELD1_VALUE);
 				
 		// Second Record
 		records.add(1, new HashMap<String, String>());
 		
-		records.get(1).put(OTHER_FUNCTION_NAME, OTHER_FIELD_VALUE);
+		records.get(1).put(OTHER_HANDLER_NAME, OTHER_FIELD_VALUE);
 				
 		// Third Record
 		records.add(2, new HashMap<String, String>());
 		
-		records.get(2).put(FUNCTION_NAME, FIELD2_VALUE);
+		records.get(2).put(HANDLER_NAME, FIELD2_VALUE);
 
 		// Fourth Record
 		records.add(3, new HashMap<String, String>());
 		
-		records.get(3).put(FUNCTION_NAME, FIELD3_VALUE);
+		records.get(3).put(HANDLER_NAME, FIELD3_VALUE);
 		
 		return records;
 	}	

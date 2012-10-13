@@ -30,7 +30,7 @@ public class DistinctMapperTests
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String DELIMITER = "*|*";
-	private static final String FUNCTION_NAME = "Distinct";
+	private static final String HANDLER_NAME = "Distinct";
 	
 	// First row fields and values
 	private static final String FIELD1 = "Field1";
@@ -93,7 +93,7 @@ public class DistinctMapperTests
 	{
 		DistinctMapper distinct = new DistinctMapper(logger, fields);
 		
-		assertEquals(FUNCTION_NAME, distinct.getHandlerName());
+		assertEquals(HANDLER_NAME, distinct.getHandlerName());
 	}
 
 	@Test

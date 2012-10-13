@@ -24,7 +24,7 @@ public class MinReducerTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Min";
+	private static final String HANDLER_NAME = "Min";
 	
 	// Field values
 	private static final String FIELD1_VALUE = "15.0";
@@ -54,6 +54,14 @@ public class MinReducerTests
 	//
 	//	Tests
 	//
+	
+	@Test
+	public void testGetHandlerName()
+	{
+		MinReducer min = new MinReducer(logger);
+
+		assertEquals(HANDLER_NAME, min.getHandlerName());
+	}
 	
 	@Test
 	public void testGetReduceResultOK() 
@@ -95,17 +103,17 @@ public class MinReducerTests
 		// First Record
 		records.add(0, new HashMap<String, String>());
 		
-		records.get(0).put(FUNCTION_NAME, FIELD1_VALUE);
+		records.get(0).put(HANDLER_NAME, FIELD1_VALUE);
 				
 		// Second Record
 		records.add(1, new HashMap<String, String>());
 		
-		records.get(1).put(FUNCTION_NAME, FIELD2_VALUE);
+		records.get(1).put(HANDLER_NAME, FIELD2_VALUE);
 
 		// Third Record
 		records.add(2, new HashMap<String, String>());
 		
-		records.get(2).put(FUNCTION_NAME, FIELD3_VALUE);
+		records.get(2).put(HANDLER_NAME, FIELD3_VALUE);
 		
 		return records;
 	}	

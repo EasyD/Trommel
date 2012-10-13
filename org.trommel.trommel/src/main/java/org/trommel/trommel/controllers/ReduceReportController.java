@@ -23,6 +23,15 @@ public class ReduceReportController implements ReduceController
 	//
 	
 	/**
+	 * @return Tab-delimited header for Reducer file output. Specifically, "Field\tContent\tCount"
+	 */
+	public String getHeader()
+	{
+		return "Field\tContent\tCount";
+	}
+	
+
+	/**
 	 * @return Tab-delimited current results from all {@link org.trommel.trommel.reporting.DataReporterReducer} instances
 	 * added to Controller.
 	 */

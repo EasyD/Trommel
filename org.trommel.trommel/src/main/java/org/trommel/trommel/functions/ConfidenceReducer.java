@@ -22,6 +22,7 @@ public class ConfidenceReducer extends ReduceRecordHandler
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
+	private static final String HANDLER_NAME = "Confidence";
 	private static final double DEFAULT_CONVERGENCE_VALUE = -1.0;
 	
 	
@@ -42,6 +43,16 @@ public class ConfidenceReducer extends ReduceRecordHandler
 	//	Getters/setters
 	//
 	
+	/**
+	 * Return the name of the Distinct function.
+	 * 
+	 * @return The string value of "Conf".
+	 */
+	public String getHandlerName()
+	{
+		return HANDLER_NAME;
+	}
+
 	/**
 	 * Return the current calculation of {@link org.trommel.trommel.Field} confidence based on the
 	 * number of consecutive successful tests, per the equation n = log(1-c)/log(c) where c represents

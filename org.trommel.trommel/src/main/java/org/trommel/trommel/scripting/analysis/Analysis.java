@@ -46,10 +46,6 @@ public interface Analysis extends Switch
     void caseADefaultConfidence(ADefaultConfidence node);
     void caseADefaultParenConfidence(ADefaultParenConfidence node);
     void caseAParmConfidence(AParmConfidence node);
-    void caseAHdfsFilePath(AHdfsFilePath node);
-    void caseAHdfsFile(AHdfsFile node);
-    void caseALocalFilePath(ALocalFilePath node);
-    void caseALocalFile(ALocalFile node);
     void caseAReportDataStatement(AReportDataStatement node);
     void caseASingleReportedFields(ASingleReportedFields node);
     void caseAListReportedFields(AListReportedFields node);
@@ -60,6 +56,9 @@ public interface Analysis extends Switch
     void caseAExportStorage(AExportStorage node);
     void caseAStoreExportStorage(AStoreExportStorage node);
     void caseAExportStoreStorage(AExportStoreStorage node);
+    void caseAHdfsFilePath(AHdfsFilePath node);
+    void caseALocalFilePath(ALocalFilePath node);
+    void caseALocalFile(ALocalFile node);
 
     void caseTLoad(TLoad node);
     void caseTColon(TColon node);

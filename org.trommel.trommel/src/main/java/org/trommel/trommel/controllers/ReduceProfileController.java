@@ -28,13 +28,45 @@ public class ReduceProfileController implements ReduceController
 	//
 	private Logger logger = null;
 	private LinkedList<ReduceRecordHandler> recordHandlers = new LinkedList<ReduceRecordHandler>();
+	private String header = null;
 	
 	
 	//
 	//	Getter/setters
 	//
 	
+	/**
+	 * @return Tab-delimited list of {@link org.trommel.trommel.ReducceRecordHandler} names used to process post-Map
+	 * phase data. For example, "Max\tMin\tConfidence\tVariability"
+	 */
+	public String getHeader()
+	{
+		if (header == null)
+		{
+			StringBuffer buffer = new StringBuffer();
+			boolean first = true;
+			
+			for(ReduceRecordHandler handler : recordHandlers)
+			{
+				if (first)
+				{
+					first = false;
+				}
+				else
+				{
+					buffer.append("\t");
+				}
+
+				buffer.append(handler.getHandlerName());
+			}
+			
+			header = buffer.toString();
+		}
+		
+		return header;
+	}
 	
+		
 	/**
 	 * @return Tab-delimited current results from all {@link org.trommel.trommel.ReduceRecordHandler} instances
 	 * added to Controller.

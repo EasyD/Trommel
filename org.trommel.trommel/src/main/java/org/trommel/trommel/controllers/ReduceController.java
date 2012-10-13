@@ -9,6 +9,10 @@ package org.trommel.trommel.controllers;
  */
 public interface ReduceController 
 {
+	/**
+	 * @return Tab-delimited header for Reduce file output. For example, "Max\tMin\tConfidence\tVariability"
+	 */
+	public String getHeader();
 	
 	/**
 	 * @return Tab-delimited current results from the Controller.

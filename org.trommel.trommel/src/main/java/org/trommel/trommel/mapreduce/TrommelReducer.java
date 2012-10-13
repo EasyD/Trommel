@@ -39,6 +39,7 @@ public class TrommelReducer
 	private static final Logger logger = Logger.getLogger(TrommelMapper.class);
 	private ReduceInterpreter interpreter = null;
 	private ReduceController controller = null;
+	private boolean headerPrinted = false;
 	private String currentKey = "";
 
 	
@@ -62,6 +63,12 @@ public class TrommelReducer
 			logger.info(String.format("TrommelReducer processing fieldName: %1$s.", currentKey));
 				
 			controller = interpreter.getController(currentKey);
+		}
+
+		// Print a header line once per Reduce instance
+		if (!headerPrinted)
+		{
+			context.write(new Text(""), new Text(controller.getHeader()));
 		}
 		
 		// Process all the records for the current key (i.e., field name)

@@ -16,7 +16,7 @@ public class DistinctReducer extends ReduceRecordHandler
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Distinct";
+	private static final String HANDLER_NAME = "Distinct";
 
 	
 	//
@@ -24,10 +24,21 @@ public class DistinctReducer extends ReduceRecordHandler
 	//
 	private HashMap<String, Integer> distinctValues = new HashMap<String, Integer>();
 	
+	
 	//
 	//	Getters/setters
 	//
 	
+	/**
+	 * Return the name of the Distinct function.
+	 * 
+	 * @return The string value of "Distinct".
+	 */
+	public String getHandlerName()
+	{
+		return HANDLER_NAME;
+	}
+
 	/**
 	 * Return the current count of distinct values.
 	 * 
@@ -68,9 +79,9 @@ public class DistinctReducer extends ReduceRecordHandler
 	 */
 	public void handleReduceRecord(HashMap<String, String> record) 
 	{
-		if (record.containsKey(FUNCTION_NAME))
+		if (record.containsKey(HANDLER_NAME))
 		{	
-			String fieldValue = record.get(FUNCTION_NAME);
+			String fieldValue = record.get(HANDLER_NAME);
 			
 			if (!distinctValues.containsKey(fieldValue))
 			{

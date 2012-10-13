@@ -18,7 +18,7 @@ public class EmptyMapper extends Function
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Empty";
+	private static final String HANDLER_NAME = "Empty";
 
 
 	//
@@ -32,7 +32,7 @@ public class EmptyMapper extends Function
 	 */
 	public String getHandlerName()
 	{
-		return FUNCTION_NAME;
+		return HANDLER_NAME;
 	}
 		
 
@@ -74,7 +74,7 @@ public class EmptyMapper extends Function
 			// Only write mapper output for empty field values
 			if(StringUtilities.isNullOrEmpty(record.getFieldValue(field.getName())))
 			{
-				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, "1"));
+				record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, "1"));
 
 				// This method is called at scale, optimize logging
 				if (logger.isDebugEnabled())

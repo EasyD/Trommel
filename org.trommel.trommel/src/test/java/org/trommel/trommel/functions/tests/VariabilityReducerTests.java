@@ -25,7 +25,7 @@ public class VariabilityReducerTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Variability";
+	private static final String HANDLER_NAME = "Variability";
 	
 	// Field values
 	private static final String ROW1_NUMERIC_VALUE = "12";
@@ -67,7 +67,7 @@ public class VariabilityReducerTests
 	}
 	
 	@Test
-	public void testgetHandlerName()
+	public void testGetHandlerName()
 	{
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);			
 		
@@ -113,22 +113,22 @@ public class VariabilityReducerTests
 		
 		// Add six records
 		records.add(0, new HashMap<String, String>());
-		records.get(0).put(FUNCTION_NAME, ROW1_NUMERIC_VALUE);
+		records.get(0).put(HANDLER_NAME, ROW1_NUMERIC_VALUE);
 				
 		records.add(1, new HashMap<String, String>());
-		records.get(1).put(FUNCTION_NAME, ROW2_NUMERIC_VALUE);
+		records.get(1).put(HANDLER_NAME, ROW2_NUMERIC_VALUE);
 				
 		records.add(2, new HashMap<String, String>());
-		records.get(2).put(FUNCTION_NAME, ROW3_NUMERIC_VALUE);
+		records.get(2).put(HANDLER_NAME, ROW3_NUMERIC_VALUE);
 				
 		records.add(3, new HashMap<String, String>());
-		records.get(3).put(FUNCTION_NAME, ROW4_NUMERIC_VALUE);
+		records.get(3).put(HANDLER_NAME, ROW4_NUMERIC_VALUE);
 				
 		records.add(4, new HashMap<String, String>());
-		records.get(4).put(FUNCTION_NAME, ROW5_NUMERIC_VALUE);
+		records.get(4).put(HANDLER_NAME, ROW5_NUMERIC_VALUE);
 				
 		records.add(5, new HashMap<String, String>());
-		records.get(5).put(FUNCTION_NAME, ROW6_NUMERIC_VALUE);
+		records.get(5).put(HANDLER_NAME, ROW6_NUMERIC_VALUE);
 				
 		return records;
 	}	
@@ -139,35 +139,35 @@ public class VariabilityReducerTests
 		
 		// Add nine records
 		records.add(0, new HashMap<String, String>());
-		records.get(0).put(FUNCTION_NAME, ROW1_NUMERIC_VALUE);
+		records.get(0).put(HANDLER_NAME, ROW1_NUMERIC_VALUE);
 				
 		records.add(1, new HashMap<String, String>());
-		records.get(1).put(FUNCTION_NAME, ROW2_NUMERIC_VALUE);
+		records.get(1).put(HANDLER_NAME, ROW2_NUMERIC_VALUE);
 				
 		records.add(2, new HashMap<String, String>());
-		records.get(2).put(FUNCTION_NAME, ROW3_NUMERIC_VALUE);
+		records.get(2).put(HANDLER_NAME, ROW3_NUMERIC_VALUE);
 				
 		records.add(3, new HashMap<String, String>());
-		records.get(3).put(FUNCTION_NAME, ROW4_NUMERIC_VALUE);
+		records.get(3).put(HANDLER_NAME, ROW4_NUMERIC_VALUE);
 				
 		records.add(4, new HashMap<String, String>());
-		records.get(4).put(FUNCTION_NAME, ROW5_NUMERIC_VALUE);
+		records.get(4).put(HANDLER_NAME, ROW5_NUMERIC_VALUE);
 				
 		records.add(5, new HashMap<String, String>());
-		records.get(5).put(FUNCTION_NAME, ROW6_NUMERIC_VALUE);
+		records.get(5).put(HANDLER_NAME, ROW6_NUMERIC_VALUE);
 		
 		// Add some duplicate values in for ROD calculation
 		records.add(6, new HashMap<String, String>());
-		records.get(6).put(FUNCTION_NAME, ROW3_NUMERIC_VALUE);
+		records.get(6).put(HANDLER_NAME, ROW3_NUMERIC_VALUE);
 				
 		records.add(7, new HashMap<String, String>());
-		records.get(7).put(FUNCTION_NAME, ROW4_NUMERIC_VALUE);
+		records.get(7).put(HANDLER_NAME, ROW4_NUMERIC_VALUE);
 				
 		records.add(8, new HashMap<String, String>());
-		records.get(8).put(FUNCTION_NAME, ROW5_NUMERIC_VALUE);
+		records.get(8).put(HANDLER_NAME, ROW5_NUMERIC_VALUE);
 				
 		records.add(9, new HashMap<String, String>());
-		records.get(9).put(FUNCTION_NAME, ROW6_NUMERIC_VALUE);
+		records.get(9).put(HANDLER_NAME, ROW6_NUMERIC_VALUE);
 				
 		return records;
 	}	

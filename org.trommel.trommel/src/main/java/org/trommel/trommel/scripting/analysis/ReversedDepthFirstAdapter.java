@@ -902,90 +902,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAParmConfidence(node);
     }
 
-    public void inAHdfsFilePath(AHdfsFilePath node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAHdfsFilePath(AHdfsFilePath node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAHdfsFilePath(AHdfsFilePath node)
-    {
-        inAHdfsFilePath(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outAHdfsFilePath(node);
-    }
-
-    public void inAHdfsFile(AHdfsFile node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAHdfsFile(AHdfsFile node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAHdfsFile(AHdfsFile node)
-    {
-        inAHdfsFile(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outAHdfsFile(node);
-    }
-
-    public void inALocalFilePath(ALocalFilePath node)
-    {
-        defaultIn(node);
-    }
-
-    public void outALocalFilePath(ALocalFilePath node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseALocalFilePath(ALocalFilePath node)
-    {
-        inALocalFilePath(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outALocalFilePath(node);
-    }
-
-    public void inALocalFile(ALocalFile node)
-    {
-        defaultIn(node);
-    }
-
-    public void outALocalFile(ALocalFile node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseALocalFile(ALocalFile node)
-    {
-        inALocalFile(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outALocalFile(node);
-    }
-
     public void inAReportDataStatement(AReportDataStatement node)
     {
         defaultIn(node);
@@ -1178,14 +1094,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAStoreStorage(AStoreStorage node)
     {
         inAStoreStorage(node);
-        if(node.getHdfsFile() != null)
-        {
-            node.getHdfsFile().apply(this);
-        }
-        if(node.getAs() != null)
-        {
-            node.getAs().apply(this);
-        }
         if(node.getHdfsFilePath() != null)
         {
             node.getHdfsFilePath().apply(this);
@@ -1256,9 +1164,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLocalFile().apply(this);
         }
-        if(node.getSecondAs() != null)
+        if(node.getAs() != null)
         {
-            node.getSecondAs().apply(this);
+            node.getAs().apply(this);
         }
         if(node.getLocalFilePath() != null)
         {
@@ -1271,14 +1179,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         if(node.getExport() != null)
         {
             node.getExport().apply(this);
-        }
-        if(node.getHdfsFile() != null)
-        {
-            node.getHdfsFile().apply(this);
-        }
-        if(node.getFirstAs() != null)
-        {
-            node.getFirstAs().apply(this);
         }
         if(node.getHdfsFilePath() != null)
         {
@@ -1309,14 +1209,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAExportStoreStorage(AExportStoreStorage node)
     {
         inAExportStoreStorage(node);
-        if(node.getHdfsFile() != null)
-        {
-            node.getHdfsFile().apply(this);
-        }
-        if(node.getSecondAs() != null)
-        {
-            node.getSecondAs().apply(this);
-        }
         if(node.getHdfsFilePath() != null)
         {
             node.getHdfsFilePath().apply(this);
@@ -1333,9 +1225,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLocalFile().apply(this);
         }
-        if(node.getFirstAs() != null)
+        if(node.getAs() != null)
         {
-            node.getFirstAs().apply(this);
+            node.getAs().apply(this);
         }
         if(node.getLocalFilePath() != null)
         {
@@ -1350,5 +1242,68 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getExport().apply(this);
         }
         outAExportStoreStorage(node);
+    }
+
+    public void inAHdfsFilePath(AHdfsFilePath node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAHdfsFilePath(AHdfsFilePath node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAHdfsFilePath(AHdfsFilePath node)
+    {
+        inAHdfsFilePath(node);
+        if(node.getQuotedString() != null)
+        {
+            node.getQuotedString().apply(this);
+        }
+        outAHdfsFilePath(node);
+    }
+
+    public void inALocalFilePath(ALocalFilePath node)
+    {
+        defaultIn(node);
+    }
+
+    public void outALocalFilePath(ALocalFilePath node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseALocalFilePath(ALocalFilePath node)
+    {
+        inALocalFilePath(node);
+        if(node.getQuotedString() != null)
+        {
+            node.getQuotedString().apply(this);
+        }
+        outALocalFilePath(node);
+    }
+
+    public void inALocalFile(ALocalFile node)
+    {
+        defaultIn(node);
+    }
+
+    public void outALocalFile(ALocalFile node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseALocalFile(ALocalFile node)
+    {
+        inALocalFile(node);
+        if(node.getQuotedString() != null)
+        {
+            node.getQuotedString().apply(this);
+        }
+        outALocalFile(node);
     }
 }

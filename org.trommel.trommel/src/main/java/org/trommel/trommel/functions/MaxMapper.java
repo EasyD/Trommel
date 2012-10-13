@@ -18,7 +18,7 @@ public class MaxMapper extends Function
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Max";
+	private static final String HANDLER_NAME = "Max";
 
 
 	//
@@ -32,7 +32,7 @@ public class MaxMapper extends Function
 	 */
 	public String getHandlerName()
 	{
-		return FUNCTION_NAME;
+		return HANDLER_NAME;
 	}
 
 	
@@ -75,7 +75,7 @@ public class MaxMapper extends Function
 			// Ignore categorical data
 			if (field.isNumeric())
 			{
-				FunctionOutput functionOutput = new FunctionOutput(FUNCTION_NAME, record.getFieldValue(field.getName()));
+				FunctionOutput functionOutput = new FunctionOutput(HANDLER_NAME, record.getFieldValue(field.getName()));
 				
 				// Map phase is pretty easy, just spit out the value for the field
 				record.addFunctionOutput(field.getName(), functionOutput);

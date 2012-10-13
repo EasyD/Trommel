@@ -18,7 +18,7 @@ public class MinMapper extends Function
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Min";
+	private static final String HANDLER_NAME = "Min";
 
 	
 	//
@@ -32,7 +32,7 @@ public class MinMapper extends Function
 	 */
 	public String getHandlerName() 
 	{
-		return FUNCTION_NAME;
+		return HANDLER_NAME;
 	}
 
 
@@ -75,7 +75,7 @@ public class MinMapper extends Function
 			if (field.isNumeric())
 			{
 				// Map phase is pretty easy, just spit out the value for the field
-				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, record.getFieldValue(field.getName())));
+				record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, record.getFieldValue(field.getName())));
 
 				// This method is called at scale, optimize logging
 				if (logger.isDebugEnabled())

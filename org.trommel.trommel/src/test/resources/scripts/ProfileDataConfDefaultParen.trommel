@@ -5,4 +5,4 @@ load DATA '/usr/local/FooBar' as (Field1:numeric, Field2: CATEGORICAL,Field3 : c
 FIELDS terminated BY '\t';
 
 PROFILE Field1, Field2, Field3 WITH min(), max, EMPTY(), VAR(), distinct, lin(), CONF(), req()
-store INTO 'Foo' AS 'Bar' EXPORT to 'Hello' AS 'World';
+store INTO 'Foo' EXPORT to 'Hello' AS 'World';

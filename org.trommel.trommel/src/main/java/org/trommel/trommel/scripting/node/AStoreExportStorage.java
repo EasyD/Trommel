@@ -10,12 +10,10 @@ public final class AStoreExportStorage extends PStorage
     private TStore _store_;
     private TInto _into_;
     private PHdfsFilePath _hdfsFilePath_;
-    private TAs _firstAs_;
-    private PHdfsFile _hdfsFile_;
     private TExport _export_;
     private TTo _to_;
     private PLocalFilePath _localFilePath_;
-    private TAs _secondAs_;
+    private TAs _as_;
     private PLocalFile _localFile_;
 
     public AStoreExportStorage()
@@ -27,12 +25,10 @@ public final class AStoreExportStorage extends PStorage
         @SuppressWarnings("hiding") TStore _store_,
         @SuppressWarnings("hiding") TInto _into_,
         @SuppressWarnings("hiding") PHdfsFilePath _hdfsFilePath_,
-        @SuppressWarnings("hiding") TAs _firstAs_,
-        @SuppressWarnings("hiding") PHdfsFile _hdfsFile_,
         @SuppressWarnings("hiding") TExport _export_,
         @SuppressWarnings("hiding") TTo _to_,
         @SuppressWarnings("hiding") PLocalFilePath _localFilePath_,
-        @SuppressWarnings("hiding") TAs _secondAs_,
+        @SuppressWarnings("hiding") TAs _as_,
         @SuppressWarnings("hiding") PLocalFile _localFile_)
     {
         // Constructor
@@ -42,17 +38,13 @@ public final class AStoreExportStorage extends PStorage
 
         setHdfsFilePath(_hdfsFilePath_);
 
-        setFirstAs(_firstAs_);
-
-        setHdfsFile(_hdfsFile_);
-
         setExport(_export_);
 
         setTo(_to_);
 
         setLocalFilePath(_localFilePath_);
 
-        setSecondAs(_secondAs_);
+        setAs(_as_);
 
         setLocalFile(_localFile_);
 
@@ -65,12 +57,10 @@ public final class AStoreExportStorage extends PStorage
             cloneNode(this._store_),
             cloneNode(this._into_),
             cloneNode(this._hdfsFilePath_),
-            cloneNode(this._firstAs_),
-            cloneNode(this._hdfsFile_),
             cloneNode(this._export_),
             cloneNode(this._to_),
             cloneNode(this._localFilePath_),
-            cloneNode(this._secondAs_),
+            cloneNode(this._as_),
             cloneNode(this._localFile_));
     }
 
@@ -154,56 +144,6 @@ public final class AStoreExportStorage extends PStorage
         this._hdfsFilePath_ = node;
     }
 
-    public TAs getFirstAs()
-    {
-        return this._firstAs_;
-    }
-
-    public void setFirstAs(TAs node)
-    {
-        if(this._firstAs_ != null)
-        {
-            this._firstAs_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._firstAs_ = node;
-    }
-
-    public PHdfsFile getHdfsFile()
-    {
-        return this._hdfsFile_;
-    }
-
-    public void setHdfsFile(PHdfsFile node)
-    {
-        if(this._hdfsFile_ != null)
-        {
-            this._hdfsFile_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._hdfsFile_ = node;
-    }
-
     public TExport getExport()
     {
         return this._export_;
@@ -279,16 +219,16 @@ public final class AStoreExportStorage extends PStorage
         this._localFilePath_ = node;
     }
 
-    public TAs getSecondAs()
+    public TAs getAs()
     {
-        return this._secondAs_;
+        return this._as_;
     }
 
-    public void setSecondAs(TAs node)
+    public void setAs(TAs node)
     {
-        if(this._secondAs_ != null)
+        if(this._as_ != null)
         {
-            this._secondAs_.parent(null);
+            this._as_.parent(null);
         }
 
         if(node != null)
@@ -301,7 +241,7 @@ public final class AStoreExportStorage extends PStorage
             node.parent(this);
         }
 
-        this._secondAs_ = node;
+        this._as_ = node;
     }
 
     public PLocalFile getLocalFile()
@@ -336,12 +276,10 @@ public final class AStoreExportStorage extends PStorage
             + toString(this._store_)
             + toString(this._into_)
             + toString(this._hdfsFilePath_)
-            + toString(this._firstAs_)
-            + toString(this._hdfsFile_)
             + toString(this._export_)
             + toString(this._to_)
             + toString(this._localFilePath_)
-            + toString(this._secondAs_)
+            + toString(this._as_)
             + toString(this._localFile_);
     }
 
@@ -367,18 +305,6 @@ public final class AStoreExportStorage extends PStorage
             return;
         }
 
-        if(this._firstAs_ == child)
-        {
-            this._firstAs_ = null;
-            return;
-        }
-
-        if(this._hdfsFile_ == child)
-        {
-            this._hdfsFile_ = null;
-            return;
-        }
-
         if(this._export_ == child)
         {
             this._export_ = null;
@@ -397,9 +323,9 @@ public final class AStoreExportStorage extends PStorage
             return;
         }
 
-        if(this._secondAs_ == child)
+        if(this._as_ == child)
         {
-            this._secondAs_ = null;
+            this._as_ = null;
             return;
         }
 
@@ -434,18 +360,6 @@ public final class AStoreExportStorage extends PStorage
             return;
         }
 
-        if(this._firstAs_ == oldChild)
-        {
-            setFirstAs((TAs) newChild);
-            return;
-        }
-
-        if(this._hdfsFile_ == oldChild)
-        {
-            setHdfsFile((PHdfsFile) newChild);
-            return;
-        }
-
         if(this._export_ == oldChild)
         {
             setExport((TExport) newChild);
@@ -464,9 +378,9 @@ public final class AStoreExportStorage extends PStorage
             return;
         }
 
-        if(this._secondAs_ == oldChild)
+        if(this._as_ == oldChild)
         {
-            setSecondAs((TAs) newChild);
+            setAs((TAs) newChild);
             return;
         }
 

@@ -78,7 +78,18 @@ public class TrommelReducerTests
 												.withConfiguration(config)
 												.run();
 		
-		assertEquals(3, output.size());
+		// Verify output
+		assertEquals(6, output.size());
+		
+		for(Pair<Text, Text> record : output)
+		{
+			if (!record.getSecond().toString().equalsIgnoreCase("Max\tMin\tDistinct\tEmpty\tLinearity\tVariability\tConfidence") &&
+				!record.getSecond().toString().equalsIgnoreCase("15.0\t15.0\t1\t0\tNaN\t0.0\t0") &&
+				!record.getSecond().toString().equalsIgnoreCase("\t\t1\t0\t1.0\t1.0\t0"))
+			{
+				fail(String.format("Unexpected output of %1$s", record.getSecond().toString()));
+			}
+		}
 	}
 	
 	@Test
@@ -90,8 +101,8 @@ public class TrommelReducerTests
 		MapReduceDriver<LongWritable, Text, Text, Text, Text, Text> driver = new MapReduceDriver<LongWritable, Text, Text, Text, Text, Text>(mapper, reducer);
 		Configuration config = new Configuration(false);
 		
-		// Set up a Hadoop Configuration object for WARN logging and to point at a test TrommelScript file
-		config.set(LOGGING_LEVEL_CONFIG_PROP, "WARN");
+		// Set up a Hadoop Configuration object for INFO logging and to point at a test TrommelScript file
+		config.set(LOGGING_LEVEL_CONFIG_PROP, "INFO");
 		config.set(SCRIPT_CONFIG_PROP, "src/test/resources/scripts/ReportDataExportAndStore.trommel");
 		
 		// Execute driver
@@ -99,6 +110,16 @@ public class TrommelReducerTests
 												.withConfiguration(config)
 												.run();
 		
-		assertEquals(2, output.size());
+		assertEquals(4, output.size());
+		
+		for(Pair<Text, Text> record : output)
+		{
+			if (!record.getSecond().toString().equalsIgnoreCase("Field\tContent\tCount") &&
+				!record.getSecond().toString().equalsIgnoreCase("field1\t15.0\t1\n") &&
+				!record.getSecond().toString().equalsIgnoreCase("field2\t20.0\t1\n"))
+			{
+				fail(String.format("Unexpected output of %1$s", record.getSecond().toString()));
+			}
+		}
 	}
 }

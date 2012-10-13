@@ -22,7 +22,7 @@ public class LinearityReducer extends ReduceRecordHandler
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Linearity";
+	private static final String HANDLER_NAME = "Linearity";
 
 	
 	//
@@ -39,6 +39,16 @@ public class LinearityReducer extends ReduceRecordHandler
 	//	Getters/setters
 	//
 	
+	/**
+	 * Return the name of the Distinct function.
+	 * 
+	 * @return The string value of "Linearity".
+	 */
+	public String getHandlerName()
+	{
+		return HANDLER_NAME;
+	}
+
 	/**
 	 * Return the current calculation of {@link org.trommel.trommel.Field} interstitial linerarity.
 	 * 
@@ -118,13 +128,13 @@ public class LinearityReducer extends ReduceRecordHandler
 	public void handleReduceRecord(HashMap<String, String> record) 
 		throws NumberFormatException
 	{
-		if (record.containsKey(FUNCTION_NAME))
+		if (record.containsKey(HANDLER_NAME))
 		{	
 			++recordCount;
 
 			if (fieldType == FieldType.numeric)
 			{
-				Double currentValue = new Double(record.get(FUNCTION_NAME));
+				Double currentValue = new Double(record.get(HANDLER_NAME));
 
 				// Only add intersitial differences to the SimpleRegression instance
 				if (recordCount > 1)
@@ -144,15 +154,15 @@ public class LinearityReducer extends ReduceRecordHandler
 			}
 			else
 			{
-				if(!discoveredValues.containsKey(record.get(FUNCTION_NAME)))
+				if(!discoveredValues.containsKey(record.get(HANDLER_NAME)))
 				{
 					// New value discovered
-					discoveredValues.put(record.get(FUNCTION_NAME), 1);
+					discoveredValues.put(record.get(HANDLER_NAME), 1);
 
 					// This method is called at scale, optimize logging
 					if (logger.isDebugEnabled())
 					{
-						logger.debug(String.format("LinearityReducer.handleReduceRecord added rate of discovery value of %1$s.", record.get(FUNCTION_NAME)));
+						logger.debug(String.format("LinearityReducer.handleReduceRecord added rate of discovery value of %1$s.", record.get(HANDLER_NAME)));
 					}
 				}
 			}

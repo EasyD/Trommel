@@ -239,26 +239,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAHdfsFilePath(AHdfsFilePath node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAHdfsFile(AHdfsFile node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseALocalFilePath(ALocalFilePath node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseALocalFile(ALocalFile node)
-    {
-        defaultCase(node);
-    }
-
     public void caseAReportDataStatement(AReportDataStatement node)
     {
         defaultCase(node);
@@ -305,6 +285,21 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAExportStoreStorage(AExportStoreStorage node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAHdfsFilePath(AHdfsFilePath node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseALocalFilePath(ALocalFilePath node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseALocalFile(ALocalFile node)
     {
         defaultCase(node);
     }

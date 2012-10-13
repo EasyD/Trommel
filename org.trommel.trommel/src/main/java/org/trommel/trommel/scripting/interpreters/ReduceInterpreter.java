@@ -177,8 +177,10 @@ public class ReduceInterpreter extends DepthFirstAdapter
 	/**
 	 * @param logger The {@link org.apache.log4j.Logger} instances that will be used by the ReduceInterpreter
 	 * to log to the Hadoop Task syslog file.
+	 * @throws IllegalArgumentException Where logger is null.
 	 */
 	public ReduceInterpreter(Logger logger)
+		throws IllegalArgumentException
 	{
 		// Check illegal input
 		if (logger == null)

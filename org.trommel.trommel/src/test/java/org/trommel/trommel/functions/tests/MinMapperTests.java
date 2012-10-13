@@ -30,7 +30,7 @@ public class MinMapperTests
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Min";
+	private static final String HANDLER_NAME = "Min";
 	
 	// First row fields and values
 	private static final String FIELD1 = "Field1";
@@ -93,7 +93,7 @@ public class MinMapperTests
 	{
 		MinMapper min = new MinMapper(logger, fields);
 		
-		assertEquals(FUNCTION_NAME, min.getHandlerName());
+		assertEquals(HANDLER_NAME, min.getHandlerName());
 	}
 
 	@Test

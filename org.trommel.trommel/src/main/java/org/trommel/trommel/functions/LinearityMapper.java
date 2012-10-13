@@ -23,7 +23,7 @@ public class LinearityMapper extends Function
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
-	private static final String FUNCTION_NAME = "Linearity";
+	private static final String HANDLER_NAME = "Linearity";
 	private static final String NULL_INDICATOR = "null";
 	
 	
@@ -45,7 +45,7 @@ public class LinearityMapper extends Function
 	 */
 	public String getHandlerName()
 	{
-		return FUNCTION_NAME;
+		return HANDLER_NAME;
 	}
 
 	
@@ -131,7 +131,7 @@ public class LinearityMapper extends Function
 					}
 							
 					// Write out value
-					record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
+					record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
 					
 					// This method is called at scale, optimize logging
 					if (logger.isDebugEnabled())
@@ -150,7 +150,7 @@ public class LinearityMapper extends Function
 				}
 
 				// Write out value
-				record.addFunctionOutput(field.getName(), new FunctionOutput(FUNCTION_NAME, fieldValue));
+				record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
 				
 				// This method is called at scale, optimize logging
 				if (logger.isDebugEnabled())

@@ -19,6 +19,13 @@ public abstract class ReduceRecordHandler  extends RecordHandler
 	//
 
 	/**
+	 * Return the RecordHandler's name (e.g., "Max").
+	 * 
+	 * @return Name of record handler.
+	 */
+	public abstract String getHandlerName();
+
+	/**
 	 * Return the RecordHandler's final Reduce phase process result.
 	 * 
 	 * @return Reduce phase processing result as a String.
