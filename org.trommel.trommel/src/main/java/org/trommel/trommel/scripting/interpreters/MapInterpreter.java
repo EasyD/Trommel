@@ -197,7 +197,7 @@ public class MapInterpreter extends DepthFirstAdapter
     @Override
     public void outACustomFieldsTerminatedBy(ACustomFieldsTerminatedBy node)
     {
-    	String fieldTerminator = node.getFieldTerminator().toString().trim();
+    	fieldTerminator = node.getFieldTerminator().toString().trim();
     	
 		logger.debug(String.format("MapInterpreter.outACustomFieldsTerminatedBy called with FieldTerminator = %1$s.", 
                                    fieldTerminator));

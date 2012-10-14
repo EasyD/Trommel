@@ -117,7 +117,7 @@ public class TrommelMapperTests
 	}
 
 	@Test
-	public void testReportDataExportAndStore() 
+	public void testReportDataExportAndStoreIris() 
 		throws IOException 
 	{
 		TrommelMapper mapper = new TrommelMapper();
@@ -126,15 +126,15 @@ public class TrommelMapperTests
 		
 		// Set up a Hadoop Configuration object for INFO logging and to point at a test TrommelScript file
 		config.set(LOGGING_LEVEL_CONFIG_PROP, "INFO");
-		config.set(SCRIPT_CONFIG_PROP, "src/test/resources/scripts/ReportDataExportAndStore.trommel");
+		config.set(SCRIPT_CONFIG_PROP, "src/test/resources/scripts/ReportDataExportAndStoreIris.trommel");
 		
 		// Run a TrommelMapper with data that fits the LOAD DATA statement for the script above	
-		List<Pair<Text, Text>> output = mapDriver.withInput(new LongWritable(1), new Text("12\tFoo\tBar"))
+		List<Pair<Text, Text>> output = mapDriver.withInput(new LongWritable(1), new Text("5.1,3.5,1.4,0.2,Iris-setosa"))
 													.withConfiguration(config)
 													.run();
 
 		// Verify output - script does not report on Field3
-		assertEquals(2, output.size());
+		assertEquals(4, output.size());
 		
 		ListIterator<Pair<Text, Text>> iterator = output.listIterator();
 		
@@ -142,13 +142,21 @@ public class TrommelMapperTests
 		{
 			Pair<Text, Text> outputPair = iterator.next();
 			
-			if (outputPair.getFirst().toString().equalsIgnoreCase("field1"))
+			if (outputPair.getFirst().toString().equalsIgnoreCase("sepalwidth"))
 			{
-				assertEquals("DataReporter=12", outputPair.getSecond().toString().trim());
+				assertEquals("DataReporter=3.5", outputPair.getSecond().toString().trim());
 			}
-			else if (outputPair.getFirst().toString().equalsIgnoreCase("field2"))
+			else if (outputPair.getFirst().toString().equalsIgnoreCase("petallength"))
 			{
-				assertEquals("DataReporter=Foo", outputPair.getSecond().toString().trim());
+				assertEquals("DataReporter=1.4", outputPair.getSecond().toString().trim());
+			}
+			else if (outputPair.getFirst().toString().equalsIgnoreCase("sepallength"))
+			{
+				assertEquals("DataReporter=5.1", outputPair.getSecond().toString().trim());
+			}
+			else if (outputPair.getFirst().toString().equalsIgnoreCase("petalwidth"))
+			{
+				assertEquals("DataReporter=0.2", outputPair.getSecond().toString().trim());
 			}
 			else
 			{

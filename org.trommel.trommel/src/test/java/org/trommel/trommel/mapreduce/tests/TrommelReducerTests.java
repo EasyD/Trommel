@@ -83,7 +83,7 @@ public class TrommelReducerTests
 		
 		for(Pair<Text, Text> record : output)
 		{
-			if (!record.getSecond().toString().equalsIgnoreCase("Max\tMin\tDistinct\tEmpty\tLinearity\tVariability\tConfidence") &&
+			if (!record.getSecond().toString().equalsIgnoreCase("Field\tMax\tMin\tDistinct\tEmpty\tLinearity\tVariability\tConfidence") &&
 				!record.getSecond().toString().equalsIgnoreCase("15.0\t15.0\t1\t0\tNaN\t0.0\t0") &&
 				!record.getSecond().toString().equalsIgnoreCase("\t\t1\t0\t1.0\t1.0\t0"))
 			{

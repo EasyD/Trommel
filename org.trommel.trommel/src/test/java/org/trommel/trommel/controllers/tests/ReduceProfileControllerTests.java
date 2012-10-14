@@ -100,7 +100,7 @@ public class ReduceProfileControllerTests
 		controller.addRecordHandler(new MinReducer(logger));
 		controller.addRecordHandler(new VariabilityReducer(logger, FieldType.numeric));
 
-		assertEquals("Max\tMin\tVariability", controller.getHeader());
+		assertEquals("Field\tMax\tMin\tVariability", controller.getHeader());
 	}
 
 	@Test

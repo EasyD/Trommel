@@ -37,7 +37,7 @@ public class ReduceProfileController implements ReduceController
 	
 	/**
 	 * @return Tab-delimited list of {@link org.trommel.trommel.ReducceRecordHandler} names used to process post-Map
-	 * phase data. For example, "Max\tMin\tConfidence\tVariability"
+	 * phase data. For example, "Field\tMax\tMin\tConfidence\tVariability"
 	 */
 	public String getHeader()
 	{
@@ -45,6 +45,8 @@ public class ReduceProfileController implements ReduceController
 		{
 			StringBuffer buffer = new StringBuffer();
 			boolean first = true;
+			
+			buffer.append("Field\t");
 			
 			for(ReduceRecordHandler handler : recordHandlers)
 			{

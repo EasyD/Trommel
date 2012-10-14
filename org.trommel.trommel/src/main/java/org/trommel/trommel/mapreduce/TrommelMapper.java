@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.PushbackReader;
 import java.util.Random;
 
+import org.apache.hadoop.filecache.DistributedCache;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -40,6 +42,7 @@ public class TrommelMapper
 	//
 	//	Private members
 	//
+	
 	private static final Logger logger = Logger.getLogger(TrommelMapper.class);
 	private MapInterpreter interpreter = null;
 	private RecordParser recordParser = null;
@@ -127,12 +130,28 @@ public class TrommelMapper
 				// Default to INFO
 				logger.setLevel(Level.INFO);
 			}
-			
+						
 			// Load, parse, and interpret TrommelScript for Map phase of processing
-			logger.info(String.format("TrommelMapper parsing and interpreting TrommelScript %1$s.", 
-					                  context.getConfiguration().get(SCRIPT_CONFIG_PROP)));
+			Path[] localFilePaths = DistributedCache.getLocalCacheFiles(context.getConfiguration());
+			String trommelScript = null;
 			
-			String trommelScript = context.getConfiguration().get(SCRIPT_CONFIG_PROP);
+			if (localFilePaths == null || localFilePaths.length == 0)
+			{
+				// If there is no file path in the cache, we're testing grab file from config
+				trommelScript = context.getConfiguration().get(SCRIPT_CONFIG_PROP);
+
+				logger.info(String.format("TrommelMapper parsing and interpreting TrommelScript %1$s.", 
+                                          context.getConfiguration().get(SCRIPT_CONFIG_PROP)));
+			}
+			else
+			{
+				// Got a file in the cache, use it
+				trommelScript = localFilePaths[0].toString();				
+
+				logger.info(String.format("TrommelMapper parsing and interpreting TrommelScript %1$s.", 
+	                                      localFilePaths[0].getName()));
+			}
+			
 			Lexer lexer = new Lexer(new PushbackReader(new FileReader(trommelScript), 4096));
 			Parser parser = new Parser(lexer);
 			Start ast = parser.parse();
@@ -157,7 +176,7 @@ public class TrommelMapper
 				recordParser = interpreter.getRecordParser();
 				controller = interpreter.getController();
 
-				logger.info("TrommelMapper's MapController and RecordParser configured, beginning Map phase record proessing.");
+				logger.info("TrommelMapper's MapController and RecordParser configured, beginning Map phase record processing.");
 			}
 		}
 		catch (Exception e)

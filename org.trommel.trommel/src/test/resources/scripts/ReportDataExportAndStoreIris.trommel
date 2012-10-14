@@ -1,0 +1,10 @@
+//
+// ReportDataExportAndStoreIris.trommel
+//
+load DATA '/usr/local/FooBar' as (SepalLength:numeric, SepalWidth: NUMERIC,PetalLength : numeric, PetalWidth:numeric,
+Class:CATEGORICAL)
+FIELDS terminated BY ',';
+
+REPORT data FOR SepalLength, SepalWidth, PetalLength, PetalWidth
+EXPORT to 'Foo' AS 'Bar' STORE into 'Hello';
+
