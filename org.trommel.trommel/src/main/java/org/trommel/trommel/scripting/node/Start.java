@@ -16,8 +16,8 @@ public final class Start extends Node
     }
 
     public Start(
-        PTrommelScript _pTrommelScript_,
-        EOF _eof_)
+         PTrommelScript _pTrommelScript_,
+         EOF _eof_)
     {
         setPTrommelScript(_pTrommelScript_);
         setEOF(_eof_);

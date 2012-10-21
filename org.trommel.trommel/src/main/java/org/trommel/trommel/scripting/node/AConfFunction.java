@@ -15,7 +15,7 @@ public final class AConfFunction extends PFunction
     }
 
     public AConfFunction(
-        PConfidence _confidence_)
+         PConfidence _confidence_)
     {
         // Constructor
         setConfidence(_confidence_);
@@ -67,7 +67,7 @@ public final class AConfFunction extends PFunction
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._confidence_ == child)
@@ -80,7 +80,7 @@ public final class AConfFunction extends PFunction
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._confidence_ == oldChild)

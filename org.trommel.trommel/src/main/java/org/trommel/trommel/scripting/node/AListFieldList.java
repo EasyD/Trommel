@@ -16,9 +16,10 @@ public final class AListFieldList extends PFieldList
         // Constructor
     }
 
-    public AListFieldList(PFieldList _fieldList_,
-                          TComma _comma_,
-                          PField _field_)
+    public AListFieldList(
+         PFieldList _fieldList_,
+         TComma _comma_,
+         PField _field_)
     {
         // Constructor
         setFieldList(_fieldList_);

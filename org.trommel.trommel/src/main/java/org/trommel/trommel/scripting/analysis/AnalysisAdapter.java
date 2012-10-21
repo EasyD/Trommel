@@ -299,11 +299,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseALocalFile(ALocalFile node)
-    {
-        defaultCase(node);
-    }
-
     public void caseTLoad(TLoad node)
     {
         defaultCase(node);
@@ -504,7 +499,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void defaultCase( Node node)
+    public void defaultCase(Node node)
     {
         // do nothing
     }

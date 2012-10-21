@@ -20,12 +20,12 @@ public final class AReportDataStatement extends PReportDataStatement
     }
 
     public AReportDataStatement(
-        TReport _report_,
-        TData _data_,
-        TFor _for_,
-        PReportedFields _reportedFields_,
-        PStorage _storage_,
-        TSemicolon _semicolon_)
+         TReport _report_,
+         TData _data_,
+         TFor _for_,
+         PReportedFields _reportedFields_,
+         PStorage _storage_,
+         TSemicolon _semicolon_)
     {
         // Constructor
         setReport(_report_);
@@ -222,7 +222,7 @@ public final class AReportDataStatement extends PReportDataStatement
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._report_ == child)
@@ -265,7 +265,7 @@ public final class AReportDataStatement extends PReportDataStatement
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._report_ == oldChild)

@@ -6,5 +6,5 @@ Class:CATEGORICAL)
 FIELDS terminated BY ',';
 
 REPORT data FOR SepalLength, SepalWidth, PetalLength, PetalWidth
-EXPORT to 'Foo' AS 'Bar' STORE into 'Hello';
+EXPORT to 'Foo' STORE into 'Hello';
 

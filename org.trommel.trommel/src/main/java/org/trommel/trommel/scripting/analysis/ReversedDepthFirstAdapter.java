@@ -16,12 +16,12 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         defaultOut(node);
     }
 
-    public void defaultIn( Node node)
+    public void defaultIn(Node node)
     {
         // Do nothing
     }
 
-    public void defaultOut( Node node)
+    public void defaultOut(Node node)
     {
         // Do nothing
     }
@@ -1122,14 +1122,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAExportStorage(AExportStorage node)
     {
         inAExportStorage(node);
-        if(node.getLocalFile() != null)
-        {
-            node.getLocalFile().apply(this);
-        }
-        if(node.getAs() != null)
-        {
-            node.getAs().apply(this);
-        }
         if(node.getLocalFilePath() != null)
         {
             node.getLocalFilePath().apply(this);
@@ -1159,14 +1151,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAStoreExportStorage(AStoreExportStorage node)
     {
         inAStoreExportStorage(node);
-        if(node.getLocalFile() != null)
-        {
-            node.getLocalFile().apply(this);
-        }
-        if(node.getAs() != null)
-        {
-            node.getAs().apply(this);
-        }
         if(node.getLocalFilePath() != null)
         {
             node.getLocalFilePath().apply(this);
@@ -1219,14 +1203,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         if(node.getStore() != null)
         {
             node.getStore().apply(this);
-        }
-        if(node.getLocalFile() != null)
-        {
-            node.getLocalFile().apply(this);
-        }
-        if(node.getAs() != null)
-        {
-            node.getAs().apply(this);
         }
         if(node.getLocalFilePath() != null)
         {
@@ -1283,26 +1259,5 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getQuotedString().apply(this);
         }
         outALocalFilePath(node);
-    }
-
-    public void inALocalFile(ALocalFile node)
-    {
-        defaultIn(node);
-    }
-
-    public void outALocalFile(ALocalFile node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseALocalFile(ALocalFile node)
-    {
-        inALocalFile(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outALocalFile(node);
     }
 }

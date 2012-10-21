@@ -31,7 +31,7 @@ public final class TLeftParen extends Token
     }
 
     @Override
-    public void setText( String text)
+    public void setText(String text)
     {
         throw new RuntimeException("Cannot change TLeftParen text.");
     }

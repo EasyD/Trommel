@@ -15,7 +15,7 @@ public final class AMinFunction extends PFunction
     }
 
     public AMinFunction(
-        TMin _min_)
+         TMin _min_)
     {
         // Constructor
         setMin(_min_);
@@ -67,7 +67,7 @@ public final class AMinFunction extends PFunction
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._min_ == child)
@@ -80,7 +80,7 @@ public final class AMinFunction extends PFunction
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._min_ == oldChild)

@@ -14,7 +14,8 @@ public final class AEmptyFunction extends PFunction
         // Constructor
     }
 
-    public AEmptyFunction(TEmpty _empty_)
+    public AEmptyFunction(
+         TEmpty _empty_)
     {
         // Constructor
         setEmpty(_empty_);
@@ -66,7 +67,7 @@ public final class AEmptyFunction extends PFunction
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._empty_ == child)
@@ -79,7 +80,7 @@ public final class AEmptyFunction extends PFunction
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._empty_ == oldChild)

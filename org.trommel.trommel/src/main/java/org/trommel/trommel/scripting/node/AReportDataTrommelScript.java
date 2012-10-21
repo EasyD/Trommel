@@ -16,8 +16,8 @@ public final class AReportDataTrommelScript extends PTrommelScript
     }
 
     public AReportDataTrommelScript(
-        PLoadDataStatement _loadDataStatement_,
-        PReportDataStatement _reportDataStatement_)
+         PLoadDataStatement _loadDataStatement_,
+         PReportDataStatement _reportDataStatement_)
     {
         // Constructor
         setLoadDataStatement(_loadDataStatement_);
@@ -98,7 +98,7 @@ public final class AReportDataTrommelScript extends PTrommelScript
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._loadDataStatement_ == child)
@@ -117,7 +117,7 @@ public final class AReportDataTrommelScript extends PTrommelScript
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._loadDataStatement_ == oldChild)

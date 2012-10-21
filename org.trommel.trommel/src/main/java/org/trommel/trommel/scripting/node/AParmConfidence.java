@@ -18,10 +18,10 @@ public final class AParmConfidence extends PConfidence
     }
 
     public AParmConfidence(
-        TConf _conf_,
-        TLeftParen _leftParen_,
-        TInteger _integer_,
-        TRightParen _rightParen_)
+         TConf _conf_,
+         TLeftParen _leftParen_,
+         TInteger _integer_,
+         TRightParen _rightParen_)
     {
         // Constructor
         setConf(_conf_);
@@ -160,7 +160,7 @@ public final class AParmConfidence extends PConfidence
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._conf_ == child)
@@ -191,7 +191,7 @@ public final class AParmConfidence extends PConfidence
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._conf_ == oldChild)

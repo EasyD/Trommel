@@ -15,7 +15,7 @@ public final class AReportedField extends PReportedField
     }
 
     public AReportedField(
-        TIdentifier _identifier_)
+         TIdentifier _identifier_)
     {
         // Constructor
         setIdentifier(_identifier_);
@@ -67,7 +67,7 @@ public final class AReportedField extends PReportedField
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._identifier_ == child)
@@ -80,7 +80,7 @@ public final class AReportedField extends PReportedField
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._identifier_ == oldChild)

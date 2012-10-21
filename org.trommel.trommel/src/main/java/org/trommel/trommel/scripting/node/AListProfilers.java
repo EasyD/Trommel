@@ -14,7 +14,8 @@ public final class AListProfilers extends PProfilers
         // Constructor
     }
 
-    public AListProfilers(PFunctionList _functionList_)
+    public AListProfilers(
+         PFunctionList _functionList_)
     {
         // Constructor
         setFunctionList(_functionList_);
@@ -66,7 +67,7 @@ public final class AListProfilers extends PProfilers
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._functionList_ == child)
@@ -79,7 +80,7 @@ public final class AListProfilers extends PProfilers
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._functionList_ == oldChild)

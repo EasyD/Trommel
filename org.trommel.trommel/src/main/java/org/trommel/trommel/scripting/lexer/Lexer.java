@@ -18,13 +18,12 @@ public class Lexer
     private boolean eof;
     private final StringBuffer text = new StringBuffer();
 
-    
     protected void filter() throws LexerException, IOException
     {
         // Do nothing
     }
 
-    public Lexer(PushbackReader in)
+    public Lexer( PushbackReader in)
     {
         this.in = in;
     }
@@ -66,8 +65,8 @@ public class Lexer
         int accept_pos = -1;
         int accept_line = -1;
 
-        int[][][] gotoTable = Lexer.gotoTable[this.state.id()];
-        int[] accept = Lexer.accept[this.state.id()];
+         int[][][] gotoTable = Lexer.gotoTable[this.state.id()];
+         int[] accept = Lexer.accept[this.state.id()];
         this.text.setLength(0);
 
         while(true)
@@ -157,7 +156,7 @@ public class Lexer
                     {
                     case 0:
                         {
-                            Token token = new0(
+                             Token token = new0(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -168,7 +167,7 @@ public class Lexer
                         }
                     case 1:
                         {
-                            Token token = new1(
+                             Token token = new1(
                                 start_line + 1,
                                 start_pos + 1);
                             pushBack(accept_length);
@@ -178,7 +177,7 @@ public class Lexer
                         }
                     case 2:
                         {
-                            Token token = new2(
+                             Token token = new2(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -189,7 +188,7 @@ public class Lexer
                         }
                     case 3:
                         {
-                            Token token = new3(
+                             Token token = new3(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -200,7 +199,7 @@ public class Lexer
                         }
                     case 4:
                         {
-                            Token token = new4(
+                             Token token = new4(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -211,7 +210,7 @@ public class Lexer
                         }
                     case 5:
                         {
-                            Token token = new5(
+                             Token token = new5(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -222,7 +221,7 @@ public class Lexer
                         }
                     case 6:
                         {
-                            Token token = new6(
+                             Token token = new6(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -233,7 +232,7 @@ public class Lexer
                         }
                     case 7:
                         {
-                            Token token = new7(
+                             Token token = new7(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -244,7 +243,7 @@ public class Lexer
                         }
                     case 8:
                         {
-                            Token token = new8(
+                             Token token = new8(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -255,7 +254,7 @@ public class Lexer
                         }
                     case 9:
                         {
-                            Token token = new9(
+                             Token token = new9(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -266,7 +265,7 @@ public class Lexer
                         }
                     case 10:
                         {
-                            Token token = new10(
+                             Token token = new10(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -277,7 +276,7 @@ public class Lexer
                         }
                     case 11:
                         {
-                            Token token = new11(
+                             Token token = new11(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -288,7 +287,7 @@ public class Lexer
                         }
                     case 12:
                         {
-                            Token token = new12(
+                             Token token = new12(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -299,7 +298,7 @@ public class Lexer
                         }
                     case 13:
                         {
-                            Token token = new13(
+                             Token token = new13(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -310,7 +309,7 @@ public class Lexer
                         }
                     case 14:
                         {
-                            Token token = new14(
+                             Token token = new14(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -321,7 +320,7 @@ public class Lexer
                         }
                     case 15:
                         {
-                            Token token = new15(
+                             Token token = new15(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -332,7 +331,7 @@ public class Lexer
                         }
                     case 16:
                         {
-                            Token token = new16(
+                             Token token = new16(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -343,7 +342,7 @@ public class Lexer
                         }
                     case 17:
                         {
-                            Token token = new17(
+                             Token token = new17(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -354,7 +353,7 @@ public class Lexer
                         }
                     case 18:
                         {
-                            Token token = new18(
+                             Token token = new18(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -365,7 +364,7 @@ public class Lexer
                         }
                     case 19:
                         {
-                            Token token = new19(
+                             Token token = new19(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -376,7 +375,7 @@ public class Lexer
                         }
                     case 20:
                         {
-                            Token token = new20(
+                             Token token = new20(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -387,7 +386,7 @@ public class Lexer
                         }
                     case 21:
                         {
-                            Token token = new21(
+                             Token token = new21(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -398,7 +397,7 @@ public class Lexer
                         }
                     case 22:
                         {
-                            Token token = new22(
+                             Token token = new22(
                                 start_line + 1,
                                 start_pos + 1);
                             pushBack(accept_length);
@@ -408,7 +407,7 @@ public class Lexer
                         }
                     case 23:
                         {
-                            Token token = new23(
+                             Token token = new23(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -419,7 +418,7 @@ public class Lexer
                         }
                     case 24:
                         {
-                            Token token = new24(
+                             Token token = new24(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -430,7 +429,7 @@ public class Lexer
                         }
                     case 25:
                         {
-                            Token token = new25(
+                             Token token = new25(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -441,7 +440,7 @@ public class Lexer
                         }
                     case 26:
                         {
-                            Token token = new26(
+                             Token token = new26(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -452,7 +451,7 @@ public class Lexer
                         }
                     case 27:
                         {
-                            Token token = new27(
+                             Token token = new27(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -463,7 +462,7 @@ public class Lexer
                         }
                     case 28:
                         {
-                            Token token = new28(
+                             Token token = new28(
                                 start_line + 1,
                                 start_pos + 1);
                             pushBack(accept_length);
@@ -473,7 +472,7 @@ public class Lexer
                         }
                     case 29:
                         {
-                            Token token = new29(
+                             Token token = new29(
                                 start_line + 1,
                                 start_pos + 1);
                             pushBack(accept_length);
@@ -483,7 +482,7 @@ public class Lexer
                         }
                     case 30:
                         {
-                            Token token = new30(
+                             Token token = new30(
                                 start_line + 1,
                                 start_pos + 1);
                             pushBack(accept_length);
@@ -493,7 +492,7 @@ public class Lexer
                         }
                     case 31:
                         {
-                            Token token = new31(
+                             Token token = new31(
                                 start_line + 1,
                                 start_pos + 1);
                             pushBack(accept_length);
@@ -503,7 +502,7 @@ public class Lexer
                         }
                     case 32:
                         {
-                            Token token = new32(
+                             Token token = new32(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -514,7 +513,7 @@ public class Lexer
                         }
                     case 33:
                         {
-                            Token token = new33(
+                             Token token = new33(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -525,7 +524,7 @@ public class Lexer
                         }
                     case 34:
                         {
-                            Token token = new34(
+                             Token token = new34(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -536,7 +535,7 @@ public class Lexer
                         }
                     case 35:
                         {
-                            Token token = new35(
+                             Token token = new35(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -547,7 +546,7 @@ public class Lexer
                         }
                     case 36:
                         {
-                            Token token = new36(
+                             Token token = new36(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -558,7 +557,7 @@ public class Lexer
                         }
                     case 37:
                         {
-                            Token token = new37(
+                             Token token = new37(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -569,7 +568,7 @@ public class Lexer
                         }
                     case 38:
                         {
-                            Token token = new38(
+                             Token token = new38(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -589,7 +588,7 @@ public class Lexer
                             " Unknown token: " + this.text);
                     }
 
-                    EOF token = new EOF(
+                     EOF token = new EOF(
                         start_line + 1,
                         start_pos + 1);
                     return token;
@@ -598,45 +597,45 @@ public class Lexer
         }
     }
 
-    Token new0(String text, int line, int pos) { return new TLoad(text, line, pos); }
-    Token new1(int line, int pos) { return new TColon(line, pos); }
-    Token new2(String text, int line, int pos) { return new TFieldType(text, line, pos); }
-    Token new3(String text, int line, int pos) { return new TFields(text, line, pos); }
-    Token new4(String text, int line, int pos) { return new TTerminated(text, line, pos); }
-    Token new5(String text, int line, int pos) { return new TBy(text, line, pos); }
-    Token new6(String text, int line, int pos) { return new TProfile(text, line, pos); }
-    Token new7(String text, int line, int pos) { return new TWith(text, line, pos); }
-    Token new8(String text, int line, int pos) { return new TAll(text, line, pos); }
-    Token new9(String text, int line, int pos) { return new TBuiltin(text, line, pos); }
-    Token new10(String text, int line, int pos) { return new TMax(text, line, pos); }
-    Token new11(String text, int line, int pos) { return new TMin(text, line, pos); }
-    Token new12(String text, int line, int pos) { return new TDistinct(text, line, pos); }
-    Token new13(String text, int line, int pos) { return new TEmpty(text, line, pos); }
-    Token new14(String text, int line, int pos) { return new TReq(text, line, pos); }
-    Token new15(String text, int line, int pos) { return new TVar(text, line, pos); }
-    Token new16(String text, int line, int pos) { return new TConf(text, line, pos); }
-    Token new17(String text, int line, int pos) { return new TLin(text, line, pos); }
-    Token new18(String text, int line, int pos) { return new TReport(text, line, pos); }
-    Token new19(String text, int line, int pos) { return new TFor(text, line, pos); }
-    Token new20(String text, int line, int pos) { return new TSample(text, line, pos); }
-    Token new21(String text, int line, int pos) { return new TAt(text, line, pos); }
-    Token new22(int line, int pos) { return new TPercent(line, pos); }
-    Token new23(String text, int line, int pos) { return new TData(text, line, pos); }
-    Token new24(String text, int line, int pos) { return new TStore(text, line, pos); }
-    Token new25(String text, int line, int pos) { return new TInto(text, line, pos); }
-    Token new26(String text, int line, int pos) { return new TExport(text, line, pos); }
-    Token new27(String text, int line, int pos) { return new TTo(text, line, pos); }
-    Token new28(int line, int pos) { return new TSemicolon(line, pos); }
-    Token new29(int line, int pos) { return new TLeftParen(line, pos); }
-    Token new30(int line, int pos) { return new TRightParen(line, pos); }
-    Token new31(int line, int pos) { return new TComma(line, pos); }
-    Token new32(String text, int line, int pos) { return new TAs(text, line, pos); }
-    Token new33(String text, int line, int pos) { return new TQuotedString(text, line, pos); }
-    Token new34(String text, int line, int pos) { return new TIdentifier(text, line, pos); }
-    Token new35(String text, int line, int pos) { return new TInteger(text, line, pos); }
-    Token new36(String text, int line, int pos) { return new TBlockComment(text, line, pos); }
-    Token new37(String text, int line, int pos) { return new TSingleLineComment(text, line, pos); }
-    Token new38(String text, int line, int pos) { return new TWhiteSpace(text, line, pos); }
+    Token new0( String text,  int line,  int pos) { return new TLoad(text, line, pos); }
+    Token new1( int line,  int pos) { return new TColon(line, pos); }
+    Token new2( String text,  int line,  int pos) { return new TFieldType(text, line, pos); }
+    Token new3( String text,  int line,  int pos) { return new TFields(text, line, pos); }
+    Token new4( String text,  int line,  int pos) { return new TTerminated(text, line, pos); }
+    Token new5( String text,  int line,  int pos) { return new TBy(text, line, pos); }
+    Token new6( String text,  int line,  int pos) { return new TProfile(text, line, pos); }
+    Token new7( String text,  int line,  int pos) { return new TWith(text, line, pos); }
+    Token new8( String text,  int line,  int pos) { return new TAll(text, line, pos); }
+    Token new9( String text,  int line,  int pos) { return new TBuiltin(text, line, pos); }
+    Token new10( String text,  int line,  int pos) { return new TMax(text, line, pos); }
+    Token new11( String text,  int line,  int pos) { return new TMin(text, line, pos); }
+    Token new12( String text,  int line,  int pos) { return new TDistinct(text, line, pos); }
+    Token new13( String text,  int line,  int pos) { return new TEmpty(text, line, pos); }
+    Token new14( String text,  int line,  int pos) { return new TReq(text, line, pos); }
+    Token new15( String text,  int line,  int pos) { return new TVar(text, line, pos); }
+    Token new16( String text,  int line,  int pos) { return new TConf(text, line, pos); }
+    Token new17( String text,  int line,  int pos) { return new TLin(text, line, pos); }
+    Token new18( String text,  int line,  int pos) { return new TReport(text, line, pos); }
+    Token new19( String text,  int line,  int pos) { return new TFor(text, line, pos); }
+    Token new20( String text,  int line,  int pos) { return new TSample(text, line, pos); }
+    Token new21( String text,  int line,  int pos) { return new TAt(text, line, pos); }
+    Token new22( int line,  int pos) { return new TPercent(line, pos); }
+    Token new23( String text,  int line,  int pos) { return new TData(text, line, pos); }
+    Token new24( String text,  int line,  int pos) { return new TStore(text, line, pos); }
+    Token new25( String text,  int line,  int pos) { return new TInto(text, line, pos); }
+    Token new26( String text,  int line,  int pos) { return new TExport(text, line, pos); }
+    Token new27( String text,  int line,  int pos) { return new TTo(text, line, pos); }
+    Token new28( int line,  int pos) { return new TSemicolon(line, pos); }
+    Token new29( int line,  int pos) { return new TLeftParen(line, pos); }
+    Token new30( int line,  int pos) { return new TRightParen(line, pos); }
+    Token new31( int line,  int pos) { return new TComma(line, pos); }
+    Token new32( String text,  int line,  int pos) { return new TAs(text, line, pos); }
+    Token new33( String text,  int line,  int pos) { return new TQuotedString(text, line, pos); }
+    Token new34( String text,  int line,  int pos) { return new TIdentifier(text, line, pos); }
+    Token new35( String text,  int line,  int pos) { return new TInteger(text, line, pos); }
+    Token new36( String text,  int line,  int pos) { return new TBlockComment(text, line, pos); }
+    Token new37( String text,  int line,  int pos) { return new TSingleLineComment(text, line, pos); }
+    Token new38( String text,  int line,  int pos) { return new TWhiteSpace(text, line, pos); }
 
     private int getChar() throws IOException
     {
@@ -666,9 +665,9 @@ public class Lexer
         }
     }
 
-    protected void unread(Token token) throws IOException
+    protected void unread( Token token) throws IOException
     {
-        String text = token.getText();
+         String text = token.getText();
         int length = text.length();
 
         for(int i = length - 1; i >= 0; i--)
@@ -1011,7 +1010,7 @@ public class Lexer
 
         private int id;
 
-        private State(int id)
+        private State( int id)
         {
             this.id = id;
         }

@@ -58,7 +58,6 @@ public interface Analysis extends Switch
     void caseAExportStoreStorage(AExportStoreStorage node);
     void caseAHdfsFilePath(AHdfsFilePath node);
     void caseALocalFilePath(ALocalFilePath node);
-    void caseALocalFile(ALocalFile node);
 
     void caseTLoad(TLoad node);
     void caseTColon(TColon node);

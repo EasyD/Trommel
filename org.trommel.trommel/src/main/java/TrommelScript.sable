@@ -149,10 +149,10 @@ Productions
  	
  	// Common Productions
  	storage = {store} store into hdfs_file_path |
-          {export} export to local_file_path as local_file |
-          {store_export} store into hdfs_file_path export to local_file_path as local_file |
-          {export_store} export to local_file_path as local_file store into hdfs_file_path; 
+          {export} export to local_file_path |
+          {store_export} store into hdfs_file_path export to local_file_path |
+          {export_store} export to local_file_path store into hdfs_file_path; 
  	hdfs_file_path = quoted_string;
  	local_file_path = quoted_string;
- 	local_file = quoted_string;
+// 	local_file = quoted_string;
  	

@@ -11,12 +11,12 @@ import java.io.DataInputStream;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
-@SuppressWarnings({"nls", "rawtypes", "unchecked"})
+@SuppressWarnings({"nls", "rawtypes"})
 public class Parser
 {
     public final Analysis ignoredTokens = new AnalysisAdapter();
 
-	protected ArrayList nodeList;
+    protected ArrayList nodeList;
 
     private final Lexer lexer;
     private final ListIterator stack = new LinkedList().listIterator();
@@ -31,7 +31,7 @@ public class Parser
     private final static int ACCEPT = 2;
     private final static int ERROR = 3;
 
-    public Parser(Lexer lexer)
+    public Parser( Lexer lexer)
     {
         this.lexer = lexer;
     }
@@ -41,7 +41,8 @@ public class Parser
         // Empty body
     }
 
-    private void push(int numstate, ArrayList listNode, boolean hidden) throws ParserException, LexerException, IOException
+    @SuppressWarnings("unchecked")
+	private void push(int numstate, ArrayList listNode, boolean hidden) throws ParserException, LexerException, IOException
     {
         this.nodeList = listNode;
 
@@ -109,7 +110,7 @@ public class Parser
         return this.converter.index;
     }
 
-    
+    @SuppressWarnings("unchecked")
     public Start parse() throws ParserException, LexerException, IOException
     {
         push(0, null, true);
@@ -451,12 +452,6 @@ public class Parser
 			push(goTo(23), list, false);
 		    }
 		    break;
-                    case 46: /* reduce ALocalFile */
-		    {
-			ArrayList list = new46();
-			push(goTo(24), list, false);
-		    }
-		    break;
                     }
                     break;
                 case ACCEPT:
@@ -476,13 +471,13 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new0() /* reduce AProfileDataTrommelScript */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
@@ -499,13 +494,13 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new1() /* reduce AReportDataTrommelScript */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
@@ -522,13 +517,13 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new2() /* reduce ASampleDataTrommelScript */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
@@ -545,17 +540,17 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new3() /* reduce ALoadDataStatement */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList6 = pop();
-         ArrayList nodeArrayList5 = pop();
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList6 = pop();
+        ArrayList nodeArrayList5 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PLoadDataStatement ploaddatastatementNode1;
         {
             // Block
@@ -580,12 +575,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new4() /* reduce ALoadedFile */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PLoadedFile ploadedfileNode1;
         {
             // Block
@@ -600,14 +595,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new5() /* reduce ALoadedFields */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PLoadedFields ploadedfieldsNode1;
         {
             // Block
@@ -626,12 +621,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new6() /* reduce ASingleFieldList */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFieldList pfieldlistNode1;
         {
             // Block
@@ -646,14 +641,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new7() /* reduce AListFieldList */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFieldList pfieldlistNode1;
         {
             // Block
@@ -672,14 +667,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new8() /* reduce AField */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PField pfieldNode1;
         {
             // Block
@@ -698,12 +693,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new9() /* reduce ADefaultFieldsTerminatedBy */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFieldsTerminatedBy pfieldsterminatedbyNode1;
         {
             // Block
@@ -718,16 +713,16 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new10() /* reduce ACustomFieldsTerminatedBy */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList5 = pop();
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList5 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFieldsTerminatedBy pfieldsterminatedbyNode1;
         {
             // Block
@@ -750,12 +745,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new11() /* reduce AFieldTerminator */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFieldTerminator pfieldterminatorNode1;
         {
             // Block
@@ -770,17 +765,17 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new12() /* reduce AProfileDataStatement */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList6 = pop();
-         ArrayList nodeArrayList5 = pop();
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList6 = pop();
+        ArrayList nodeArrayList5 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PProfileDataStatement pprofiledatastatementNode1;
         {
             // Block
@@ -805,12 +800,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new13() /* reduce ASingleProfiledFields */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PProfiledFields pprofiledfieldsNode1;
         {
             // Block
@@ -825,14 +820,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new14() /* reduce AListProfiledFields */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PProfiledFields pprofiledfieldsNode1;
         {
             // Block
@@ -851,12 +846,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new15() /* reduce AProfiledField */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PProfiledField pprofiledfieldNode1;
         {
             // Block
@@ -871,12 +866,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new16() /* reduce AListProfilers */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PProfilers pprofilersNode1;
         {
             // Block
@@ -891,13 +886,13 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new17() /* reduce AAllBuiltinProfilers */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PProfilers pprofilersNode1;
         {
             // Block
@@ -914,12 +909,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new18() /* reduce ASingleFunctionList */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunctionList pfunctionlistNode1;
         {
             // Block
@@ -934,14 +929,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new19() /* reduce AListFunctionList */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunctionList pfunctionlistNode1;
         {
             // Block
@@ -960,12 +955,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new20() /* reduce AMaxFunction */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -980,12 +975,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new21() /* reduce AMinFunction */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1000,12 +995,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new22() /* reduce ADistinctFunction */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1020,12 +1015,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new23() /* reduce AEmptyFunction */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1040,12 +1035,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new24() /* reduce AReqFunction */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1060,12 +1055,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new25() /* reduce AVarFunction */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1080,12 +1075,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new26() /* reduce ALinFunction */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1100,12 +1095,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new27() /* reduce AConfFunction */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1120,12 +1115,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new28() /* reduce ADefaultLinearity */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1140,14 +1135,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new29() /* reduce ADefaultParenLinearity */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1166,15 +1161,15 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new30() /* reduce AParmLinearity */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1195,12 +1190,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new31() /* reduce ADefaultConfidence */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1215,14 +1210,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new32() /* reduce ADefaultParenConfidence */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1241,15 +1236,15 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new33() /* reduce AParmConfidence */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1270,17 +1265,17 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new34() /* reduce AReportDataStatement */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList6 = pop();
-         ArrayList nodeArrayList5 = pop();
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList6 = pop();
+        ArrayList nodeArrayList5 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PReportDataStatement preportdatastatementNode1;
         {
             // Block
@@ -1305,12 +1300,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new35() /* reduce ASingleReportedFields */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PReportedFields preportedfieldsNode1;
         {
             // Block
@@ -1325,14 +1320,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new36() /* reduce AListReportedFields */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PReportedFields preportedfieldsNode1;
         {
             // Block
@@ -1351,12 +1346,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new37() /* reduce AReportedField */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PReportedField preportedfieldNode1;
         {
             // Block
@@ -1371,17 +1366,17 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new38() /* reduce ASampleDataStatement */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList6 = pop();
-         ArrayList nodeArrayList5 = pop();
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList6 = pop();
+        ArrayList nodeArrayList5 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PSampleDataStatement psampledatastatementNode1;
         {
             // Block
@@ -1406,13 +1401,13 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new39() /* reduce ASampleRate */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PSampleRate psamplerateNode1;
         {
             // Block
@@ -1429,14 +1424,14 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new40() /* reduce AStoreStorage */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1455,31 +1450,25 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new41() /* reduce AExportStorage */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList5 = pop();
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
         TExport texportNode2;
         TTo ttoNode3;
         PLocalFilePath plocalfilepathNode4;
-        TAs tasNode5;
-        PLocalFile plocalfileNode6;
         texportNode2 = (TExport)nodeArrayList1.get(0);
         ttoNode3 = (TTo)nodeArrayList2.get(0);
         plocalfilepathNode4 = (PLocalFilePath)nodeArrayList3.get(0);
-        tasNode5 = (TAs)nodeArrayList4.get(0);
-        plocalfileNode6 = (PLocalFile)nodeArrayList5.get(0);
 
-        pstorageNode1 = new AExportStorage(texportNode2, ttoNode3, plocalfilepathNode4, tasNode5, plocalfileNode6);
+        pstorageNode1 = new AExportStorage(texportNode2, ttoNode3, plocalfilepathNode4);
         }
 	nodeList.add(pstorageNode1);
         return nodeList;
@@ -1487,19 +1476,17 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new42() /* reduce AStoreExportStorage */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList8 = pop();
-         ArrayList nodeArrayList7 = pop();
-         ArrayList nodeArrayList6 = pop();
-         ArrayList nodeArrayList5 = pop();
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList6 = pop();
+        ArrayList nodeArrayList5 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1509,18 +1496,14 @@ public class Parser
         TExport texportNode5;
         TTo ttoNode6;
         PLocalFilePath plocalfilepathNode7;
-        TAs tasNode8;
-        PLocalFile plocalfileNode9;
         tstoreNode2 = (TStore)nodeArrayList1.get(0);
         tintoNode3 = (TInto)nodeArrayList2.get(0);
         phdfsfilepathNode4 = (PHdfsFilePath)nodeArrayList3.get(0);
         texportNode5 = (TExport)nodeArrayList4.get(0);
         ttoNode6 = (TTo)nodeArrayList5.get(0);
         plocalfilepathNode7 = (PLocalFilePath)nodeArrayList6.get(0);
-        tasNode8 = (TAs)nodeArrayList7.get(0);
-        plocalfileNode9 = (PLocalFile)nodeArrayList8.get(0);
 
-        pstorageNode1 = new AStoreExportStorage(tstoreNode2, tintoNode3, phdfsfilepathNode4, texportNode5, ttoNode6, plocalfilepathNode7, tasNode8, plocalfileNode9);
+        pstorageNode1 = new AStoreExportStorage(tstoreNode2, tintoNode3, phdfsfilepathNode4, texportNode5, ttoNode6, plocalfilepathNode7);
         }
 	nodeList.add(pstorageNode1);
         return nodeList;
@@ -1528,40 +1511,34 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new43() /* reduce AExportStoreStorage */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList8 = pop();
-         ArrayList nodeArrayList7 = pop();
-         ArrayList nodeArrayList6 = pop();
-         ArrayList nodeArrayList5 = pop();
-         ArrayList nodeArrayList4 = pop();
-         ArrayList nodeArrayList3 = pop();
-         ArrayList nodeArrayList2 = pop();
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList6 = pop();
+        ArrayList nodeArrayList5 = pop();
+        ArrayList nodeArrayList4 = pop();
+        ArrayList nodeArrayList3 = pop();
+        ArrayList nodeArrayList2 = pop();
+        ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
         TExport texportNode2;
         TTo ttoNode3;
         PLocalFilePath plocalfilepathNode4;
-        TAs tasNode5;
-        PLocalFile plocalfileNode6;
-        TStore tstoreNode7;
-        TInto tintoNode8;
-        PHdfsFilePath phdfsfilepathNode9;
+        TStore tstoreNode5;
+        TInto tintoNode6;
+        PHdfsFilePath phdfsfilepathNode7;
         texportNode2 = (TExport)nodeArrayList1.get(0);
         ttoNode3 = (TTo)nodeArrayList2.get(0);
         plocalfilepathNode4 = (PLocalFilePath)nodeArrayList3.get(0);
-        tasNode5 = (TAs)nodeArrayList4.get(0);
-        plocalfileNode6 = (PLocalFile)nodeArrayList5.get(0);
-        tstoreNode7 = (TStore)nodeArrayList6.get(0);
-        tintoNode8 = (TInto)nodeArrayList7.get(0);
-        phdfsfilepathNode9 = (PHdfsFilePath)nodeArrayList8.get(0);
+        tstoreNode5 = (TStore)nodeArrayList4.get(0);
+        tintoNode6 = (TInto)nodeArrayList5.get(0);
+        phdfsfilepathNode7 = (PHdfsFilePath)nodeArrayList6.get(0);
 
-        pstorageNode1 = new AExportStoreStorage(texportNode2, ttoNode3, plocalfilepathNode4, tasNode5, plocalfileNode6, tstoreNode7, tintoNode8, phdfsfilepathNode9);
+        pstorageNode1 = new AExportStoreStorage(texportNode2, ttoNode3, plocalfilepathNode4, tstoreNode5, tintoNode6, phdfsfilepathNode7);
         }
 	nodeList.add(pstorageNode1);
         return nodeList;
@@ -1569,12 +1546,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new44() /* reduce AHdfsFilePath */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PHdfsFilePath phdfsfilepathNode1;
         {
             // Block
@@ -1589,12 +1566,12 @@ public class Parser
 
 
 
-    
+    @SuppressWarnings("unchecked")
     ArrayList new45() /* reduce ALocalFilePath */
     {
-        ArrayList nodeList = new ArrayList();
+         ArrayList nodeList = new ArrayList();
 
-         ArrayList nodeArrayList1 = pop();
+        ArrayList nodeArrayList1 = pop();
         PLocalFilePath plocalfilepathNode1;
         {
             // Block
@@ -1604,26 +1581,6 @@ public class Parser
         plocalfilepathNode1 = new ALocalFilePath(tquotedstringNode2);
         }
 	nodeList.add(plocalfilepathNode1);
-        return nodeList;
-    }
-
-
-
-    
-    ArrayList new46() /* reduce ALocalFile */
-    {
-        ArrayList nodeList = new ArrayList();
-
-         ArrayList nodeArrayList1 = pop();
-        PLocalFile plocalfileNode1;
-        {
-            // Block
-        TQuotedString tquotedstringNode2;
-        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
-
-        plocalfileNode1 = new ALocalFile(tquotedstringNode2);
-        }
-	nodeList.add(plocalfileNode1);
         return nodeList;
     }
 
@@ -1716,19 +1673,14 @@ public class Parser
 			{{-1, REDUCE, 44}, },
 			{{-1, REDUCE, 40}, {26, SHIFT, 88}, },
 			{{-1, REDUCE, 45}, },
-			{{-1, ERROR, 85}, {32, SHIFT, 89}, },
+			{{-1, REDUCE, 41}, {24, SHIFT, 89}, },
 			{{-1, REDUCE, 11}, },
 			{{-1, ERROR, 87}, {28, SHIFT, 90}, },
 			{{-1, ERROR, 88}, {27, SHIFT, 91}, },
-			{{-1, ERROR, 89}, {33, SHIFT, 92}, },
+			{{-1, ERROR, 89}, {25, SHIFT, 92}, },
 			{{-1, REDUCE, 10}, },
 			{{-1, ERROR, 91}, {33, SHIFT, 84}, },
-			{{-1, REDUCE, 46}, },
-			{{-1, REDUCE, 41}, {24, SHIFT, 95}, },
-			{{-1, ERROR, 94}, {32, SHIFT, 96}, },
-			{{-1, ERROR, 95}, {25, SHIFT, 97}, },
-			{{-1, ERROR, 96}, {33, SHIFT, 92}, },
-			{{-1, ERROR, 97}, {33, SHIFT, 82}, },
+			{{-1, ERROR, 92}, {33, SHIFT, 82}, },
 			{{-1, REDUCE, 42}, },
 			{{-1, REDUCE, 43}, },
         };*/
@@ -1756,9 +1708,8 @@ public class Parser
 			{{-1, 10}, },
 			{{-1, 44}, },
 			{{-1, 56}, {41, 59}, {44, 61}, },
-			{{-1, 83}, {97, 99}, },
-			{{-1, 85}, {91, 94}, },
-			{{-1, 93}, {96, 98}, },
+			{{-1, 83}, {92, 94}, },
+			{{-1, 85}, {91, 93}, },
         };*/
     private static String[] errorMessages;
 /*      {
@@ -1797,7 +1748,7 @@ public class Parser
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 2, 3, 4, 5, 1, 1, 2, 2, 2, 6, 6, 7, 7, 7, 8, 9, 10, 11, 5, 5, 12, 5, 13, 14, 15, 15, 15, 15, 15, 15, 16, 16, 17, 15, 15, 15, 15, 7, 15, 15, 15, 18, 17, 19, 20, 20, 21, 3, 3, 17, 22, 22, 23, 24, 25, 26, 5, 25, 17, 25, 27, 13, 5, 28, 15, 29, 15, 29, 4, 4, 2, 15, 15, 2, 2, 20, 20, 4, 15, 15, 30, 30, 6, 6, 25, 25, 24, 4, 3, 4, 31, 31, 6, 23, 4, 4, 25, 25, 
+			0, 1, 2, 3, 4, 5, 1, 1, 2, 2, 2, 6, 6, 7, 7, 7, 8, 9, 10, 11, 5, 5, 12, 5, 13, 14, 15, 15, 15, 15, 15, 15, 16, 16, 17, 15, 15, 15, 15, 7, 15, 15, 15, 18, 17, 19, 20, 20, 21, 3, 3, 17, 22, 22, 23, 24, 25, 26, 5, 25, 17, 25, 27, 13, 5, 28, 15, 29, 15, 29, 4, 4, 2, 15, 15, 2, 2, 20, 20, 4, 15, 15, 30, 30, 31, 31, 25, 25, 24, 23, 3, 4, 4, 25, 25, 
         };*/
 
     static 

@@ -16,9 +16,10 @@ public final class AListFunctionList extends PFunctionList
         // Constructor
     }
 
-    public AListFunctionList(PFunctionList _functionList_,
-                             TComma _comma_,
-                             PFunction _function_)
+    public AListFunctionList(
+         PFunctionList _functionList_,
+         TComma _comma_,
+         PFunction _function_)
     {
         // Constructor
         setFunctionList(_functionList_);

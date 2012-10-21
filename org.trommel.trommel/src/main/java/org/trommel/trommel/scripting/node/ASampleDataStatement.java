@@ -20,12 +20,12 @@ public final class ASampleDataStatement extends PSampleDataStatement
     }
 
     public ASampleDataStatement(
-        TSample _sample_,
-        TData _data_,
-        TAt _at_,
-        PSampleRate _sampleRate_,
-        PStorage _storage_,
-        TSemicolon _semicolon_)
+         TSample _sample_,
+         TData _data_,
+         TAt _at_,
+         PSampleRate _sampleRate_,
+         PStorage _storage_,
+         TSemicolon _semicolon_)
     {
         // Constructor
         setSample(_sample_);
@@ -222,7 +222,7 @@ public final class ASampleDataStatement extends PSampleDataStatement
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._sample_ == child)
@@ -265,7 +265,7 @@ public final class ASampleDataStatement extends PSampleDataStatement
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._sample_ == oldChild)

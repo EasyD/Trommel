@@ -16,12 +16,12 @@ public class DepthFirstAdapter extends AnalysisAdapter
         defaultOut(node);
     }
 
-    public void defaultIn( Node node)
+    public void defaultIn(Node node)
     {
         // Do nothing
     }
 
-    public void defaultOut( Node node)
+    public void defaultOut(Node node)
     {
         // Do nothing
     }
@@ -1134,14 +1134,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getLocalFilePath().apply(this);
         }
-        if(node.getAs() != null)
-        {
-            node.getAs().apply(this);
-        }
-        if(node.getLocalFile() != null)
-        {
-            node.getLocalFile().apply(this);
-        }
         outAExportStorage(node);
     }
 
@@ -1183,14 +1175,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getLocalFilePath().apply(this);
         }
-        if(node.getAs() != null)
-        {
-            node.getAs().apply(this);
-        }
-        if(node.getLocalFile() != null)
-        {
-            node.getLocalFile().apply(this);
-        }
         outAStoreExportStorage(node);
     }
 
@@ -1219,14 +1203,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         if(node.getLocalFilePath() != null)
         {
             node.getLocalFilePath().apply(this);
-        }
-        if(node.getAs() != null)
-        {
-            node.getAs().apply(this);
-        }
-        if(node.getLocalFile() != null)
-        {
-            node.getLocalFile().apply(this);
         }
         if(node.getStore() != null)
         {
@@ -1283,26 +1259,5 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getQuotedString().apply(this);
         }
         outALocalFilePath(node);
-    }
-
-    public void inALocalFile(ALocalFile node)
-    {
-        defaultIn(node);
-    }
-
-    public void outALocalFile(ALocalFile node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseALocalFile(ALocalFile node)
-    {
-        inALocalFile(node);
-        if(node.getQuotedString() != null)
-        {
-            node.getQuotedString().apply(this);
-        }
-        outALocalFile(node);
     }
 }

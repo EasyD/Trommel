@@ -91,7 +91,6 @@ public class FrontEndInterpreterTests
 		assertEquals ("/usr/local/FooBar", interpreter.getHdfsInputFilePath());
 		assertEquals ("Hello", interpreter.getHdfsOutputFilePath());
 		assertEquals ("Foo", interpreter.getLocalFilePath());
-		assertEquals ("Bar", interpreter.getLocalFileName());
 	}
 	
 	@Test
@@ -108,7 +107,6 @@ public class FrontEndInterpreterTests
 		assertEquals ("/usr/local/FooBar", interpreter.getHdfsInputFilePath());
 		assertEquals ("/tmp/Trommel", interpreter.getHdfsOutputFilePath());
 		assertEquals ("Foo", interpreter.getLocalFilePath());
-		assertEquals ("Bar", interpreter.getLocalFileName());
 	}
 		
 	

@@ -14,7 +14,8 @@ public final class ALinFunction extends PFunction
         // Constructor
     }
 
-    public ALinFunction(PLinearity _linearity_)
+    public ALinFunction(
+         PLinearity _linearity_)
     {
         // Constructor
         setLinearity(_linearity_);

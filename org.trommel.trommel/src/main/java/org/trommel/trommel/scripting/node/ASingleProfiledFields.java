@@ -15,7 +15,7 @@ public final class ASingleProfiledFields extends PProfiledFields
     }
 
     public ASingleProfiledFields(
-        PProfiledField _profiledField_)
+         PProfiledField _profiledField_)
     {
         // Constructor
         setProfiledField(_profiledField_);
@@ -67,7 +67,7 @@ public final class ASingleProfiledFields extends PProfiledFields
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._profiledField_ == child)
@@ -80,7 +80,7 @@ public final class ASingleProfiledFields extends PProfiledFields
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._profiledField_ == oldChild)

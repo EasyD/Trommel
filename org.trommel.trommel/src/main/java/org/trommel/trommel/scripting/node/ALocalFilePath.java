@@ -15,7 +15,7 @@ public final class ALocalFilePath extends PLocalFilePath
     }
 
     public ALocalFilePath(
-        TQuotedString _quotedString_)
+         TQuotedString _quotedString_)
     {
         // Constructor
         setQuotedString(_quotedString_);
@@ -67,7 +67,7 @@ public final class ALocalFilePath extends PLocalFilePath
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._quotedString_ == child)
@@ -80,7 +80,7 @@ public final class ALocalFilePath extends PLocalFilePath
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._quotedString_ == oldChild)

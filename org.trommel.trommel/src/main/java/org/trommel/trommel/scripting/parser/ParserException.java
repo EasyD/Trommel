@@ -9,7 +9,7 @@ public class ParserException extends Exception
 {
     Token token;
 
-    public ParserException(Token token, String  message)
+    public ParserException( Token token, String  message)
     {
         super(message);
         this.token = token;

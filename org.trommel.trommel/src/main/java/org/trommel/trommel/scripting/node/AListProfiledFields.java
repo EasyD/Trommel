@@ -17,9 +17,9 @@ public final class AListProfiledFields extends PProfiledFields
     }
 
     public AListProfiledFields(
-        PProfiledFields _profiledFields_,
-        TComma _comma_,
-        PProfiledField _profiledField_)
+         PProfiledFields _profiledFields_,
+         TComma _comma_,
+         PProfiledField _profiledField_)
     {
         // Constructor
         setProfiledFields(_profiledFields_);
@@ -129,7 +129,7 @@ public final class AListProfiledFields extends PProfiledFields
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._profiledFields_ == child)
@@ -154,7 +154,7 @@ public final class AListProfiledFields extends PProfiledFields
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._profiledFields_ == oldChild)

@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.trommel.trommel.scripting.analysis.DepthFirstAdapter;
 import org.trommel.trommel.scripting.node.AHdfsFilePath;
 import org.trommel.trommel.scripting.node.ALoadDataStatement;
-import org.trommel.trommel.scripting.node.ALocalFile;
 import org.trommel.trommel.scripting.node.ALocalFilePath;
 import org.trommel.trommel.scripting.node.ASampleDataStatement;
 import org.trommel.trommel.utilities.StringUtilities;
@@ -30,7 +29,6 @@ public class FrontEndInterpreter extends DepthFirstAdapter
 	private String hdfsInputFilePath = null;
 	private String hdfsOutputFilePath = null;
 	private String localFilePath = null;
-	private String localFileName = null;
 	
 	
 	//
@@ -55,21 +53,12 @@ public class FrontEndInterpreter extends DepthFirstAdapter
 	}
 	
 	/**
-	 * @return If specified in the TrommelScript, returns the local file system path to use for writing output, 
+	 * @return If specified in the TrommelScript, returns the local file system path (including file name) to use for writing output, 
 	 * returns null otherwise. 
 	 */
 	public String getLocalFilePath()
 	{
 		return localFilePath;
-	}
-	
-	/**
-	 * @return If specified in the TrommelScript, returns the name of the local file to use for writing output, 
-	 * returns null otherwise. 
-	 */
-	public String getLocalFileName()
-	{
-		return localFileName;
 	}
 	
 	
@@ -180,16 +169,5 @@ public class FrontEndInterpreter extends DepthFirstAdapter
 		logger.debug("FrontEndInterpreter.outALocalFilePath called.");
 
 		localFilePath = node.getQuotedString().toString().replace("'", "").trim();
-    }
-
-	/**
-	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
-	 * "LocalFile" Production. 
-	 */
-    public void outALocalFile(ALocalFile node)
-    {
-		logger.debug("FrontEndInterpreter.outALocalFile called.");
-
-		localFileName = node.getQuotedString().toString().replace("'", "").trim();
     }
 }

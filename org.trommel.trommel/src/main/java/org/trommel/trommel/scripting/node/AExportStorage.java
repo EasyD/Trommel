@@ -10,19 +10,16 @@ public final class AExportStorage extends PStorage
     private TExport _export_;
     private TTo _to_;
     private PLocalFilePath _localFilePath_;
-    private TAs _as_;
-    private PLocalFile _localFile_;
 
     public AExportStorage()
     {
         // Constructor
     }
 
-    public AExportStorage(TExport _export_,
-                          TTo _to_,
-                          PLocalFilePath _localFilePath_,
-                          TAs _as_,
-                          PLocalFile _localFile_)
+    public AExportStorage(
+         TExport _export_,
+         TTo _to_,
+         PLocalFilePath _localFilePath_)
     {
         // Constructor
         setExport(_export_);
@@ -30,10 +27,6 @@ public final class AExportStorage extends PStorage
         setTo(_to_);
 
         setLocalFilePath(_localFilePath_);
-
-        setAs(_as_);
-
-        setLocalFile(_localFile_);
 
     }
 
@@ -43,9 +36,7 @@ public final class AExportStorage extends PStorage
         return new AExportStorage(
             cloneNode(this._export_),
             cloneNode(this._to_),
-            cloneNode(this._localFilePath_),
-            cloneNode(this._as_),
-            cloneNode(this._localFile_));
+            cloneNode(this._localFilePath_));
     }
 
     public void apply(Switch sw)
@@ -128,69 +119,17 @@ public final class AExportStorage extends PStorage
         this._localFilePath_ = node;
     }
 
-    public TAs getAs()
-    {
-        return this._as_;
-    }
-
-    public void setAs(TAs node)
-    {
-        if(this._as_ != null)
-        {
-            this._as_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._as_ = node;
-    }
-
-    public PLocalFile getLocalFile()
-    {
-        return this._localFile_;
-    }
-
-    public void setLocalFile(PLocalFile node)
-    {
-        if(this._localFile_ != null)
-        {
-            this._localFile_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._localFile_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
             + toString(this._export_)
             + toString(this._to_)
-            + toString(this._localFilePath_)
-            + toString(this._as_)
-            + toString(this._localFile_);
+            + toString(this._localFilePath_);
     }
 
     @Override
-    void removeChild( Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._export_ == child)
@@ -211,23 +150,11 @@ public final class AExportStorage extends PStorage
             return;
         }
 
-        if(this._as_ == child)
-        {
-            this._as_ = null;
-            return;
-        }
-
-        if(this._localFile_ == child)
-        {
-            this._localFile_ = null;
-            return;
-        }
-
         throw new RuntimeException("Not a child.");
     }
 
     @Override
-    void replaceChild( Node oldChild,  Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._export_ == oldChild)
@@ -245,18 +172,6 @@ public final class AExportStorage extends PStorage
         if(this._localFilePath_ == oldChild)
         {
             setLocalFilePath((PLocalFilePath) newChild);
-            return;
-        }
-
-        if(this._as_ == oldChild)
-        {
-            setAs((TAs) newChild);
-            return;
-        }
-
-        if(this._localFile_ == oldChild)
-        {
-            setLocalFile((PLocalFile) newChild);
             return;
         }
 
