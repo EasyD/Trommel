@@ -4,7 +4,7 @@ package org.trommel.trommel.scripting.node;
 
 import java.util.*;
 
-@SuppressWarnings("nls")
+@SuppressWarnings({"nls", "rawtypes"})
 public abstract class Node implements Switchable, Cloneable
 {
     private Node parent;
@@ -17,7 +17,7 @@ public abstract class Node implements Switchable, Cloneable
         return this.parent;
     }
 
-    void parent(@SuppressWarnings("hiding") Node parent)
+    void parent(Node parent)
     {
         this.parent = parent;
     }
@@ -52,8 +52,9 @@ public abstract class Node implements Switchable, Cloneable
         return s.toString();
     }
 
+    
     @SuppressWarnings("unchecked")
-    protected <T extends Node> T cloneNode(T node)
+	protected <T extends Node> T cloneNode(T node)
     {
         if(node != null)
         {

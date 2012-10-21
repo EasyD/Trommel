@@ -18,12 +18,11 @@ public final class AExportStorage extends PStorage
         // Constructor
     }
 
-    public AExportStorage(
-        @SuppressWarnings("hiding") TExport _export_,
-        @SuppressWarnings("hiding") TTo _to_,
-        @SuppressWarnings("hiding") PLocalFilePath _localFilePath_,
-        @SuppressWarnings("hiding") TAs _as_,
-        @SuppressWarnings("hiding") PLocalFile _localFile_)
+    public AExportStorage(TExport _export_,
+                          TTo _to_,
+                          PLocalFilePath _localFilePath_,
+                          TAs _as_,
+                          PLocalFile _localFile_)
     {
         // Constructor
         setExport(_export_);
@@ -191,7 +190,7 @@ public final class AExportStorage extends PStorage
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._export_ == child)
@@ -228,7 +227,7 @@ public final class AExportStorage extends PStorage
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._export_ == oldChild)

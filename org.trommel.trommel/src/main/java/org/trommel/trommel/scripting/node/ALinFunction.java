@@ -14,8 +14,7 @@ public final class ALinFunction extends PFunction
         // Constructor
     }
 
-    public ALinFunction(
-        @SuppressWarnings("hiding") PLinearity _linearity_)
+    public ALinFunction(PLinearity _linearity_)
     {
         // Constructor
         setLinearity(_linearity_);
@@ -67,7 +66,7 @@ public final class ALinFunction extends PFunction
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._linearity_ == child)
@@ -80,7 +79,7 @@ public final class ALinFunction extends PFunction
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._linearity_ == oldChild)

@@ -16,10 +16,9 @@ public final class AField extends PField
         // Constructor
     }
 
-    public AField(
-        @SuppressWarnings("hiding") TIdentifier _identifier_,
-        @SuppressWarnings("hiding") TColon _colon_,
-        @SuppressWarnings("hiding") TFieldType _fieldType_)
+    public AField(TIdentifier _identifier_,
+                  TColon _colon_,
+                  TFieldType _fieldType_)
     {
         // Constructor
         setIdentifier(_identifier_);
@@ -129,7 +128,7 @@ public final class AField extends PField
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._identifier_ == child)
@@ -154,7 +153,7 @@ public final class AField extends PField
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._identifier_ == oldChild)

@@ -15,7 +15,7 @@ public final class ASingleReportedFields extends PReportedFields
     }
 
     public ASingleReportedFields(
-        @SuppressWarnings("hiding") PReportedField _reportedField_)
+        PReportedField _reportedField_)
     {
         // Constructor
         setReportedField(_reportedField_);
@@ -67,7 +67,7 @@ public final class ASingleReportedFields extends PReportedFields
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._reportedField_ == child)
@@ -80,7 +80,7 @@ public final class ASingleReportedFields extends PReportedFields
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._reportedField_ == oldChild)

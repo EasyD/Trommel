@@ -92,7 +92,7 @@ public class ReduceReportControllerTests
 	{
 		ReduceReportController controller = new ReduceReportController(logger, FIELD1);
 		String resultsLine1 = FIELD1 + "\t" + FIELD1_VALUE1 + "\t3\n";
-		String resultsLine2 = FIELD1 + "\t" + FIELD1_VALUE2 + "\t2\n";
+		String resultsLine2 = FIELD1_VALUE2 + "\t2\n";
 		
 		controller.handleReduceRecord(DATA_REPORTER_NAME + "=" + FIELD1_VALUE1);
 		controller.handleReduceRecord(DATA_REPORTER_NAME + "=" + FIELD1_VALUE2);

@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.trommel.trommel.scripting.interpreters.FrontEndInterpreter;
-import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 import org.trommel.trommel.scripting.lexer.Lexer;
 import org.trommel.trommel.scripting.lexer.LexerException;
 import org.trommel.trommel.scripting.node.Start;
@@ -28,6 +27,12 @@ import org.trommel.trommel.scripting.parser.ParserException;
 @SuppressWarnings("unused")
 public class FrontEndInterpreterTests 
 {
+	//
+	//	Class constants (e.g., strings used in more than one place in the code)
+	//
+	
+	private static final String DEFAULT_HDFS_FILE_PATH = "/tmp/Trommel";
+
 	//
 	//	Private members
 	//
@@ -54,13 +59,19 @@ public class FrontEndInterpreterTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger()
 	{
-		FrontEndInterpreter interpreter = new FrontEndInterpreter(null);
+		FrontEndInterpreter interpreter = new FrontEndInterpreter(null, DEFAULT_HDFS_FILE_PATH);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructorEmptyPath()
+	{
+		FrontEndInterpreter interpreter = new FrontEndInterpreter(logger, " \t ");
 	}
 	
 	@Test
 	public void testWriteToLocalFileSystemFalse()
 	{
-		FrontEndInterpreter interpreter = new FrontEndInterpreter(logger);
+		FrontEndInterpreter interpreter = new FrontEndInterpreter(logger, DEFAULT_HDFS_FILE_PATH);
 		
 		assertFalse(interpreter.writeToLocalFileSystem());
 	}
@@ -70,11 +81,12 @@ public class FrontEndInterpreterTests
 		throws ParserException, LexerException, IOException
 	{
 		Start ast = buildAST("src/test/resources/scripts/SampleDataExportAndStore.trommel");
-		FrontEndInterpreter interpreter = new FrontEndInterpreter(logger);
+		FrontEndInterpreter interpreter = new FrontEndInterpreter(logger, DEFAULT_HDFS_FILE_PATH);
 		
 		ast.apply(interpreter);	
 
 		// Validate expected HDFS and local file info
+		assertTrue(interpreter.samplingData());
 		assertTrue(interpreter.writeToLocalFileSystem());
 		assertEquals ("/usr/local/FooBar", interpreter.getHdfsInputFilePath());
 		assertEquals ("Hello", interpreter.getHdfsOutputFilePath());
@@ -87,7 +99,7 @@ public class FrontEndInterpreterTests
 		throws ParserException, LexerException, IOException
 	{
 		Start ast = buildAST("src/test/resources/scripts/SampleDataExport.trommel");
-		FrontEndInterpreter interpreter = new FrontEndInterpreter(logger);
+		FrontEndInterpreter interpreter = new FrontEndInterpreter(logger, DEFAULT_HDFS_FILE_PATH);
 		
 		ast.apply(interpreter);	
 

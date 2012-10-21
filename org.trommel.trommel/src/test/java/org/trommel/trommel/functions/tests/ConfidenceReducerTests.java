@@ -21,6 +21,7 @@ import org.trommel.trommel.functions.VariabilityReducer;
 //
 //	Unit tests for the org.trommel.trommel.functions.ConfidenceReducer class
 //
+@SuppressWarnings("unused")
 public class ConfidenceReducerTests 
 {
 	//
@@ -69,7 +70,7 @@ public class ConfidenceReducerTests
 	public void testSingleParmConstructorOK() 
 	{
 		VariabilityReducer var = Mockito.mock(VariabilityReducer.class);
-		@SuppressWarnings("unused")
+		
 		ConfidenceReducer con = new ConfidenceReducer(logger, var);
 	}
 
@@ -77,14 +78,14 @@ public class ConfidenceReducerTests
 	public void testTwoParmConstructorInvalidTarget() 
 	{
 		VariabilityReducer var = Mockito.mock(VariabilityReducer.class);
-		@SuppressWarnings("unused")
+		
 		ConfidenceReducer con = new ConfidenceReducer(logger, 100, var);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testTwoParmConstructorNullVarReducer() 
 	{
-		@SuppressWarnings("unused")
+		
 		ConfidenceReducer con = new ConfidenceReducer(logger, 85, null);
 	}
 	

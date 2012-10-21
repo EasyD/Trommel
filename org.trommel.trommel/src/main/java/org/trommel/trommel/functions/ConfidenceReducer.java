@@ -107,7 +107,6 @@ public class ConfidenceReducer extends ReduceRecordHandler
 	 * 
 	 * @param logger The {@link org.apache.log4j.Logger} instance that will be used by the ConfidenceReducer
 	 * to log to the Hadoop Task syslog file.
-	 * @param variabilityReducer The {@link VariabilityReducer} instance to be used in confidence calculations.
 	 * @param variabilityTarget The target amount of captured variability for which confidence is reported (e.g.,
 	 * "how confident am I that 95% of the field's variability has been captured?")
 	 * @param variabilityReducer The {@link VariabilityReducer} instance to be used in confidence calculations.

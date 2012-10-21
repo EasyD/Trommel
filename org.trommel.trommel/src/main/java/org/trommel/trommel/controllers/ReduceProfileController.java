@@ -36,7 +36,7 @@ public class ReduceProfileController implements ReduceController
 	//
 	
 	/**
-	 * @return Tab-delimited list of {@link org.trommel.trommel.ReducceRecordHandler} names used to process post-Map
+	 * @return Tab-delimited list of {@link org.trommel.trommel.ReduceRecordHandler} names used to process post-Map
 	 * phase data. For example, "Field\tMax\tMin\tConfidence\tVariability"
 	 */
 	public String getHeader()

@@ -15,7 +15,7 @@ public final class AVarFunction extends PFunction
     }
 
     public AVarFunction(
-        @SuppressWarnings("hiding") TVar _var_)
+        TVar _var_)
     {
         // Constructor
         setVar(_var_);
@@ -67,7 +67,7 @@ public final class AVarFunction extends PFunction
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._var_ == child)
@@ -80,7 +80,7 @@ public final class AVarFunction extends PFunction
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._var_ == oldChild)

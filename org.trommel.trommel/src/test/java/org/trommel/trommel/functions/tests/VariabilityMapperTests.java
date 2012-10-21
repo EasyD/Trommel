@@ -25,6 +25,7 @@ import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 //
 //	Unit tests for the org.trommel.trommel.functions.VariabilityMapper class
 //
+@SuppressWarnings("unused")
 public class VariabilityMapperTests 
 {
 	//
@@ -97,7 +98,7 @@ public class VariabilityMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		@SuppressWarnings("unused")
+		
 		VariabilityMapper var = new VariabilityMapper(logger, numericFields);	
 	}
 	
@@ -113,6 +114,7 @@ public class VariabilityMapperTests
 	public void testNumericHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = numericMapRecords();
@@ -148,6 +150,7 @@ public class VariabilityMapperTests
 	public void testCategoricalHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = categoricalMapRecords();

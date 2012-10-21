@@ -16,8 +16,8 @@ public final class AProfileDataTrommelScript extends PTrommelScript
     }
 
     public AProfileDataTrommelScript(
-        @SuppressWarnings("hiding") PLoadDataStatement _loadDataStatement_,
-        @SuppressWarnings("hiding") PProfileDataStatement _profileDataStatement_)
+        PLoadDataStatement _loadDataStatement_,
+        PProfileDataStatement _profileDataStatement_)
     {
         // Constructor
         setLoadDataStatement(_loadDataStatement_);
@@ -98,7 +98,7 @@ public final class AProfileDataTrommelScript extends PTrommelScript
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._loadDataStatement_ == child)
@@ -117,7 +117,7 @@ public final class AProfileDataTrommelScript extends PTrommelScript
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._loadDataStatement_ == oldChild)

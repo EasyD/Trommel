@@ -16,8 +16,8 @@ public final class Start extends Node
     }
 
     public Start(
-        @SuppressWarnings("hiding") PTrommelScript _pTrommelScript_,
-        @SuppressWarnings("hiding") EOF _eof_)
+        PTrommelScript _pTrommelScript_,
+        EOF _eof_)
     {
         setPTrommelScript(_pTrommelScript_);
         setEOF(_eof_);

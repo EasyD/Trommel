@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
@@ -47,7 +48,7 @@ public class TrommelReducerTests
 		throws IOException 
 	{
 		TrommelReducer reducer = new TrommelReducer();
-		ReduceDriver<Text, Text, Text, Text> reduceDriver = new ReduceDriver<Text, Text, Text, Text>(reducer);
+		ReduceDriver<Text, Text, NullWritable, Text> reduceDriver = new ReduceDriver<Text, Text, NullWritable, Text>(reducer);
 		Configuration config = new Configuration(false);
 
 		// Set up a Hadoop Configuration object for WARN logging and to point at a test TrommelScript file
@@ -66,7 +67,7 @@ public class TrommelReducerTests
 	{
 		TrommelMapper mapper = new TrommelMapper();
 		TrommelReducer reducer = new TrommelReducer();
-		MapReduceDriver<LongWritable, Text, Text, Text, Text, Text> driver = new MapReduceDriver<LongWritable, Text, Text, Text, Text, Text>(mapper, reducer);
+		MapReduceDriver<LongWritable, Text, Text, Text, NullWritable, Text> driver = new MapReduceDriver<LongWritable, Text, Text, Text, NullWritable, Text>(mapper, reducer);
 		Configuration config = new Configuration(false);
 		
 		// Set up a Hadoop Configuration object for DEBUG logging and to point at a test TrommelScript file
@@ -74,18 +75,19 @@ public class TrommelReducerTests
 		config.set(SCRIPT_CONFIG_PROP, "src/test/resources/scripts/ProfileDataExplicitFunc.trommel");
 		
 		// Execute driver
-		List<Pair<Text, Text>> output = driver.withInput(new LongWritable(1), new Text(FIELD1_VALUE1 + "\t" + FIELD2_VALUE1 + "\t" + FIELD3_VALUE1))
-												.withConfiguration(config)
-												.run();
+		List<Pair<NullWritable, Text>> output = driver.withInput(new LongWritable(1), new Text(FIELD1_VALUE1 + "\t" + FIELD2_VALUE1 + "\t" + FIELD3_VALUE1))
+													.withConfiguration(config)
+													.run();
 		
 		// Verify output
 		assertEquals(6, output.size());
 		
-		for(Pair<Text, Text> record : output)
+		for(Pair<NullWritable, Text> record : output)
 		{
 			if (!record.getSecond().toString().equalsIgnoreCase("Field\tMax\tMin\tDistinct\tEmpty\tLinearity\tVariability\tConfidence") &&
-				!record.getSecond().toString().equalsIgnoreCase("15.0\t15.0\t1\t0\tNaN\t0.0\t0") &&
-				!record.getSecond().toString().equalsIgnoreCase("\t\t1\t0\t1.0\t1.0\t0"))
+				!record.getSecond().toString().equalsIgnoreCase("field1\t15.0\t15.0\t1\t0\tNaN\t0.0\t0") &&
+				!record.getSecond().toString().equalsIgnoreCase("field2\t\t\t1\t0\t1.0\t1.0\t0") &&
+				!record.getSecond().toString().equalsIgnoreCase("field3\t\t\t1\t0\t1.0\t1.0\t0"))
 			{
 				fail(String.format("Unexpected output of %1$s", record.getSecond().toString()));
 			}
@@ -98,7 +100,7 @@ public class TrommelReducerTests
 	{
 		TrommelMapper mapper = new TrommelMapper();
 		TrommelReducer reducer = new TrommelReducer();
-		MapReduceDriver<LongWritable, Text, Text, Text, Text, Text> driver = new MapReduceDriver<LongWritable, Text, Text, Text, Text, Text>(mapper, reducer);
+		MapReduceDriver<LongWritable, Text, Text, Text, NullWritable, Text> driver = new MapReduceDriver<LongWritable, Text, Text, Text, NullWritable, Text>(mapper, reducer);
 		Configuration config = new Configuration(false);
 		
 		// Set up a Hadoop Configuration object for INFO logging and to point at a test TrommelScript file
@@ -106,13 +108,13 @@ public class TrommelReducerTests
 		config.set(SCRIPT_CONFIG_PROP, "src/test/resources/scripts/ReportDataExportAndStore.trommel");
 		
 		// Execute driver
-		List<Pair<Text, Text>> output = driver.withInput(new LongWritable(1), new Text(FIELD1_VALUE1 + "\t" + FIELD2_VALUE1 + "\t" + FIELD3_VALUE1))
-												.withConfiguration(config)
-												.run();
+		List<Pair<NullWritable, Text>> output = driver.withInput(new LongWritable(1), new Text(FIELD1_VALUE1 + "\t" + FIELD2_VALUE1 + "\t" + FIELD3_VALUE1))
+														.withConfiguration(config)
+														.run();
 		
 		assertEquals(4, output.size());
 		
-		for(Pair<Text, Text> record : output)
+		for(Pair<NullWritable, Text> record : output)
 		{
 			if (!record.getSecond().toString().equalsIgnoreCase("Field\tContent\tCount") &&
 				!record.getSecond().toString().equalsIgnoreCase("field1\t15.0\t1\n") &&

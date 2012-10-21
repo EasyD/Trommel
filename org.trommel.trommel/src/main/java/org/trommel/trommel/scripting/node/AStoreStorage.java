@@ -17,9 +17,9 @@ public final class AStoreStorage extends PStorage
     }
 
     public AStoreStorage(
-        @SuppressWarnings("hiding") TStore _store_,
-        @SuppressWarnings("hiding") TInto _into_,
-        @SuppressWarnings("hiding") PHdfsFilePath _hdfsFilePath_)
+        TStore _store_,
+        TInto _into_,
+        PHdfsFilePath _hdfsFilePath_)
     {
         // Constructor
         setStore(_store_);
@@ -129,7 +129,7 @@ public final class AStoreStorage extends PStorage
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._store_ == child)
@@ -154,7 +154,7 @@ public final class AStoreStorage extends PStorage
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._store_ == oldChild)

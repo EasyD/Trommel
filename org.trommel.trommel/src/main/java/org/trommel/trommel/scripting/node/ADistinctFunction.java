@@ -14,8 +14,7 @@ public final class ADistinctFunction extends PFunction
         // Constructor
     }
 
-    public ADistinctFunction(
-        @SuppressWarnings("hiding") TDistinct _distinct_)
+    public ADistinctFunction(TDistinct _distinct_)
     {
         // Constructor
         setDistinct(_distinct_);
@@ -67,7 +66,7 @@ public final class ADistinctFunction extends PFunction
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._distinct_ == child)
@@ -80,7 +79,7 @@ public final class ADistinctFunction extends PFunction
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._distinct_ == oldChild)

@@ -20,6 +20,7 @@ import org.trommel.trommel.functions.VariabilityReducer;
 //
 //	Unit tests for the org.trommel.trommel.functions.VariabilityReducer class
 //
+@SuppressWarnings("unused")
 public class VariabilityReducerTests 
 {
 	//
@@ -62,7 +63,7 @@ public class VariabilityReducerTests
 	@Test
 	public void testConstructorOK()
 	{
-		@SuppressWarnings("unused")
+		
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);			
 	}
 	

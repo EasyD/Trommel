@@ -23,6 +23,7 @@ import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 //
 //	Unit tests for the org.trommel.trommel.reporting.DataReporterMapper class
 //
+@SuppressWarnings("unused")
 public class DataReporterMapperTests 
 {
 	//
@@ -76,21 +77,21 @@ public class DataReporterMapperTests
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNullFieldArray() 
 	{
-		@SuppressWarnings("unused")
+		
 		DataReporterMapper reporter = new DataReporterMapper(logger, null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorEmptyFieldArray() 
 	{
-		@SuppressWarnings("unused")
+		
 		DataReporterMapper reporter = new DataReporterMapper(logger, new Field[0]);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorEmptyFieldArrayNullElement() 
 	{
-		@SuppressWarnings("unused")
+		
 		DataReporterMapper reporter = new DataReporterMapper(logger, new Field[3]);
 	}
 
@@ -98,6 +99,7 @@ public class DataReporterMapperTests
 	public void testHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();

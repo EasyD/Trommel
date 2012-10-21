@@ -15,7 +15,7 @@ public final class ASingleFunctionList extends PFunctionList
     }
 
     public ASingleFunctionList(
-        @SuppressWarnings("hiding") PFunction _function_)
+        PFunction _function_)
     {
         // Constructor
         setFunction(_function_);
@@ -67,7 +67,7 @@ public final class ASingleFunctionList extends PFunctionList
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._function_ == child)
@@ -80,7 +80,7 @@ public final class ASingleFunctionList extends PFunctionList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._function_ == oldChild)

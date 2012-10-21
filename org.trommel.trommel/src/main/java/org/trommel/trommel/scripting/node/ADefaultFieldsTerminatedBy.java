@@ -14,8 +14,7 @@ public final class ADefaultFieldsTerminatedBy extends PFieldsTerminatedBy
         // Constructor
     }
 
-    public ADefaultFieldsTerminatedBy(
-        @SuppressWarnings("hiding") TSemicolon _semicolon_)
+    public ADefaultFieldsTerminatedBy(TSemicolon _semicolon_)
     {
         // Constructor
         setSemicolon(_semicolon_);
@@ -67,7 +66,7 @@ public final class ADefaultFieldsTerminatedBy extends PFieldsTerminatedBy
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._semicolon_ == child)
@@ -80,7 +79,7 @@ public final class ADefaultFieldsTerminatedBy extends PFieldsTerminatedBy
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._semicolon_ == oldChild)

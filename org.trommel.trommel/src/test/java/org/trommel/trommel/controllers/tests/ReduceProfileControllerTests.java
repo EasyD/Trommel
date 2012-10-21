@@ -5,21 +5,11 @@ package org.trommel.trommel.controllers.tests;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.trommel.trommel.Field;
 import org.trommel.trommel.FieldType;
-import org.trommel.trommel.FunctionOutput;
-import org.trommel.trommel.MapRecord;
-import org.trommel.trommel.controllers.MapProfileController;
-import org.trommel.trommel.controllers.ProfileFunction;
 import org.trommel.trommel.controllers.ReduceProfileController;
 import org.trommel.trommel.functions.MaxReducer;
 import org.trommel.trommel.functions.MinReducer;

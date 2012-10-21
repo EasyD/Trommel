@@ -3,12 +3,14 @@
  */
 package org.trommel.trommel.mapreduce;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PushbackReader;
 
 import org.apache.hadoop.filecache.DistributedCache;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.log4j.Level;
@@ -23,7 +25,7 @@ import org.trommel.trommel.scripting.parser.Parser;
  * Trommel's {@link org.apache.hadoop.mapreduce.Reducer} class that is invoked from the Trommel command line.
  */
 public class TrommelReducer 
-	extends Reducer<Text, Text, Text, Text>
+	extends Reducer<Text, Text, NullWritable, Text>
 {
 	//
 	//	Class constants (e.g., strings used in more than one place in the code)
@@ -70,7 +72,7 @@ public class TrommelReducer
 		// Print a header line once per Reduce instance
 		if (!headerPrinted)
 		{
-			context.write(new Text(""), new Text(controller.getHeader()));
+			context.write(NullWritable.get(), new Text(controller.getHeader()));
 		}
 		
 		// Process all the records for the current key (i.e., field name)
@@ -79,7 +81,7 @@ public class TrommelReducer
 			controller.handleReduceRecord(value.toString());
 		}
 		
-		context.write(key, new Text(controller.getFormattedResults()));
+		context.write(NullWritable.get(), new Text(String.format("%1$s\t%2$s", tempKey, controller.getFormattedResults())));
 	}
 	
 	//
@@ -130,7 +132,7 @@ public class TrommelReducer
 	                                      localFilePaths[0].getName()));
 			}
 			
-			Lexer lexer = new Lexer(new PushbackReader(new FileReader(trommelScript), 4096));
+			Lexer lexer = new Lexer(new PushbackReader(new BufferedReader(new FileReader(trommelScript)), 4096));
 			Parser parser = new Parser(lexer);
 			Start ast = parser.parse();
 			

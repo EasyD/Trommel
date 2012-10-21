@@ -20,12 +20,12 @@ public final class AProfileDataStatement extends PProfileDataStatement
     }
 
     public AProfileDataStatement(
-        @SuppressWarnings("hiding") TProfile _profile_,
-        @SuppressWarnings("hiding") PProfiledFields _profiledFields_,
-        @SuppressWarnings("hiding") TWith _with_,
-        @SuppressWarnings("hiding") PProfilers _profilers_,
-        @SuppressWarnings("hiding") PStorage _storage_,
-        @SuppressWarnings("hiding") TSemicolon _semicolon_)
+        TProfile _profile_,
+        PProfiledFields _profiledFields_,
+        TWith _with_,
+        PProfilers _profilers_,
+        PStorage _storage_,
+        TSemicolon _semicolon_)
     {
         // Constructor
         setProfile(_profile_);
@@ -222,7 +222,7 @@ public final class AProfileDataStatement extends PProfileDataStatement
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._profile_ == child)
@@ -265,7 +265,7 @@ public final class AProfileDataStatement extends PProfileDataStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._profile_ == oldChild)

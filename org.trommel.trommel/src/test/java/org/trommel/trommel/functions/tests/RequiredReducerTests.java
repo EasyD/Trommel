@@ -22,6 +22,7 @@ import org.trommel.trommel.functions.VariabilityReducer;
 //
 //	Unit tests for the org.trommel.trommel.functions.RequiredReducer class
 //
+@SuppressWarnings("unused")
 public class RequiredReducerTests 
 {
 	//
@@ -70,14 +71,14 @@ public class RequiredReducerTests
 	public void testConstructorOK() 
 	{
 		ConfidenceReducer con = Mockito.mock(ConfidenceReducer.class);
-		@SuppressWarnings("unused")
+		
 		RequiredReducer req = new RequiredReducer(logger, con);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullParm() 
 	{
-		@SuppressWarnings("unused")
+		
 		RequiredReducer req = new RequiredReducer(logger, null);
 	}
 	

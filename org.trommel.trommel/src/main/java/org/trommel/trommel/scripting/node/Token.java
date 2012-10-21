@@ -14,7 +14,7 @@ public abstract class Token extends Node
         return this.text;
     }
 
-    public void setText(@SuppressWarnings("hiding") String text)
+    public void setText(String text)
     {
         this.text = text;
     }
@@ -24,7 +24,7 @@ public abstract class Token extends Node
         return this.line;
     }
 
-    public void setLine(@SuppressWarnings("hiding") int line)
+    public void setLine(int line)
     {
         this.line = line;
     }
@@ -34,7 +34,7 @@ public abstract class Token extends Node
         return this.pos;
     }
 
-    public void setPos(@SuppressWarnings("hiding") int pos)
+    public void setPos(int pos)
     {
         this.pos = pos;
     }
@@ -46,13 +46,13 @@ public abstract class Token extends Node
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         throw new RuntimeException("Not a child.");
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         throw new RuntimeException("Not a child.");
     }

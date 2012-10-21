@@ -16,6 +16,7 @@ import org.trommel.trommel.functions.MaxMapper;
 //
 //	Unit tests for the org.trommel.trommel.OutputSet class
 //
+@SuppressWarnings("unused")
 public class RecordHandlerTests 
 {	
 	//
@@ -47,14 +48,14 @@ public class RecordHandlerTests
 	public void testConstructorOK()
 	{
 		Logger logger = Mockito.mock(Logger.class);
-		@SuppressWarnings("unused")
+		
 		RecordHandler recordHandler = new MaxMapper(logger, fields);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger()
 	{
-		@SuppressWarnings("unused")
+		
 		RecordHandler recordHandler = new MaxMapper(null, fields);
 	}
 }

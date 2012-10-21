@@ -16,10 +16,9 @@ public final class ADefaultParenLinearity extends PLinearity
         // Constructor
     }
 
-    public ADefaultParenLinearity(
-        @SuppressWarnings("hiding") TLin _lin_,
-        @SuppressWarnings("hiding") TLeftParen _leftParen_,
-        @SuppressWarnings("hiding") TRightParen _rightParen_)
+    public ADefaultParenLinearity(TLin _lin_,
+        						  TLeftParen _leftParen_,
+                                  TRightParen _rightParen_)
     {
         // Constructor
         setLin(_lin_);
@@ -129,7 +128,7 @@ public final class ADefaultParenLinearity extends PLinearity
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._lin_ == child)
@@ -154,7 +153,7 @@ public final class ADefaultParenLinearity extends PLinearity
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._lin_ == oldChild)

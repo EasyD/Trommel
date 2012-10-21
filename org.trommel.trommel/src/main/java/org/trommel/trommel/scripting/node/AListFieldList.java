@@ -16,10 +16,9 @@ public final class AListFieldList extends PFieldList
         // Constructor
     }
 
-    public AListFieldList(
-        @SuppressWarnings("hiding") PFieldList _fieldList_,
-        @SuppressWarnings("hiding") TComma _comma_,
-        @SuppressWarnings("hiding") PField _field_)
+    public AListFieldList(PFieldList _fieldList_,
+                          TComma _comma_,
+                          PField _field_)
     {
         // Constructor
         setFieldList(_fieldList_);
@@ -129,7 +128,7 @@ public final class AListFieldList extends PFieldList
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild(Node child)
     {
         // Remove child
         if(this._fieldList_ == child)
@@ -154,7 +153,7 @@ public final class AListFieldList extends PFieldList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild(Node oldChild, Node newChild)
     {
         // Replace child
         if(this._fieldList_ == oldChild)

@@ -16,8 +16,8 @@ public final class AAllBuiltinProfilers extends PProfilers
     }
 
     public AAllBuiltinProfilers(
-        @SuppressWarnings("hiding") TAll _all_,
-        @SuppressWarnings("hiding") TBuiltin _builtin_)
+        TAll _all_,
+        TBuiltin _builtin_)
     {
         // Constructor
         setAll(_all_);
@@ -98,7 +98,7 @@ public final class AAllBuiltinProfilers extends PProfilers
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._all_ == child)
@@ -117,7 +117,7 @@ public final class AAllBuiltinProfilers extends PProfilers
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._all_ == oldChild)

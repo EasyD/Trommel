@@ -84,6 +84,7 @@ public class DistinctMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		
 		@SuppressWarnings("unused")
 		DistinctMapper distinct = new DistinctMapper(logger, fields);	
 	}
@@ -100,6 +101,7 @@ public class DistinctMapperTests
 	public void testHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();

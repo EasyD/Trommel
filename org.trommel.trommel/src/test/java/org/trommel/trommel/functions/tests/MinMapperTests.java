@@ -84,6 +84,7 @@ public class MinMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		
 		@SuppressWarnings("unused")
 		MinMapper min = new MinMapper(logger, fields);	
 	}
@@ -100,6 +101,7 @@ public class MinMapperTests
 	public void testHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();

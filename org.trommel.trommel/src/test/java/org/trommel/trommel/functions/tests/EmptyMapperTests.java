@@ -84,6 +84,7 @@ public class EmptyMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		
 		@SuppressWarnings("unused")
 		EmptyMapper empty = new EmptyMapper(logger, fields);	
 	}
@@ -101,6 +102,7 @@ public class EmptyMapperTests
 	public void testHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();

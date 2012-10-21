@@ -19,6 +19,7 @@ import org.trommel.trommel.OutputSet;
 //
 //	Unit tests for the org.trommel.trommel.OutputSet class
 //
+@SuppressWarnings("unused")
 public class OutputSetTests 
 {
 	//
@@ -38,7 +39,7 @@ public class OutputSetTests
 	@Test
 	public void testConstructorTwoParamsOK() 
 	{
-		@SuppressWarnings("unused")
+		
 		OutputSet outputSet = new OutputSet(FIELD_NAMES, DELIMITER);
 	}
 
@@ -46,7 +47,7 @@ public class OutputSetTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullArray() 
 	{
-		@SuppressWarnings("unused")
+		
 		OutputSet outputSet = new OutputSet(null, DELIMITER);
 	}
 
@@ -55,7 +56,7 @@ public class OutputSetTests
 	{
 		String[] array = { };
 		
-		@SuppressWarnings("unused")
+		
 		OutputSet outputSet = new OutputSet(array, DELIMITER);
 	}
 
@@ -64,14 +65,14 @@ public class OutputSetTests
 	{
 		String[] array = { " " };
 		
-		@SuppressWarnings("unused")
+		
 		OutputSet outputSet = new OutputSet(array, DELIMITER);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullDelimiter() 
 	{
-		@SuppressWarnings("unused")
+		
 		OutputSet outputSet = new OutputSet(FIELD_NAMES, null);
 	}
 
@@ -114,6 +115,7 @@ public class OutputSetTests
 	public void testSerialize() 
 		throws IllegalArgumentException, InterruptedException, IOException
 	{
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		OutputSet outputSet = newOutputSet();

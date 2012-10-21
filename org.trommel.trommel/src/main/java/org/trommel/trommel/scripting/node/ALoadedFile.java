@@ -15,7 +15,7 @@ public final class ALoadedFile extends PLoadedFile
     }
 
     public ALoadedFile(
-        @SuppressWarnings("hiding") TQuotedString _quotedString_)
+        TQuotedString _quotedString_)
     {
         // Constructor
         setQuotedString(_quotedString_);
@@ -67,7 +67,7 @@ public final class ALoadedFile extends PLoadedFile
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._quotedString_ == child)
@@ -80,7 +80,7 @@ public final class ALoadedFile extends PLoadedFile
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._quotedString_ == oldChild)

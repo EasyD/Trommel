@@ -46,7 +46,7 @@ public class FrequencyCounts
 	}
 	
 	/**
-	 * Serialize all the field value frequencies to a standard format suitable for writing as a file.
+	 * Serialize all the field value frequencies to a standard format suitable for writing as a file during the Reduce phase of processing.
 	 * Example format:<br>
 	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Field1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23<br>
 	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Field1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;47<br>
@@ -60,6 +60,17 @@ public class FrequencyCounts
 		StringBuffer buffer = new StringBuffer();
 		Iterator<String> keys = frequencyCounts.keySet().iterator();
 
+		// Due to Reduce phase formatting, treat the first row special
+		if (keys.hasNext())
+		{
+			String value = keys.next();
+			
+			buffer.append(value);
+			buffer.append("\t");
+			buffer.append(frequencyCounts.get(value).toString());
+			buffer.append("\n");			
+		}
+		
 		while(keys.hasNext())
 		{
 			String value = keys.next();

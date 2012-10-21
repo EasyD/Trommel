@@ -16,12 +16,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.trommel.trommel.controllers.ReduceProfileController;
 import org.trommel.trommel.controllers.ReduceReportController;
-import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 import org.trommel.trommel.scripting.interpreters.ReduceInterpreter;
 import org.trommel.trommel.scripting.lexer.Lexer;
 import org.trommel.trommel.scripting.lexer.LexerException;
 import org.trommel.trommel.scripting.node.AAllBuiltinProfilers;
-import org.trommel.trommel.scripting.node.ACustomFieldsTerminatedBy;
 import org.trommel.trommel.scripting.node.ADefaultConfidence;
 import org.trommel.trommel.scripting.node.ADefaultLinearity;
 import org.trommel.trommel.scripting.node.ADefaultParenConfidence;
@@ -35,7 +33,6 @@ import org.trommel.trommel.scripting.node.AParmConfidence;
 import org.trommel.trommel.scripting.node.AParmLinearity;
 import org.trommel.trommel.scripting.node.AProfiledField;
 import org.trommel.trommel.scripting.node.AReportDataStatement;
-import org.trommel.trommel.scripting.node.AReportedField;
 import org.trommel.trommel.scripting.node.AReqFunction;
 import org.trommel.trommel.scripting.node.AVarFunction;
 import org.trommel.trommel.scripting.node.Start;
@@ -46,7 +43,7 @@ import org.trommel.trommel.scripting.parser.ParserException;
 //
 //	Unit tests for the org.trommel.trommel.mapreduce.interpreters.ReduceInterpreter class
 //
-@SuppressWarnings("unused")
+
 public class ReduceInterpreterTests 
 {
 	//
@@ -75,6 +72,7 @@ public class ReduceInterpreterTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger()
 	{
+		@SuppressWarnings("unused")
 		ReduceInterpreter interpreter = new ReduceInterpreter(null);
 	}
 	

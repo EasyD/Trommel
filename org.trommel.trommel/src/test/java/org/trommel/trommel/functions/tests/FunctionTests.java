@@ -15,6 +15,7 @@ import org.trommel.trommel.functions.MaxMapper;
 //
 //	Unit tests for the org.trommel.trommel.functions.Function class
 //
+@SuppressWarnings("unused")
 public class FunctionTests 
 {
 	//
@@ -31,7 +32,7 @@ public class FunctionTests
 		fields[1] = new Field("Bar", FieldType.numeric);
 		fields[2] = new Field("FooBar", FieldType.numeric);
 
-		@SuppressWarnings("unused")
+		
 		Function function = new MaxMapper(logger, fields);
 	}
 
@@ -39,7 +40,7 @@ public class FunctionTests
 	public void testConstructorNullArray() 
 	{
 		Logger logger = Mockito.mock(Logger.class);
-		@SuppressWarnings("unused")
+		
 		Function function = new MaxMapper(logger, null);
 	}
 	
@@ -47,7 +48,7 @@ public class FunctionTests
 	public void testConstructorEmptyArray() 
 	{
 		Logger logger = Mockito.mock(Logger.class);
-		@SuppressWarnings("unused")
+		
 		Function function = new MaxMapper(logger, new Field[0]);
 	}
 	
@@ -60,7 +61,7 @@ public class FunctionTests
 		fields[0] = new Field("Foo", FieldType.numeric);
 		fields[2] = new Field("FooBar", FieldType.numeric);
 
-		@SuppressWarnings("unused")
+		
 		Function function = new MaxMapper(logger, fields);
 	}
 	
@@ -75,7 +76,7 @@ public class FunctionTests
 		fields[2] = new Field(" \t", FieldType.numeric);
 		fields[3] = new Field("FooBar", FieldType.numeric);
 
-		@SuppressWarnings("unused")
+		
 		Function function = new MaxMapper(logger, fields);
 	}
 }

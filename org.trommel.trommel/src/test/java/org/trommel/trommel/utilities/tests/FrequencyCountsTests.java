@@ -42,7 +42,7 @@ public class FrequencyCountsTests
 		FrequencyCounts frequencyCount = new FrequencyCounts();
 		String line1 = FIELD1 + "\t" + FIELD1_VALUE1 + "\t" + FIELD1_VALUE1_COUNT + "\n";
 		String line2 = FIELD1 + "\t" + FIELD1_VALUE2 + "\t" + FIELD1_VALUE2_COUNT + "\n";
-		String line3 = FIELD1 + "\t" + FIELD1_VALUE3 + "\t" + FIELD1_VALUE3_COUNT + "\n";
+		String line3 = FIELD1_VALUE3 + "\t" + FIELD1_VALUE3_COUNT + "\n";
 
 		// Increment for value 1
 		for (int i = 0; i < FIELD1_VALUE1_COUNT; ++i) {

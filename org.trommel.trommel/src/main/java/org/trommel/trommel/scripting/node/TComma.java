@@ -31,7 +31,7 @@ public final class TComma extends Token
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
+    public void setText( String text)
     {
         throw new RuntimeException("Cannot change TComma text.");
     }

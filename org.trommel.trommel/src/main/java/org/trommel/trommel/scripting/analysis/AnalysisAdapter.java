@@ -504,7 +504,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void defaultCase(@SuppressWarnings("unused") Node node)
+    public void defaultCase( Node node)
     {
         // do nothing
     }

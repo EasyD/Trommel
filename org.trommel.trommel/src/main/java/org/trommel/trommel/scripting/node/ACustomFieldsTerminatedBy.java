@@ -19,11 +19,11 @@ public final class ACustomFieldsTerminatedBy extends PFieldsTerminatedBy
     }
 
     public ACustomFieldsTerminatedBy(
-        @SuppressWarnings("hiding") TFields _fields_,
-        @SuppressWarnings("hiding") TTerminated _terminated_,
-        @SuppressWarnings("hiding") TBy _by_,
-        @SuppressWarnings("hiding") PFieldTerminator _fieldTerminator_,
-        @SuppressWarnings("hiding") TSemicolon _semicolon_)
+        TFields _fields_,
+        TTerminated _terminated_,
+        TBy _by_,
+        PFieldTerminator _fieldTerminator_,
+        TSemicolon _semicolon_)
     {
         // Constructor
         setFields(_fields_);
@@ -191,7 +191,7 @@ public final class ACustomFieldsTerminatedBy extends PFieldsTerminatedBy
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._fields_ == child)
@@ -228,7 +228,7 @@ public final class ACustomFieldsTerminatedBy extends PFieldsTerminatedBy
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._fields_ == oldChild)

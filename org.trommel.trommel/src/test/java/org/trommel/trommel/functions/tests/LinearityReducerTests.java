@@ -59,6 +59,7 @@ public class LinearityReducerTests
 	@Test
 	public void testConstructorOK()
 	{
+		
 		@SuppressWarnings("unused")
 		LinearityReducer lin = new LinearityReducer(logger, FieldType.numeric);			
 	}

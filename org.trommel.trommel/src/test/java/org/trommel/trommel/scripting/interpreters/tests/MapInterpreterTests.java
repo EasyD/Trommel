@@ -38,7 +38,7 @@ import org.trommel.trommel.scripting.parser.ParserException;
 //
 //	Unit tests for the org.trommel.trommel.mapreduce.interpreters.MapInterpreter class
 //
-@SuppressWarnings("unused")
+
 public class MapInterpreterTests 
 {
 	//
@@ -67,6 +67,7 @@ public class MapInterpreterTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger()
 	{
+		@SuppressWarnings("unused")
 		MapInterpreter interpreter = new MapInterpreter(null);
 	}
 	
@@ -190,7 +191,7 @@ public class MapInterpreterTests
 		
 		ast.apply(interpreter);	
 		
-		// Verify all lin function with no parentheses
+		// Verify all lin function with default parentheses
 		Mockito.verify(interpreter).outADefaultParenLinearity(Mockito.any(ADefaultParenLinearity.class));
 
 		// Verify RecordParser and MapInterpreter were constructed

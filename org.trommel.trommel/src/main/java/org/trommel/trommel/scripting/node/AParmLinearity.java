@@ -18,10 +18,10 @@ public final class AParmLinearity extends PLinearity
     }
 
     public AParmLinearity(
-        @SuppressWarnings("hiding") TLin _lin_,
-        @SuppressWarnings("hiding") TLeftParen _leftParen_,
-        @SuppressWarnings("hiding") TInteger _integer_,
-        @SuppressWarnings("hiding") TRightParen _rightParen_)
+        TLin _lin_,
+        TLeftParen _leftParen_,
+        TInteger _integer_,
+        TRightParen _rightParen_)
     {
         // Constructor
         setLin(_lin_);
@@ -160,7 +160,7 @@ public final class AParmLinearity extends PLinearity
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._lin_ == child)
@@ -191,7 +191,7 @@ public final class AParmLinearity extends PLinearity
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._lin_ == oldChild)

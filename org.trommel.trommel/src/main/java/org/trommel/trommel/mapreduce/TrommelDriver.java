@@ -3,6 +3,7 @@
  */
 package org.trommel.trommel.mapreduce;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PushbackReader;
@@ -24,9 +25,11 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.trommel.trommel.commandline.ArgumentInterpreter;
 import org.trommel.trommel.scripting.interpreters.FrontEndInterpreter;
+import org.trommel.trommel.scripting.interpreters.ValidationInterpreter;
 import org.trommel.trommel.scripting.lexer.Lexer;
 import org.trommel.trommel.scripting.node.Start;
 import org.trommel.trommel.scripting.parser.Parser;
+import org.trommel.trommel.scripting.parser.ParserException;
 
 
 /**
@@ -38,7 +41,7 @@ public class TrommelDriver
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String LOGGING_LEVEL_CONFIG_PROP = "TrommelLogLevel";
-	private static final String SCRIPT_CONFIG_PROP = "TrommelScript";
+	private static final String DEFAULT_HDFS_PATH = "/tmp/Trommel";
 
 	//
 	//	Private members
@@ -114,14 +117,52 @@ public class TrommelDriver
 	private static void executeValidation(String trommelScriptFilePath)
 	{
 		// Provide syntax/semantic checking for the trommel script
-		// TODO - Implement Validation logic
-		System.out.println("TrommelDriver.executeValidation() called.");
+		System.out.println(String.format("Trommel validating file %1$s ...", trommelScriptFilePath));
+		
+		try
+		{
+			Lexer lexer = new Lexer(new PushbackReader(new BufferedReader(new FileReader(trommelScriptFilePath)), 4096));
+			Parser parser = new Parser(lexer);
+
+			System.out.println("Parsing TrommelScript...");			
+			Start ast = parser.parse();
+			
+			System.out.println("Validating TrommelScript semantics...");			
+			ValidationInterpreter interpreter = new ValidationInterpreter();
+
+			ast.apply(interpreter);	
+			
+			if (interpreter.getSemanticErrors().size() == 0)
+			{
+				System.out.println("TrommelScript passed validation.");	
+				
+				return;
+			}
+			else
+			{
+				for (String errorMessage : interpreter.getSemanticErrors())
+				{
+					System.out.println(errorMessage);	
+				}
+			}
+		}
+		catch(ParserException pe)
+		{
+			System.out.println(String.format("Error in TrommelScript syntax found: %1$s", pe.getMessage()));
+		}
+		catch(Exception e)
+		{
+			System.out.println(String.format("Execption encountered validating file. Exception message: %1$s", e.getMessage()));			
+		}
+		
+		System.out.println("TrommelScript failed validation.");			
 	}
 	
 	private static int processScript(Level logLevel, String trommelScriptFilePath) 
 		throws Exception
 	{
 		int exitCode = 0;
+		FrontEndInterpreter frontEndInterpreter = null;
 		FileSystem fileSystem = null;
 		Path cachedScript = null;
 		
@@ -129,13 +170,32 @@ public class TrommelDriver
 		
 		try
 		{
-			logger.info(String.format("Loading, parsing, and interpreting TommelScript file %1$s", trommelScriptFilePath));
-			Lexer lexer = new Lexer(new PushbackReader(new FileReader(trommelScriptFilePath), 4096));
+			logger.info(String.format("Loading and parsing TommelScript file %1$s ...", trommelScriptFilePath));
+			Lexer lexer = new Lexer(new PushbackReader(new BufferedReader(new FileReader(trommelScriptFilePath)), 4096));
 			Parser parser = new Parser(lexer);
 			Start ast = parser.parse();
-			FrontEndInterpreter interpreter = new FrontEndInterpreter(logger);
+			ValidationInterpreter validationInterpreter = new ValidationInterpreter();
 			
-			ast.apply(interpreter);	
+			logger.info(String.format("Validating TommelScript...", trommelScriptFilePath));
+			ast.apply(validationInterpreter);
+			
+			if (validationInterpreter.getSemanticErrors().size() != 0)
+			{
+				// Validation of script failed
+				logger.info(String.format("TommelScript failed validation with following errors:", trommelScriptFilePath));
+				
+				for (String errorMessage : validationInterpreter.getSemanticErrors())
+				{
+					logger.info(errorMessage);
+				}
+				
+				return exitCode;
+			}
+			
+			
+			logger.info(String.format("Interpreting TommelScript...", trommelScriptFilePath));
+			frontEndInterpreter = new FrontEndInterpreter(logger, DEFAULT_HDFS_PATH);
+			ast.apply(frontEndInterpreter);	
 			
 			logger.debug("Creating Job object");
 			Job job = new Job();
@@ -157,15 +217,25 @@ public class TrommelDriver
 			job.getConfiguration().set(LOGGING_LEVEL_CONFIG_PROP, logLevel.toString());
 
 			// Specify HDFS input/output locations
-			logger.debug(String.format("Calling FileInputFormat.addInputPath() with %1$s.", interpreter.getHdfsInputFilePath()));
-			FileInputFormat.addInputPath(job, new Path(interpreter.getHdfsInputFilePath()));
+			logger.debug(String.format("Calling FileInputFormat.addInputPath() with %1$s.", frontEndInterpreter.getHdfsInputFilePath()));
+			FileInputFormat.addInputPath(job, new Path(frontEndInterpreter.getHdfsInputFilePath()));
 	
-			logger.debug(String.format("Calling FileOutputFormat.setOutputPath() with %1$s.", interpreter.getHdfsOutputFilePath()));
-			FileOutputFormat.setOutputPath(job, new Path(interpreter.getHdfsOutputFilePath()));
+			logger.debug(String.format("Calling FileOutputFormat.setOutputPath() with %1$s.", frontEndInterpreter.getHdfsOutputFilePath()));
+			FileOutputFormat.setOutputPath(job, new Path(frontEndInterpreter.getHdfsOutputFilePath()));
 
 			// Hadoop setup
 			job.setMapperClass(TrommelMapper.class);
-			job.setReducerClass(TrommelReducer.class);
+			
+			if (frontEndInterpreter.samplingData())
+			{
+				job.setNumReduceTasks(0);
+			}
+			else
+			{
+				// TODO - Add switch for number of reducers
+				job.setNumReduceTasks(2);
+				job.setReducerClass(TrommelReducer.class);
+			}
 			
 			job.setOutputKeyClass(Text.class);			
 			job.setOutputValueClass(Text.class);
@@ -175,23 +245,24 @@ public class TrommelDriver
 			{
 				exitCode = 1;
 			}
-			else if (interpreter.getLocalFilePath() != null)
+			else if (frontEndInterpreter.getLocalFilePath() != null)
 			{		
 				// User would like data exported to local file system
 				logger.debug(String.format("Exporting Trommel output from %1$s to %2$s.", 
-						                   interpreter.getHdfsOutputFilePath(), interpreter.getLocalFilePath()));
+						                   frontEndInterpreter.getHdfsOutputFilePath(), frontEndInterpreter.getLocalFilePath()));
 				Path mergeFilePath = new Path(String.format("/tmp/%1$s", UUID.randomUUID()));
 				FSDataOutputStream mergeFileStream = fileSystem.create(mergeFilePath);
-				Path localFilePath = new Path (interpreter.getLocalFilePath());
-				FileStatus[] outputFileStatuses = fileSystem.listStatus(new Path(interpreter.getHdfsOutputFilePath()));
+				Path localFilePath = new Path (frontEndInterpreter.getLocalFilePath());
+				FileStatus[] outputFileStatuses = fileSystem.listStatus(new Path(frontEndInterpreter.getHdfsOutputFilePath()));
 				FSDataInputStream outputFileStream = null;
+				String fileNameFilter = (frontEndInterpreter.samplingData() ? "part-m" : "part-r");
 				
 				try
 				{
 					// Loop through the output, merging any reducer output file for export to local file system
 					for (FileStatus outputFileStatus : outputFileStatuses)
 					{
-						if (!outputFileStatus.isDir() && outputFileStatus.getPath().getName().contains("part-r"))
+						if (!outputFileStatus.isDir() && outputFileStatus.getPath().getName().contains(fileNameFilter))
 						{
 							logger.debug(String.format("Merging file %1$s into local file system output.", 
 									                   outputFileStatus.getPath().toString()));
@@ -224,6 +295,13 @@ public class TrommelDriver
 			{
 				if (fileSystem != null)
 				{
+					// Clean up any temp files if needed
+					if (frontEndInterpreter.getHdfsOutputFilePath().equals(DEFAULT_HDFS_PATH))
+					{
+						logger.debug(String.format("Deleting temp files from /tmp/Trommel"));
+						fileSystem.delete(new Path(DEFAULT_HDFS_PATH), true);
+					}
+					
 					// Clean up the cached file
 					logger.debug(String.format("Deleting cached TrommelScript file %1$s", cachedScript.toString()));
 					fileSystem.delete(cachedScript, true);

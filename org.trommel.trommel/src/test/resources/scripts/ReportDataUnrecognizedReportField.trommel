@@ -1,0 +1,8 @@
+//
+// ReportDataUnrecognizedReportField.trommel
+//
+load DATA '/usr/local/FooBar' as (Field1:numeric, Field2: CATEGORICAL,Field3 : categorical)
+FIELDS terminated BY '\t';
+
+REPORT data FOR Field1, Field2, FooBar
+EXPORT to 'Foo' AS 'Bar' STORE into 'Hello';

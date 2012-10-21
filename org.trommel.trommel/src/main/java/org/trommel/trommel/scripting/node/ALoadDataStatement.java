@@ -20,12 +20,12 @@ public final class ALoadDataStatement extends PLoadDataStatement
     }
 
     public ALoadDataStatement(
-        @SuppressWarnings("hiding") TLoad _load_,
-        @SuppressWarnings("hiding") TData _data_,
-        @SuppressWarnings("hiding") PLoadedFile _loadedFile_,
-        @SuppressWarnings("hiding") TAs _as_,
-        @SuppressWarnings("hiding") PLoadedFields _loadedFields_,
-        @SuppressWarnings("hiding") PFieldsTerminatedBy _fieldsTerminatedBy_)
+        TLoad _load_,
+        TData _data_,
+        PLoadedFile _loadedFile_,
+        TAs _as_,
+        PLoadedFields _loadedFields_,
+        PFieldsTerminatedBy _fieldsTerminatedBy_)
     {
         // Constructor
         setLoad(_load_);
@@ -222,7 +222,7 @@ public final class ALoadDataStatement extends PLoadDataStatement
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._load_ == child)
@@ -265,7 +265,7 @@ public final class ALoadDataStatement extends PLoadDataStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._load_ == oldChild)

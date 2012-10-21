@@ -14,8 +14,7 @@ public final class ADefaultConfidence extends PConfidence
         // Constructor
     }
 
-    public ADefaultConfidence(
-        @SuppressWarnings("hiding") TConf _conf_)
+    public ADefaultConfidence(TConf _conf_)
     {
         // Constructor
         setConf(_conf_);
@@ -67,7 +66,7 @@ public final class ADefaultConfidence extends PConfidence
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._conf_ == child)
@@ -80,7 +79,7 @@ public final class ADefaultConfidence extends PConfidence
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._conf_ == oldChild)

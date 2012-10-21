@@ -11,12 +11,12 @@ import java.io.DataInputStream;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
-@SuppressWarnings("nls")
+@SuppressWarnings({"nls", "rawtypes", "unchecked"})
 public class Parser
 {
     public final Analysis ignoredTokens = new AnalysisAdapter();
 
-    protected ArrayList nodeList;
+	protected ArrayList nodeList;
 
     private final Lexer lexer;
     private final ListIterator stack = new LinkedList().listIterator();
@@ -31,7 +31,7 @@ public class Parser
     private final static int ACCEPT = 2;
     private final static int ERROR = 3;
 
-    public Parser(@SuppressWarnings("hiding") Lexer lexer)
+    public Parser(Lexer lexer)
     {
         this.lexer = lexer;
     }
@@ -109,7 +109,7 @@ public class Parser
         return this.converter.index;
     }
 
-    @SuppressWarnings("unchecked")
+    
     public Start parse() throws ParserException, LexerException, IOException
     {
         push(0, null, true);
@@ -476,13 +476,13 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new0() /* reduce AProfileDataTrommelScript */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
@@ -499,13 +499,13 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new1() /* reduce AReportDataTrommelScript */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
@@ -522,13 +522,13 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new2() /* reduce ASampleDataTrommelScript */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
@@ -545,17 +545,17 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new3() /* reduce ALoadDataStatement */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList6 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLoadDataStatement ploaddatastatementNode1;
         {
             // Block
@@ -580,12 +580,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new4() /* reduce ALoadedFile */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLoadedFile ploadedfileNode1;
         {
             // Block
@@ -600,14 +600,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new5() /* reduce ALoadedFields */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLoadedFields ploadedfieldsNode1;
         {
             // Block
@@ -626,12 +626,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new6() /* reduce ASingleFieldList */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldList pfieldlistNode1;
         {
             // Block
@@ -646,14 +646,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new7() /* reduce AListFieldList */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldList pfieldlistNode1;
         {
             // Block
@@ -672,14 +672,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new8() /* reduce AField */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PField pfieldNode1;
         {
             // Block
@@ -698,12 +698,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new9() /* reduce ADefaultFieldsTerminatedBy */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldsTerminatedBy pfieldsterminatedbyNode1;
         {
             // Block
@@ -718,16 +718,16 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new10() /* reduce ACustomFieldsTerminatedBy */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldsTerminatedBy pfieldsterminatedbyNode1;
         {
             // Block
@@ -750,12 +750,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new11() /* reduce AFieldTerminator */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldTerminator pfieldterminatorNode1;
         {
             // Block
@@ -770,17 +770,17 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new12() /* reduce AProfileDataStatement */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList6 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfileDataStatement pprofiledatastatementNode1;
         {
             // Block
@@ -805,12 +805,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new13() /* reduce ASingleProfiledFields */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfiledFields pprofiledfieldsNode1;
         {
             // Block
@@ -825,14 +825,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new14() /* reduce AListProfiledFields */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfiledFields pprofiledfieldsNode1;
         {
             // Block
@@ -851,12 +851,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new15() /* reduce AProfiledField */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfiledField pprofiledfieldNode1;
         {
             // Block
@@ -871,12 +871,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new16() /* reduce AListProfilers */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfilers pprofilersNode1;
         {
             // Block
@@ -891,13 +891,13 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new17() /* reduce AAllBuiltinProfilers */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfilers pprofilersNode1;
         {
             // Block
@@ -914,12 +914,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new18() /* reduce ASingleFunctionList */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunctionList pfunctionlistNode1;
         {
             // Block
@@ -934,14 +934,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new19() /* reduce AListFunctionList */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunctionList pfunctionlistNode1;
         {
             // Block
@@ -960,12 +960,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new20() /* reduce AMaxFunction */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -980,12 +980,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new21() /* reduce AMinFunction */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1000,12 +1000,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new22() /* reduce ADistinctFunction */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1020,12 +1020,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new23() /* reduce AEmptyFunction */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1040,12 +1040,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new24() /* reduce AReqFunction */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1060,12 +1060,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new25() /* reduce AVarFunction */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1080,12 +1080,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new26() /* reduce ALinFunction */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1100,12 +1100,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new27() /* reduce AConfFunction */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1120,12 +1120,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new28() /* reduce ADefaultLinearity */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1140,14 +1140,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new29() /* reduce ADefaultParenLinearity */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1166,15 +1166,15 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new30() /* reduce AParmLinearity */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1195,12 +1195,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new31() /* reduce ADefaultConfidence */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1215,14 +1215,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new32() /* reduce ADefaultParenConfidence */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1241,15 +1241,15 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new33() /* reduce AParmConfidence */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1270,17 +1270,17 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new34() /* reduce AReportDataStatement */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList6 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PReportDataStatement preportdatastatementNode1;
         {
             // Block
@@ -1305,12 +1305,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new35() /* reduce ASingleReportedFields */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PReportedFields preportedfieldsNode1;
         {
             // Block
@@ -1325,14 +1325,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new36() /* reduce AListReportedFields */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PReportedFields preportedfieldsNode1;
         {
             // Block
@@ -1351,12 +1351,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new37() /* reduce AReportedField */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PReportedField preportedfieldNode1;
         {
             // Block
@@ -1371,17 +1371,17 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new38() /* reduce ASampleDataStatement */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList6 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PSampleDataStatement psampledatastatementNode1;
         {
             // Block
@@ -1406,13 +1406,13 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new39() /* reduce ASampleRate */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PSampleRate psamplerateNode1;
         {
             // Block
@@ -1429,14 +1429,14 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new40() /* reduce AStoreStorage */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1455,16 +1455,16 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new41() /* reduce AExportStorage */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1487,19 +1487,19 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new42() /* reduce AStoreExportStorage */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList8 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList7 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList6 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList8 = pop();
+         ArrayList nodeArrayList7 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1528,19 +1528,19 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new43() /* reduce AExportStoreStorage */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList8 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList7 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList6 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList8 = pop();
+         ArrayList nodeArrayList7 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1569,12 +1569,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new44() /* reduce AHdfsFilePath */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PHdfsFilePath phdfsfilepathNode1;
         {
             // Block
@@ -1589,12 +1589,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new45() /* reduce ALocalFilePath */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLocalFilePath plocalfilepathNode1;
         {
             // Block
@@ -1609,12 +1609,12 @@ public class Parser
 
 
 
-    @SuppressWarnings("unchecked")
+    
     ArrayList new46() /* reduce ALocalFile */
     {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+        ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLocalFile plocalfileNode1;
         {
             // Block

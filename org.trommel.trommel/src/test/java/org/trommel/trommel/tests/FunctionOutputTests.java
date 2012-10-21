@@ -12,6 +12,7 @@ import org.trommel.trommel.FunctionOutput;
 //
 //	Unit tests for the org.trommel.trommel.FunctionOutput class
 //
+@SuppressWarnings("unused")
 public class FunctionOutputTests 
 {
 	//
@@ -28,21 +29,21 @@ public class FunctionOutputTests
 	@Test
 	public void testConstructorOK() 
 	{
-		@SuppressWarnings("unused")
+		
 		FunctionOutput output = new FunctionOutput(HANDLER_NAME, OUTPUT);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorEmptyFunctionName() 
 	{
-		@SuppressWarnings("unused")
+		
 		FunctionOutput output = new FunctionOutput("", OUTPUT);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullOutput() 
 	{
-		@SuppressWarnings("unused")
+		
 		FunctionOutput output = new FunctionOutput(HANDLER_NAME, null);
 	}
 

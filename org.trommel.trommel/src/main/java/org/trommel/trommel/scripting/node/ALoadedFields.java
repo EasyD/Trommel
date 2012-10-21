@@ -17,9 +17,9 @@ public final class ALoadedFields extends PLoadedFields
     }
 
     public ALoadedFields(
-        @SuppressWarnings("hiding") TLeftParen _leftParen_,
-        @SuppressWarnings("hiding") PFieldList _fieldList_,
-        @SuppressWarnings("hiding") TRightParen _rightParen_)
+        TLeftParen _leftParen_,
+        PFieldList _fieldList_,
+        TRightParen _rightParen_)
     {
         // Constructor
         setLeftParen(_leftParen_);
@@ -129,7 +129,7 @@ public final class ALoadedFields extends PLoadedFields
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._leftParen_ == child)
@@ -154,7 +154,7 @@ public final class ALoadedFields extends PLoadedFields
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._leftParen_ == oldChild)

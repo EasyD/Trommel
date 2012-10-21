@@ -14,8 +14,7 @@ public final class AFieldTerminator extends PFieldTerminator
         // Constructor
     }
 
-    public AFieldTerminator(
-        @SuppressWarnings("hiding") TQuotedString _quotedString_)
+    public AFieldTerminator(TQuotedString _quotedString_)
     {
         // Constructor
         setQuotedString(_quotedString_);
@@ -67,7 +66,7 @@ public final class AFieldTerminator extends PFieldTerminator
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._quotedString_ == child)
@@ -80,7 +79,7 @@ public final class AFieldTerminator extends PFieldTerminator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._quotedString_ == oldChild)

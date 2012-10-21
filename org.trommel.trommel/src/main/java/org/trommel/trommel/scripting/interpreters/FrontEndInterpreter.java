@@ -9,6 +9,8 @@ import org.trommel.trommel.scripting.node.AHdfsFilePath;
 import org.trommel.trommel.scripting.node.ALoadDataStatement;
 import org.trommel.trommel.scripting.node.ALocalFile;
 import org.trommel.trommel.scripting.node.ALocalFilePath;
+import org.trommel.trommel.scripting.node.ASampleDataStatement;
+import org.trommel.trommel.utilities.StringUtilities;
 
 
 /**
@@ -24,8 +26,9 @@ public class FrontEndInterpreter extends DepthFirstAdapter
 	//
 
 	private Logger logger = null;
+	private boolean samplingData = false;
 	private String hdfsInputFilePath = null;
-	private String hdfsOutputFilePath = "/tmp/Trommel";
+	private String hdfsOutputFilePath = null;
 	private String localFilePath = null;
 	private String localFileName = null;
 	
@@ -77,9 +80,12 @@ public class FrontEndInterpreter extends DepthFirstAdapter
 	/**
 	 * @param logger The {@link org.apache.log4j.Logger} instances that will be used by the MapInterpreter
 	 * to log to the Hadoop Task syslog file.
-	 * @throws IllegalArgumentException Where logger is null.
+	 * @param defaultHdfsFilePath The HDFS file path to use by default for writing Trommel output (i.e., the user has 
+	 * specified only export to the local file system in TrommelScript).
+	 * @throws IllegalArgumentException Where logger is null. Also thrown in the case defaultHdfsFilePath is null or empty.
+	 * All-whitespace strings are considered empty.
 	 */
-	public FrontEndInterpreter(Logger logger)
+	public FrontEndInterpreter(Logger logger, String defaultHdfsFilePath)
 		throws IllegalArgumentException
 	{
 		// Check illegal input
@@ -88,7 +94,13 @@ public class FrontEndInterpreter extends DepthFirstAdapter
 			throw new IllegalArgumentException("Logger cannot be null.");
 		}
 		
+		if (StringUtilities.isNullOrEmpty(defaultHdfsFilePath))
+		{
+			throw new IllegalArgumentException("DefaultHdfsFilePath cannot be null or empty.");
+		}
+		
 		this.logger = logger;
+		hdfsOutputFilePath = defaultHdfsFilePath;
 	}
 	
 	
@@ -96,6 +108,14 @@ public class FrontEndInterpreter extends DepthFirstAdapter
 	//	Public methods
 	//
 	
+	/**
+	 * @return Whether the TrommelScript specifies randomly sampling data.
+	 */
+	public boolean samplingData()
+	{
+		return samplingData;
+	}
+
 	/**
 	 * @return Whether the TrommelScript specifies writing to the local file system.
 	 */
@@ -122,7 +142,21 @@ public class FrontEndInterpreter extends DepthFirstAdapter
     }
 
 
-	//
+    //
+    // SAMPLE DATA statement methods
+    //
+	
+	/**
+	 * Override of the SableCC-generated method for post-handling the TrommelScript grammar 
+	 * "SampleDataStatement" Production. 
+	 */
+    public void outASampleDataStatement(ASampleDataStatement node)
+    {
+        samplingData = true;
+    }
+
+
+    //
 	//	STORAGE Production methods
 	//
 	

@@ -3,6 +3,7 @@
  */
 package org.trommel.trommel.mapreduce;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PushbackReader;
@@ -67,7 +68,7 @@ public class TrommelMapper
 			if (random.nextInt(10000) <= sampleRate)
 			{
 				// Record is part of sample
-				context.write(new Text("SampleData"), value);
+				context.write(new Text(""), value);
 			}
 		}
 		else
@@ -152,7 +153,7 @@ public class TrommelMapper
 	                                      localFilePaths[0].getName()));
 			}
 			
-			Lexer lexer = new Lexer(new PushbackReader(new FileReader(trommelScript), 4096));
+			Lexer lexer = new Lexer(new PushbackReader(new BufferedReader(new FileReader(trommelScript)), 4096));
 			Parser parser = new Parser(lexer);
 			Start ast = parser.parse();
 			

@@ -29,6 +29,7 @@ public class FieldInstanceTests
 	@Test
 	public void testConstructorNullFieldValueOK()
 	{
+		
 		@SuppressWarnings("unused")
 		FieldInstance fieldInstance = new FieldInstance(NAME, FieldType.categorical, null);		
 	}

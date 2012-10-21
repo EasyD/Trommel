@@ -16,8 +16,8 @@ public final class ASampleRate extends PSampleRate
     }
 
     public ASampleRate(
-        @SuppressWarnings("hiding") TInteger _integer_,
-        @SuppressWarnings("hiding") TPercent _percent_)
+        TInteger _integer_,
+        TPercent _percent_)
     {
         // Constructor
         setInteger(_integer_);
@@ -98,7 +98,7 @@ public final class ASampleRate extends PSampleRate
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._integer_ == child)
@@ -117,7 +117,7 @@ public final class ASampleRate extends PSampleRate
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._integer_ == oldChild)

@@ -5,8 +5,6 @@ package org.trommel.trommel.reporting.tests;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
-
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,7 @@ import org.trommel.trommel.reporting.DataReporterReducer;
 //
 //	Unit tests for the org.trommel.trommel.reporting.DataReporterReducer class
 //
-@SuppressWarnings("unused")
+
 public class DataReporterReducerTests 
 {
 	//
@@ -52,6 +50,7 @@ public class DataReporterReducerTests
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNullField() 
 	{
+		@SuppressWarnings("unused")
 		DataReporterReducer reporter = new DataReporterReducer(logger, null);
 	}
 		
@@ -67,7 +66,7 @@ public class DataReporterReducerTests
 	public void testGetReduceResult() 
 	{
 		DataReporterReducer reporter = new DataReporterReducer(logger, FIELD1);
-		String line1 = FIELD1 + "\t" + FIELD1_VALUE1 + "\t3\n";
+		String line1 = FIELD1_VALUE1 + "\t3\n";
 		
 		reporter.handleReduceRecord(FIELD1_VALUE1);
 		reporter.handleReduceRecord(FIELD1_VALUE1);

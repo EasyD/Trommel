@@ -2,7 +2,6 @@
 
 package org.trommel.trommel.scripting.analysis;
 
-import java.util.*;
 import org.trommel.trommel.scripting.node.*;
 
 public class ReversedDepthFirstAdapter extends AnalysisAdapter
@@ -17,12 +16,12 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         defaultOut(node);
     }
 
-    public void defaultIn(@SuppressWarnings("unused") Node node)
+    public void defaultIn( Node node)
     {
         // Do nothing
     }
 
-    public void defaultOut(@SuppressWarnings("unused") Node node)
+    public void defaultOut( Node node)
     {
         // Do nothing
     }

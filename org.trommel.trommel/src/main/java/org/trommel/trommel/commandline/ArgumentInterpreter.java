@@ -26,7 +26,7 @@ public class ArgumentInterpreter
 	//
 
 	/**
-	 * @return The {@link org.apache.log4j.lf5.LogLevel} to use for Trommel execution.
+	 * @return The {@link org.apache.log4j.Level} to use for Trommel execution.
 	 */
 	public Level getLoggingLevel()
 	{

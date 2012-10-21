@@ -22,6 +22,7 @@ import org.trommel.trommel.scripting.interpreters.MapInterpreter;
 //
 //	Unit tests for the org.trommel.trommel.MapRecord class
 //
+@SuppressWarnings("unused")
 public class MapRecordTests 
 {
 	//
@@ -42,14 +43,14 @@ public class MapRecordTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNulLFieldsArray()
 	{
-		@SuppressWarnings("unused")
+		
 		MapRecord record = new MapRecord(null, MapInterpreter.DELIMITER);
 	}
 		
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorEmptyFieldsArray()
 	{
-		@SuppressWarnings("unused")
+		
 		MapRecord record = new MapRecord(new FieldInstance[0], MapInterpreter.DELIMITER);
 	}
 
@@ -60,7 +61,7 @@ public class MapRecordTests
 		
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical);
 		
-		@SuppressWarnings("unused")
+		
 		MapRecord record = new MapRecord(fieldInstances, " ");
 	}
 	
@@ -71,7 +72,7 @@ public class MapRecordTests
 		
 		fieldInstances[0] = new FieldInstance(FIELD1, FieldType.categorical);
 		
-		@SuppressWarnings("unused")
+		
 		MapRecord record = new MapRecord(fieldInstances, MapInterpreter.DELIMITER);
 	}
 
@@ -89,6 +90,7 @@ public class MapRecordTests
 		throws IllegalArgumentException, IOException, InterruptedException
 	{
 		// Place holder as Record delegates to contained OutputSet instance
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord record = newRecord();

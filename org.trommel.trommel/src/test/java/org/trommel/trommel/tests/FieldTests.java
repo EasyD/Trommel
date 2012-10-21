@@ -13,6 +13,7 @@ import org.trommel.trommel.FieldType;
 //
 //	Unit tests for the org.trommel.trommel.Field class
 //
+@SuppressWarnings("unused")
 public class FieldTests 
 {
 	//
@@ -28,14 +29,14 @@ public class FieldTests
 	@Test
 	public void testContructorOK() 
 	{
-		@SuppressWarnings("unused")
+		
 		Field field = new Field(NAME, FieldType.categorical);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullFieldName() 
 	{
-		@SuppressWarnings("unused")
+		
 		Field field = new Field(null, FieldType.categorical);
 	}
 	

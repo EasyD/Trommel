@@ -1,0 +1,8 @@
+//
+// ProfileDataDuplicateLoadDataFields.trommel
+//
+load DATA '/usr/local/FooBar' as (Field1:numeric, Field2: CATEGORICAL,Field3 : categorical, Field2:NUMERIC, FIELD1:numeric)
+FIELDS terminated BY '\t';
+
+PROFILE Field1, Field2, Field3 WITH min(), max, EMPTY(), VAR(), distinct, lin(100), CONF(80)
+store INTO 'Foo' EXPORT to 'Hello' AS 'World';

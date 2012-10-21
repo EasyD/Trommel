@@ -79,6 +79,7 @@ public class MaxMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
+		
 		@SuppressWarnings("unused")
 		MaxMapper max = new MaxMapper(logger, fields);	
 	}
@@ -95,6 +96,7 @@ public class MaxMapperTests
 	public void testHandleMapRecord() 
 		throws IOException, InterruptedException
 	{
+		
 		@SuppressWarnings("unchecked")
 		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
 		MapRecord[] records = mapRecords();
