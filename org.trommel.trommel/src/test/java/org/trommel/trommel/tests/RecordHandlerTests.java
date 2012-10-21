@@ -55,7 +55,6 @@ public class RecordHandlerTests
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger()
 	{
-		
 		RecordHandler recordHandler = new MaxMapper(null, fields);
 	}
 }

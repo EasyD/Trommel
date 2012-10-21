@@ -222,7 +222,7 @@ public final class AProfileDataStatement extends PProfileDataStatement
     }
 
     @Override
-    void removeChild(Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._profile_ == child)
@@ -265,7 +265,7 @@ public final class AProfileDataStatement extends PProfileDataStatement
     }
 
     @Override
-    void replaceChild(Node oldChild, Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._profile_ == oldChild)

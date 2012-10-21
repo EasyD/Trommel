@@ -129,7 +129,7 @@ public final class AField extends PField
     }
 
     @Override
-    void removeChild(Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._identifier_ == child)
@@ -154,7 +154,7 @@ public final class AField extends PField
     }
 
     @Override
-    void replaceChild(Node oldChild, Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._identifier_ == oldChild)

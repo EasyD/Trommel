@@ -31,7 +31,6 @@ public class ReduceProfileControllerTests
 	
 	
 	// Reduce phase fields and values values
-	private static final String FIELD1 = "Field1";
 	private static final String FIELD1_VALUE1 = "15.0";
 	private static final String FIELD1_VALUE2 = "20.0";
 	private static final String FIELD1_VALUE3 = "25.0";

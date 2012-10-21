@@ -19,6 +19,7 @@ public class ArgumentInterpreter
 	private LinkedList<String> errorMessages = new LinkedList<String>();
 	private Level loggingLevel = Level.INFO;
 	private String trommelScriptFilePath = null;
+	private int numOfReducers = 4;
 	
 	
 	//
@@ -49,6 +50,14 @@ public class ArgumentInterpreter
 		return errorMessages;
 	}
 	
+	/**
+	 * @return The number of Reducers to use for the Reduce phase.
+	 */
+	public int getNumOfReducers()
+	{
+		return numOfReducers;
+	}
+	
 	
 	//
 	//	Public methods
@@ -63,8 +72,8 @@ public class ArgumentInterpreter
 	 */
 	public ExecutionMode interpretArguments(String[] args)
 	{
-		// Have to have at least 1 switch/argument and can have no more than two arguments
-		if(args.length == 0 || args.length > 2)
+		// Have to have at least 1 switch/argument and can have no more than four arguments
+		if(args.length == 0 || args.length > 4)
 		{
 			// Houston, we have a problem
 			errorMessages.addLast("Incorrent number of switches/arguments.");
@@ -92,6 +101,20 @@ public class ArgumentInterpreter
 						 args[i].equals("-debug") || args[i].equals("-warn"))
 				{
 					handleLogging(args[i]);
+				}
+				else if (args[i].equals("-r") || args[i].equals("-reducers"))
+				{
+					if (++i != args.length)
+					{
+						handleReducers(args[i]);
+					}
+					else
+					{
+						// Reducers switch is the last thing on the command line with no argument
+						errorMessages.addLast("The -r/-reducers switch requires an argument.");
+						
+						executionMode = ExecutionMode.ArgumentError;
+					}
 				}
 				else if (trommelScriptFilePath == null)
 				{
@@ -193,6 +216,28 @@ public class ArgumentInterpreter
 			// Handle case where user has specified logging and a switch like -version on command line
 			errorMessages.addLast("Logging switch cannot be used with -v, -h, or -c command line switches.");
 		
+			executionMode = ExecutionMode.ArgumentError;
+		}
+	}
+	
+	private void handleReducers(String numOfReducers)
+	{
+		try
+		{
+			this.numOfReducers = Integer.parseInt(numOfReducers);
+			
+			if (this.numOfReducers < 1)
+			{
+				errorMessages.addLast("Argument to -r/-reducers switch must be 1 or more.");
+
+				executionMode = ExecutionMode.ArgumentError;
+			}
+		}
+		catch (NumberFormatException nfe)
+		{
+			errorMessages.addLast(String.format("An invalid argument of '%1$s' was passed with the -r/reducers switch.", 
+					                            numOfReducers));
+			
 			executionMode = ExecutionMode.ArgumentError;
 		}
 	}

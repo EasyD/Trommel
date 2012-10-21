@@ -102,7 +102,7 @@ Productions
 	// Root Production
     trommel_script = {profile_data} load_data_statement profile_data_statement |
                   	 {report_data} load_data_statement report_data_statement |
-                  	 {sample_data} load_data_statement sample_data_statement;
+                  	 {sample_data} sample_data_statement;
     
     
     // LOAD DATA Productions
@@ -143,7 +143,8 @@ Productions
  	
  	
  	// SAMPLE DATA Productions
- 	sample_data_statement = sample data at sample_rate storage semicolon;
+ 	sample_data_statement = sample data sampled_file at sample_rate storage semicolon;
+ 	sampled_file = quoted_string;
  	sample_rate = integer percent;
  	
  	
@@ -154,5 +155,4 @@ Productions
           {export_store} export to local_file_path store into hdfs_file_path; 
  	hdfs_file_path = quoted_string;
  	local_file_path = quoted_string;
-// 	local_file = quoted_string;
  	

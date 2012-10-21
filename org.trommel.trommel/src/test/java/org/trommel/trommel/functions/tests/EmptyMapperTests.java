@@ -84,7 +84,6 @@ public class EmptyMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		
 		@SuppressWarnings("unused")
 		EmptyMapper empty = new EmptyMapper(logger, fields);	
 	}

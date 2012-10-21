@@ -31,7 +31,7 @@ public final class TSemicolon extends Token
     }
 
     @Override
-    public void setText(String text)
+    public void setText( String text)
     {
         throw new RuntimeException("Cannot change TSemicolon text.");
     }

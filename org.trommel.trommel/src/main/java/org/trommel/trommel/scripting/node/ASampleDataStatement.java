@@ -9,6 +9,7 @@ public final class ASampleDataStatement extends PSampleDataStatement
 {
     private TSample _sample_;
     private TData _data_;
+    private PSampledFile _sampledFile_;
     private TAt _at_;
     private PSampleRate _sampleRate_;
     private PStorage _storage_;
@@ -22,6 +23,7 @@ public final class ASampleDataStatement extends PSampleDataStatement
     public ASampleDataStatement(
          TSample _sample_,
          TData _data_,
+         PSampledFile _sampledFile_,
          TAt _at_,
          PSampleRate _sampleRate_,
          PStorage _storage_,
@@ -31,6 +33,8 @@ public final class ASampleDataStatement extends PSampleDataStatement
         setSample(_sample_);
 
         setData(_data_);
+
+        setSampledFile(_sampledFile_);
 
         setAt(_at_);
 
@@ -48,6 +52,7 @@ public final class ASampleDataStatement extends PSampleDataStatement
         return new ASampleDataStatement(
             cloneNode(this._sample_),
             cloneNode(this._data_),
+            cloneNode(this._sampledFile_),
             cloneNode(this._at_),
             cloneNode(this._sampleRate_),
             cloneNode(this._storage_),
@@ -107,6 +112,31 @@ public final class ASampleDataStatement extends PSampleDataStatement
         }
 
         this._data_ = node;
+    }
+
+    public PSampledFile getSampledFile()
+    {
+        return this._sampledFile_;
+    }
+
+    public void setSampledFile(PSampledFile node)
+    {
+        if(this._sampledFile_ != null)
+        {
+            this._sampledFile_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._sampledFile_ = node;
     }
 
     public TAt getAt()
@@ -215,6 +245,7 @@ public final class ASampleDataStatement extends PSampleDataStatement
         return ""
             + toString(this._sample_)
             + toString(this._data_)
+            + toString(this._sampledFile_)
             + toString(this._at_)
             + toString(this._sampleRate_)
             + toString(this._storage_)
@@ -222,7 +253,7 @@ public final class ASampleDataStatement extends PSampleDataStatement
     }
 
     @Override
-    void removeChild(Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._sample_ == child)
@@ -234,6 +265,12 @@ public final class ASampleDataStatement extends PSampleDataStatement
         if(this._data_ == child)
         {
             this._data_ = null;
+            return;
+        }
+
+        if(this._sampledFile_ == child)
+        {
+            this._sampledFile_ = null;
             return;
         }
 
@@ -265,7 +302,7 @@ public final class ASampleDataStatement extends PSampleDataStatement
     }
 
     @Override
-    void replaceChild(Node oldChild, Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._sample_ == oldChild)
@@ -277,6 +314,12 @@ public final class ASampleDataStatement extends PSampleDataStatement
         if(this._data_ == oldChild)
         {
             setData((TData) newChild);
+            return;
+        }
+
+        if(this._sampledFile_ == oldChild)
+        {
+            setSampledFile((PSampledFile) newChild);
             return;
         }
 

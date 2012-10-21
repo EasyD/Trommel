@@ -77,8 +77,7 @@ public class RequiredReducerTests
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullParm() 
-	{
-		
+	{	
 		RequiredReducer req = new RequiredReducer(logger, null);
 	}
 	

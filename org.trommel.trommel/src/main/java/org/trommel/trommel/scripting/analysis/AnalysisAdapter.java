@@ -264,6 +264,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseASampledFile(ASampledFile node)
+    {
+        defaultCase(node);
+    }
+
     public void caseASampleRate(ASampleRate node)
     {
         defaultCase(node);
@@ -499,7 +504,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void defaultCase(Node node)
+    public void defaultCase( Node node)
     {
         // do nothing
     }

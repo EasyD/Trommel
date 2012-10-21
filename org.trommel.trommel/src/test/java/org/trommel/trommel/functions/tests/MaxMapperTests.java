@@ -79,7 +79,6 @@ public class MaxMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		
 		@SuppressWarnings("unused")
 		MaxMapper max = new MaxMapper(logger, fields);	
 	}

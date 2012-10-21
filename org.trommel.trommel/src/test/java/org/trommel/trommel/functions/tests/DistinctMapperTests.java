@@ -84,7 +84,6 @@ public class DistinctMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		
 		@SuppressWarnings("unused")
 		DistinctMapper distinct = new DistinctMapper(logger, fields);	
 	}

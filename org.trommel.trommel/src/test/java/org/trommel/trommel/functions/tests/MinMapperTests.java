@@ -84,7 +84,6 @@ public class MinMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		
 		@SuppressWarnings("unused")
 		MinMapper min = new MinMapper(logger, fields);	
 	}

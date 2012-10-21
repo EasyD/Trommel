@@ -129,7 +129,7 @@ public final class AListReportedFields extends PReportedFields
     }
 
     @Override
-    void removeChild(Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._reportedFields_ == child)
@@ -154,7 +154,7 @@ public final class AListReportedFields extends PReportedFields
     }
 
     @Override
-    void replaceChild(Node oldChild, Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._reportedFields_ == oldChild)

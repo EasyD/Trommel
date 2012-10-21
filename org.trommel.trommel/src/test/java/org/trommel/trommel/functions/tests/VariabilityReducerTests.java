@@ -63,7 +63,6 @@ public class VariabilityReducerTests
 	@Test
 	public void testConstructorOK()
 	{
-		
 		VariabilityReducer var = new VariabilityReducer(logger, FieldType.numeric);			
 	}
 	

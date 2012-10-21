@@ -72,7 +72,8 @@ public class TrommelDriver
 				executeValidation(interpreter.getTrommelScriptFilePath());
 				break;
 			case ProcessScript:
-				exitCode = processScript(interpreter.getLoggingLevel(), interpreter.getTrommelScriptFilePath());
+				exitCode = processScript(interpreter.getLoggingLevel(), interpreter.getNumOfReducers(),
+						                 interpreter.getTrommelScriptFilePath());
 				break;
 			default:
 				// Argument error, print error messages
@@ -158,7 +159,7 @@ public class TrommelDriver
 		System.out.println("TrommelScript failed validation.");			
 	}
 	
-	private static int processScript(Level logLevel, String trommelScriptFilePath) 
+	private static int processScript(Level logLevel, int numOfReducers, String trommelScriptFilePath) 
 		throws Exception
 	{
 		int exitCode = 0;
@@ -228,13 +229,14 @@ public class TrommelDriver
 			
 			if (frontEndInterpreter.samplingData())
 			{
+				logger.debug("Trommel is sampling data, 0 Reducers set.");
 				job.setNumReduceTasks(0);
 			}
 			else
 			{
-				// TODO - Add switch for number of reducers
-				job.setNumReduceTasks(2);
+				logger.debug(String.format("Setting number of Reducers to %1$s.", numOfReducers));
 				job.setReducerClass(TrommelReducer.class);
+				job.setNumReduceTasks(numOfReducers);
 			}
 			
 			job.setOutputKeyClass(Text.class);			

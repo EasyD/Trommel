@@ -29,14 +29,12 @@ public class FieldTests
 	@Test
 	public void testContructorOK() 
 	{
-		
 		Field field = new Field(NAME, FieldType.categorical);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullFieldName() 
 	{
-		
 		Field field = new Field(null, FieldType.categorical);
 	}
 	

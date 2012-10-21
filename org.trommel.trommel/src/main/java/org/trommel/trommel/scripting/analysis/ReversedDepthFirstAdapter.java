@@ -16,12 +16,12 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         defaultOut(node);
     }
 
-    public void defaultIn(Node node)
+    public void defaultIn( Node node)
     {
         // Do nothing
     }
 
-    public void defaultOut(Node node)
+    public void defaultOut( Node node)
     {
         // Do nothing
     }
@@ -102,10 +102,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         if(node.getSampleDataStatement() != null)
         {
             node.getSampleDataStatement().apply(this);
-        }
-        if(node.getLoadDataStatement() != null)
-        {
-            node.getLoadDataStatement().apply(this);
         }
         outASampleDataTrommelScript(node);
     }
@@ -1043,6 +1039,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getAt().apply(this);
         }
+        if(node.getSampledFile() != null)
+        {
+            node.getSampledFile().apply(this);
+        }
         if(node.getData() != null)
         {
             node.getData().apply(this);
@@ -1052,6 +1052,27 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getSample().apply(this);
         }
         outASampleDataStatement(node);
+    }
+
+    public void inASampledFile(ASampledFile node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASampledFile(ASampledFile node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASampledFile(ASampledFile node)
+    {
+        inASampledFile(node);
+        if(node.getQuotedString() != null)
+        {
+            node.getQuotedString().apply(this);
+        }
+        outASampledFile(node);
     }
 
     public void inASampleRate(ASampleRate node)

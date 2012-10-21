@@ -10,7 +10,7 @@ final class State
     int state;
     ArrayList nodes;
 
-	State(int state, ArrayList nodes)
+	State( int state,  ArrayList nodes)
     {
         this.state = state;
         this.nodes = nodes;

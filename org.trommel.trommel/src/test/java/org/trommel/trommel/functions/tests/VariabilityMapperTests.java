@@ -98,7 +98,6 @@ public class VariabilityMapperTests
 	@Test
 	public void testConstructorOK() 
 	{
-		
 		VariabilityMapper var = new VariabilityMapper(logger, numericFields);	
 	}
 	

@@ -46,13 +46,13 @@ public abstract class Token extends Node
     }
 
     @Override
-    void removeChild(Node child)
+    void removeChild( Node child)
     {
         throw new RuntimeException("Not a child.");
     }
 
     @Override
-    void replaceChild(Node oldChild, Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         throw new RuntimeException("Not a child.");
     }

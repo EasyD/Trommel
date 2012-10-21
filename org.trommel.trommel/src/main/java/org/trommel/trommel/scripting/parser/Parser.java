@@ -410,46 +410,52 @@ public class Parser
 			push(goTo(19), list, false);
 		    }
 		    break;
-                    case 39: /* reduce ASampleRate */
+                    case 39: /* reduce ASampledFile */
 		    {
 			ArrayList list = new39();
 			push(goTo(20), list, false);
 		    }
 		    break;
-                    case 40: /* reduce AStoreStorage */
+                    case 40: /* reduce ASampleRate */
 		    {
 			ArrayList list = new40();
 			push(goTo(21), list, false);
 		    }
 		    break;
-                    case 41: /* reduce AExportStorage */
+                    case 41: /* reduce AStoreStorage */
 		    {
 			ArrayList list = new41();
-			push(goTo(21), list, false);
+			push(goTo(22), list, false);
 		    }
 		    break;
-                    case 42: /* reduce AStoreExportStorage */
+                    case 42: /* reduce AExportStorage */
 		    {
 			ArrayList list = new42();
-			push(goTo(21), list, false);
+			push(goTo(22), list, false);
 		    }
 		    break;
-                    case 43: /* reduce AExportStoreStorage */
+                    case 43: /* reduce AStoreExportStorage */
 		    {
 			ArrayList list = new43();
-			push(goTo(21), list, false);
+			push(goTo(22), list, false);
 		    }
 		    break;
-                    case 44: /* reduce AHdfsFilePath */
+                    case 44: /* reduce AExportStoreStorage */
 		    {
 			ArrayList list = new44();
 			push(goTo(22), list, false);
 		    }
 		    break;
-                    case 45: /* reduce ALocalFilePath */
+                    case 45: /* reduce AHdfsFilePath */
 		    {
 			ArrayList list = new45();
 			push(goTo(23), list, false);
+		    }
+		    break;
+                    case 46: /* reduce ALocalFilePath */
+		    {
+			ArrayList list = new46();
+			push(goTo(24), list, false);
 		    }
 		    break;
                     }
@@ -476,8 +482,8 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
@@ -499,8 +505,8 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
@@ -522,17 +528,14 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PTrommelScript ptrommelscriptNode1;
         {
             // Block
-        PLoadDataStatement ploaddatastatementNode2;
-        PSampleDataStatement psampledatastatementNode3;
-        ploaddatastatementNode2 = (PLoadDataStatement)nodeArrayList1.get(0);
-        psampledatastatementNode3 = (PSampleDataStatement)nodeArrayList2.get(0);
+        PSampleDataStatement psampledatastatementNode2;
+        psampledatastatementNode2 = (PSampleDataStatement)nodeArrayList1.get(0);
 
-        ptrommelscriptNode1 = new ASampleDataTrommelScript(ploaddatastatementNode2, psampledatastatementNode3);
+        ptrommelscriptNode1 = new ASampleDataTrommelScript(psampledatastatementNode2);
         }
 	nodeList.add(ptrommelscriptNode1);
         return nodeList;
@@ -545,12 +548,12 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList6 = pop();
-        ArrayList nodeArrayList5 = pop();
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLoadDataStatement ploaddatastatementNode1;
         {
             // Block
@@ -580,7 +583,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLoadedFile ploadedfileNode1;
         {
             // Block
@@ -600,9 +603,9 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLoadedFields ploadedfieldsNode1;
         {
             // Block
@@ -626,7 +629,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldList pfieldlistNode1;
         {
             // Block
@@ -646,9 +649,9 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldList pfieldlistNode1;
         {
             // Block
@@ -672,9 +675,9 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PField pfieldNode1;
         {
             // Block
@@ -698,7 +701,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldsTerminatedBy pfieldsterminatedbyNode1;
         {
             // Block
@@ -718,11 +721,11 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList5 = pop();
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldsTerminatedBy pfieldsterminatedbyNode1;
         {
             // Block
@@ -750,7 +753,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFieldTerminator pfieldterminatorNode1;
         {
             // Block
@@ -770,12 +773,12 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList6 = pop();
-        ArrayList nodeArrayList5 = pop();
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfileDataStatement pprofiledatastatementNode1;
         {
             // Block
@@ -805,7 +808,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfiledFields pprofiledfieldsNode1;
         {
             // Block
@@ -825,9 +828,9 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfiledFields pprofiledfieldsNode1;
         {
             // Block
@@ -851,7 +854,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfiledField pprofiledfieldNode1;
         {
             // Block
@@ -871,7 +874,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfilers pprofilersNode1;
         {
             // Block
@@ -891,8 +894,8 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PProfilers pprofilersNode1;
         {
             // Block
@@ -914,7 +917,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunctionList pfunctionlistNode1;
         {
             // Block
@@ -934,9 +937,9 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunctionList pfunctionlistNode1;
         {
             // Block
@@ -960,7 +963,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -980,7 +983,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1000,7 +1003,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1020,7 +1023,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1040,7 +1043,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1060,7 +1063,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1080,7 +1083,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1100,7 +1103,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PFunction pfunctionNode1;
         {
             // Block
@@ -1120,7 +1123,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1140,9 +1143,9 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1166,10 +1169,10 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLinearity plinearityNode1;
         {
             // Block
@@ -1195,7 +1198,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1215,9 +1218,9 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1241,10 +1244,10 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PConfidence pconfidenceNode1;
         {
             // Block
@@ -1270,12 +1273,12 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList6 = pop();
-        ArrayList nodeArrayList5 = pop();
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PReportDataStatement preportdatastatementNode1;
         {
             // Block
@@ -1305,7 +1308,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PReportedFields preportedfieldsNode1;
         {
             // Block
@@ -1325,9 +1328,9 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PReportedFields preportedfieldsNode1;
         {
             // Block
@@ -1351,7 +1354,7 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PReportedField preportedfieldNode1;
         {
             // Block
@@ -1371,29 +1374,32 @@ public class Parser
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList6 = pop();
-        ArrayList nodeArrayList5 = pop();
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList7 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PSampleDataStatement psampledatastatementNode1;
         {
             // Block
         TSample tsampleNode2;
         TData tdataNode3;
-        TAt tatNode4;
-        PSampleRate psamplerateNode5;
-        PStorage pstorageNode6;
-        TSemicolon tsemicolonNode7;
+        PSampledFile psampledfileNode4;
+        TAt tatNode5;
+        PSampleRate psamplerateNode6;
+        PStorage pstorageNode7;
+        TSemicolon tsemicolonNode8;
         tsampleNode2 = (TSample)nodeArrayList1.get(0);
         tdataNode3 = (TData)nodeArrayList2.get(0);
-        tatNode4 = (TAt)nodeArrayList3.get(0);
-        psamplerateNode5 = (PSampleRate)nodeArrayList4.get(0);
-        pstorageNode6 = (PStorage)nodeArrayList5.get(0);
-        tsemicolonNode7 = (TSemicolon)nodeArrayList6.get(0);
+        psampledfileNode4 = (PSampledFile)nodeArrayList3.get(0);
+        tatNode5 = (TAt)nodeArrayList4.get(0);
+        psamplerateNode6 = (PSampleRate)nodeArrayList5.get(0);
+        pstorageNode7 = (PStorage)nodeArrayList6.get(0);
+        tsemicolonNode8 = (TSemicolon)nodeArrayList7.get(0);
 
-        psampledatastatementNode1 = new ASampleDataStatement(tsampleNode2, tdataNode3, tatNode4, psamplerateNode5, pstorageNode6, tsemicolonNode7);
+        psampledatastatementNode1 = new ASampleDataStatement(tsampleNode2, tdataNode3, psampledfileNode4, tatNode5, psamplerateNode6, pstorageNode7, tsemicolonNode8);
         }
 	nodeList.add(psampledatastatementNode1);
         return nodeList;
@@ -1402,12 +1408,32 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new39() /* reduce ASampleRate */
+    ArrayList new39() /* reduce ASampledFile */
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
+        PSampledFile psampledfileNode1;
+        {
+            // Block
+        TQuotedString tquotedstringNode2;
+        tquotedstringNode2 = (TQuotedString)nodeArrayList1.get(0);
+
+        psampledfileNode1 = new ASampledFile(tquotedstringNode2);
+        }
+	nodeList.add(psampledfileNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new40() /* reduce ASampleRate */
+    {
+         ArrayList nodeList = new ArrayList();
+
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PSampleRate psamplerateNode1;
         {
             // Block
@@ -1425,13 +1451,13 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new40() /* reduce AStoreStorage */
+    ArrayList new41() /* reduce AStoreStorage */
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1451,13 +1477,13 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new41() /* reduce AExportStorage */
+    ArrayList new42() /* reduce AExportStorage */
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1477,16 +1503,16 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new42() /* reduce AStoreExportStorage */
+    ArrayList new43() /* reduce AStoreExportStorage */
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList6 = pop();
-        ArrayList nodeArrayList5 = pop();
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1512,16 +1538,16 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new43() /* reduce AExportStoreStorage */
+    ArrayList new44() /* reduce AExportStoreStorage */
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList6 = pop();
-        ArrayList nodeArrayList5 = pop();
-        ArrayList nodeArrayList4 = pop();
-        ArrayList nodeArrayList3 = pop();
-        ArrayList nodeArrayList2 = pop();
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList6 = pop();
+         ArrayList nodeArrayList5 = pop();
+         ArrayList nodeArrayList4 = pop();
+         ArrayList nodeArrayList3 = pop();
+         ArrayList nodeArrayList2 = pop();
+         ArrayList nodeArrayList1 = pop();
         PStorage pstorageNode1;
         {
             // Block
@@ -1547,11 +1573,11 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new44() /* reduce AHdfsFilePath */
+    ArrayList new45() /* reduce AHdfsFilePath */
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PHdfsFilePath phdfsfilepathNode1;
         {
             // Block
@@ -1567,11 +1593,11 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new45() /* reduce ALocalFilePath */
+    ArrayList new46() /* reduce ALocalFilePath */
     {
          ArrayList nodeList = new ArrayList();
 
-        ArrayList nodeArrayList1 = pop();
+         ArrayList nodeArrayList1 = pop();
         PLocalFilePath plocalfilepathNode1;
         {
             // Block
@@ -1588,157 +1614,160 @@ public class Parser
 
     private static int[][][] actionTable;
 /*      {
-			{{-1, ERROR, 0}, {0, SHIFT, 1}, },
-			{{-1, ERROR, 1}, {23, SHIFT, 4}, },
-			{{-1, ERROR, 2}, {36, ACCEPT, -1}, },
-			{{-1, ERROR, 3}, {6, SHIFT, 5}, {18, SHIFT, 6}, {20, SHIFT, 7}, },
-			{{-1, ERROR, 4}, {33, SHIFT, 11}, },
-			{{-1, ERROR, 5}, {34, SHIFT, 13}, },
-			{{-1, ERROR, 6}, {23, SHIFT, 16}, },
-			{{-1, ERROR, 7}, {23, SHIFT, 17}, },
+			{{-1, ERROR, 0}, {0, SHIFT, 1}, {20, SHIFT, 2}, },
+			{{-1, ERROR, 1}, {23, SHIFT, 6}, },
+			{{-1, ERROR, 2}, {23, SHIFT, 7}, },
+			{{-1, ERROR, 3}, {36, ACCEPT, -1}, },
+			{{-1, ERROR, 4}, {6, SHIFT, 8}, {18, SHIFT, 9}, },
+			{{-1, REDUCE, 2}, },
+			{{-1, ERROR, 6}, {33, SHIFT, 12}, },
+			{{-1, ERROR, 7}, {33, SHIFT, 14}, },
+			{{-1, ERROR, 8}, {34, SHIFT, 16}, },
+			{{-1, ERROR, 9}, {23, SHIFT, 19}, },
 			{{-1, REDUCE, 0}, },
 			{{-1, REDUCE, 1}, },
-			{{-1, REDUCE, 2}, },
 			{{-1, REDUCE, 4}, },
-			{{-1, ERROR, 12}, {32, SHIFT, 18}, },
+			{{-1, ERROR, 13}, {32, SHIFT, 20}, },
+			{{-1, REDUCE, 39}, },
+			{{-1, ERROR, 15}, {21, SHIFT, 21}, },
 			{{-1, REDUCE, 15}, },
-			{{-1, ERROR, 14}, {7, SHIFT, 19}, {31, SHIFT, 20}, },
+			{{-1, ERROR, 17}, {7, SHIFT, 22}, {31, SHIFT, 23}, },
 			{{-1, REDUCE, 13}, },
-			{{-1, ERROR, 16}, {19, SHIFT, 21}, },
-			{{-1, ERROR, 17}, {21, SHIFT, 22}, },
-			{{-1, ERROR, 18}, {29, SHIFT, 23}, },
-			{{-1, ERROR, 19}, {8, SHIFT, 25}, {10, SHIFT, 26}, {11, SHIFT, 27}, {12, SHIFT, 28}, {13, SHIFT, 29}, {14, SHIFT, 30}, {15, SHIFT, 31}, {16, SHIFT, 32}, {17, SHIFT, 33}, },
-			{{-1, ERROR, 20}, {34, SHIFT, 13}, },
-			{{-1, ERROR, 21}, {34, SHIFT, 40}, },
-			{{-1, ERROR, 22}, {35, SHIFT, 43}, },
-			{{-1, ERROR, 23}, {34, SHIFT, 45}, },
-			{{-1, ERROR, 24}, {3, SHIFT, 48}, {28, SHIFT, 49}, },
-			{{-1, ERROR, 25}, {9, SHIFT, 51}, },
+			{{-1, ERROR, 19}, {19, SHIFT, 24}, },
+			{{-1, ERROR, 20}, {29, SHIFT, 25}, },
+			{{-1, ERROR, 21}, {35, SHIFT, 27}, },
+			{{-1, ERROR, 22}, {8, SHIFT, 29}, {10, SHIFT, 30}, {11, SHIFT, 31}, {12, SHIFT, 32}, {13, SHIFT, 33}, {14, SHIFT, 34}, {15, SHIFT, 35}, {16, SHIFT, 36}, {17, SHIFT, 37}, },
+			{{-1, ERROR, 23}, {34, SHIFT, 16}, },
+			{{-1, ERROR, 24}, {34, SHIFT, 44}, },
+			{{-1, ERROR, 25}, {34, SHIFT, 47}, },
+			{{-1, ERROR, 26}, {3, SHIFT, 50}, {28, SHIFT, 51}, },
+			{{-1, ERROR, 27}, {22, SHIFT, 53}, },
+			{{-1, ERROR, 28}, {24, SHIFT, 54}, {26, SHIFT, 55}, },
+			{{-1, ERROR, 29}, {9, SHIFT, 57}, },
 			{{-1, REDUCE, 20}, },
 			{{-1, REDUCE, 21}, },
 			{{-1, REDUCE, 22}, },
 			{{-1, REDUCE, 23}, },
 			{{-1, REDUCE, 24}, },
 			{{-1, REDUCE, 25}, },
-			{{-1, REDUCE, 31}, {29, SHIFT, 52}, },
-			{{-1, REDUCE, 28}, {29, SHIFT, 53}, },
-			{{-1, ERROR, 34}, {24, SHIFT, 54}, {26, SHIFT, 55}, },
-			{{-1, REDUCE, 16}, {31, SHIFT, 57}, },
+			{{-1, REDUCE, 31}, {29, SHIFT, 58}, },
+			{{-1, REDUCE, 28}, {29, SHIFT, 59}, },
+			{{-1, ERROR, 38}, {24, SHIFT, 54}, {26, SHIFT, 55}, },
+			{{-1, REDUCE, 16}, {31, SHIFT, 61}, },
 			{{-1, REDUCE, 18}, },
 			{{-1, REDUCE, 26}, },
 			{{-1, REDUCE, 27}, },
 			{{-1, REDUCE, 14}, },
 			{{-1, REDUCE, 37}, },
-			{{-1, ERROR, 41}, {24, SHIFT, 54}, {26, SHIFT, 55}, {31, SHIFT, 58}, },
+			{{-1, ERROR, 45}, {24, SHIFT, 54}, {26, SHIFT, 55}, {31, SHIFT, 62}, },
 			{{-1, REDUCE, 35}, },
-			{{-1, ERROR, 43}, {22, SHIFT, 60}, },
-			{{-1, ERROR, 44}, {24, SHIFT, 54}, {26, SHIFT, 55}, },
-			{{-1, ERROR, 45}, {1, SHIFT, 62}, },
-			{{-1, ERROR, 46}, {30, SHIFT, 63}, {31, SHIFT, 64}, },
+			{{-1, ERROR, 47}, {1, SHIFT, 64}, },
+			{{-1, ERROR, 48}, {30, SHIFT, 65}, {31, SHIFT, 66}, },
 			{{-1, REDUCE, 6}, },
-			{{-1, ERROR, 48}, {4, SHIFT, 65}, },
+			{{-1, ERROR, 50}, {4, SHIFT, 67}, },
 			{{-1, REDUCE, 9}, },
 			{{-1, REDUCE, 3}, },
+			{{-1, REDUCE, 40}, },
+			{{-1, ERROR, 54}, {25, SHIFT, 68}, },
+			{{-1, ERROR, 55}, {27, SHIFT, 69}, },
+			{{-1, ERROR, 56}, {28, SHIFT, 70}, },
 			{{-1, REDUCE, 17}, },
-			{{-1, ERROR, 52}, {30, SHIFT, 66}, {35, SHIFT, 67}, },
-			{{-1, ERROR, 53}, {30, SHIFT, 68}, {35, SHIFT, 69}, },
-			{{-1, ERROR, 54}, {25, SHIFT, 70}, },
-			{{-1, ERROR, 55}, {27, SHIFT, 71}, },
-			{{-1, ERROR, 56}, {28, SHIFT, 72}, },
-			{{-1, ERROR, 57}, {10, SHIFT, 26}, {11, SHIFT, 27}, {12, SHIFT, 28}, {13, SHIFT, 29}, {14, SHIFT, 30}, {15, SHIFT, 31}, {16, SHIFT, 32}, {17, SHIFT, 33}, },
-			{{-1, ERROR, 58}, {34, SHIFT, 40}, },
-			{{-1, ERROR, 59}, {28, SHIFT, 75}, },
-			{{-1, REDUCE, 39}, },
-			{{-1, ERROR, 61}, {28, SHIFT, 76}, },
-			{{-1, ERROR, 62}, {2, SHIFT, 77}, },
+			{{-1, ERROR, 58}, {30, SHIFT, 71}, {35, SHIFT, 72}, },
+			{{-1, ERROR, 59}, {30, SHIFT, 73}, {35, SHIFT, 74}, },
+			{{-1, ERROR, 60}, {28, SHIFT, 75}, },
+			{{-1, ERROR, 61}, {10, SHIFT, 30}, {11, SHIFT, 31}, {12, SHIFT, 32}, {13, SHIFT, 33}, {14, SHIFT, 34}, {15, SHIFT, 35}, {16, SHIFT, 36}, {17, SHIFT, 37}, },
+			{{-1, ERROR, 62}, {34, SHIFT, 44}, },
+			{{-1, ERROR, 63}, {28, SHIFT, 78}, },
+			{{-1, ERROR, 64}, {2, SHIFT, 79}, },
 			{{-1, REDUCE, 5}, },
-			{{-1, ERROR, 64}, {34, SHIFT, 45}, },
-			{{-1, ERROR, 65}, {5, SHIFT, 79}, },
+			{{-1, ERROR, 66}, {34, SHIFT, 47}, },
+			{{-1, ERROR, 67}, {5, SHIFT, 81}, },
+			{{-1, ERROR, 68}, {33, SHIFT, 82}, },
+			{{-1, ERROR, 69}, {33, SHIFT, 84}, },
+			{{-1, REDUCE, 38}, },
 			{{-1, REDUCE, 32}, },
-			{{-1, ERROR, 67}, {30, SHIFT, 80}, },
+			{{-1, ERROR, 72}, {30, SHIFT, 86}, },
 			{{-1, REDUCE, 29}, },
-			{{-1, ERROR, 69}, {30, SHIFT, 81}, },
-			{{-1, ERROR, 70}, {33, SHIFT, 82}, },
-			{{-1, ERROR, 71}, {33, SHIFT, 84}, },
+			{{-1, ERROR, 74}, {30, SHIFT, 87}, },
 			{{-1, REDUCE, 12}, },
 			{{-1, REDUCE, 19}, },
 			{{-1, REDUCE, 36}, },
 			{{-1, REDUCE, 34}, },
-			{{-1, REDUCE, 38}, },
 			{{-1, REDUCE, 8}, },
 			{{-1, REDUCE, 7}, },
-			{{-1, ERROR, 79}, {33, SHIFT, 86}, },
+			{{-1, ERROR, 81}, {33, SHIFT, 88}, },
+			{{-1, REDUCE, 45}, },
+			{{-1, REDUCE, 41}, {26, SHIFT, 90}, },
+			{{-1, REDUCE, 46}, },
+			{{-1, REDUCE, 42}, {24, SHIFT, 91}, },
 			{{-1, REDUCE, 33}, },
 			{{-1, REDUCE, 30}, },
-			{{-1, REDUCE, 44}, },
-			{{-1, REDUCE, 40}, {26, SHIFT, 88}, },
-			{{-1, REDUCE, 45}, },
-			{{-1, REDUCE, 41}, {24, SHIFT, 89}, },
 			{{-1, REDUCE, 11}, },
-			{{-1, ERROR, 87}, {28, SHIFT, 90}, },
-			{{-1, ERROR, 88}, {27, SHIFT, 91}, },
-			{{-1, ERROR, 89}, {25, SHIFT, 92}, },
+			{{-1, ERROR, 89}, {28, SHIFT, 92}, },
+			{{-1, ERROR, 90}, {27, SHIFT, 93}, },
+			{{-1, ERROR, 91}, {25, SHIFT, 94}, },
 			{{-1, REDUCE, 10}, },
-			{{-1, ERROR, 91}, {33, SHIFT, 84}, },
-			{{-1, ERROR, 92}, {33, SHIFT, 82}, },
-			{{-1, REDUCE, 42}, },
+			{{-1, ERROR, 93}, {33, SHIFT, 84}, },
+			{{-1, ERROR, 94}, {33, SHIFT, 82}, },
 			{{-1, REDUCE, 43}, },
+			{{-1, REDUCE, 44}, },
         };*/
     private static int[][][] gotoTable;
 /*      {
-			{{-1, 2}, },
 			{{-1, 3}, },
-			{{-1, 12}, },
-			{{-1, 24}, },
-			{{-1, 46}, },
-			{{-1, 47}, {64, 78}, },
-			{{-1, 50}, },
-			{{-1, 87}, },
-			{{-1, 8}, },
-			{{-1, 14}, },
-			{{-1, 15}, {20, 39}, },
-			{{-1, 34}, },
-			{{-1, 35}, },
-			{{-1, 36}, {57, 73}, },
-			{{-1, 37}, },
-			{{-1, 38}, },
-			{{-1, 9}, },
-			{{-1, 41}, },
-			{{-1, 42}, {58, 74}, },
+			{{-1, 4}, },
+			{{-1, 13}, },
+			{{-1, 26}, },
+			{{-1, 48}, },
+			{{-1, 49}, {66, 80}, },
+			{{-1, 52}, },
+			{{-1, 89}, },
 			{{-1, 10}, },
-			{{-1, 44}, },
-			{{-1, 56}, {41, 59}, {44, 61}, },
-			{{-1, 83}, {92, 94}, },
-			{{-1, 85}, {91, 93}, },
+			{{-1, 17}, },
+			{{-1, 18}, {23, 43}, },
+			{{-1, 38}, },
+			{{-1, 39}, },
+			{{-1, 40}, {61, 76}, },
+			{{-1, 41}, },
+			{{-1, 42}, },
+			{{-1, 11}, },
+			{{-1, 45}, },
+			{{-1, 46}, {62, 77}, },
+			{{-1, 5}, },
+			{{-1, 15}, },
+			{{-1, 28}, },
+			{{-1, 56}, {38, 60}, {45, 63}, },
+			{{-1, 83}, {94, 96}, },
+			{{-1, 85}, {93, 95}, },
         };*/
     private static String[] errorMessages;
 /*      {
-			"expecting: load",
+			"expecting: load, sample",
 			"expecting: data",
 			"expecting: EOF",
-			"expecting: profile, report, sample",
+			"expecting: profile, report",
 			"expecting: quoted string",
 			"expecting: identifier",
 			"expecting: as",
+			"expecting: at",
 			"expecting: with, ','",
 			"expecting: for",
-			"expecting: at",
 			"expecting: '('",
-			"expecting: all, max, min, distinct, empty, req, var, conf, lin",
 			"expecting: integer",
+			"expecting: all, max, min, distinct, empty, req, var, conf, lin",
 			"expecting: fields, ';'",
+			"expecting: '%'",
+			"expecting: store, export",
 			"expecting: builtin",
 			"expecting: store, export, ','",
 			"expecting: store, export, '(', ','",
-			"expecting: store, export",
-			"expecting: '%'",
 			"expecting: ':'",
 			"expecting: ')', ','",
 			"expecting: terminated",
-			"expecting: ')', integer",
 			"expecting: into",
 			"expecting: to",
 			"expecting: ';'",
+			"expecting: ')', integer",
 			"expecting: max, min, distinct, empty, req, var, conf, lin",
 			"expecting: field type",
 			"expecting: by",
@@ -1748,7 +1777,7 @@ public class Parser
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 2, 3, 4, 5, 1, 1, 2, 2, 2, 6, 6, 7, 7, 7, 8, 9, 10, 11, 5, 5, 12, 5, 13, 14, 15, 15, 15, 15, 15, 15, 16, 16, 17, 15, 15, 15, 15, 7, 15, 15, 15, 18, 17, 19, 20, 20, 21, 3, 3, 17, 22, 22, 23, 24, 25, 26, 5, 25, 17, 25, 27, 13, 5, 28, 15, 29, 15, 29, 4, 4, 2, 15, 15, 2, 2, 20, 20, 4, 15, 15, 30, 30, 31, 31, 25, 25, 24, 23, 3, 4, 4, 25, 25, 
+			0, 1, 1, 2, 3, 2, 4, 4, 5, 1, 2, 2, 6, 6, 7, 7, 8, 8, 8, 9, 10, 11, 12, 5, 5, 5, 13, 14, 15, 16, 17, 17, 17, 17, 17, 17, 18, 18, 15, 17, 17, 17, 17, 8, 17, 17, 17, 19, 20, 20, 21, 3, 3, 15, 22, 23, 24, 15, 25, 25, 24, 26, 5, 24, 27, 13, 5, 28, 4, 4, 2, 17, 29, 17, 29, 2, 17, 17, 2, 20, 20, 4, 30, 30, 31, 31, 17, 17, 24, 24, 23, 22, 3, 4, 4, 24, 24, 
         };*/
 
     static 

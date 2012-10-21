@@ -5,45 +5,45 @@ package org.trommel.trommel.scripting.node;
 import org.trommel.trommel.scripting.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ASingleReportedFields extends PReportedFields
+public final class ASampledFile extends PSampledFile
 {
-    private PReportedField _reportedField_;
+    private TQuotedString _quotedString_;
 
-    public ASingleReportedFields()
+    public ASampledFile()
     {
         // Constructor
     }
 
-    public ASingleReportedFields(
-         PReportedField _reportedField_)
+    public ASampledFile(
+         TQuotedString _quotedString_)
     {
         // Constructor
-        setReportedField(_reportedField_);
+        setQuotedString(_quotedString_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ASingleReportedFields(
-            cloneNode(this._reportedField_));
+        return new ASampledFile(
+            cloneNode(this._quotedString_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseASingleReportedFields(this);
+        ((Analysis) sw).caseASampledFile(this);
     }
 
-    public PReportedField getReportedField()
+    public TQuotedString getQuotedString()
     {
-        return this._reportedField_;
+        return this._quotedString_;
     }
 
-    public void setReportedField(PReportedField node)
+    public void setQuotedString(TQuotedString node)
     {
-        if(this._reportedField_ != null)
+        if(this._quotedString_ != null)
         {
-            this._reportedField_.parent(null);
+            this._quotedString_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ASingleReportedFields extends PReportedFields
             node.parent(this);
         }
 
-        this._reportedField_ = node;
+        this._quotedString_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._reportedField_);
+            + toString(this._quotedString_);
     }
 
     @Override
     void removeChild( Node child)
     {
         // Remove child
-        if(this._reportedField_ == child)
+        if(this._quotedString_ == child)
         {
-            this._reportedField_ = null;
+            this._quotedString_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ASingleReportedFields extends PReportedFields
     void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
-        if(this._reportedField_ == oldChild)
+        if(this._quotedString_ == oldChild)
         {
-            setReportedField((PReportedField) newChild);
+            setQuotedString((TQuotedString) newChild);
             return;
         }
 

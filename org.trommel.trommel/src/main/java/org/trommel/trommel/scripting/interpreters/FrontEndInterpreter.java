@@ -141,7 +141,11 @@ public class FrontEndInterpreter extends DepthFirstAdapter
 	 */
     public void outASampleDataStatement(ASampleDataStatement node)
     {
+    	logger.debug("FrontEndInterpreter.outASampleDataStatement called.");
+    	
         samplingData = true;
+        
+        hdfsInputFilePath = node.getSampledFile().toString().replace("'", "").trim();
     }
 
 

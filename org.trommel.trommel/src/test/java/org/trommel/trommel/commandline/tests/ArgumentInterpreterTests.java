@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.trommel.trommel.commandline.ArgumentInterpreter;
 import org.trommel.trommel.commandline.ExecutionMode;
 
+
 //
 //	Unit tests for the org.trommel.trommel.commandline.ArgumentInterpreter class
 //
@@ -152,6 +153,80 @@ public class ArgumentInterpreterTests
 	}
 	
 	@Test
+	public void testReducersSwitchOK()
+	{
+		ArgumentInterpreter interpreter = new ArgumentInterpreter();
+		String[] args = new String[3];
+		
+		// Have to have a file path for logging, order shouldn't matter
+		args[0] = FILE_PATH;
+		args[1] = "-reducers";
+		args[2] = "3";
+		
+		assertEquals(ExecutionMode.ProcessScript, interpreter.interpretArguments(args));
+		assertEquals(3, interpreter.getNumOfReducers());
+	}
+	
+	@Test
+	public void testRSwitchOK()
+	{
+		ArgumentInterpreter interpreter = new ArgumentInterpreter();
+		String[] args = new String[3];
+		
+		// Have to have a file path for logging, order shouldn't matter
+		args[0] = FILE_PATH;
+		args[1] = "-r";
+		args[2] = "5";
+		
+		assertEquals(ExecutionMode.ProcessScript, interpreter.interpretArguments(args));
+		assertEquals(5, interpreter.getNumOfReducers());
+	}
+	
+	@Test
+	public void TestRSwitchNegativeReducers()
+	{
+		ArgumentInterpreter interpreter = new ArgumentInterpreter();
+		String[] args = new String[3];
+		
+		// Have to have a file path for logging, order shouldn't matter
+		args[0] = FILE_PATH;
+		args[1] = "-r";
+		args[2] = "-5";
+		
+		assertEquals(ExecutionMode.ArgumentError, interpreter.interpretArguments(args));
+		assertEquals("Argument to -r/-reducers switch must be 1 or more.", interpreter.getErrorMessages().get(0));
+	}
+
+	@Test
+	public void TestRSwitchInvalidIntString()
+	{
+		ArgumentInterpreter interpreter = new ArgumentInterpreter();
+		String[] args = new String[3];
+		
+		// Have to have a file path for logging, order shouldn't matter
+		args[0] = FILE_PATH;
+		args[1] = "-r";
+		args[2] = "foo";
+		
+		assertEquals(ExecutionMode.ArgumentError, interpreter.interpretArguments(args));
+		assertEquals("An invalid argument of 'foo' was passed with the -r/reducers switch.", interpreter.getErrorMessages().get(0));
+	}
+
+	@Test
+	public void TestRSwitchLastOnCommandLine()
+	{
+		ArgumentInterpreter interpreter = new ArgumentInterpreter();
+		String[] args = new String[2];
+		
+		// Have to have a file path for logging, order shouldn't matter
+		args[0] = FILE_PATH;
+		args[1] = "-r";
+		
+		assertEquals(ExecutionMode.ArgumentError, interpreter.interpretArguments(args));
+		assertEquals("The -r/-reducers switch requires an argument.", interpreter.getErrorMessages().get(0));
+	}
+
+	@Test
 	public void testProcessScriptNoSwitchesOK() 
 	{
 		ArgumentInterpreter interpreter = new ArgumentInterpreter();
@@ -177,14 +252,16 @@ public class ArgumentInterpreterTests
 	}	
 
 	@Test
-	public void testThreeSwitchesError() 
+	public void testFiveSwitchesError() 
 	{
 		ArgumentInterpreter interpreter = new ArgumentInterpreter();
-		String[] args = new String[3];
+		String[] args = new String[5];
 		
 		args[0] = "-d";
 		args[1] = FILE_PATH;
 		args[2] = "-h";
+		args[3] = FILE_PATH;
+		args[4] = "-h";
 		
 		assertEquals(ExecutionMode.ArgumentError, interpreter.interpretArguments(args));
 		assertEquals(2, interpreter.getErrorMessages().size());

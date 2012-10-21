@@ -71,7 +71,7 @@ public class ReduceInterpreterTests
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorNullLogger()
-	{
+	{	
 		@SuppressWarnings("unused")
 		ReduceInterpreter interpreter = new ReduceInterpreter(null);
 	}

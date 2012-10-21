@@ -10,223 +10,223 @@ class TokenIndex extends AnalysisAdapter
     int index;
 
     @Override
-    public void caseTLoad(TLoad node)
+    public void caseTLoad( TLoad node)
     {
         this.index = 0;
     }
 
     @Override
-    public void caseTColon(TColon node)
+    public void caseTColon( TColon node)
     {
         this.index = 1;
     }
 
     @Override
-    public void caseTFieldType(TFieldType node)
+    public void caseTFieldType( TFieldType node)
     {
         this.index = 2;
     }
 
     @Override
-    public void caseTFields(TFields node)
+    public void caseTFields( TFields node)
     {
         this.index = 3;
     }
 
     @Override
-    public void caseTTerminated(TTerminated node)
+    public void caseTTerminated( TTerminated node)
     {
         this.index = 4;
     }
 
     @Override
-    public void caseTBy(TBy node)
+    public void caseTBy( TBy node)
     {
         this.index = 5;
     }
 
     @Override
-    public void caseTProfile(TProfile node)
+    public void caseTProfile( TProfile node)
     {
         this.index = 6;
     }
 
     @Override
-    public void caseTWith(TWith node)
+    public void caseTWith( TWith node)
     {
         this.index = 7;
     }
 
     @Override
-    public void caseTAll(TAll node)
+    public void caseTAll( TAll node)
     {
         this.index = 8;
     }
 
     @Override
-    public void caseTBuiltin(TBuiltin node)
+    public void caseTBuiltin( TBuiltin node)
     {
         this.index = 9;
     }
 
     @Override
-    public void caseTMax(TMax node)
+    public void caseTMax( TMax node)
     {
         this.index = 10;
     }
 
     @Override
-    public void caseTMin(TMin node)
+    public void caseTMin( TMin node)
     {
         this.index = 11;
     }
 
     @Override
-    public void caseTDistinct(TDistinct node)
+    public void caseTDistinct( TDistinct node)
     {
         this.index = 12;
     }
 
     @Override
-    public void caseTEmpty(TEmpty node)
+    public void caseTEmpty( TEmpty node)
     {
         this.index = 13;
     }
 
     @Override
-    public void caseTReq(TReq node)
+    public void caseTReq( TReq node)
     {
         this.index = 14;
     }
 
     @Override
-    public void caseTVar(TVar node)
+    public void caseTVar( TVar node)
     {
         this.index = 15;
     }
 
     @Override
-    public void caseTConf(TConf node)
+    public void caseTConf( TConf node)
     {
         this.index = 16;
     }
 
     @Override
-    public void caseTLin(TLin node)
+    public void caseTLin( TLin node)
     {
         this.index = 17;
     }
 
     @Override
-    public void caseTReport(TReport node)
+    public void caseTReport( TReport node)
     {
         this.index = 18;
     }
 
     @Override
-    public void caseTFor(TFor node)
+    public void caseTFor( TFor node)
     {
         this.index = 19;
     }
 
     @Override
-    public void caseTSample(TSample node)
+    public void caseTSample( TSample node)
     {
         this.index = 20;
     }
 
     @Override
-    public void caseTAt(TAt node)
+    public void caseTAt( TAt node)
     {
         this.index = 21;
     }
 
     @Override
-    public void caseTPercent(TPercent node)
+    public void caseTPercent( TPercent node)
     {
         this.index = 22;
     }
 
     @Override
-    public void caseTData(TData node)
+    public void caseTData( TData node)
     {
         this.index = 23;
     }
 
     @Override
-    public void caseTStore(TStore node)
+    public void caseTStore( TStore node)
     {
         this.index = 24;
     }
 
     @Override
-    public void caseTInto(TInto node)
+    public void caseTInto( TInto node)
     {
         this.index = 25;
     }
 
     @Override
-    public void caseTExport(TExport node)
+    public void caseTExport( TExport node)
     {
         this.index = 26;
     }
 
     @Override
-    public void caseTTo(TTo node)
+    public void caseTTo( TTo node)
     {
         this.index = 27;
     }
 
     @Override
-    public void caseTSemicolon(TSemicolon node)
+    public void caseTSemicolon( TSemicolon node)
     {
         this.index = 28;
     }
 
     @Override
-    public void caseTLeftParen(TLeftParen node)
+    public void caseTLeftParen( TLeftParen node)
     {
         this.index = 29;
     }
 
     @Override
-    public void caseTRightParen(TRightParen node)
+    public void caseTRightParen( TRightParen node)
     {
         this.index = 30;
     }
 
     @Override
-    public void caseTComma(TComma node)
+    public void caseTComma( TComma node)
     {
         this.index = 31;
     }
 
     @Override
-    public void caseTAs(TAs node)
+    public void caseTAs( TAs node)
     {
         this.index = 32;
     }
 
     @Override
-    public void caseTQuotedString(TQuotedString node)
+    public void caseTQuotedString( TQuotedString node)
     {
         this.index = 33;
     }
 
     @Override
-    public void caseTIdentifier(TIdentifier node)
+    public void caseTIdentifier( TIdentifier node)
     {
         this.index = 34;
     }
 
     @Override
-    public void caseTInteger(TInteger node)
+    public void caseTInteger( TInteger node)
     {
         this.index = 35;
     }
 
     @Override
-    public void caseEOF(EOF node)
+    public void caseEOF( EOF node)
     {
         this.index = 36;
     }

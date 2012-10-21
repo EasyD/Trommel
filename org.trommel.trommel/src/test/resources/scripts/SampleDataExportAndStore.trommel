@@ -1,8 +1,5 @@
 //
 // SampleDataExportAndStore.trommel
 //
-load DATA '/usr/local/FooBar' as (Field1:numeric, Field2: CATEGORICAL,Field3 : categorical)
-FIELDS terminated BY '\t';
-
-sample DATA at 75% 
+sample DATA '/usr/local/FooBar' at 75% 
 EXPORT to 'Foo' STORE into 'Hello';

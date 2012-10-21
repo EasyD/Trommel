@@ -18,6 +18,7 @@ public class Lexer
     private boolean eof;
     private final StringBuffer text = new StringBuffer();
 
+    
     protected void filter() throws LexerException, IOException
     {
         // Do nothing

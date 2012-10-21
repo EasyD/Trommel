@@ -51,6 +51,7 @@ public interface Analysis extends Switch
     void caseAListReportedFields(AListReportedFields node);
     void caseAReportedField(AReportedField node);
     void caseASampleDataStatement(ASampleDataStatement node);
+    void caseASampledFile(ASampledFile node);
     void caseASampleRate(ASampleRate node);
     void caseAStoreStorage(AStoreStorage node);
     void caseAExportStorage(AExportStorage node);

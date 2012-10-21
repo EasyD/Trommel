@@ -67,7 +67,7 @@ public final class ASingleFieldList extends PFieldList
     }
 
     @Override
-    void removeChild(Node child)
+    void removeChild( Node child)
     {
         // Remove child
         if(this._field_ == child)
@@ -80,7 +80,7 @@ public final class ASingleFieldList extends PFieldList
     }
 
     @Override
-    void replaceChild(Node oldChild, Node newChild)
+    void replaceChild( Node oldChild,  Node newChild)
     {
         // Replace child
         if(this._field_ == oldChild)

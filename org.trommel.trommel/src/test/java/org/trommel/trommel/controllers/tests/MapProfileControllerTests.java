@@ -21,7 +21,6 @@ import org.trommel.trommel.controllers.ProfileFunction;
 //
 //	Unit tests for the org.trommel.trommel.controllers.MapProfileController class
 //
-
 @SuppressWarnings("unused")
 public class MapProfileControllerTests 
 {
