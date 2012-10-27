@@ -1,4 +1,5 @@
 bin
 gen
 .metadata
-/doc
+doc/*
+target/*

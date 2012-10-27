@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.trommel.trommel</groupId>
   <artifactId>trommel</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.20.2-SNAPSHOT</version>
   <name>Trommel</name>
   <description>Trommel is a set of tooling for data characterization/profiling targeting Hadoop specifically targeted at data miners/scientists that aren't interested in learning HQL, Pig, or Java MapReduce. At the heart of the Trommel is a compact DSL called TrommelScript specifically designed to make it easy for data miners to characterize, sample, and export data in/from Hadoop.</description>
   <licenses>
@@ -132,5 +132,36 @@
           </execution>
         </executions>      
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <artifactSet>
+                <includes>
+                  <include>org.apache.commons:commons-math3</include>
+                </includes>
+              </artifactSet>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9</version>
+        <configuration>
+          <show>protected</show>
+          <nohelp>true</nohelp>
+		  <excludePackageNames>org.trommel.trommel.scripting.node:org.trommel.trommel.scripting.parser:org.trommel.trommel.scripting.lexer:org.trommel.trommel.scripting.analysis</excludePackageNames>
+        </configuration>
+      </plugin>    
     </plugins>
-  </build></project>
+  </build>
+</project>
