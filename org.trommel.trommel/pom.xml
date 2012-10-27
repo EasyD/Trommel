@@ -5,4 +5,132 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Trommel</name>
   <description>Trommel is a set of tooling for data characterization/profiling targeting Hadoop specifically targeted at data miners/scientists that aren't interested in learning HQL, Pig, or Java MapReduce. At the heart of the Trommel is a compact DSL called TrommelScript specifically designed to make it easy for data miners to characterize, sample, and export data in/from Hadoop.</description>
-</project>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>  
+  <developers>
+    <developer>
+      <id>dlanger</id>
+      <name>Dave</name>
+      <url>http://blogs.msdn.com/b/dave_langer/</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-7</timezone>
+    </developer>
+  </developers>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>
+    <repository>
+      <id>cloudera</id>
+      <name>Cloudera Maven Repository</name>
+      <url>https://repository.cloudera.com/artifactory/cloudera-repos/.</url>
+    </repository>
+  </repositories>
+  <dependencies>
+  	<dependency>
+      <groupId>org.apache.hadoop</groupId>
+  	  <artifactId>hadoop-core</artifactId>
+  	  <version>0.20.2-cdh3u3</version>
+  	  <type>jar</type>
+  	</dependency>
+  	<dependency>
+  	  <groupId>org.apache.hadoop</groupId>
+  	  <artifactId>hadoop-mrunit</artifactId>
+  	  <version>0.20.2-cdh3u3</version>
+  	  <type>jar</type>
+  	</dependency>
+  	<dependency>
+  	  <groupId>junit</groupId>
+  	  <artifactId>junit</artifactId>
+  	  <version>4.8.2</version>
+  	  <type>jar</type>
+  	  <scope>test</scope>
+  	</dependency>
+  	<dependency>
+  	  <groupId>log4j</groupId>
+  	  <artifactId>log4j</artifactId>
+  	  <version>1.2.15</version>
+  	  <type>jar</type>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.jms</groupId>
+          <artifactId>jms</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.sun.jdmk</groupId>
+          <artifactId>jmxtools</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.sun.jmx</groupId>
+          <artifactId>jmxri</artifactId>
+        </exclusion>
+      </exclusions>
+  	</dependency>
+  	<dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>3.0</version>
+  	  <type>jar</type>
+  	</dependency>
+  	<dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+  	  <version>1.8.2</version>
+  	  <type>jar</type>
+  	</dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <id>SableCC Copy</id>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+              	<!-- Copy the SableCC lexer.dat file to target structure --> 
+			    <copy file="${basedir}/src/main/java/org/trommel/trommel/scripting/lexer/lexer.dat" todir="${basedir}/target/classes/org/trommel/trommel/scripting/lexer"/>                
+              	<!-- Copy the SableCC parser.dat file to target structure --> 
+			    <copy file="${basedir}/src/main/java/org/trommel/trommel/scripting/parser/parser.dat" todir="${basedir}/target/classes/org/trommel/trommel/scripting/parser"/>                
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>Shell Copy</id>
+            <phase>package</phase>
+            <configuration>
+              <target>
+              	<!-- Copy the SableCC trommel shell script file to target structure --> 
+			    <copy file="${basedir}/bin/trommel" todir="${basedir}/target/bin"/>                
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>      
+      </plugin>
+    </plugins>
+  </build></project>
