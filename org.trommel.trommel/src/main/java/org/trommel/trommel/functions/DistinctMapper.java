@@ -15,8 +15,6 @@
  */ 
 package org.trommel.trommel.functions;
 
-import java.util.HashMap;
-
 import org.apache.log4j.Logger;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
@@ -33,12 +31,6 @@ public class DistinctMapper extends Function
 	//
 	private static final String HANDLER_NAME = "Distinct";
 
-	
-	//
-	//	Private members
-	//
-	private HashMap<String, Integer> distinctValues = new HashMap<String, Integer>();
-	
 	
 	//
 	//	Getters/setters
@@ -92,20 +84,15 @@ public class DistinctMapper extends Function
 		{
 			String fieldValue = record.getFieldValue(field.getName());
 			
-			// Only add output for distinct values found
-			if (!distinctValues.containsKey(fieldValue))
+			// Map phase is pretty easy, just spit out the value for the field
+			record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
+			
+			// This method is called at scale, optimize logging
+			if (logger.isDebugEnabled())
 			{
-				distinctValues.put(fieldValue, null);
-				
-				record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
-				
-				// This method is called at scale, optimize logging
-				if (logger.isDebugEnabled())
-				{
-					logger.debug(String.format("DistinctMapper.handleMapRecord found distinct value %1$s for Field %2$s.",
-							                   fieldValue, field.getName()));
-				}
-			}			
+				logger.debug(String.format("DistinctMapper.handleMapRecord found distinct value %1$s for Field %2$s.",
+						                   fieldValue, field.getName()));
+			}
 		}
 	}
 }
