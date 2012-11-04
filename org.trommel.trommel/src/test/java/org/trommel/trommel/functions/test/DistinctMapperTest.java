@@ -140,7 +140,7 @@ public class DistinctMapperTest
 		
 		records[2].serialize(context);
 		
-		Mockito.verify(context, Mockito.times(9)).write(Mockito.any(Text.class), Mockito.any(Text.class));
+		Mockito.verify(context, Mockito.times(6)).write(Mockito.any(Text.class), Mockito.any(Text.class));
 	}
 
 	//

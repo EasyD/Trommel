@@ -32,6 +32,13 @@ public class MaxMapper extends Function
 	//
 	private static final String HANDLER_NAME = "Max";
 
+	
+	//
+	//	Private members
+	//
+
+	private double[] maxValues = null;
+
 
 	//
 	//	Getters/setters
@@ -63,6 +70,13 @@ public class MaxMapper extends Function
 		throws IllegalArgumentException
 	{
 		super(logger, fields);
+		
+		maxValues = new double[fields.length];
+		
+		for (int i = 0; i < fields.length; ++i)
+		{
+			maxValues[i] = Double.MIN_VALUE;
+		}
 	}
 	
 	
@@ -82,22 +96,31 @@ public class MaxMapper extends Function
 		throws IllegalArgumentException
 	{
 		// Only process the fields specified for the function
-		for (Field field : fields)
+		for (int i = 0; i < fields.length; ++i)
 		{
+			Field field = fields[i];
+			
 			// Ignore categorical data
 			if (field.isNumeric())
 			{
-				FunctionOutput functionOutput = new FunctionOutput(HANDLER_NAME, record.getFieldValue(field.getName()));
+				double value = Double.parseDouble(record.getFieldValue(field.getName()));
 				
-				// Map phase is pretty easy, just spit out the value for the field
-				record.addFunctionOutput(field.getName(), functionOutput);
-
-				// This method is called at scale, optimize logging
-				if (logger.isDebugEnabled())
-				{
-					logger.debug(String.format("MaxMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
-							                   record.getFieldValue(field.getName()), field.getName()));
-				}				
+				// Optimization - write out as few values as possible.
+				if (value > maxValues[i])
+				{					
+					FunctionOutput functionOutput = new FunctionOutput(HANDLER_NAME, record.getFieldValue(field.getName()));
+					
+					maxValues[i] = value;
+					
+					record.addFunctionOutput(field.getName(), functionOutput);
+	
+					// This method is called at scale, optimize logging
+					if (logger.isDebugEnabled())
+					{
+						logger.debug(String.format("MaxMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+								                   record.getFieldValue(field.getName()), field.getName()));
+					}				
+				}
 			}
 		}
 	}

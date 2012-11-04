@@ -34,6 +34,13 @@ public class MinMapper extends Function
 
 	
 	//
+	//	Private members
+	//
+
+	private double[] minValues = null;
+
+
+	//
 	//	Getters/setters
 	//
 	
@@ -63,6 +70,13 @@ public class MinMapper extends Function
 		throws IllegalArgumentException
 	{
 		super(logger, fields);
+		
+		minValues = new double[fields.length];
+		
+		for (int i = 0; i < fields.length; ++i)
+		{
+			minValues[i] = Double.MAX_VALUE;
+		}
 	}
 	
 	
@@ -81,20 +95,29 @@ public class MinMapper extends Function
 	public void handleMapRecord(MapRecord record) 
 	{
 		// Only process the fields specified for the function
-		for (Field field : fields)
+		for (int i = 0; i < fields.length; ++i)
 		{
+			Field field = fields[i];
+			
 			// Ignore categorical data
 			if (field.isNumeric())
 			{
-				// Map phase is pretty easy, just spit out the value for the field
-				record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, record.getFieldValue(field.getName())));
-
-				// This method is called at scale, optimize logging
-				if (logger.isDebugEnabled())
+				double value = Double.parseDouble(record.getFieldValue(field.getName()));
+				
+				if (value < minValues[i])
 				{
-					logger.debug(String.format("MinMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
-							                   record.getFieldValue(field.getName()), field.getName()));
-				}				
+					minValues[i] = value;
+					
+					// Map phase is pretty easy, just spit out the value for the field
+					record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, record.getFieldValue(field.getName())));
+	
+					// This method is called at scale, optimize logging
+					if (logger.isDebugEnabled())
+					{
+						logger.debug(String.format("MinMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+								                   record.getFieldValue(field.getName()), field.getName()));
+					}				
+				}
 			}
 		}
 	}

@@ -132,8 +132,6 @@ public class MinMapperTest
 		records[1].serialize(context);
 				
 		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD4_VALUE));
-		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD5_VALUE));
-		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + FIELD6_VALUE));
 	}
 
 	

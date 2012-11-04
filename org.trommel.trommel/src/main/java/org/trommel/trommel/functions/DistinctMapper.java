@@ -15,6 +15,8 @@
  */ 
 package org.trommel.trommel.functions;
 
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
@@ -32,6 +34,13 @@ public class DistinctMapper extends Function
 	private static final String HANDLER_NAME = "Distinct";
 
 	
+	//
+	//	Private members
+	//
+
+	private HashMap<String, HashMap<String, Integer>> distinctValues = null;
+
+
 	//
 	//	Getters/setters
 	//
@@ -62,6 +71,13 @@ public class DistinctMapper extends Function
 		throws IllegalArgumentException
 	{
 		super(logger, fields);
+		
+		distinctValues = new HashMap<String, HashMap<String, Integer>>();
+		
+		for (Field field : fields)
+		{
+			distinctValues.put(field.getName(), new HashMap<String,Integer>());
+		}
 	}
 	
 	
@@ -84,14 +100,19 @@ public class DistinctMapper extends Function
 		{
 			String fieldValue = record.getFieldValue(field.getName());
 			
-			// Map phase is pretty easy, just spit out the value for the field
-			record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
-			
-			// This method is called at scale, optimize logging
-			if (logger.isDebugEnabled())
+			if (!distinctValues.get(field.getName()).containsKey(fieldValue))
 			{
-				logger.debug(String.format("DistinctMapper.handleMapRecord found distinct value %1$s for Field %2$s.",
-						                   fieldValue, field.getName()));
+				distinctValues.get(field.getName()).put(fieldValue, null);
+				
+				// Map phase is pretty easy, just spit out the value for the field
+				record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
+				
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("DistinctMapper.handleMapRecord found distinct value %1$s for Field %2$s.",
+							                   fieldValue, field.getName()));
+				}
 			}
 		}
 	}
