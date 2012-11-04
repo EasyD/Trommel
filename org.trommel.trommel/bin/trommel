@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+
+# Copyright 2012 Dave Langer
+#    
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#		http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License. 
+
+
+# Build hadoop bin path using HADOOP_HOME
+HADOOP_HOME=${HADOOP_HOME}
+if [ "$HADOOP_HOME" != "" ]; then
+   HADOOP_HOME_BIN=$HADOOP_HOME/bin
+fi
+
+
+# Check to see if system has hadoop in the path if HADOOP_HOME isn't set
+HADOOP_PATH=`which hadoop 2>/dev/null`
+if [ -f ${HADOOP_PATH} ]; then
+   HADOOP_PATH_BIN=`dirname "$HADOOP_PATH"`
+fi
+
+
+# Prefer the use of HADOOP_HOME where available
+HADOOP_BIN=${HADOOP_HOME_BIN:-$HADOOP_PATH_BIN}
+if [ "$HADOOP_BIN" == "" ]; then
+  echo "Can't find Hadoop. The \$HADOOP_HOME variable must be set or the hadoop bin directory must be in \$PATH.";
+  exit 1;
+fi
+
+# Invoke Hadoop command line with a Trommel .jar and command line parameters relative to this script's location
+TROMMEL_BIN_PATH=`dirname "${BASH_SOURCE[0]}"`
+
+# Trommel .jar is, by convention, is one directory up from this script's location
+TROMMEL_JAR=${TROMMEL_BIN_PATH%/*}/trommel*.jar
+
+$HADOOP_BIN/hadoop jar $TROMMEL_JAR org.trommel.trommel.mapreduce.TrommelDriver $1 $2 $3 $4 $5 $6 $7 $8
