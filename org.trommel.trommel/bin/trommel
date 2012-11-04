@@ -40,6 +40,10 @@ fi
 # Invoke Hadoop command line with a Trommel .jar and command line parameters relative to this script's location
 TROMMEL_BIN_PATH=`dirname "${BASH_SOURCE[0]}"`
 
+if [ "$TROMMEL_BIN_PATH" == "." ]; then
+   TROMMEL_BIN_PATH=$PWD
+fi
+
 # Trommel .jar is, by convention, is one directory up from this script's location
 TROMMEL_JAR=${TROMMEL_BIN_PATH%/*}/trommel*.jar
 
