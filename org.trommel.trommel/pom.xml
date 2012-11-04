@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.trommel.trommel</groupId>
   <artifactId>trommel</artifactId>
-  <version>0.20.2-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>Trommel</name>
   <description>Trommel is a set of tooling for data characterization/profiling targeting Hadoop specifically targeted at data miners/scientists that aren't interested in learning HQL, Pig, or Java MapReduce. At the heart of the Trommel is a compact DSL called TrommelScript specifically designed to make it easy for data miners to characterize, sample, and export data in/from Hadoop.</description>
   <licenses>

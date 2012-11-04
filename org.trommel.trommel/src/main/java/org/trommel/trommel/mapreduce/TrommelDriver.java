@@ -124,7 +124,7 @@ public class TrommelDriver
 	{
 		// TODO - Implement incrementing version from automated builds
 		// Print Trommel version to std out
-		System.out.println("Trommel version is 1.0");
+		System.out.println("Trommel version is 1.0.0");
 	}
 	
 	private static void executeValidation(String trommelScriptFilePath)
