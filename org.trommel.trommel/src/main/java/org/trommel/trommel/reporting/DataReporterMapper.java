@@ -22,7 +22,6 @@ import org.trommel.trommel.MapRecord;
 import org.trommel.trommel.MapRecordHandler;
 
 
-//	TODO - Need to refactor for multiple fields!
 /**
  *	Execute the Map phase for reporting value frequencies (i.e., counts) for a specified {@link org.trommel.trommel.Field} 
  *	in a data set.
