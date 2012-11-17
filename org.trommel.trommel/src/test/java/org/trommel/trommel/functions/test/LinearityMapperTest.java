@@ -145,7 +145,6 @@ public class LinearityMapperTest
 		
 		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD1_VALUE));
 		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD2_VALUE));
-//		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD3_VALUE_OUTPUT));
 
 		lin.handleMapRecord(records[1]);
 		
