@@ -105,14 +105,18 @@ public class SimpleRecordParserTest
 		assertEquals(FIELD4_VALUE, record.getFieldValue(FIELD4));		
 	}
 		
-	@Test(expected=IllegalArgumentException.class)
-	public void testParseEmptyRecordString()
+	@Test
+	public void testParseWithEmptiesOK()
 		throws ParseException
 	{
 		SimpleRecordParser parser = new SimpleRecordParser(buildFields(), FIELD_DELIMITER, RECORD_DELIMITER);
-		MapRecord record = parser.parse("");
+		MapRecord record = parser.parse(buildRecordStringWithEmpties());
+		
+		assertEquals("", record.getFieldValue(FIELD1));
+		assertEquals("", record.getFieldValue(FIELD2));
+		assertEquals("", record.getFieldValue(FIELD3));
+		assertEquals("", record.getFieldValue(FIELD4));		
 	}
-
 	
 	@Test(expected=ParseException.class)
 	public void testParseException()
@@ -150,6 +154,17 @@ public class SimpleRecordParserTest
 		buffer.append(FIELD3_VALUE);
 		buffer.append(FIELD_DELIMITER);
 		buffer.append(FIELD4_VALUE);
+		
+		return buffer.toString();
+	}
+	
+	private String buildRecordStringWithEmpties()
+	{
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append(FIELD_DELIMITER);
+		buffer.append(FIELD_DELIMITER);
+		buffer.append(FIELD_DELIMITER);
 		
 		return buffer.toString();
 	}

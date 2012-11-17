@@ -25,8 +25,7 @@ import org.trommel.trommel.utilities.StringUtilities;
 /**
  *	For the Map phase find the variability for a {@link org.trommel.trommel.Field} as the sample 
  *	standard deviation for numeric Fields and the Rate of Discovery (ROD) for categorical Fields.
- *	Missing values are treated as zeroes for numeric fields and null values for categorical Fields
- * 	for the purposes of calculation.
+ *	Missing values are ignored for the purposes of calculation.
  */
 public class VariabilityMapper extends Function 
 {
@@ -34,7 +33,6 @@ public class VariabilityMapper extends Function
 	//	Class constants (e.g., strings used in more than one place in the code)
 	//
 	private static final String HANDLER_NAME = "Variability";
-	private static final String NULL_INDICATOR = "null";
 
 
 	//
@@ -92,26 +90,19 @@ public class VariabilityMapper extends Function
 		{
 			String fieldValue = record.getFieldValue(field.getName());
 
-			if (field.isNumeric() && StringUtilities.isNullOrEmpty(fieldValue))
+			// Ignore empty values for Variability calculations
+			if (!StringUtilities.isNullOrEmpty(fieldValue))
 			{
-				// Write out zeroes for null/empty fields
-				fieldValue = "0";
+				// Write out value
+				record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
+	
+				// This method is called at scale, optimize logging
+				if (logger.isDebugEnabled())
+				{
+					logger.debug(String.format("VariabilitMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
+							                   fieldValue, field.getName()));
+				}			
 			}
-			else if(StringUtilities.isNullOrEmpty(fieldValue))
-			{
-				// The absence of value is included in Rate of Discovery, write out null indicator
-				fieldValue = NULL_INDICATOR;
-			}
-
-			// Write out value
-			record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
-
-			// This method is called at scale, optimize logging
-			if (logger.isDebugEnabled())
-			{
-				logger.debug(String.format("VariabilitMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
-						                   fieldValue, field.getName()));
-			}				
 		}
 	}
 }

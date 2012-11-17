@@ -28,7 +28,8 @@ import org.trommel.trommel.utilities.StringUtilities;
 /**
  *	For the Map phase find the interstitial linearity for a {@link org.trommel.trommel.Field} as a value ranging from 0.0 
  *	(no linearity) to 1.0 (very high linearity) for numeric Fields and the Rate of Discovery (ROD) for categorical Fields.
- *	For numeric fields, the interstitial linearity is calculated from a random sample of individual records.
+ *	For numeric fields, the interstitial linearity is calculated from a random sample of individual records with empty 
+ *  records being ignored.
  */
 public class LinearityMapper extends Function 
 {
@@ -131,18 +132,12 @@ public class LinearityMapper extends Function
 		{
 			String fieldValue = record.getFieldValue(field.getName());
 
-			if (field.isNumeric())
+			// Only process numeric and non-empty Fields
+			if (field.isNumeric() && !StringUtilities.isNullOrEmpty(fieldValue))
 			{
 				if(random.nextInt(10000) <= sampleRate)
 				{
 					// Only write out a record if it falls in the random sample
-					if (StringUtilities.isNullOrEmpty(fieldValue))
-					{
-						// Write out zeroes for null/empty fields
-						fieldValue = "0";
-					}
-							
-					// Write out value
 					record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
 					
 					// This method is called at scale, optimize logging

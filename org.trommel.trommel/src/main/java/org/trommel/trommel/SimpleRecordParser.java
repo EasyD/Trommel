@@ -18,8 +18,6 @@ package org.trommel.trommel;
 import java.text.ParseException;
 import java.util.LinkedList;
 
-import org.trommel.trommel.utilities.StringUtilities;
-
 
 /**
  * A {@link RecordParser} implementation that parses fields based on simple string delimiters. By default,
@@ -110,18 +108,11 @@ public class SimpleRecordParser implements RecordParser
 	 * 
 	 * @param record One record's worth of raw data read from the data set.
 	 * @return Parsed field values as a {@link MapRecord} instance.
-	 * @throws IllegalArgumentException If record is null or empty. All-whitespace string are treated as empty.
 	 * @throws ParseException  When errors are encountered parsing the record String.
 	 */
 	public MapRecord parse(String record) 
-		throws IllegalArgumentException, ParseException 
+		throws ParseException 
 	{
-		// Check for illegal input
-		if (StringUtilities.isNullOrEmpty(record))
-		{
-			throw new IllegalArgumentException("Record string cannot be null or empty.");
-		}
-
 		try
 		{
 			int startIndex = 0;

@@ -139,6 +139,31 @@ public class EmptyMapperTest
 		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + "1"));
 	}
 
+	@Test
+	public void testHandleMapRecordMultipleEmpties() 
+		throws IOException, InterruptedException
+	{
+		
+		@SuppressWarnings("unchecked")
+		MapContext<LongWritable, Text, Text, Text> context = Mockito.mock(MapContext.class);
+		MapRecord[] records = mapRecordsMultipleEmptiesInSameRecord();
+		EmptyMapper empty = new EmptyMapper(logger, fields);
+		String prefix = empty.getHandlerName() + "=";
+		
+		empty.handleMapRecord(records[0]);
+		
+		records[0].serialize(context);
+		
+		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + "1"));
+		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + "1"));
+
+		empty.handleMapRecord(records[1]);
+		
+		records[1].serialize(context);
+		
+		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + "1"));
+}
+
 	
 	//
 	//	Private/helper methods
@@ -170,6 +195,28 @@ public class EmptyMapperTest
 		
 		mapRecords[2] = new MapRecord(fieldIntances, MapInterpreter.DELIMITER);
 		
+		return mapRecords;
+	}
+
+	private MapRecord[] mapRecordsMultipleEmptiesInSameRecord()
+	{
+		MapRecord[] mapRecords = new MapRecord[2];
+		FieldInstance[] fieldIntances = new FieldInstance[3];
+		
+		// First MapRecord
+		fieldIntances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD1_VALUE);
+		fieldIntances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD7_VALUE);
+		fieldIntances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD7_VALUE);
+		
+		mapRecords[0] = new MapRecord(fieldIntances, MapInterpreter.DELIMITER);
+				
+		// Second MapRecord
+		fieldIntances[0] = new FieldInstance(FIELD1, FieldType.categorical, FIELD7_VALUE);
+		fieldIntances[1] = new FieldInstance(FIELD2, FieldType.categorical, FIELD7_VALUE);
+		fieldIntances[2] = new FieldInstance(FIELD3, FieldType.categorical, FIELD7_VALUE);
+		
+		mapRecords[1] = new MapRecord(fieldIntances, MapInterpreter.DELIMITER);
+				
 		return mapRecords;
 	}
 }

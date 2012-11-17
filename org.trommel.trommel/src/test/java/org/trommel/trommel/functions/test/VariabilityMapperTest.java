@@ -138,7 +138,7 @@ public class VariabilityMapperTest
 		
 		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + NUMERIC_FIELD1_VALUE));
 		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + NUMERIC_FIELD2_VALUE));
-		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD3_VALUE_OUTPUT));
+//		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NUMERIC_FIELD3_VALUE_OUTPUT));
 
 		var.handleMapRecord(records[1]);
 		
@@ -174,7 +174,6 @@ public class VariabilityMapperTest
 		
 		Mockito.verify(context).write(new Text(FIELD1), new Text(prefix + FIELD1));
 		Mockito.verify(context).write(new Text(FIELD2), new Text(prefix + FIELD2));
-		Mockito.verify(context).write(new Text(FIELD3), new Text(prefix + NULL_INDICATOR));
 
 		var.handleMapRecord(records[1]);
 		

@@ -139,7 +139,7 @@ public class ArgumentInterpreter
 				else
 				{
 					// Houston, we have a problem
-					errorMessages.addLast(String.format("Switch/argument '$1$s' not recognized.", args[i]));
+					errorMessages.addLast(String.format("Switch/argument %1$s not recognized.", args[i]));
 					
 					executionMode = ExecutionMode.ArgumentError;
 				}

@@ -19,11 +19,12 @@ import org.apache.log4j.Logger;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
+import org.trommel.trommel.utilities.StringUtilities;
 
 
 /**
  *	For Map phase, find the maximum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
- *	The MaxMapper class ignores categorical Fields (i.e., they are not written as Map phase output).
+ *	The MaxMapper class ignores categorical and empty Fields (i.e., they are not written as Map phase output).
  */
 public class MaxMapper extends Function 
 {
@@ -99,18 +100,19 @@ public class MaxMapper extends Function
 		for (int i = 0; i < fields.length; ++i)
 		{
 			Field field = fields[i];
+			String fieldValue = record.getFieldValue(field.getName());
 			
-			// Ignore categorical data
-			if (field.isNumeric())
+			// Ignore categorical and empty Fields
+			if (field.isNumeric() && !StringUtilities.isNullOrEmpty(fieldValue))
 			{
-				double value = Double.parseDouble(record.getFieldValue(field.getName()));
+				double doubleValue = Double.parseDouble(fieldValue);
 				
 				// Optimization - write out as few values as possible.
-				if (value > maxValues[i])
+				if (doubleValue > maxValues[i])
 				{					
-					FunctionOutput functionOutput = new FunctionOutput(HANDLER_NAME, record.getFieldValue(field.getName()));
+					FunctionOutput functionOutput = new FunctionOutput(HANDLER_NAME, fieldValue);
 					
-					maxValues[i] = value;
+					maxValues[i] = doubleValue;
 					
 					record.addFunctionOutput(field.getName(), functionOutput);
 	
@@ -118,7 +120,7 @@ public class MaxMapper extends Function
 					if (logger.isDebugEnabled())
 					{
 						logger.debug(String.format("MaxMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
-								                   record.getFieldValue(field.getName()), field.getName()));
+								     fieldValue, field.getName()));
 					}				
 				}
 			}

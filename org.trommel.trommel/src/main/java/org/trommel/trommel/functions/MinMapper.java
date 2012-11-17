@@ -19,11 +19,12 @@ import org.apache.log4j.Logger;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
+import org.trommel.trommel.utilities.StringUtilities;
 
 
 /**
  *	For the Map phase find the minimum value in the data set for numeric {@link org.trommel.trommel.Field} instances.
- *	The MinMapper class ignores categorical Fields (i.e., they are not written as Map phase output).
+ *	The MinMapper class ignores categorical and empty Fields (i.e., they are not written as Map phase output).
  */
 public class MinMapper extends Function 
 {
@@ -98,24 +99,25 @@ public class MinMapper extends Function
 		for (int i = 0; i < fields.length; ++i)
 		{
 			Field field = fields[i];
+			String fieldValue = record.getFieldValue(field.getName());
 			
-			// Ignore categorical data
-			if (field.isNumeric())
+			// Ignore categorical and empty Fields
+			if (field.isNumeric() && !StringUtilities.isNullOrEmpty(fieldValue))
 			{
-				double value = Double.parseDouble(record.getFieldValue(field.getName()));
+				double doubleValue = Double.parseDouble(fieldValue);
 				
-				if (value < minValues[i])
+				if (doubleValue < minValues[i])
 				{
-					minValues[i] = value;
+					minValues[i] = doubleValue;
 					
 					// Map phase is pretty easy, just spit out the value for the field
-					record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, record.getFieldValue(field.getName())));
+					record.addFunctionOutput(field.getName(), new FunctionOutput(HANDLER_NAME, fieldValue));
 	
 					// This method is called at scale, optimize logging
 					if (logger.isDebugEnabled())
 					{
 						logger.debug(String.format("MinMapper.handleMapRecord added output of fieldValue %1$s for Field %2$s.",
-								                   record.getFieldValue(field.getName()), field.getName()));
+								                   fieldValue, field.getName()));
 					}				
 				}
 			}

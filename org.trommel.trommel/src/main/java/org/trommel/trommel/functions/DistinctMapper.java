@@ -21,10 +21,12 @@ import org.apache.log4j.Logger;
 import org.trommel.trommel.Field;
 import org.trommel.trommel.FunctionOutput;
 import org.trommel.trommel.MapRecord;
+import org.trommel.trommel.utilities.StringUtilities;
 
 
 /**
  *	Execute the Map phase for finding the count of distinct values for a {@link org.trommel.trommel.Field}.
+ *  Empty Fields are ignored.
  */
 public class DistinctMapper extends Function
 {
@@ -100,7 +102,8 @@ public class DistinctMapper extends Function
 		{
 			String fieldValue = record.getFieldValue(field.getName());
 			
-			if (!distinctValues.get(field.getName()).containsKey(fieldValue))
+			// Only process non-empty Fields
+			if (!StringUtilities.isNullOrEmpty(fieldValue) && !distinctValues.get(field.getName()).containsKey(fieldValue))
 			{
 				distinctValues.get(field.getName()).put(fieldValue, null);
 				

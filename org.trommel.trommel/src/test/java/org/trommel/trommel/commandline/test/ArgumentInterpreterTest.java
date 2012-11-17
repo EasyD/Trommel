@@ -366,7 +366,7 @@ public class ArgumentInterpreterTest
 		
 		assertEquals(ExecutionMode.ArgumentError, interpreter.interpretArguments(args));
 		assertEquals(2, interpreter.getErrorMessages().size());
-		assertEquals(String.format("Switch/argument '$1$s' not recognized.", FILE_PATH), interpreter.getErrorMessages().get(0));
+		assertEquals(String.format("Switch/argument %1$s not recognized.", FILE_PATH), interpreter.getErrorMessages().get(0));
 		assertEquals("Use -help switch for details on usage.", interpreter.getErrorMessages().get(1));
 	}	
 }
